@@ -11,14 +11,15 @@ format: _restore-tools
   dotnet-csharpier .
 
 # Restores NuGet packages
-restore:
-  dotnet restore
+restore: _restore-tools
+  dotnet nuke Restore \
+    --no-logo
 
 # Builds the solution
-build configuration="Debug": restore
-  dotnet build \
-    --configuration {{configuration}} \
-    --no-restore
+build configuration="Debug": _restore-tools
+  dotnet nuke Compile \
+    --no-logo \
+    --configuration {{configuration}}
 
 # Sets Shelly integrator token as user secret.
 set-secret-shelly-integrator-token token: (_set-secret 'Integrations:Shelly:IntegratorToken' token)
