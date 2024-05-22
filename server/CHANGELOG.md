@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.3](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.2...emma-server-v1.0.0-alpha.3) (2024-05-22)
+
+
+### 📦️ Build System, Dependencies
+
+* fixes repository name - repository must be lowercase. ([14d3643](https://github.com/OpenCleanEnergy/emma/commit/14d36439c3b2893415261e31d123ed5c60b97af7))
+
 ## [1.0.0-alpha.2](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.1...emma-server-v1.0.0-alpha.2) (2024-05-22)
 
 
