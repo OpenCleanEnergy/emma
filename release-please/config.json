@@ -22,8 +22,9 @@
   ],
   "packages": {
     "app": {
-      "release-type": "dart",
-      "prerelease-type": "alpha"
+      "release-type": "node",
+      "prerelease-type": "alpha",
+      "extra-files": ["pubspec.yaml"]
     },
     "server": {
       "release-type": "node",
