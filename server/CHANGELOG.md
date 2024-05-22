@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.5](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.4...emma-server-v1.0.0-alpha.5) (2024-05-22)
+
+
+### 🚀 Features
+
+* Adds labels to docker image. ([d0818d8](https://github.com/OpenCleanEnergy/emma/commit/d0818d871f882b7dedfc63452e7d8a7e5385d01c))
+
 ## [1.0.0-alpha.4](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.3...emma-server-v1.0.0-alpha.4) (2024-05-22)
 
 
