@@ -1,0 +1,11 @@
+{$SERVER_FQDN} {
+	handle /whoami {
+		reverse_proxy whoami:80
+	}
+	handle_path /api/* {
+		reverse_proxy host.docker.internal:5000
+	}
+	handle {
+		respond "¯\_(ツ)_/¯" 404
+	}
+}

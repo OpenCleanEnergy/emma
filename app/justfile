@@ -1,0 +1,27 @@
+set fallback
+
+# Lists all available recipes
+@default:
+  just --list
+
+format:
+  dart fix --apply
+  dart format {{justfile_directory()}}
+
+# Get the current package's dependencies
+pub-get:
+  flutter pub get
+
+# Generates code using build_runner
+generate-code:
+  dart run build_runner clean
+  dart run build_runner build --delete-conflicting-outputs
+  @echo 'Fixing backend_api.swagger.dart because of version mismatch.'
+  sed -i 's/Iterable<dynamic>? interceptors/List<Interceptor>? interceptors/g' \
+    'lib/application/backend_api/swagger_generated_code/backend_api.swagger.dart'
+  just format
+
+# Runs the app
+run device-id='linux':
+  flutter run --device-id {{device-id}}
+

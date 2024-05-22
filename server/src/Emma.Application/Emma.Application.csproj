@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Riok.Mapperly" Version="3.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Emma.Domain\Emma.Domain.csproj" />
+    <ProjectReference Include="..\Emma.Integrations.Shared\Emma.Integrations.Shared.csproj" />
+    <ProjectReference Include="..\Emma.Application.Shared\Emma.Application.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Devices/Meters/" />
+  </ItemGroup>
+</Project>

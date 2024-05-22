@@ -1,0 +1,22 @@
+volumes:
+  proxy_data:
+  proxy_config:
+
+services:
+  proxy:
+    image: caddy:2
+    volumes:
+      - proxy_data:/data
+      - proxy_config:/config
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    env_file:
+      - ./.env
+      - ./.env.local
+    ports:
+      - 8080:80
+      - 4443:443
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  whoami:
+    image: traefik/whoami

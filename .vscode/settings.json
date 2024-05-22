@@ -1,0 +1,25 @@
+{
+  "[markdown]": {
+    "editor.rulers": [80],
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 80
+  },
+  "cSpell.words": [
+    "autovalidate",
+    "dtos",
+    "Dtos",
+    "emma",
+    "Flurl",
+    "keycloak",
+    "Keycloak",
+    "Mapperly",
+    "MediatR",
+    "Npgsql",
+    "oidc",
+    "Oidc",
+    "Pulumi",
+    "Riok",
+    "trid",
+    "Vogen"
+  ]
+}

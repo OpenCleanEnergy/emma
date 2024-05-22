@@ -1,0 +1,16 @@
+targets:
+  $default:
+    sources:
+      - $package$
+      - lib/**
+      - swagger/**
+    builders:
+      chopper_generator:
+        options:
+          header: "//Generated code"
+      swagger_dart_code_generator:
+        options:
+          input_folder: "swagger/"
+          output_folder: "lib/application/backend_api/swagger_generated_code/"
+          separate_models: true
+          use_path_for_request_names: false

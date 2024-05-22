@@ -1,0 +1,7 @@
+name: Emma.DevOps
+runtime: dotnet
+description: Deploys EMMA using Pulumi and Ansible
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: csharp

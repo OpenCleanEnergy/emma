@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Emma.Application\Emma.Application.csproj" />
+    <ProjectReference
+      Include="..\integrations\Emma.Integrations.Shelly\Emma.Integrations.Shelly.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="crozone.AsyncResetEvents" Version="1.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
+    <PackageReference Include="Serilog" Version="3.1.1" />
+  </ItemGroup>
+
+</Project>

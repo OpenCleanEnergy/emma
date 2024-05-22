@@ -1,0 +1,63 @@
+volumes:
+  keycloak_database_data:
+  backend_database_data:
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.1
+    depends_on:
+      - keycloak-database
+    environment:
+    # https://www.keycloak.org/server/all-config
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL_HOST=keycloak-database
+      - KC_DB_URL_DATABASE=dev
+      - KC_DB_USERNAME=dev
+      - KC_DB_PASSWORD=dev
+    ports:
+      - 5001:8080
+    command: start-dev
+
+  keycloak-config:
+    image: quay.io/adorsys/keycloak-config-cli:latest-24.0.1
+    depends_on:
+      - keycloak
+    volumes:
+      - ./keycloak/config:/config:ro
+    environment:
+      - KEYCLOAK_URL=http://keycloak:8080
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_AVAILABILITYCHECK_ENABLED=true
+      - IMPORT_FILES_LOCATIONS=/config/*
+      - IMPORT_VALIDATE=true
+
+  keycloak-database:
+    image: postgres:16
+    volumes:
+      - keycloak_database_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: dev
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+
+  backend-database:
+    image: postgres:16
+    ports:
+      - 5432:5432
+    volumes:
+      - backend_database_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: dev
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - 5002:8080
+    environment:
+      - ADMINER_DEFAULT_SERVER=backend-database

@@ -1,0 +1,1131 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "EMMA backend server",
+    "description": "You **MUST** authorize first!",
+    "version": "v1"
+  },
+  "paths": {
+    "/v1/devices": {
+      "get": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_DevicesQuery",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DevicesDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DevicesDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DevicesDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/devices/long-polling": {
+      "get": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_DevicesQuery_LongPolling",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DevicesDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DevicesDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DevicesDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/devices/switch-consumers": {
+      "post": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_AddSwitchConsumerCommand",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddSwitchConsumerCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddSwitchConsumerCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddSwitchConsumerCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_DeleteSwitchConsumerCommand",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteSwitchConsumerCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteSwitchConsumerCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteSwitchConsumerCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_EditSwitchConsumerCommand",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditSwitchConsumerCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditSwitchConsumerCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditSwitchConsumerCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/v1/devices/switch-consumers/manually-switch": {
+      "put": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_ManuallySwitchSwitchConsumerCommand",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManuallySwitchSwitchConsumerCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManuallySwitchSwitchConsumerCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManuallySwitchSwitchConsumerCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/v1/devices/producers": {
+      "post": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_AddProducerCommand",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddProducerCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddProducerCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddProducerCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_DeleteProducerCommand",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteProducerCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteProducerCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteProducerCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_EditProducerCommand",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditProducerCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditProducerCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditProducerCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/v1/devices/electricity-meters": {
+      "post": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_AddElectricityMeterCommand",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddElectricityMeterCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddElectricityMeterCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddElectricityMeterCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_DeleteElectricityMeterCommand",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteElectricityMeterCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteElectricityMeterCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteElectricityMeterCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_EditElectricityMeterCommand",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditElectricityMeterCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditElectricityMeterCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditElectricityMeterCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/v1/hello/me": {
+      "get": {
+        "tags": [
+          "Hello"
+        ],
+        "operationId": "Hello_Me",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/home": {
+      "get": {
+        "tags": [
+          "Home"
+        ],
+        "operationId": "Home_HomeStatusQuery",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/HomeStatusDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HomeStatusDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HomeStatusDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/home/long-polling": {
+      "get": {
+        "tags": [
+          "Home"
+        ],
+        "operationId": "Home_HomeStatusQuery_LongPolling",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/HomeStatusDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HomeStatusDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HomeStatusDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/integrations": {
+      "get": {
+        "tags": [
+          "Integrations"
+        ],
+        "operationId": "Integrations_IntegrationsQuery",
+        "parameters": [
+          {
+            "name": "DeviceCategory",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/DeviceCategory"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IntegrationDescriptionDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IntegrationDescriptionDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IntegrationDescriptionDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/shelly/v1/grant": {
+      "get": {
+        "tags": [
+          "Shelly"
+        ],
+        "operationId": "Shelly_ShellyPermissionGrantUriQuery",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShellyPermissionGrantUriResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShellyPermissionGrantUriResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShellyPermissionGrantUriResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/shelly/v1/addable-devices": {
+      "get": {
+        "tags": [
+          "Shelly"
+        ],
+        "operationId": "Shelly_AddableDevicesQuery",
+        "parameters": [
+          {
+            "name": "DeviceCategory",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/DeviceCategory"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddableShellyDeviceDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddableShellyDeviceDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddableShellyDeviceDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddElectricityMeterCommand": {
+        "required": [
+          "deviceName",
+          "integration"
+        ],
+        "type": "object",
+        "properties": {
+          "integration": {
+            "$ref": "#/components/schemas/IntegrationIdentifier"
+          },
+          "deviceName": {
+            "$ref": "#/components/schemas/DeviceName"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddProducerCommand": {
+        "required": [
+          "deviceName",
+          "integration"
+        ],
+        "type": "object",
+        "properties": {
+          "integration": {
+            "$ref": "#/components/schemas/IntegrationIdentifier"
+          },
+          "deviceName": {
+            "$ref": "#/components/schemas/DeviceName"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddSwitchConsumerCommand": {
+        "required": [
+          "deviceName",
+          "integration"
+        ],
+        "type": "object",
+        "properties": {
+          "integration": {
+            "$ref": "#/components/schemas/IntegrationIdentifier"
+          },
+          "deviceName": {
+            "$ref": "#/components/schemas/DeviceName"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddableShellyDeviceDto": {
+        "required": [
+          "deviceId",
+          "deviceName"
+        ],
+        "type": "object",
+        "properties": {
+          "deviceId": {
+            "$ref": "#/components/schemas/IntegrationDeviceId"
+          },
+          "deviceName": {
+            "$ref": "#/components/schemas/DeviceName"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BatteryChargeStatus": {
+        "enum": [
+          "Idle",
+          "Charging",
+          "Discharging"
+        ],
+        "type": "string"
+      },
+      "BatteryStatusDto": {
+        "required": [
+          "charge",
+          "chargeStatus",
+          "isAvailable"
+        ],
+        "type": "object",
+        "properties": {
+          "isAvailable": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "chargeStatus": {
+            "$ref": "#/components/schemas/BatteryChargeStatus"
+          },
+          "charge": {
+            "$ref": "#/components/schemas/Percentage"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConsumerStatusDto": {
+        "required": [
+          "currentPowerConsumption",
+          "isAvailable",
+          "maximumPowerConsumption"
+        ],
+        "type": "object",
+        "properties": {
+          "isAvailable": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "currentPowerConsumption": {
+            "$ref": "#/components/schemas/Watt"
+          },
+          "maximumPowerConsumption": {
+            "$ref": "#/components/schemas/Watt"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ControlMode": {
+        "enum": [
+          "Manual",
+          "Smart"
+        ],
+        "type": "string"
+      },
+      "DeleteElectricityMeterCommand": {
+        "required": [
+          "electricityMeterId"
+        ],
+        "type": "object",
+        "properties": {
+          "electricityMeterId": {
+            "$ref": "#/components/schemas/ElectricityMeterId"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeleteProducerCommand": {
+        "required": [
+          "producerId"
+        ],
+        "type": "object",
+        "properties": {
+          "producerId": {
+            "$ref": "#/components/schemas/ProducerId"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeleteSwitchConsumerCommand": {
+        "required": [
+          "switchConsumerId"
+        ],
+        "type": "object",
+        "properties": {
+          "switchConsumerId": {
+            "$ref": "#/components/schemas/SwitchConsumerId"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeviceCategory": {
+        "enum": [
+          "Consumer",
+          "Producer",
+          "ElectricityMeter"
+        ],
+        "type": "string"
+      },
+      "DeviceName": {
+        "type": "string"
+      },
+      "DevicesDto": {
+        "required": [
+          "electricityMeters",
+          "producers",
+          "switchConsumers"
+        ],
+        "type": "object",
+        "properties": {
+          "switchConsumers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SwitchConsumerDto"
+            }
+          },
+          "producers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProducerDto"
+            }
+          },
+          "electricityMeters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElectricityMeterDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditElectricityMeterCommand": {
+        "required": [
+          "electricityMeterId",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "electricityMeterId": {
+            "$ref": "#/components/schemas/ElectricityMeterId"
+          },
+          "name": {
+            "$ref": "#/components/schemas/DeviceName"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditProducerCommand": {
+        "required": [
+          "name",
+          "producerId"
+        ],
+        "type": "object",
+        "properties": {
+          "producerId": {
+            "$ref": "#/components/schemas/ProducerId"
+          },
+          "name": {
+            "$ref": "#/components/schemas/DeviceName"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditSwitchConsumerCommand": {
+        "required": [
+          "name",
+          "switchConsumerId"
+        ],
+        "type": "object",
+        "properties": {
+          "switchConsumerId": {
+            "$ref": "#/components/schemas/SwitchConsumerId"
+          },
+          "name": {
+            "$ref": "#/components/schemas/DeviceName"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElectricityMeterDto": {
+        "required": [
+          "currentPower",
+          "currentPowerDirection",
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ElectricityMeterId"
+          },
+          "name": {
+            "$ref": "#/components/schemas/DeviceName"
+          },
+          "currentPowerDirection": {
+            "$ref": "#/components/schemas/GridPowerDirection"
+          },
+          "currentPower": {
+            "$ref": "#/components/schemas/Watt"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElectricityMeterId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "GridPowerDirection": {
+        "enum": [
+          "None",
+          "Consume",
+          "FeedIn"
+        ],
+        "type": "string"
+      },
+      "GridStatusDto": {
+        "required": [
+          "currentPower",
+          "currentPowerDirection",
+          "isAvailable",
+          "maximumPowerConsumption",
+          "maximumPowerFeedIn"
+        ],
+        "type": "object",
+        "properties": {
+          "isAvailable": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "currentPowerDirection": {
+            "$ref": "#/components/schemas/GridPowerDirection"
+          },
+          "currentPower": {
+            "$ref": "#/components/schemas/Watt"
+          },
+          "maximumPowerConsumption": {
+            "$ref": "#/components/schemas/Watt"
+          },
+          "maximumPowerFeedIn": {
+            "$ref": "#/components/schemas/Watt"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HomeStatusDto": {
+        "required": [
+          "batteryStatus",
+          "consumerStatus",
+          "gridStatus",
+          "producerStatus"
+        ],
+        "type": "object",
+        "properties": {
+          "batteryStatus": {
+            "$ref": "#/components/schemas/BatteryStatusDto"
+          },
+          "gridStatus": {
+            "$ref": "#/components/schemas/GridStatusDto"
+          },
+          "consumerStatus": {
+            "$ref": "#/components/schemas/ConsumerStatusDto"
+          },
+          "producerStatus": {
+            "$ref": "#/components/schemas/ProducerStatusDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IntegrationDescriptionDto": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/IntegrationId"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IntegrationDeviceId": {
+        "type": "string"
+      },
+      "IntegrationId": {
+        "type": "string"
+      },
+      "IntegrationIdentifier": {
+        "required": [
+          "device",
+          "integration"
+        ],
+        "type": "object",
+        "properties": {
+          "integration": {
+            "$ref": "#/components/schemas/IntegrationId"
+          },
+          "device": {
+            "$ref": "#/components/schemas/IntegrationDeviceId"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ManuallySwitchSwitchConsumerCommand": {
+        "required": [
+          "status",
+          "switchConsumerId"
+        ],
+        "type": "object",
+        "properties": {
+          "switchConsumerId": {
+            "$ref": "#/components/schemas/SwitchConsumerId"
+          },
+          "status": {
+            "$ref": "#/components/schemas/SwitchStatus"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MeDto": {
+        "required": [
+          "claims"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "authenticationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "claims": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Percentage": {
+        "type": "number",
+        "format": "double"
+      },
+      "ProducerDto": {
+        "required": [
+          "currentPowerProduction",
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ProducerId"
+          },
+          "name": {
+            "$ref": "#/components/schemas/DeviceName"
+          },
+          "currentPowerProduction": {
+            "$ref": "#/components/schemas/Watt"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProducerId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "ProducerStatusDto": {
+        "required": [
+          "currentPowerProduction",
+          "isAvailable",
+          "maximumPowerProduction"
+        ],
+        "type": "object",
+        "properties": {
+          "isAvailable": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "currentPowerProduction": {
+            "$ref": "#/components/schemas/Watt"
+          },
+          "maximumPowerProduction": {
+            "$ref": "#/components/schemas/Watt"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShellyPermissionGrantUriResponse": {
+        "required": [
+          "uri"
+        ],
+        "type": "object",
+        "properties": {
+          "uri": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SwitchConsumerDto": {
+        "required": [
+          "currentPowerConsumption",
+          "id",
+          "mode",
+          "name",
+          "switchStatus"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/SwitchConsumerId"
+          },
+          "name": {
+            "$ref": "#/components/schemas/DeviceName"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/ControlMode"
+          },
+          "switchStatus": {
+            "$ref": "#/components/schemas/SwitchStatus"
+          },
+          "currentPowerConsumption": {
+            "$ref": "#/components/schemas/Watt"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SwitchConsumerId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "SwitchStatus": {
+        "enum": [
+          "Off",
+          "On"
+        ],
+        "type": "string"
+      },
+      "Watt": {
+        "type": "number",
+        "format": "double"
+      }
+    },
+    "securitySchemes": {
+      "oauth": {
+        "type": "oauth2",
+        "description": "**client_id:** `emma_swagger`",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "http://localhost:5001/realms/emma/protocol/openid-connect/auth",
+            "scopes": { }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "oauth": [ ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+set fallback
+
+# Lists all available recipes
+@default:
+  just --list
+
+# Formats the solution
+format: _restore-tools
+  find -type f -name '*.cs' -not -path '*/obj/*' -not -path '*/bin/*' | \
+  xargs --replace dotnet-code-butler {} --no-sort-members-by-alphabet
+  dotnet-csharpier .
+
+# Restores NuGet packages
+restore:
+  dotnet restore
+
+# Builds the solution
+build configuration="Debug": restore
+  dotnet build \
+    --configuration {{configuration}} \
+    --no-restore
+
+# Sets Shelly integrator token as user secret.
+set-secret-shelly-integrator-token token: (_set-secret 'Integrations:Shelly:IntegratorToken' token)
+
+# Sets Shelly callback base uri (e.g. https://example.org/api).
+set-secret-shelly-callback-base-uri uri: (_set-secret 'Integrations:Shelly:CallbackBaseUri' uri)
+
+# Clears all user secrets:
+clear-secrets:
+  dotnet user-secrets clear \
+    --project 'src/Emma.Server/Emma.Server.csproj'
+
+# Adds a new EF Core migration
+add-migration name: _restore-tools
+  dotnet ef migrations add {{name}} \
+    --startup-project 'src/Emma.Server/Emma.Server.csproj' \
+    --project 'src/Emma.Infrastructure/Emma.Infrastructure.csproj' \
+    --output-dir 'Persistence/EntityFramework/Migrations'
+  dotnet format 'src/Emma.Infrastructure/Emma.Infrastructure.csproj' \
+    --include 'src/Emma.Infrastructure/Persistence/EntityFramework/Migrations/'
+
+# (Re-)initializes EF Core migrations
+init-migration:
+  rm --force --recursive 'src/Emma.Infrastructure/Persistence/EntityFramework/Migrations'
+  just add-migration 'Initial'
+
+# Runs the server and watches for changes
+run:
+  dotnet watch --project 'src/Emma.Server/Emma.Server.csproj'
+
+_restore-tools:
+  dotnet tool restore
+
+# Secrets are stored at
+# ~/.microsoft/usersecrets/<user_secrets_id>/secrets.json
+_set-secret key value:
+  dotnet user-secrets set '{{key}}' '{{value}}' \
+    --project 'src/Emma.Server/Emma.Server.csproj'
+

@@ -1,0 +1,20 @@
+import 'package:emma/ui/app_icons.dart';
+import 'package:emma/ui/home/home_view_model.dart';
+import 'package:emma/ui/home/status/status_indicator.dart';
+import 'package:flutter/material.dart';
+import 'package:signals/signals_flutter.dart';
+
+class HomeStatusIndicator extends StatelessWidget {
+  const HomeStatusIndicator({super.key, required this.viewModel});
+  final ConsumerStatusViewModel viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return StatusIndicator(
+      icon: signal(AppIcons.home),
+      value: viewModel.currentPowerConsumption,
+      maxValue: viewModel.maximumPowerConsumption,
+      unit: "W",
+    );
+  }
+}

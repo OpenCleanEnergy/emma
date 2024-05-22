@@ -1,0 +1,109 @@
+import 'package:confirm_dialog/confirm_dialog.dart';
+import 'package:emma/ui/app_messenger.dart';
+import 'package:emma/ui/app_navigator.dart';
+import 'package:emma/ui/devices/producers/producer_view_model.dart';
+import 'package:emma/ui/devices/widgets/device_name_form_field.dart';
+import 'package:emma/ui/shared/app_bar_command_progress_indicator.dart';
+import 'package:emma/ui/shared/debounce.dart';
+import 'package:flutter/material.dart';
+import 'package:signals/signals_flutter.dart';
+
+// https://pub.dev/packages/formz
+class EditProducerScreen extends StatefulWidget {
+  const EditProducerScreen({super.key, required this.viewModel});
+
+  final ProducerViewModel viewModel;
+
+  @override
+  State<EditProducerScreen> createState() => _EditProducerScreenState();
+}
+
+class _EditProducerScreenState extends State<EditProducerScreen> {
+  final _formKey = GlobalKey<FormState>();
+  late final Debounce _debounceName;
+  late final TextEditingController _nameController;
+
+  ProducerViewModel get viewModel => widget.viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _debounceName = Debounce(action: _autoSubmit);
+
+    _nameController = TextEditingController(text: viewModel.name.value);
+    _nameController.addListener(_debounceName.call);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nameController.removeListener(_debounceName.call);
+    _nameController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("${viewModel.name} bearbeiten"),
+        bottom: AppBarCommandProgressIndicator(
+            commands: [viewModel.delete, viewModel.edit]),
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                DeviceNameFormField(
+                    controller: _nameController, autoFocus: true),
+                const SizedBox(height: 16),
+                Watch((context) => FilledButton.tonal(
+                    onPressed: viewModel.delete.isRunning.value
+                        ? null
+                        : () => _delete(context),
+                    child: const Text("Löschen"))),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _autoSubmit() async {
+    if (!_formKey.currentState!.validate()) {
+      // Skip on invalid form
+      return;
+    }
+
+    if (_nameController.text == viewModel.name.value) {
+      // Skip on initial value
+      return;
+    }
+
+    var result = await viewModel.edit((name: _nameController.text));
+    if (result) {
+      AppMessenger.success("Änderungen erfolgreich gespeichert.");
+    }
+  }
+
+  Future<void> _delete(BuildContext context) async {
+    final confirmed = await confirm(context,
+        content: const Text("Willst du das Gerät wirklich löschen?"),
+        textOK: const Text("Löschen"),
+        textCancel: const Text("Abbrechen"));
+
+    if (!confirmed) {
+      return;
+    }
+
+    if (await widget.viewModel.delete()) {
+      AppMessenger.success("Gerät gelöscht.");
+      AppNavigator.pop();
+    }
+  }
+}
