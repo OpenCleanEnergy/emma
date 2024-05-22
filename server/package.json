@@ -1,0 +1,5 @@
+{
+  "name": "server",
+  "description": "This file exists for release-please only. Otherwise the PR won't show 'server' in it's title.",
+  "version": "1.0.0-alpha.7"
+}

@@ -26,7 +26,7 @@
       "prerelease-type": "alpha"
     },
     "server": {
-      "release-type": "simple",
+      "release-type": "node",
       "prerelease-type": "alpha",
       "extra-files": ["Directory.Build.props"]
     }
