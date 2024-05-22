@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.0.0-alpha.1</Version>
+    <!--x-release-please-start-version-->
+    <Version>1.0.0-alpha.0</Version>
+    <!--x-release-please-end-->
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(CI)' == 'true'">

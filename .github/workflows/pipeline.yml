@@ -1,0 +1,69 @@
+name: 🚀 Pipeline
+
+on:
+  push:
+    tags: ["**"]
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  build-server:
+    name: 🟣 .NET Tool
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+
+    steps:
+      - name: 🛒 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Build
+        run: ./build.sh Compile
+
+  release-please:
+    name: ✨ Release Please
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      created-server: ${{ steps.release.outputs.server--release_created }}
+    steps:
+      - name: ✨ Release Please
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please/config.json
+          manifest-file: release-please/manifest.json
+
+  publish-server:
+    name: 📯 Publish to nuget.org
+    runs-on: ubuntu-latest
+    needs:
+      - "release-please"
+      - "build-server"
+    if: ${{ needs.release-please.outputs.created-server }}
+    permissions:
+      contents: read
+      packages: write
+    defaults:
+      run:
+        working-directory: server
+    env:
+      REGISTRY: ghcr.io
+    steps:
+      - name: 🗝️ Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🛒 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐳 Build and push docker image
+        run: ./build.sh Publish --registry ${{ env.REGISTRY }}
