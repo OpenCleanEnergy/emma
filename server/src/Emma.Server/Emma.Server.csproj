@@ -3,7 +3,7 @@
     <UserSecretsId>emma-server-ba6e9f8992a2</UserSecretsId>
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
-  <Target Name="CreateSwaggerJson" AfterTargets="Build" Condition="$(Configuration)=='Debug'">
+  <Target Name="CreateSwaggerJson" AfterTargets="Build">
     <Exec Command="dotnet tool restore" WorkingDirectory="$(ProjectDir)" />
     <Exec
       Command="dotnet swagger tofile --output $(ProjectDir)Swagger/backend_api.json $(TargetDir)$(AssemblyName).dll v1" />

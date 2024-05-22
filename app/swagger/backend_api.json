@@ -14,7 +14,7 @@
         "operationId": "Devices_DevicesQuery",
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -44,7 +44,7 @@
         "operationId": "Devices_DevicesQuery_LongPolling",
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -93,7 +93,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         }
       },
@@ -123,7 +123,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         }
       },
@@ -153,7 +153,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         }
       }
@@ -185,7 +185,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         }
       }
@@ -217,7 +217,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         }
       },
@@ -247,7 +247,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         }
       },
@@ -277,7 +277,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         }
       }
@@ -309,7 +309,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         }
       },
@@ -339,7 +339,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         }
       },
@@ -369,7 +369,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         }
       }
@@ -382,7 +382,7 @@
         "operationId": "Hello_Me",
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -412,7 +412,7 @@
         "operationId": "Home_HomeStatusQuery",
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -442,7 +442,7 @@
         "operationId": "Home_HomeStatusQuery_LongPolling",
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -474,6 +474,7 @@
           {
             "name": "DeviceCategory",
             "in": "query",
+            "required": true,
             "schema": {
               "$ref": "#/components/schemas/DeviceCategory"
             }
@@ -481,7 +482,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -520,7 +521,7 @@
         "operationId": "Shelly_ShellyPermissionGrantUriQuery",
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -552,6 +553,7 @@
           {
             "name": "DeviceCategory",
             "in": "query",
+            "required": true,
             "schema": {
               "$ref": "#/components/schemas/DeviceCategory"
             }
@@ -559,7 +561,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -983,7 +985,9 @@
       },
       "MeDto": {
         "required": [
-          "claims"
+          "authenticationType",
+          "claims",
+          "name"
         ],
         "type": "object",
         "properties": {
