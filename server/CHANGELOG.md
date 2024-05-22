@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.8](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.7...server-v1.0.0-alpha.8) (2024-05-22)
+
+
+### 📦️ Build System, Dependencies
+
+* Skip swagger generation in Dockerfile. ([2a63082](https://github.com/OpenCleanEnergy/emma/commit/2a63082311d25cbcfa5e5a05dc79dee32f086c03))
+
 ## [1.0.0-alpha.7](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.6...emma-server-v1.0.0-alpha.7) (2024-05-22)
 
 
