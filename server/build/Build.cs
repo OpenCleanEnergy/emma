@@ -1,7 +1,9 @@
 using System;
+using Emma.Build;
 using NuGet.Versioning;
 using Nuke.Common;
 using Nuke.Common.ProjectModel;
+using Nuke.Common.Tooling;
 using Nuke.Common.Tools.Docker;
 using Nuke.Common.Tools.DotNet;
 using Serilog;
@@ -52,7 +54,9 @@ class Build : NukeBuild
             _.Executes(() =>
             {
                 var tags = GetImageTags();
-                DockerTasks.DockerBuild(_ => _.SetPath(".").SetTag(tags));
+                DockerTasks.DockerBuild(_ =>
+                    _.SetPath(".").SetTag(tags).SetProcessLogger(DockerTasksLoggerWorkaround.Log)
+                );
             });
 
     public Target DockerPush =>
@@ -63,10 +67,11 @@ class Build : NukeBuild
                     var tags = GetImageTags();
                     foreach (var tag in tags)
                     {
-                        DockerTasks.DockerPush(_ => _.SetName(tag));
+                        DockerTasks.DockerPush(_ =>
+                            _.SetName(tag).SetProcessLogger(DockerTasksLoggerWorkaround.Log)
+                        );
                     }
                 });
-
     public Target Publish =>
         _ => _.DependsOn(DockerPush).Executes(() => Log.Information("🎉 Published"));
 
