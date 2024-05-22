@@ -19,8 +19,8 @@ class Build : NukeBuild
     [Parameter("Docker registry to push the image to - Default is 'ghcr.io'")]
     readonly string Registry = "ghcr.io";
 
-    [Parameter("The image name - Default is 'opence/emma'")]
-    readonly string Image = "opence/emma";
+    [Parameter("The image name - Default is 'OpenCleanEnergy/emma'")]
+    readonly string Image = "OpenCleanEnergy/emma";
 
     public Target Clean =>
         _ =>
