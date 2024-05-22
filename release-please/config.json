@@ -3,6 +3,8 @@
   "packages": {
     "server": {
       "release-type": "node",
+      "prerelease": true,
+      "prerelease-type": "alpha",
       "extra-files": ["Directory.Build.props"],
       "changelog-sections": [
         {
