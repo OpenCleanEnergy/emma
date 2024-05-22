@@ -18,7 +18,7 @@ public static class DockerTasksLoggerWorkaround
                 Serilog.Log.Error(output);
                 break;
             case OutputType.Err:
-                Serilog.Log.Information(output);
+                Serilog.Log.Debug(output);
                 break;
             default:
                 throw new NotImplementedException(

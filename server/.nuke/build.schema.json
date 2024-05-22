@@ -45,7 +45,7 @@
         },
         "Image": {
           "type": "string",
-          "description": "The image name - Default is 'opence/emma'"
+          "description": "The image name - Default is 'opencleanenergy/emma'"
         },
         "NoLogo": {
           "type": "boolean",
