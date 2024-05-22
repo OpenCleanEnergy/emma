@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.6](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.5...emma-server-v1.0.0-alpha.6) (2024-05-22)
+
+
+### 🐛 Bug Fixes
+
+* Fixes label white spaces. ([a793ca6](https://github.com/OpenCleanEnergy/emma/commit/a793ca6a66fbe40bdf72441a1887cc50383c3e22))
+
 ## [1.0.0-alpha.5](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.4...emma-server-v1.0.0-alpha.5) (2024-05-22)
 
 
