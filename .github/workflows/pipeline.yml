@@ -40,7 +40,7 @@ jobs:
           manifest-file: release-please/manifest.json
 
   publish-server:
-    name: 📯 Publish to nuget.org
+    name: 🐳 Publish docker image
     runs-on: ubuntu-latest
     needs:
       - "release-please"
@@ -56,7 +56,7 @@ jobs:
       REGISTRY: ghcr.io
     steps:
       - name: 🗝️ Login to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
