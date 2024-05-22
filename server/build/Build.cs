@@ -51,7 +51,7 @@ class Build : NukeBuild
                     );
                 });
 
-    public Target DockerTags =>
+    public Target Tags =>
         _ =>
             _.Executes(() =>
             {
@@ -62,9 +62,9 @@ class Build : NukeBuild
                 }
             });
 
-    public Target DockerBuild =>
+    public Target Pack =>
         _ =>
-            _.DependsOn(DockerTags)
+            _.DependsOn(Tags)
                 .Executes(() =>
                 {
                     var tags = GetImageTags();
@@ -73,9 +73,9 @@ class Build : NukeBuild
                     );
                 });
 
-    public Target DockerPush =>
+    public Target Publish =>
         _ =>
-            _.DependsOn(DockerBuild)
+            _.DependsOn(Pack)
                 .Executes(() =>
                 {
                     var tags = GetImageTags();
@@ -86,8 +86,6 @@ class Build : NukeBuild
                         );
                     }
                 });
-    public Target Publish =>
-        _ => _.DependsOn(DockerPush).Executes(() => Log.Information("🎉 Published"));
 
     public static int Main() => Execute<Build>(x => x.Compile);
 

@@ -82,11 +82,10 @@
             "enum": [
               "Clean",
               "Compile",
-              "DockerBuild",
-              "DockerPush",
-              "DockerTags",
+              "Pack",
               "Publish",
-              "Restore"
+              "Restore",
+              "Tags"
             ]
           }
         },
@@ -102,11 +101,10 @@
             "enum": [
               "Clean",
               "Compile",
-              "DockerBuild",
-              "DockerPush",
-              "DockerTags",
+              "Pack",
               "Publish",
-              "Restore"
+              "Restore",
+              "Tags"
             ]
           }
         },

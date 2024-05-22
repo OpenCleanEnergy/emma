@@ -8,6 +8,9 @@ COPY Directory.Build.props .
 COPY *.sln .
 COPY src/. .
 RUN dotnet restore Emma.Server/Emma.Server.csproj
+
+# Skip swagger generation in docker image.
+ENV SKIP_SWAGGER_GEN=1
 RUN dotnet publish Emma.Server/Emma.Server.csproj \
     --no-restore \
     --configuration Release \

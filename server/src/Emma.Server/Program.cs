@@ -154,11 +154,7 @@ static LoggerConfiguration ConfigureLogger(
         .Destructure.With<ValueObjectDestructuringPolicy>()
         .Enrich.FromLogContext();
 
-    if (!environment.IsDevelopment())
-    {
-        loggerConfiguration.WriteTo.Console(new CompactJsonFormatter());
-    }
-    else
+    if (environment.IsDevelopment() || EntryAssembly.GetEntryAssembly() != EntryAssembly.Default)
     {
         loggerConfiguration.WriteTo.Console(
             outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:l}{NewLine}{Properties}{NewLine}{Exception}",
@@ -166,6 +162,10 @@ static LoggerConfiguration ConfigureLogger(
             applyThemeToRedirectedOutput: true,
             theme: AnsiConsoleTheme.Literate
         );
+    }
+    else
+    {
+        loggerConfiguration.WriteTo.Console(new CompactJsonFormatter());
     }
 
     return loggerConfiguration;
