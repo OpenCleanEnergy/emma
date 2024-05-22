@@ -8,22 +8,24 @@ namespace Emma.Build;
 /// and errors as <see cref="OutputType.Std"/>.
 /// See: /// https://github.com/nuke-build/nuke/issues/1201
 /// </summary>
-public static class DockerTasksLoggerWorkaround
+public static class DockerTasksLogger
 {
+
     public static void Log(OutputType outputType, string output)
     {
-        switch (outputType)
+        _ = outputType;
+
+        if (output.StartsWith("ERROR", StringComparison.OrdinalIgnoreCase))
         {
-            case OutputType.Std:
-                Serilog.Log.Error(output);
-                break;
-            case OutputType.Err:
-                Serilog.Log.Debug(output);
-                break;
-            default:
-                throw new NotImplementedException(
-                    $"{nameof(OutputType)} {outputType} is not implemented"
-                );
+            Serilog.Log.Error(output);
+        }
+        else if (output.StartsWith("WARNING", StringComparison.OrdinalIgnoreCase))
+        {
+            Serilog.Log.Warning(output);
+        }
+        else
+        {
+            Serilog.Log.Debug(output);
         }
     }
-}
+

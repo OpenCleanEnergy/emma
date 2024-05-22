@@ -55,7 +55,7 @@ class Build : NukeBuild
             {
                 var tags = GetImageTags();
                 DockerTasks.DockerBuild(_ =>
-                    _.SetPath(".").SetTag(tags).SetProcessLogger(DockerTasksLoggerWorkaround.Log)
+                    _.SetPath(".").SetTag(tags).SetProcessLogger(DockerTasksLogger.Log)
                 );
             });
 
@@ -68,7 +68,7 @@ class Build : NukeBuild
                     foreach (var tag in tags)
                     {
                         DockerTasks.DockerPush(_ =>
-                            _.SetName(tag).SetProcessLogger(DockerTasksLoggerWorkaround.Log)
+                            _.SetName(tag).SetProcessLogger(DockerTasksLogger.Log)
                         );
                     }
                 });
