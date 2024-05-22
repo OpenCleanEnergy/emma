@@ -33,7 +33,7 @@ public class VogenValueObjectConverter<TValueObject, TValue> : ValueConverter<TV
         var parameter = Expression.Parameter(typeof(TValue), "value");
         var deserialize = Expression.Call(
             typeof(TValueObject).GetMethod(
-                "Deserialize",
+                "__Deserialize",
                 BindingFlags.Static | BindingFlags.NonPublic
             )!,
             parameter
