@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.2](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.1...emma-server-v1.0.0-alpha.2) (2024-05-22)
+
+
+### 📦️ Build System, Dependencies
+
+* fixes docker image organization. ([cb24ecb](https://github.com/OpenCleanEnergy/emma/commit/cb24ecbd54ea2225d6cbc3f7e3ae3282467afbf4))
+
 ## [1.0.0-alpha.1](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.0...emma-server-v1.0.0-alpha.1) (2024-05-22)
 
 
