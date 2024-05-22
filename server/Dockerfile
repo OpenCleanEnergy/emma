@@ -21,3 +21,7 @@ WORKDIR /app
 COPY --from=build /app .
 USER $APP_UID
 ENTRYPOINT ["./Emma.Server"]
+
+LABEL org.opencontainers.image.source = "https://github.com/OpenCleanEnergy/emma"
+LABEL org.opencontainers.image.description = "EMMA server container image"
+LABEL org.opencontainers.image.licenses = "AGPL-3.0"
