@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.7](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.6...emma-server-v1.0.0-alpha.7) (2024-05-22)
+
+
+### 🐛 Bug Fixes
+
+* Fixes VogenValueObjectConverter after Vogen update. ([668427e](https://github.com/OpenCleanEnergy/emma/commit/668427eac1ae7c602e01a4e24a7e651af04ce06c))
+
+
+### 📦️ Build System, Dependencies
+
+* Always generate swagger backend_api.json. ([119ad89](https://github.com/OpenCleanEnergy/emma/commit/119ad895b06a8d7194d472a4401f81eded1ed2bd))
+
 ## [1.0.0-alpha.6](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.5...emma-server-v1.0.0-alpha.6) (2024-05-22)
 
 
