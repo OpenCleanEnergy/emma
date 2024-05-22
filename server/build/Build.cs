@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Emma.Build;
 using NuGet.Versioning;
 using Nuke.Common;
@@ -49,15 +51,27 @@ class Build : NukeBuild
                     );
                 });
 
-    public Target DockerBuild =>
+    public Target DockerTags =>
         _ =>
             _.Executes(() =>
             {
                 var tags = GetImageTags();
-                DockerTasks.DockerBuild(_ =>
-                    _.SetPath(".").SetTag(tags).SetProcessLogger(DockerTasksLogger.Log)
-                );
+                foreach (var tag in tags)
+                {
+                    Log.Debug("Tag: {tag}", tag);
+                }
             });
+
+    public Target DockerBuild =>
+        _ =>
+            _.DependsOn(DockerTags)
+                .Executes(() =>
+                {
+                    var tags = GetImageTags();
+                    DockerTasks.DockerBuild(_ =>
+                        _.SetPath(".").SetTag(tags).SetProcessLogger(DockerTasksLogger.Log)
+                    );
+                });
 
     public Target DockerPush =>
         _ =>
@@ -87,7 +101,17 @@ class Build : NukeBuild
 
         if (version.IsPrerelease)
         {
-            return [$"{Registry}/{Image}:{version}"];
+            var versions = new List<string>()
+            {
+                $"{Registry}/{Image}:{version.Major}.{version.Minor}.{version.Patch}-{version.ReleaseLabels.First()}"
+            };
+
+            foreach (var releaseLabel in version.ReleaseLabels.Skip(1))
+            {
+                versions.Add($"{versions[^1]}.{releaseLabel}");
+            }
+
+            return [.. versions];
         }
 
         return

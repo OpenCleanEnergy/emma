@@ -84,6 +84,7 @@
               "Compile",
               "DockerBuild",
               "DockerPush",
+              "DockerTags",
               "Publish",
               "Restore"
             ]
@@ -103,6 +104,7 @@
               "Compile",
               "DockerBuild",
               "DockerPush",
+              "DockerTags",
               "Publish",
               "Restore"
             ]

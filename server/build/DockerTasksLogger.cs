@@ -10,7 +10,6 @@ namespace Emma.Build;
 /// </summary>
 public static class DockerTasksLogger
 {
-
     public static void Log(OutputType outputType, string output)
     {
         _ = outputType;
@@ -28,4 +27,4 @@ public static class DockerTasksLogger
             Serilog.Log.Debug(output);
         }
     }
-
+}
