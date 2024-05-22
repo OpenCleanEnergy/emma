@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.4](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.3...emma-server-v1.0.0-alpha.4) (2024-05-22)
+
+
+### 📦️ Build System, Dependencies
+
+* Fixes docker tasks logger, improves prerelease tagging. ([eb0e32e](https://github.com/OpenCleanEnergy/emma/commit/eb0e32ed92b88d06361b57d63ec2c8fde5518231))
+
 ## [1.0.0-alpha.3](https://github.com/OpenCleanEnergy/emma/compare/emma-server-v1.0.0-alpha.2...emma-server-v1.0.0-alpha.3) (2024-05-22)
 
 
