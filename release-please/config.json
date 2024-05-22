@@ -24,7 +24,7 @@
     "app": {
       "release-type": "node",
       "prerelease-type": "alpha",
-      "extra-files": ["pubspec.yaml"]
+      "extra-files": [{ "type": "generic", "path": "pubspec.yaml" }]
     },
     "server": {
       "release-type": "node",
