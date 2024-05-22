@@ -1,0 +1,41 @@
+version: 2
+updates:
+  # app
+  - package-ecosystem: "pub"
+    directory: "vscode-extension"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "pub"
+    commit-message:
+      prefix: "build"
+      include: "scope"
+
+  ## server
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "nuget"
+    commit-message:
+      prefix: "build"
+      include: "scope"
+    groups:
+      xunit:
+        patterns:
+          - "xunit*"
+
+  # GitHub
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "build"
+      include: "scope"
