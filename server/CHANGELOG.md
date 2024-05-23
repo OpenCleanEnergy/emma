@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.9](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.8...server-v1.0.0-alpha.9) (2024-05-23)
+
+
+### 📦️ Build System, Dependencies
+
+* Replaces nuke with bullseye. ([1e84267](https://github.com/OpenCleanEnergy/emma/commit/1e842679585a284326920e22e993437a0fdac103))
+
 ## [1.0.0-alpha.8](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.7...server-v1.0.0-alpha.8) (2024-05-22)
 
 
