@@ -15,15 +15,10 @@ target *args="default":
   dotnet run --project devops/Emma.Build -- {{args}}
 
 # Restores NuGet packages
-restore: _restore-tools
-  dotnet nuke Restore \
-    --no-logo
+restore: (target "restore")
 
 # Builds the solution
-build configuration="Debug": _restore-tools
-  dotnet nuke Compile \
-    --no-logo \
-    --configuration {{configuration}}
+build: (target "build")
 
 # Sets Shelly integrator token as user secret.
 set-secret-shelly-integrator-token token: (_set-secret 'Integrations:Shelly:IntegratorToken' token)

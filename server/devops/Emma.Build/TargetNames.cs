@@ -1,6 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-
 namespace Emma.Build;
 
 internal static class TargetNames

@@ -57,7 +57,7 @@ Target(
     "Pushes the docker image to the registry. The registry is read from $DOCKER_REGISTRY; defaults to 'ghcr.io'.",
     DependsOn(Pack),
     ForEach(DockerTags.GetTags(dockerBaseImage).ToArray()),
-    (tag) => RunAsync("docker", $"push --quiet {tag}")
+    (tag) => RunAsync("docker", $"push {tag}")
 );
 
 Target("default", $"The default target -> {Build}", DependsOn(Build));
