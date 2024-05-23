@@ -64,7 +64,7 @@ at your system.
 - [docker](https://docs.docker.com/engine/install/)
 - [flutter for Desktop (development) and Android](https://docs.flutter.dev/get-started/install)
   - [Additional steps](#flutter) may be required.
-- [Pumlumi](https://www.pulumi.com/docs/install/)
+- [Pulumi](https://www.pulumi.com/docs/install/)
 
 #### Flutter
 
