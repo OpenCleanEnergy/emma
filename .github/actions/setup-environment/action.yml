@@ -1,0 +1,12 @@
+name: Setup the pipeline environment
+description: Installs required tools like dotnet and just
+
+runs:
+  using: composite
+  steps:
+    - name: 🟣 Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: 🏃‍♂️ Setup just
+      uses: extractions/setup-just@v2

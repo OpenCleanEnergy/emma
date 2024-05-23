@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-server:
-    name: 🟣 .NET Tool
+    name: 🛠️ Build server
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -19,8 +19,11 @@ jobs:
       - name: 🛒 Checkout
         uses: actions/checkout@v4
 
+      - name: 🏞️ Setup environment
+        uses: ./.github/actions/setup-environment
+
       - name: 🛠️ Build
-        run: ./build.sh Compile
+        run: just target build
 
   release-please:
     name: ✨ Release Please
@@ -53,17 +56,20 @@ jobs:
       run:
         working-directory: server
     env:
-      REGISTRY: ghcr.io
+      DOCKER_REGISTRY: ghcr.io
     steps:
-      - name: 🗝️ Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: 🛒 Checkout
         uses: actions/checkout@v4
 
+      - name: 🏞️ Setup environment
+        uses: ./.github/actions/setup-environment
+
+      - name: 🗝️ Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 🐳 Build and push docker image
-        run: ./build.sh Publish --registry ${{ env.REGISTRY }}
+        run: just target publish
