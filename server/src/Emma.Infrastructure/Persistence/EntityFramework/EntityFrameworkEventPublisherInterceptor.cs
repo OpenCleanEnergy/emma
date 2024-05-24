@@ -10,6 +10,7 @@ public class EntityFrameworkEventPublisherInterceptor
     : ISaveChangesInterceptor,
         IDbTransactionInterceptor
 {
+    private readonly HashSet<IHasEvents> _entitiesWithEvents = [];
     private readonly IEventPublisher _eventPublisher;
 
     public EntityFrameworkEventPublisherInterceptor(IEventPublisher eventPublisher)
@@ -17,11 +18,30 @@ public class EntityFrameworkEventPublisherInterceptor
         _eventPublisher = eventPublisher;
     }
 
+    public InterceptionResult<int> SavingChanges(
+        DbContextEventData eventData,
+        InterceptionResult<int> result
+    )
+    {
+        CaptureEntitiesWithEvents(eventData.Context);
+        return result;
+    }
+
+    public ValueTask<InterceptionResult<int>> SavingChangesAsync(
+        DbContextEventData eventData,
+        InterceptionResult<int> result,
+        CancellationToken cancellationToken = default
+    )
+    {
+        CaptureEntitiesWithEvents(eventData.Context);
+        return ValueTask.FromResult(result);
+    }
+
     public int SavedChanges(SaveChangesCompletedEventData eventData, int result)
     {
         if (eventData.Context?.Database.CurrentTransaction is null)
         {
-            PublishAndClearEvents(eventData.Context).GetAwaiter().GetResult();
+            PublishAndClearEvents().GetAwaiter().GetResult();
         }
 
         return result;
@@ -35,7 +55,7 @@ public class EntityFrameworkEventPublisherInterceptor
     {
         if (eventData.Context?.Database.CurrentTransaction is null)
         {
-            await PublishAndClearEvents(eventData.Context);
+            await PublishAndClearEvents();
         }
 
         return result;
@@ -43,7 +63,7 @@ public class EntityFrameworkEventPublisherInterceptor
 
     public void TransactionCommitted(DbTransaction transaction, TransactionEndEventData eventData)
     {
-        PublishAndClearEvents(eventData.Context).GetAwaiter().GetResult();
+        PublishAndClearEvents().GetAwaiter().GetResult();
     }
 
     public async Task TransactionCommittedAsync(
@@ -52,10 +72,10 @@ public class EntityFrameworkEventPublisherInterceptor
         CancellationToken cancellationToken = default
     )
     {
-        await PublishAndClearEvents(eventData.Context);
+        await PublishAndClearEvents();
     }
 
-    private async Task PublishAndClearEvents(DbContext? dbContext)
+    private void CaptureEntitiesWithEvents(DbContext? dbContext)
     {
         ArgumentNullException.ThrowIfNull(dbContext);
 
@@ -66,8 +86,18 @@ public class EntityFrameworkEventPublisherInterceptor
 
         foreach (var entity in entitiesWithEvents)
         {
+            _entitiesWithEvents.Add(entity);
+        }
+    }
+
+    private async Task PublishAndClearEvents()
+    {
+        foreach (var entity in _entitiesWithEvents)
+        {
             await _eventPublisher.Publish(entity);
             entity.ClearEvents();
         }
+
+        _entitiesWithEvents.Clear();
     }
 }
