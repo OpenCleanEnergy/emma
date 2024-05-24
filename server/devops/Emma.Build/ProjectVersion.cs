@@ -42,22 +42,6 @@ internal sealed partial class ProjectVersion
         return version;
     }
 
-    public IEnumerable<string> GetVersionTags()
-    {
-        if (IsPrerelease)
-        {
-            return
-            [
-                $"{Major}.{Minor}.{Patch}-{PrereleaseType}",
-                $"{Major}.{Minor}.{Patch}-{PrereleaseType}.{PrereleaseVersion}",
-            ];
-        }
-        else
-        {
-            return [$"{Major}", $"{Major}.{Minor}", $"{Major}.{Minor}.{Patch}",];
-        }
-    }
-
     private static int ParseInt(string input) => int.Parse(input, CultureInfo.InvariantCulture);
 
     [GeneratedRegex(@"(?<=<Version>).+(?=<\/Version>)")]
