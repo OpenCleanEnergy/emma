@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <UserSecretsId>emma-server-ba6e9f8992a2</UserSecretsId>
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>

@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Pulumi" Version="3.*" />
+    <PackageReference Include="Pulumi" Version="3.63.1" />
+    <PackageReference Include="Pulumi.HCloud" Version="1.19.1" />
+    <PackageReference Include="Pulumi.Std" Version="1.6.2" />
   </ItemGroup>
 
 </Project>

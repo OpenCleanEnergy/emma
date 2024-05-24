@@ -1,7 +1,12 @@
-name: Emma.DevOps
+name: emma
 runtime: dotnet
 description: Deploys EMMA using Pulumi and Ansible
 config:
-  pulumi:tags:
-    value:
-      pulumi:template: csharp
+  data-center:
+    type: string
+    default: nbg1-dc3
+  public-key-file:
+    type: string
+    default: ./ssh/default-hcloud.pub
+  ssh-enabled:
+    type: boolean

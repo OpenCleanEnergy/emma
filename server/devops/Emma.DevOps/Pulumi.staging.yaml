@@ -1,0 +1,2 @@
+config:
+  emma:ssh-enabled: true
