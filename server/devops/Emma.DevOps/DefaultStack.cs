@@ -11,6 +11,8 @@ public class DefaultStack : Stack
 
     public DefaultStack()
     {
+        var stack = Deployment.Instance.StackName;
+
         var config = new Pulumi.Config();
         var sshEnabled = config.RequireBoolean("ssh-enabled");
         var dataCenter = config.Require("data-center");
@@ -19,14 +21,14 @@ public class DefaultStack : Stack
         var publicKey = Std.File.Invoke(new() { Input = publicKeyFile }).Apply(file => file.Result);
 
         var sshKey = new SshKey(
-            "default-ssh-key",
-            new SshKeyArgs() { Name = "default-ssh-key", PublicKey = publicKey }
+            $"{stack}-ssh-key",
+            new SshKeyArgs() { Name = $"{stack}-ssh-key", PublicKey = publicKey }
         );
         var ipv4 = new PrimaryIp(
-            "ipv4",
+            $"{stack}-ipv4",
             new()
             {
-                Name = "default IP v4",
+                Name = $"{stack} IP v4",
                 Datacenter = dataCenter,
                 Type = "ipv4",
                 AssigneeType = "server",
@@ -35,10 +37,10 @@ public class DefaultStack : Stack
         );
 
         var ipv6 = new PrimaryIp(
-            "ipv6",
+            $"{stack}-ipv6",
             new()
             {
-                Name = "default IP v6",
+                Name = $"{stack} IP v6",
                 Datacenter = dataCenter,
                 Type = "ipv6",
                 AssigneeType = "server",
@@ -84,15 +86,15 @@ public class DefaultStack : Stack
         }
 
         var firewall = new Firewall(
-            "default-firewall",
-            new() { Name = "default-firewall", Rules = firewallRules }
+            $"{stack}-firewall",
+            new() { Name = $"{stack}-firewall", Rules = firewallRules }
         );
 
         var server = new Server(
-            "default-server",
+            $"{stack}-server",
             new()
             {
-                Name = "default-server",
+                Name = $"{stack}-server",
                 Datacenter = dataCenter,
                 Image = "debian-11",
                 ServerType = "cx21",
