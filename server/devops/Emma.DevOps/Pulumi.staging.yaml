@@ -1,5 +1,4 @@
 config:
   emma:public-key-file: ./ssh/hcloud-staging.pub
   emma:ssh-enabled: "false"
-  hcloud:token:
-    secure: AAABAK/HsACluWT7GwWCiVWJsktKxVwhuuSlRcq6IuCht6spr9eOLGzjNCeQzi/0j5gcPjRnbS3yZ/kDu6M3HKlbKEbEOjy07S8iesbGTczUetN+ZvdY/erUYu+M3xXB
+
