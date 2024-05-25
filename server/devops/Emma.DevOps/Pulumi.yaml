@@ -7,6 +7,5 @@ config:
     default: nbg1-dc3
   public-key-file:
     type: string
-    default: ./ssh/default-hcloud.pub
   ssh-enabled:
     type: boolean

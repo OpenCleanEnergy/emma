@@ -96,8 +96,8 @@ public class DefaultStack : Stack
             {
                 Name = $"{stack}-server",
                 Datacenter = dataCenter,
-                Image = "debian-11",
-                ServerType = "cx21",
+                Image = "fedora-40",
+                ServerType = "cax21",
                 PublicNets = new[]
                 {
                     new ServerPublicNetArgs
@@ -116,6 +116,7 @@ public class DefaultStack : Stack
         ServerId = server.Id;
         Ipv4 = ipv4.IpAddress;
         Ipv6 = ipv6.IpAddress;
+        SshEnabled = Output.Create(sshEnabled);
     }
 
     [Output("server-id")]
@@ -126,4 +127,7 @@ public class DefaultStack : Stack
 
     [Output("ip-v6")]
     public Output<string> Ipv6 { get; init; }
+
+    [Output("ssh-enabled")]
+    public Output<bool> SshEnabled { get; init; }
 }
