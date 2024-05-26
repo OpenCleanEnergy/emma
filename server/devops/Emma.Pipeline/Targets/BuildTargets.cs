@@ -6,8 +6,8 @@ using static SimpleExec.Command;
 
 public static class BuildTargets
 {
-    public const string Restore = "restore";
-    public const string Build = "build";
+    public const string Restore = "build:restore";
+    public const string Build = "build:build";
 
     public static Targets AddBuildTargets(this Targets targets)
     {

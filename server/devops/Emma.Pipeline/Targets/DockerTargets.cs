@@ -7,9 +7,9 @@ using static SimpleExec.Command;
 
 public static class DockerTargets
 {
-    public const string Tags = "tags";
-    public const string Pack = "pack";
-    public const string Publish = "publish";
+    public const string Tags = "docker:tags";
+    public const string Pack = "docker:pack";
+    public const string Publish = "docker:publish";
 
     public static Targets AddDockerTargets(this Targets targets)
     {

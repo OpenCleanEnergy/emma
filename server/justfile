@@ -15,10 +15,10 @@ target *args="default":
   dotnet run --project devops/Emma.Pipeline -- {{args}}
 
 # Restores NuGet packages
-restore: (target "restore")
+restore: (target "build:restore")
 
 # Builds the solution
-build: (target "build")
+build: (target "build:build")
 
 # Sets Shelly integrator token as user secret.
 set-secret-shelly-integrator-token token: (_set-secret 'Integrations:Shelly:IntegratorToken' token)

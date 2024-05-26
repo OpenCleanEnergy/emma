@@ -23,7 +23,7 @@ jobs:
         uses: ./.github/actions/setup-environment
 
       - name: 🛠️ Build
-        run: just target build
+        run: just target build:build
 
   release-please:
     name: ✨ Release Please
@@ -72,4 +72,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🐳 Build and push docker image
-        run: just target publish
+        run: just target docker:publish
