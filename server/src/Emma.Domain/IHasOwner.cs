@@ -2,5 +2,5 @@
 
 public interface IHasOwner
 {
-    public UserId OwnedBy { get; init; }
+    UserId OwnedBy { get; init; }
 }

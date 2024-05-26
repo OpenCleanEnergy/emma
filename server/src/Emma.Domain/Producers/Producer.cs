@@ -1,11 +1,15 @@
 using Emma.Domain.Events;
 using Emma.Domain.Units;
+using NMolecules.DDD;
 
 namespace Emma.Domain.Producers;
 
+[AggregateRoot]
 public class Producer : IHasOwner, IHasEvents
 {
     private readonly List<IEvent> _events = [];
+
+    [Identity]
     public ProducerId Id { get; private set; } = ProducerId.NewId();
 
     public required DeviceName Name { get; set; }

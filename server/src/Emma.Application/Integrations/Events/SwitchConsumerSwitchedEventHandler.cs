@@ -3,7 +3,7 @@ using Emma.Domain.Consumers;
 using Emma.Domain.Consumers.Events;
 using Emma.Integrations.Shared;
 
-namespace Emma.Application;
+namespace Emma.Application.Integrations.Events;
 
 public class SwitchConsumerSwitchedEventHandler
     : IEventHandler<SwitchConsumerSwitchedEvent, IntegrationsEventChannel>

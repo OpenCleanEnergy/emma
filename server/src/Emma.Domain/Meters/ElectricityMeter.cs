@@ -1,13 +1,16 @@
 using Emma.Domain.Events;
 using Emma.Domain.Units;
+using NMolecules.DDD;
 
 namespace Emma.Domain.Meters;
 
+[AggregateRoot]
 public class ElectricityMeter : IHasOwner, IHasEvents
 {
     private readonly List<IEvent> _events = [];
-    public ElectricityMeterId Id { get; private set; } = ElectricityMeterId.NewId();
 
+    [Identity]
+    public ElectricityMeterId Id { get; private set; } = ElectricityMeterId.NewId();
     public required DeviceName Name { get; set; }
 
     public required IntegrationIdentifier Integration { get; init; }

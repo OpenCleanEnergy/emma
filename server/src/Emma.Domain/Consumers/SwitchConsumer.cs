@@ -1,15 +1,19 @@
 using Emma.Domain.Consumers.Events;
 using Emma.Domain.Events;
 using Emma.Domain.Units;
+using NMolecules.DDD;
 
 namespace Emma.Domain.Consumers;
 
 /// <summary>
 /// Represents a consumer that can be switched on or off.
 /// </summary>
+[AggregateRoot]
 public class SwitchConsumer : IHasOwner, IHasEvents
 {
     private readonly List<IEvent> _events = [];
+
+    [Identity]
     public SwitchConsumerId Id { get; private set; } = SwitchConsumerId.NewId();
 
     public required DeviceName Name { get; set; }

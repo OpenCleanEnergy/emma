@@ -1,5 +1,8 @@
-﻿namespace Emma.Domain.Consumers;
+﻿using NMolecules.DDD;
 
+namespace Emma.Domain.Consumers;
+
+[Repository]
 public interface ISwitchConsumerRepository
 {
     void Add(SwitchConsumer switchConsumer);

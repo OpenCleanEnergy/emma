@@ -1,7 +1,9 @@
 using Emma.Domain.Units;
+using NMolecules.DDD;
 
 namespace Emma.Domain.Consumers;
 
+[ValueObject]
 public record SwitchConsumerSmartModeConfiguration(
     Watt Nennleistung,
     TimeSpan MinimaleEinschaltdauer,

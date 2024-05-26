@@ -1,5 +1,8 @@
+using NMolecules.DDD;
+
 namespace Emma.Domain.Producers;
 
+[Repository]
 public interface IProducerRepository
 {
     void Add(Producer producer);

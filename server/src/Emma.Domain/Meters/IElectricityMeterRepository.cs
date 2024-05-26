@@ -1,5 +1,8 @@
+using NMolecules.DDD;
+
 namespace Emma.Domain.Meters;
 
+[Repository]
 public interface IElectricityMeterRepository
 {
     void Add(ElectricityMeter electricityMeter);
