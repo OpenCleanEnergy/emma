@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.11](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.10...server-v1.0.0-alpha.11) (2024-05-26)
+
+
+### 🚀 Features
+
+* Adds development integration. ([68b0733](https://github.com/OpenCleanEnergy/emma/commit/68b07331f389f12f2f80a10b9829762bc96a2e60))
+
+
+### 🐛 Bug Fixes
+
+* Do not use request body in `DELETE` methods. ([e210c43](https://github.com/OpenCleanEnergy/emma/commit/e210c43c1199c1caca9b76c0f4c8c8e1812fc815))
+
 ## [1.0.0-alpha.10](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.9...server-v1.0.0-alpha.10) (2024-05-26)
 
 
