@@ -37,6 +37,7 @@ public sealed class ShellyHostedService : IHostedService, IDisposable
         if (!_configuration.IsValid)
         {
             _logger.Info("Configuration invalid. Service is shutting down.");
+            return;
         }
 
         _logger.Info("Initialize websockets.");

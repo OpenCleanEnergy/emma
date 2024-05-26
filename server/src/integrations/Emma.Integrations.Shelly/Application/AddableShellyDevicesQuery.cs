@@ -1,15 +1,15 @@
-﻿using Emma.Application.Shared;
+using Emma.Application.Shared;
 using Emma.Domain;
 using Emma.Integrations.Shared;
 using Emma.Integrations.Shelly.Domain;
 
 namespace Emma.Integrations.Shelly.Application;
 
-public class AddableDevicesQuery : IQuery<AddableShellyDeviceDto[]>
+public class AddableShellyDevicesQuery : IQuery<AddableShellyDeviceDto[]>
 {
     public required DeviceCategory DeviceCategory { get; init; }
 
-    public class Handler : IQueryHandler<AddableDevicesQuery, AddableShellyDeviceDto[]>
+    public class Handler : IQueryHandler<AddableShellyDevicesQuery, AddableShellyDeviceDto[]>
     {
         private readonly IGrantedShellyDeviceRepository _repository;
         private readonly IExistingDevicesReader _existingDevices;
@@ -24,7 +24,7 @@ public class AddableDevicesQuery : IQuery<AddableShellyDeviceDto[]>
         }
 
         public async Task<AddableShellyDeviceDto[]> Handle(
-            AddableDevicesQuery request,
+            AddableShellyDevicesQuery request,
             CancellationToken cancellationToken
         )
         {

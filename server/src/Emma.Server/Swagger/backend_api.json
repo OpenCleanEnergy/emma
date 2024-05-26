@@ -6,6 +6,55 @@
     "version": "v1"
   },
   "paths": {
+    "/integrations/development/v1/addable-devices": {
+      "get": {
+        "tags": [
+          "Development"
+        ],
+        "operationId": "Development_AddableDevelopmentDevicesQuery",
+        "parameters": [
+          {
+            "name": "DeviceCategory",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DeviceCategory"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddableDevelopmentDeviceDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddableDevelopmentDeviceDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddableDevelopmentDeviceDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/devices": {
       "get": {
         "tags": [
@@ -527,7 +576,7 @@
         "tags": [
           "Shelly"
         ],
-        "operationId": "Shelly_AddableDevicesQuery",
+        "operationId": "Shelly_AddableShellyDevicesQuery",
         "parameters": [
           {
             "name": "DeviceCategory",
@@ -615,6 +664,22 @@
         "properties": {
           "integration": {
             "$ref": "#/components/schemas/IntegrationIdentifier"
+          },
+          "deviceName": {
+            "$ref": "#/components/schemas/DeviceName"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddableDevelopmentDeviceDto": {
+        "required": [
+          "deviceId",
+          "deviceName"
+        ],
+        "type": "object",
+        "properties": {
+          "deviceId": {
+            "$ref": "#/components/schemas/IntegrationDeviceId"
           },
           "deviceName": {
             "$ref": "#/components/schemas/DeviceName"

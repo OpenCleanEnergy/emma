@@ -2,6 +2,7 @@ import 'package:emma/application/backend_api/swagger_generated_code/backend_api.
 import 'package:emma/domain/integrations/known_integrations.dart';
 import 'package:emma/ui/app_icons.dart';
 import 'package:emma/ui/app_navigator.dart';
+import 'package:emma/ui/devices/add/integrations/development_screen.dart';
 import 'package:emma/ui/devices/add/widgets/abort_add_button.dart';
 import 'package:emma/ui/devices/add/widgets/add_device_step_explanation.dart';
 import 'package:emma/ui/devices/add/integrations/shelly_screen.dart';
@@ -51,6 +52,7 @@ class _SelectIntegrationScreenState extends State<SelectIntegrationScreen> {
             final integrations =
                 viewModel.integrations.map((integration) => ListTile(
                       title: Text(integration.name),
+                      subtitle: _getSubtitle(integration.id),
                       trailing: const Icon(AppIcons.arrow_next),
                       onTap: () => _selectIntegration(integration.id),
                     ));
@@ -67,6 +69,12 @@ class _SelectIntegrationScreenState extends State<SelectIntegrationScreen> {
 
   void _selectIntegration(String integrationId) {
     switch (integrationId) {
+      case KnownIntegrations.development:
+        AppNavigator.push(DevelopmentScreen(
+          deviceCategory: widget.category,
+        ));
+        return;
+
       case KnownIntegrations.shelly:
         AppNavigator.push(ShellyScreen(deviceCategory: widget.category));
         return;
@@ -75,5 +83,13 @@ class _SelectIntegrationScreenState extends State<SelectIntegrationScreen> {
         noop();
         return;
     }
+  }
+
+  Widget? _getSubtitle(String integrationId) {
+    return switch (integrationId) {
+      KnownIntegrations.development => null,
+      KnownIntegrations.shelly => null,
+      _ => const Text("Bald verfügbar")
+    };
   }
 }

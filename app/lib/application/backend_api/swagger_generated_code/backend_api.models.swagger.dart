@@ -186,6 +186,62 @@ extension $AddSwitchConsumerCommandExtension on AddSwitchConsumerCommand {
 }
 
 @JsonSerializable(explicitToJson: true)
+class AddableDevelopmentDeviceDto {
+  const AddableDevelopmentDeviceDto({
+    required this.deviceId,
+    required this.deviceName,
+  });
+
+  factory AddableDevelopmentDeviceDto.fromJson(Map<String, dynamic> json) =>
+      _$AddableDevelopmentDeviceDtoFromJson(json);
+
+  static const toJsonFactory = _$AddableDevelopmentDeviceDtoToJson;
+  Map<String, dynamic> toJson() => _$AddableDevelopmentDeviceDtoToJson(this);
+
+  @JsonKey(name: 'deviceId')
+  final String deviceId;
+  @JsonKey(name: 'deviceName')
+  final String deviceName;
+  static const fromJsonFactory = _$AddableDevelopmentDeviceDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is AddableDevelopmentDeviceDto &&
+            (identical(other.deviceId, deviceId) ||
+                const DeepCollectionEquality()
+                    .equals(other.deviceId, deviceId)) &&
+            (identical(other.deviceName, deviceName) ||
+                const DeepCollectionEquality()
+                    .equals(other.deviceName, deviceName)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(deviceId) ^
+      const DeepCollectionEquality().hash(deviceName) ^
+      runtimeType.hashCode;
+}
+
+extension $AddableDevelopmentDeviceDtoExtension on AddableDevelopmentDeviceDto {
+  AddableDevelopmentDeviceDto copyWith({String? deviceId, String? deviceName}) {
+    return AddableDevelopmentDeviceDto(
+        deviceId: deviceId ?? this.deviceId,
+        deviceName: deviceName ?? this.deviceName);
+  }
+
+  AddableDevelopmentDeviceDto copyWithWrapped(
+      {Wrapped<String>? deviceId, Wrapped<String>? deviceName}) {
+    return AddableDevelopmentDeviceDto(
+        deviceId: (deviceId != null ? deviceId.value : this.deviceId),
+        deviceName: (deviceName != null ? deviceName.value : this.deviceName));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class AddableShellyDeviceDto {
   const AddableShellyDeviceDto({
     required this.deviceId,

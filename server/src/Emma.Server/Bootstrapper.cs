@@ -16,6 +16,7 @@ using Emma.Infrastructure.Integrations;
 using Emma.Infrastructure.Persistence;
 using Emma.Infrastructure.Persistence.EntityFramework;
 using Emma.Infrastructure.Shelly;
+using Emma.Integrations.Development;
 using Emma.Integrations.Shared;
 using Emma.Integrations.Shelly;
 using Emma.Integrations.Shelly.Callback.Trust;
@@ -37,6 +38,7 @@ public static class Bootstrapper
             typeof(IntegrationsQuery).Assembly,
             // Integrations
             typeof(ShellyIntegrationDescriptor).Assembly,
+            typeof(DevelopmentIntegrationDescriptor).Assembly,
         ];
 
     public static void Bootstrap(Container container, IConfiguration configuration)

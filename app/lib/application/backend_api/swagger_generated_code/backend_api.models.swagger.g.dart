@@ -49,6 +49,20 @@ Map<String, dynamic> _$AddSwitchConsumerCommandToJson(
       'deviceName': instance.deviceName,
     };
 
+AddableDevelopmentDeviceDto _$AddableDevelopmentDeviceDtoFromJson(
+        Map<String, dynamic> json) =>
+    AddableDevelopmentDeviceDto(
+      deviceId: json['deviceId'] as String,
+      deviceName: json['deviceName'] as String,
+    );
+
+Map<String, dynamic> _$AddableDevelopmentDeviceDtoToJson(
+        AddableDevelopmentDeviceDto instance) =>
+    <String, dynamic>{
+      'deviceId': instance.deviceId,
+      'deviceName': instance.deviceName,
+    };
+
 AddableShellyDeviceDto _$AddableShellyDeviceDtoFromJson(
         Map<String, dynamic> json) =>
     AddableShellyDeviceDto(

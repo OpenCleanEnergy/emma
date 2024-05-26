@@ -12,6 +12,7 @@ import 'package:emma/ui/commands/command.dart';
 import 'package:emma/ui/devices/add/add_consumer_view_model.dart';
 import 'package:emma/ui/devices/add/add_electricity_meter_view_model.dart';
 import 'package:emma/ui/devices/add/add_producer_view_model.dart';
+import 'package:emma/ui/devices/add/integrations/development_view_model.dart';
 import 'package:emma/ui/devices/add/integrations/shelly_view_model.dart';
 import 'package:emma/ui/devices/add/select_integration_view_model.dart';
 import 'package:emma/ui/devices/devices_view_model.dart';
@@ -66,6 +67,7 @@ Future<void> bootstrap() async {
   di.registerFactory(() => AddProducerViewModel(api: di<BackendApi>()));
   di.registerFactory(() => AddElectricityMeterViewModel(api: di<BackendApi>()));
 
+  di.registerFactory(() => DevelopmentViewModel(api: di<BackendApi>()));
   di.registerFactory(() => ShellyViewModel(api: di<BackendApi>()));
 
   // - home

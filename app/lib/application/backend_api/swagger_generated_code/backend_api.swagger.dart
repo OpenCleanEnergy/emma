@@ -44,6 +44,25 @@ abstract class BackendApi extends ChopperService {
   }
 
   ///
+  ///@param DeviceCategory
+  Future<chopper.Response<List<AddableDevelopmentDeviceDto>>>
+      Development_AddableDevelopmentDevicesQuery(
+          {required enums.DeviceCategory? deviceCategory}) {
+    generatedMapping.putIfAbsent(AddableDevelopmentDeviceDto,
+        () => AddableDevelopmentDeviceDto.fromJsonFactory);
+
+    return _Development_AddableDevelopmentDevicesQuery(
+        deviceCategory: deviceCategory?.value?.toString());
+  }
+
+  ///
+  ///@param DeviceCategory
+  @Get(path: '/integrations/development/v1/addable-devices')
+  Future<chopper.Response<List<AddableDevelopmentDeviceDto>>>
+      _Development_AddableDevelopmentDevicesQuery(
+          {@Query('DeviceCategory') required String? deviceCategory});
+
+  ///
   Future<chopper.Response<DevicesDto>> Devices_DevicesQuery() {
     generatedMapping.putIfAbsent(DevicesDto, () => DevicesDto.fromJsonFactory);
 
@@ -275,12 +294,12 @@ abstract class BackendApi extends ChopperService {
   ///
   ///@param DeviceCategory
   Future<chopper.Response<List<AddableShellyDeviceDto>>>
-      Shelly_AddableDevicesQuery(
+      Shelly_AddableShellyDevicesQuery(
           {required enums.DeviceCategory? deviceCategory}) {
     generatedMapping.putIfAbsent(
         AddableShellyDeviceDto, () => AddableShellyDeviceDto.fromJsonFactory);
 
-    return _Shelly_AddableDevicesQuery(
+    return _Shelly_AddableShellyDevicesQuery(
         deviceCategory: deviceCategory?.value?.toString());
   }
 
@@ -288,7 +307,7 @@ abstract class BackendApi extends ChopperService {
   ///@param DeviceCategory
   @Get(path: '/integrations/shelly/v1/addable-devices')
   Future<chopper.Response<List<AddableShellyDeviceDto>>>
-      _Shelly_AddableDevicesQuery(
+      _Shelly_AddableShellyDevicesQuery(
           {@Query('DeviceCategory') required String? deviceCategory});
 }
 

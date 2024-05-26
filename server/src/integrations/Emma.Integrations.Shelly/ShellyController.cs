@@ -49,9 +49,9 @@ public class ShellyController : Controller
         return await _sender.Send(new ShellyPermissionGrantUriQuery());
     }
 
-    [HttpGet("addable-devices", Name = nameof(AddableDevicesQuery))]
+    [HttpGet("addable-devices", Name = nameof(AddableShellyDevicesQuery))]
     public async Task<IReadOnlyList<AddableShellyDeviceDto>> GetAddableDevices(
-        AddableDevicesQuery query
+        AddableShellyDevicesQuery query
     )
     {
         return await _sender.Send(query);

@@ -31,6 +31,7 @@ public class IntegrationsQuery : IQuery<IntegrationDescriptionDto[]>
                     Id = descriptor.Id,
                     Name = descriptor.Name,
                 })
+                .OrderBy(dto => dto.Name)
                 .ToArray();
 
             return Task.FromResult(integrations);
