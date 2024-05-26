@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.10](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.9...server-v1.0.0-alpha.10) (2024-05-26)
+
+
+### 🐛 Bug Fixes
+
+* Publish entities with events at the start of `DbContext.SaveChanges(Async)`to capture events of removed entities. ([b3c5967](https://github.com/OpenCleanEnergy/emma/commit/b3c5967c0559701555b115a49ac1fffcab89d4b4))
+
 ## [1.0.0-alpha.9](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.8...server-v1.0.0-alpha.9) (2024-05-23)
 
 
