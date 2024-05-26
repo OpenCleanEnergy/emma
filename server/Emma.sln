@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{3CBB4C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emma.DevOps", "devops\Emma.DevOps\Emma.DevOps.csproj", "{B045102D-E580-4394-8B0A-59E0850A7961}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emma.Build", "devops\Emma.Build\Emma.Build.csproj", "{7135DCC5-5BB7-4209-86FA-8FD68B20637C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emma.Pipeline", "devops\Emma.Pipeline\Emma.Pipeline.csproj", "{7135DCC5-5BB7-4209-86FA-8FD68B20637C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

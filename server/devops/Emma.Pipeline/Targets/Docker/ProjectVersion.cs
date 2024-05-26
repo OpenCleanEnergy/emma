@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Emma.Build;
+namespace Emma.Pipeline.Targets.Docker;
 
 internal sealed partial class ProjectVersion
 {

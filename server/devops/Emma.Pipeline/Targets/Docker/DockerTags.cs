@@ -1,4 +1,4 @@
-namespace Emma.Build;
+namespace Emma.Pipeline.Targets.Docker;
 
 internal static class DockerTags
 {
