@@ -47,8 +47,11 @@ public class DevicesController : ControllerBase
         await _sender.Send(command);
     }
 
-    [HttpDelete("switch-consumers", Name = nameof(DeleteSwitchConsumerCommand))]
-    public async Task DeleteSwitchConsumer([FromBody] DeleteSwitchConsumerCommand command)
+    [HttpDelete(
+        $"switch-consumers/{{{nameof(DeleteSwitchConsumerCommand.SwitchConsumerId)}}}",
+        Name = nameof(DeleteSwitchConsumerCommand)
+    )]
+    public async Task DeleteSwitchConsumer([FromRoute] DeleteSwitchConsumerCommand command)
     {
         await _sender.Send(command);
     }
@@ -76,8 +79,11 @@ public class DevicesController : ControllerBase
         await _sender.Send(command);
     }
 
-    [HttpDelete("producers", Name = nameof(DeleteProducerCommand))]
-    public async Task DeleteProducer([FromBody] DeleteProducerCommand command)
+    [HttpDelete(
+        $"producers/{{{nameof(DeleteProducerCommand.ProducerId)}}}",
+        Name = nameof(DeleteProducerCommand)
+    )]
+    public async Task DeleteProducer([FromRoute] DeleteProducerCommand command)
     {
         await _sender.Send(command);
     }
@@ -94,8 +100,11 @@ public class DevicesController : ControllerBase
         await _sender.Send(command);
     }
 
-    [HttpDelete("electricity-meters", Name = nameof(DeleteElectricityMeterCommand))]
-    public async Task DeleteElectricityMeter([FromBody] DeleteElectricityMeterCommand command)
+    [HttpDelete(
+        $"electricity-meters/{{{nameof(DeleteElectricityMeterCommand.ElectricityMeterId)}}}",
+        Name = nameof(DeleteElectricityMeterCommand)
+    )]
+    public async Task DeleteElectricityMeter([FromRoute] DeleteElectricityMeterCommand command)
     {
         await _sender.Send(command);
     }

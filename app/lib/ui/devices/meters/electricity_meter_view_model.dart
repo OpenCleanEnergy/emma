@@ -33,7 +33,7 @@ class ElectricityMeterViewModel {
 
   Future<void> _delete() async {
     await _api.Devices_DeleteElectricityMeterCommand(
-        body: DeleteElectricityMeterCommand(electricityMeterId: id.value));
+        electricityMeterId: id.value);
   }
 
   Future<void> _edit(({String name}) arg) async {

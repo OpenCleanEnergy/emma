@@ -80,17 +80,6 @@ abstract class BackendApi extends ChopperService {
       {@Body() required AddSwitchConsumerCommand? body});
 
   ///
-  Future<chopper.Response> Devices_DeleteSwitchConsumerCommand(
-      {required DeleteSwitchConsumerCommand? body}) {
-    return _Devices_DeleteSwitchConsumerCommand(body: body);
-  }
-
-  ///
-  @Delete(path: '/v1/devices/switch-consumers')
-  Future<chopper.Response> _Devices_DeleteSwitchConsumerCommand(
-      {@Body() required DeleteSwitchConsumerCommand? body});
-
-  ///
   Future<chopper.Response> Devices_EditSwitchConsumerCommand(
       {required EditSwitchConsumerCommand? body}) {
     return _Devices_EditSwitchConsumerCommand(body: body);
@@ -103,6 +92,20 @@ abstract class BackendApi extends ChopperService {
   )
   Future<chopper.Response> _Devices_EditSwitchConsumerCommand(
       {@Body() required EditSwitchConsumerCommand? body});
+
+  ///
+  ///@param SwitchConsumerId
+  Future<chopper.Response> Devices_DeleteSwitchConsumerCommand(
+      {required String? switchConsumerId}) {
+    return _Devices_DeleteSwitchConsumerCommand(
+        switchConsumerId: switchConsumerId);
+  }
+
+  ///
+  ///@param SwitchConsumerId
+  @Delete(path: '/v1/devices/switch-consumers/{SwitchConsumerId}')
+  Future<chopper.Response> _Devices_DeleteSwitchConsumerCommand(
+      {@Path('SwitchConsumerId') required String? switchConsumerId});
 
   ///
   Future<chopper.Response> Devices_ManuallySwitchSwitchConsumerCommand(
@@ -133,17 +136,6 @@ abstract class BackendApi extends ChopperService {
       {@Body() required AddProducerCommand? body});
 
   ///
-  Future<chopper.Response> Devices_DeleteProducerCommand(
-      {required DeleteProducerCommand? body}) {
-    return _Devices_DeleteProducerCommand(body: body);
-  }
-
-  ///
-  @Delete(path: '/v1/devices/producers')
-  Future<chopper.Response> _Devices_DeleteProducerCommand(
-      {@Body() required DeleteProducerCommand? body});
-
-  ///
   Future<chopper.Response> Devices_EditProducerCommand(
       {required EditProducerCommand? body}) {
     return _Devices_EditProducerCommand(body: body);
@@ -156,6 +148,19 @@ abstract class BackendApi extends ChopperService {
   )
   Future<chopper.Response> _Devices_EditProducerCommand(
       {@Body() required EditProducerCommand? body});
+
+  ///
+  ///@param ProducerId
+  Future<chopper.Response> Devices_DeleteProducerCommand(
+      {required String? producerId}) {
+    return _Devices_DeleteProducerCommand(producerId: producerId);
+  }
+
+  ///
+  ///@param ProducerId
+  @Delete(path: '/v1/devices/producers/{ProducerId}')
+  Future<chopper.Response> _Devices_DeleteProducerCommand(
+      {@Path('ProducerId') required String? producerId});
 
   ///
   Future<chopper.Response> Devices_AddElectricityMeterCommand(
@@ -172,17 +177,6 @@ abstract class BackendApi extends ChopperService {
       {@Body() required AddElectricityMeterCommand? body});
 
   ///
-  Future<chopper.Response> Devices_DeleteElectricityMeterCommand(
-      {required DeleteElectricityMeterCommand? body}) {
-    return _Devices_DeleteElectricityMeterCommand(body: body);
-  }
-
-  ///
-  @Delete(path: '/v1/devices/electricity-meters')
-  Future<chopper.Response> _Devices_DeleteElectricityMeterCommand(
-      {@Body() required DeleteElectricityMeterCommand? body});
-
-  ///
   Future<chopper.Response> Devices_EditElectricityMeterCommand(
       {required EditElectricityMeterCommand? body}) {
     return _Devices_EditElectricityMeterCommand(body: body);
@@ -195,6 +189,20 @@ abstract class BackendApi extends ChopperService {
   )
   Future<chopper.Response> _Devices_EditElectricityMeterCommand(
       {@Body() required EditElectricityMeterCommand? body});
+
+  ///
+  ///@param ElectricityMeterId
+  Future<chopper.Response> Devices_DeleteElectricityMeterCommand(
+      {required String? electricityMeterId}) {
+    return _Devices_DeleteElectricityMeterCommand(
+        electricityMeterId: electricityMeterId);
+  }
+
+  ///
+  ///@param ElectricityMeterId
+  @Delete(path: '/v1/devices/electricity-meters/{ElectricityMeterId}')
+  Future<chopper.Response> _Devices_DeleteElectricityMeterCommand(
+      {@Path('ElectricityMeterId') required String? electricityMeterId});
 
   ///
   Future<chopper.Response<MeDto>> Hello_Me() {
@@ -234,7 +242,8 @@ abstract class BackendApi extends ChopperService {
   ///
   ///@param DeviceCategory
   Future<chopper.Response<List<IntegrationDescriptionDto>>>
-      Integrations_IntegrationsQuery({enums.DeviceCategory? deviceCategory}) {
+      Integrations_IntegrationsQuery(
+          {required enums.DeviceCategory? deviceCategory}) {
     generatedMapping.putIfAbsent(IntegrationDescriptionDto,
         () => IntegrationDescriptionDto.fromJsonFactory);
 
@@ -247,7 +256,7 @@ abstract class BackendApi extends ChopperService {
   @Get(path: '/v1/integrations')
   Future<chopper.Response<List<IntegrationDescriptionDto>>>
       _Integrations_IntegrationsQuery(
-          {@Query('DeviceCategory') String? deviceCategory});
+          {@Query('DeviceCategory') required String? deviceCategory});
 
   ///
   Future<chopper.Response<ShellyPermissionGrantUriResponse>>
@@ -266,7 +275,8 @@ abstract class BackendApi extends ChopperService {
   ///
   ///@param DeviceCategory
   Future<chopper.Response<List<AddableShellyDeviceDto>>>
-      Shelly_AddableDevicesQuery({enums.DeviceCategory? deviceCategory}) {
+      Shelly_AddableDevicesQuery(
+          {required enums.DeviceCategory? deviceCategory}) {
     generatedMapping.putIfAbsent(
         AddableShellyDeviceDto, () => AddableShellyDeviceDto.fromJsonFactory);
 
@@ -279,7 +289,7 @@ abstract class BackendApi extends ChopperService {
   @Get(path: '/integrations/shelly/v1/addable-devices')
   Future<chopper.Response<List<AddableShellyDeviceDto>>>
       _Shelly_AddableDevicesQuery(
-          {@Query('DeviceCategory') String? deviceCategory});
+          {@Query('DeviceCategory') required String? deviceCategory});
 }
 
 typedef $JsonFactory<T> = T Function(Map<String, dynamic> json);

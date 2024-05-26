@@ -47,8 +47,7 @@ class SwitchConsumerViewModel {
   }
 
   Future<void> _delete() async {
-    await _api.Devices_DeleteSwitchConsumerCommand(
-        body: DeleteSwitchConsumerCommand(switchConsumerId: id.value));
+    await _api.Devices_DeleteSwitchConsumerCommand(switchConsumerId: id.value);
   }
 
   Future<void> _edit(({String name}) arg) async {

@@ -28,8 +28,7 @@ class ProducerViewModel {
       });
 
   Future<void> _delete() async {
-    await _api.Devices_DeleteProducerCommand(
-        body: DeleteProducerCommand(producerId: id.value));
+    await _api.Devices_DeleteProducerCommand(producerId: id.value);
   }
 
   Future<void> _edit(({String name}) arg) async {

@@ -91,42 +91,6 @@ Map<String, dynamic> _$ConsumerStatusDtoToJson(ConsumerStatusDto instance) =>
       'maximumPowerConsumption': instance.maximumPowerConsumption,
     };
 
-DeleteElectricityMeterCommand _$DeleteElectricityMeterCommandFromJson(
-        Map<String, dynamic> json) =>
-    DeleteElectricityMeterCommand(
-      electricityMeterId: json['electricityMeterId'] as String,
-    );
-
-Map<String, dynamic> _$DeleteElectricityMeterCommandToJson(
-        DeleteElectricityMeterCommand instance) =>
-    <String, dynamic>{
-      'electricityMeterId': instance.electricityMeterId,
-    };
-
-DeleteProducerCommand _$DeleteProducerCommandFromJson(
-        Map<String, dynamic> json) =>
-    DeleteProducerCommand(
-      producerId: json['producerId'] as String,
-    );
-
-Map<String, dynamic> _$DeleteProducerCommandToJson(
-        DeleteProducerCommand instance) =>
-    <String, dynamic>{
-      'producerId': instance.producerId,
-    };
-
-DeleteSwitchConsumerCommand _$DeleteSwitchConsumerCommandFromJson(
-        Map<String, dynamic> json) =>
-    DeleteSwitchConsumerCommand(
-      switchConsumerId: json['switchConsumerId'] as String,
-    );
-
-Map<String, dynamic> _$DeleteSwitchConsumerCommandToJson(
-        DeleteSwitchConsumerCommand instance) =>
-    <String, dynamic>{
-      'switchConsumerId': instance.switchConsumerId,
-    };
-
 DevicesDto _$DevicesDtoFromJson(Map<String, dynamic> json) => DevicesDto(
       switchConsumers: (json['switchConsumers'] as List<dynamic>?)
               ?.map(

@@ -54,20 +54,6 @@ final class _$BackendApi extends BackendApi {
   }
 
   @override
-  Future<Response<dynamic>> _Devices_DeleteSwitchConsumerCommand(
-      {required DeleteSwitchConsumerCommand? body}) {
-    final Uri $url = Uri.parse('/v1/devices/switch-consumers');
-    final $body = body;
-    final Request $request = Request(
-      'DELETE',
-      $url,
-      client.baseUrl,
-      body: $body,
-    );
-    return client.send<dynamic, dynamic>($request);
-  }
-
-  @override
   Future<Response<dynamic>> _Devices_EditSwitchConsumerCommand(
       {required EditSwitchConsumerCommand? body}) {
     final Uri $url = Uri.parse('/v1/devices/switch-consumers');
@@ -77,6 +63,19 @@ final class _$BackendApi extends BackendApi {
       $url,
       client.baseUrl,
       body: $body,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _Devices_DeleteSwitchConsumerCommand(
+      {required String? switchConsumerId}) {
+    final Uri $url =
+        Uri.parse('/v1/devices/switch-consumers/${switchConsumerId}');
+    final Request $request = Request(
+      'DELETE',
+      $url,
+      client.baseUrl,
     );
     return client.send<dynamic, dynamic>($request);
   }
@@ -110,20 +109,6 @@ final class _$BackendApi extends BackendApi {
   }
 
   @override
-  Future<Response<dynamic>> _Devices_DeleteProducerCommand(
-      {required DeleteProducerCommand? body}) {
-    final Uri $url = Uri.parse('/v1/devices/producers');
-    final $body = body;
-    final Request $request = Request(
-      'DELETE',
-      $url,
-      client.baseUrl,
-      body: $body,
-    );
-    return client.send<dynamic, dynamic>($request);
-  }
-
-  @override
   Future<Response<dynamic>> _Devices_EditProducerCommand(
       {required EditProducerCommand? body}) {
     final Uri $url = Uri.parse('/v1/devices/producers');
@@ -133,6 +118,18 @@ final class _$BackendApi extends BackendApi {
       $url,
       client.baseUrl,
       body: $body,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _Devices_DeleteProducerCommand(
+      {required String? producerId}) {
+    final Uri $url = Uri.parse('/v1/devices/producers/${producerId}');
+    final Request $request = Request(
+      'DELETE',
+      $url,
+      client.baseUrl,
     );
     return client.send<dynamic, dynamic>($request);
   }
@@ -152,20 +149,6 @@ final class _$BackendApi extends BackendApi {
   }
 
   @override
-  Future<Response<dynamic>> _Devices_DeleteElectricityMeterCommand(
-      {required DeleteElectricityMeterCommand? body}) {
-    final Uri $url = Uri.parse('/v1/devices/electricity-meters');
-    final $body = body;
-    final Request $request = Request(
-      'DELETE',
-      $url,
-      client.baseUrl,
-      body: $body,
-    );
-    return client.send<dynamic, dynamic>($request);
-  }
-
-  @override
   Future<Response<dynamic>> _Devices_EditElectricityMeterCommand(
       {required EditElectricityMeterCommand? body}) {
     final Uri $url = Uri.parse('/v1/devices/electricity-meters');
@@ -175,6 +158,19 @@ final class _$BackendApi extends BackendApi {
       $url,
       client.baseUrl,
       body: $body,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _Devices_DeleteElectricityMeterCommand(
+      {required String? electricityMeterId}) {
+    final Uri $url =
+        Uri.parse('/v1/devices/electricity-meters/${electricityMeterId}');
+    final Request $request = Request(
+      'DELETE',
+      $url,
+      client.baseUrl,
     );
     return client.send<dynamic, dynamic>($request);
   }
@@ -214,7 +210,7 @@ final class _$BackendApi extends BackendApi {
 
   @override
   Future<Response<List<IntegrationDescriptionDto>>>
-      _Integrations_IntegrationsQuery({String? deviceCategory}) {
+      _Integrations_IntegrationsQuery({required String? deviceCategory}) {
     final Uri $url = Uri.parse('/v1/integrations');
     final Map<String, dynamic> $params = <String, dynamic>{
       'DeviceCategory': deviceCategory
@@ -244,7 +240,7 @@ final class _$BackendApi extends BackendApi {
 
   @override
   Future<Response<List<AddableShellyDeviceDto>>> _Shelly_AddableDevicesQuery(
-      {String? deviceCategory}) {
+      {required String? deviceCategory}) {
     final Uri $url = Uri.parse('/integrations/shelly/v1/addable-devices');
     final Map<String, dynamic> $params = <String, dynamic>{
       'DeviceCategory': deviceCategory

@@ -97,36 +97,6 @@
           }
         }
       },
-      "delete": {
-        "tags": [
-          "Devices"
-        ],
-        "operationId": "Devices_DeleteSwitchConsumerCommand",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteSwitchConsumerCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteSwitchConsumerCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteSwitchConsumerCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "put": {
         "tags": [
           "Devices"
@@ -151,6 +121,29 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/v1/devices/switch-consumers/{SwitchConsumerId}": {
+      "delete": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_DeleteSwitchConsumerCommand",
+        "parameters": [
+          {
+            "name": "SwitchConsumerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SwitchConsumerId"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -221,36 +214,6 @@
           }
         }
       },
-      "delete": {
-        "tags": [
-          "Devices"
-        ],
-        "operationId": "Devices_DeleteProducerCommand",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteProducerCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteProducerCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteProducerCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "put": {
         "tags": [
           "Devices"
@@ -275,6 +238,29 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/v1/devices/producers/{ProducerId}": {
+      "delete": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_DeleteProducerCommand",
+        "parameters": [
+          {
+            "name": "ProducerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ProducerId"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -313,36 +299,6 @@
           }
         }
       },
-      "delete": {
-        "tags": [
-          "Devices"
-        ],
-        "operationId": "Devices_DeleteElectricityMeterCommand",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteElectricityMeterCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteElectricityMeterCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteElectricityMeterCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "put": {
         "tags": [
           "Devices"
@@ -367,6 +323,29 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/v1/devices/electricity-meters/{ElectricityMeterId}": {
+      "delete": {
+        "tags": [
+          "Devices"
+        ],
+        "operationId": "Devices_DeleteElectricityMeterCommand",
+        "parameters": [
+          {
+            "name": "ElectricityMeterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ElectricityMeterId"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -715,42 +694,6 @@
           "Smart"
         ],
         "type": "string"
-      },
-      "DeleteElectricityMeterCommand": {
-        "required": [
-          "electricityMeterId"
-        ],
-        "type": "object",
-        "properties": {
-          "electricityMeterId": {
-            "$ref": "#/components/schemas/ElectricityMeterId"
-          }
-        },
-        "additionalProperties": false
-      },
-      "DeleteProducerCommand": {
-        "required": [
-          "producerId"
-        ],
-        "type": "object",
-        "properties": {
-          "producerId": {
-            "$ref": "#/components/schemas/ProducerId"
-          }
-        },
-        "additionalProperties": false
-      },
-      "DeleteSwitchConsumerCommand": {
-        "required": [
-          "switchConsumerId"
-        ],
-        "type": "object",
-        "properties": {
-          "switchConsumerId": {
-            "$ref": "#/components/schemas/SwitchConsumerId"
-          }
-        },
-        "additionalProperties": false
       },
       "DeviceCategory": {
         "enum": [
