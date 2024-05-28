@@ -9,8 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Emma.Integrations.Shelly;
 
+[ApiController]
 [Route("integrations/shelly/v1")]
-public class ShellyController : Controller
+public class ShellyController : ControllerBase
 {
     private readonly ISender _sender;
     private readonly ShellyTrustTokenValidator _tokenValidator;

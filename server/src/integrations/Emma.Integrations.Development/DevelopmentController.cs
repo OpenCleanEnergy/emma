@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Emma.Integrations.Shelly;
 
+[ApiController]
 [Route("integrations/development/v1")]
 public class DevelopmentController : Controller
 {
