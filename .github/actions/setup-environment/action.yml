@@ -17,5 +17,14 @@ runs:
       with:
         channel: stable
 
-    - name: 🟦 Configure Flutter
+    - name: 🔵 Configure Flutter
+      shell: bash
       run: flutter config --no-analytics --no-cli-animations
+
+    - name: 🟣 Output installed .NET version
+      shell: bash
+      run: echo ".NET version: $(dotnet --version)"
+
+    - name: 🔵 Output installed Fluuter version
+      shell: bash
+      run: echo "Flutter version: $(flutter --version)"
