@@ -16,3 +16,6 @@ runs:
       uses: subosito/flutter-action@v2
       with:
         channel: stable
+
+    - name: 🟦 Configure Flutter
+      run: flutter config --no-analytics --no-cli-animations
