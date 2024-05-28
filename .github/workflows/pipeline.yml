@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-server:
-    name: 🛠️ Build server
+    name: 🚂 Build server
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -21,6 +21,29 @@ jobs:
 
       - name: 🛠️ Build
         run: just target build:build
+
+  build-app:
+    name: 📱 Build app
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+
+    steps:
+      - name: 🛒 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🏞️ Setup environment
+        uses: ./.github/actions/setup-environment
+
+      - name: 🏗 Restore dependencies
+        run: flutter pub get
+
+      - name: 🎨 Analyze
+        run: flutter analyze
+
+      - name: 🛠️ Build
+        run: flutter build appbundle
 
   release-please:
     name: ✨ Release Please
