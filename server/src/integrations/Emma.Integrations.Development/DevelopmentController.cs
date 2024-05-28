@@ -6,7 +6,7 @@ namespace Emma.Integrations.Shelly;
 
 [ApiController]
 [Route("integrations/development/v1")]
-public class DevelopmentController : Controller
+public class DevelopmentController : ControllerBase
 {
     private readonly ISender _sender;
 
