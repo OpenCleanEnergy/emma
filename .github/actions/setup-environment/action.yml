@@ -23,8 +23,10 @@ runs:
 
     - name: 🟣 Output installed .NET version
       shell: bash
-      run: echo ".NET version: $(dotnet --version)"
+      run: |
+        echo ".NET version: $(dotnet --version)"
 
     - name: 🔵 Output installed Fluuter version
       shell: bash
-      run: echo "Flutter version: $(flutter --version)"
+      run: |
+        echo "Flutter version: $(flutter --version)"
