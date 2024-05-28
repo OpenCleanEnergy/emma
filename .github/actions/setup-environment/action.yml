@@ -4,9 +4,36 @@ description: Installs required tools like dotnet and just
 runs:
   using: composite
   steps:
+    - name: 🏃‍♂️ Setup just
+      uses: extractions/setup-just@v2
+
     - name: 🟣 Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: 🏃‍♂️ Setup just
-      uses: extractions/setup-just@v2
+
+    - name: 🔵 Setup Java (required by Android)
+      uses: actions/setup-java@v4
+      with:
+        distribution: zulu
+        java-version: 17
+
+    - name: 🔵 Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+
+    - name: 🔵 Configure Flutter
+      shell: bash
+      run: flutter config --no-analytics --no-cli-animations
+
+    - name: 🟣 Output installed .NET version
+      shell: bash
+      run: |
+        echo ".NET version: $(dotnet --version)"
+
+    - name: 🔵 Output installed versions
+      shell: bash
+      run: |
+        echo "Flutter version: $(flutter --version)"
+        echo "Java version:    $(java --version)"
