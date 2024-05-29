@@ -18,6 +18,8 @@ jobs:
 
       - name: 🏞️ Setup environment
         uses: ./.github/actions/setup-environment
+        with:
+          dotnet: true
 
       - name: 🛠️ Build
         run: just target build:build
@@ -35,6 +37,8 @@ jobs:
 
       - name: 🏞️ Setup environment
         uses: ./.github/actions/setup-environment
+        with:
+          flutter: true
 
       - name: 🏗 Restore dependencies
         run: flutter pub get
@@ -61,7 +65,7 @@ jobs:
         with:
           app-id: ${{ vars.EMMA_APP_ID }}
           private-key: ${{ secrets.EMMA_APP_PRIVATE_KEY }}
-          
+
       - name: ✨ Release Please
         id: release
         uses: googleapis/release-please-action@v4
@@ -91,6 +95,8 @@ jobs:
 
       - name: 🏞️ Setup environment
         uses: ./.github/actions/setup-environment
+        with:
+          dotnet: true
 
       - name: 🗝️ Login to Docker Hub
         uses: docker/login-action@v3

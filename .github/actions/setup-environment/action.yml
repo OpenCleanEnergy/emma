@@ -1,6 +1,12 @@
 name: Setup the pipeline environment
 description: Installs required tools like dotnet and just
-
+inputs:
+  dotnet:
+    description: Install .NET
+    default: false
+  flutter:
+    description: Install Flutter
+    default: false
 runs:
   using: composite
   steps:
@@ -8,31 +14,37 @@ runs:
       uses: extractions/setup-just@v2
 
     - name: 🟣 Setup .NET
+      if: ${{ inputs.dotnet }}
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
 
     - name: 🔵 Setup Java (required by Android)
+      if: ${{ inputs.flutter }}
       uses: actions/setup-java@v4
       with:
         distribution: zulu
         java-version: 17
 
     - name: 🔵 Setup Flutter
+      if: ${{ inputs.flutter }}
       uses: subosito/flutter-action@v2
       with:
         channel: stable
 
     - name: 🔵 Configure Flutter
+      if: ${{ inputs.flutter }}
       shell: bash
       run: flutter config --no-analytics --no-cli-animations
 
     - name: 🟣 Output installed .NET version
+      if: ${{ inputs.dotnet }}
       shell: bash
       run: |
         echo ".NET version: $(dotnet --version)"
 
     - name: 🔵 Output installed versions
+      if: ${{ inputs.flutter }}
       shell: bash
       run: |
         echo "Flutter version: $(flutter --version)"
