@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Emma.Server.Controllers;
 
+[ApiController]
 [Route("v1/[controller]")]
 public class DevicesController : ControllerBase
 {

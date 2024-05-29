@@ -4,7 +4,6 @@ namespace Emma.Integrations.Shelly.Callback;
 
 public class ShellyCallbackDto
 {
-    public required ShellyUserId UserId { get; init; }
     public required ShellyDeviceId DeviceId { get; init; }
     public required ShellyDeviceType DeviceType { get; init; }
     public required ShellyDeviceCode DeviceCode { get; init; }

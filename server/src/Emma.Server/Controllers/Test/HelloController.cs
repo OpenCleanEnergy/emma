@@ -4,7 +4,7 @@ namespace Emma.Server.Controllers.Test;
 
 [ApiController]
 [Route("v1/[controller]")]
-public class HelloController : Controller
+public class HelloController : ControllerBase
 {
     [HttpGet("me")]
     public MeDto Me()

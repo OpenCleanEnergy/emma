@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Emma.Server.Controllers;
 
+[ApiController]
 [Route("v1/[controller]")]
 public class IntegrationsController : ControllerBase
 {
@@ -15,7 +16,9 @@ public class IntegrationsController : ControllerBase
     }
 
     [HttpGet("", Name = nameof(IntegrationsQuery))]
-    public async Task<IntegrationDescriptionDto[]> GetIntegrations(IntegrationsQuery query)
+    public async Task<IntegrationDescriptionDto[]> GetIntegrations(
+        [FromQuery] IntegrationsQuery query
+    )
     {
         var integrations = await _sender.Send(query);
         return integrations;

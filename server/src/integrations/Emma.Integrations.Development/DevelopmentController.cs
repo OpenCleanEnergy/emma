@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Emma.Integrations.Shelly;
 
+[ApiController]
 [Route("integrations/development/v1")]
-public class DevelopmentController : Controller
+public class DevelopmentController : ControllerBase
 {
     private readonly ISender _sender;
 
@@ -16,7 +17,7 @@ public class DevelopmentController : Controller
 
     [HttpGet("addable-devices", Name = nameof(AddableDevelopmentDevicesQuery))]
     public async Task<IReadOnlyList<AddableDevelopmentDeviceDto>> GetAddableDevices(
-        AddableDevelopmentDevicesQuery query
+        [FromQuery] AddableDevelopmentDevicesQuery query
     )
     {
         return await _sender.Send(query);
