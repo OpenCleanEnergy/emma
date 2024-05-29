@@ -1,5 +1,5 @@
 {
   "name": "app",
   "description": "Release-Please: 'name' controls tag name and PR title.",
-  "version": "1.0.0-alpha.0"
+  "version": "1.0.0-alpha.1"
 }

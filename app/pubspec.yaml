@@ -18,7 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # of the product and file versions while build-number is used as the build suffix.
 
 # x-release-please-start-version
-version: 1.0.0-alpha.0
+version: 1.0.0-alpha.1
 # x-release-please-end
 
 environment:
