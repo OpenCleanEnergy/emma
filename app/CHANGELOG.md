@@ -6,7 +6,7 @@
 ### 🚀 Features
 
 * Adds development integration. ([68b0733](https://github.com/OpenCleanEnergy/emma/commit/68b07331f389f12f2f80a10b9829762bc96a2e60))
-* Great user by his given name on profile screen. ([379e9cf](https://github.com/OpenCleanEnergy/emma/commit/379e9cfb60b3ee5fba3ea05462aa500c273f0650))
+* Greet user by his given name on profile screen. ([379e9cf](https://github.com/OpenCleanEnergy/emma/commit/379e9cfb60b3ee5fba3ea05462aa500c273f0650))
 * Hide analytics screen for now. Replaced with profile screen. ([37bcbf2](https://github.com/OpenCleanEnergy/emma/commit/37bcbf21ea925603550b5d9228d8e505cbd21fc9))
 
 
