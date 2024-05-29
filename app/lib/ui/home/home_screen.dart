@@ -1,10 +1,7 @@
 import 'dart:async';
 
-import 'package:emma/ui/app_icons.dart';
 import 'package:emma/ui/home/home_view_model.dart';
-import 'package:emma/ui/home/profile/profile_screen.dart';
 import 'package:emma/ui/home/status/home_status_view.dart';
-import 'package:emma/ui/app_navigator.dart';
 import 'package:emma/ui/locator.dart';
 import 'package:emma/ui/shared/app_bar_command_progress_indicator.dart';
 import 'package:flutter/material.dart';
@@ -41,11 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          actions: [
-            IconButton(
-                onPressed: () => _gotoProfile(context),
-                icon: const Icon(AppIcons.person_outlined)),
-          ],
           bottom: AppBarCommandProgressIndicator(command: viewModel.init),
         ),
         body: Padding(
@@ -65,10 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ));
-  }
-
-  void _gotoProfile(BuildContext context) {
-    AppNavigator.push(const ProfileScreen());
   }
 
   Future<void> _timerCallback() async {
