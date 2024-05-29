@@ -1,6 +1,5 @@
 import 'package:emma/application/backend_api/backend_api_configuration.dart';
 import 'package:emma/application/backend_api/swagger_generated_code/client_index.dart';
-import 'package:emma/application/user_service.dart';
 import 'package:emma/domain/i_user_repository.dart';
 import 'package:emma/infrastructure/app_info.dart';
 import 'package:emma/application/backend_api/backend_api_factory.dart';
@@ -57,8 +56,7 @@ Future<void> bootstrap() async {
       (error) => Logger("command").warning("Error executing command.", error));
 
   // - user
-  di.registerLazySingleton(() => UserService(di<IUserRepository>()));
-  di.registerLazySingleton(() => UserViewModel(di<UserService>()));
+  di.registerLazySingleton(() => UserViewModel(di<IUserRepository>()));
 
   // - devices
   di.registerFactory(() => DevicesViewModel(api: di<BackendApi>()));

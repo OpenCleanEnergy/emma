@@ -10,6 +10,7 @@ class OidcUserRepository implements IUserRepository {
   final _logger = Logger("OidcUserRepository");
   final OidcUserManager _manager;
   final Signal<UserStatus> _status = signal(UserStatus.unknown);
+  final Signal<String> _name = signal("");
 
   OidcUserRepository._(OidcConfiguration configuration)
       : _manager = OidcUserManager.lazy(
@@ -36,6 +37,9 @@ class OidcUserRepository implements IUserRepository {
   ReadonlySignal<UserStatus> get status => _status;
 
   @override
+  ReadonlySignal<String> get name => _name;
+
+  @override
   String? get accessToken => _manager.currentUser?.token.accessToken;
 
   @override
@@ -56,10 +60,15 @@ class OidcUserRepository implements IUserRepository {
 
   void _onUserChanged(OidcUser? user) {
     _logger.info("User: ${user?.claims}");
-
-    _status.value = switch (user) {
-      null => UserStatus.unauthenticated,
-      _ => UserStatus.authenticated
-    };
+    batch(() {
+      _status.value = switch (user) {
+        null => UserStatus.unauthenticated,
+        _ => UserStatus.authenticated
+      };
+      _name.value = switch (user) {
+        null => "",
+        _ => user.claims.getTyped("given_name"),
+      };
+    });
   }
 }

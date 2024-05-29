@@ -53,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile"),
+        title: Watch((context) => Text("Hallo ${_vm.name}")),
       ),
       body: ListView(
         children: [
