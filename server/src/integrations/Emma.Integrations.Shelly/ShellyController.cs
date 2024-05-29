@@ -52,7 +52,7 @@ public class ShellyController : ControllerBase
 
     [HttpGet("addable-devices", Name = nameof(AddableShellyDevicesQuery))]
     public async Task<IReadOnlyList<AddableShellyDeviceDto>> GetAddableDevices(
-        AddableShellyDevicesQuery query
+        [FromQuery] AddableShellyDevicesQuery query
     )
     {
         return await _sender.Send(query);

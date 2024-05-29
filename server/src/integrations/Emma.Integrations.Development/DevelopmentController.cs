@@ -17,7 +17,7 @@ public class DevelopmentController : ControllerBase
 
     [HttpGet("addable-devices", Name = nameof(AddableDevelopmentDevicesQuery))]
     public async Task<IReadOnlyList<AddableDevelopmentDeviceDto>> GetAddableDevices(
-        AddableDevelopmentDevicesQuery query
+        [FromQuery] AddableDevelopmentDevicesQuery query
     )
     {
         return await _sender.Send(query);

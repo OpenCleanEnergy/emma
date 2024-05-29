@@ -25,6 +25,7 @@ public static class SwaggerGenServiceCollectionExtensions
             options.SupportNonNullableReferenceTypes();
             options.SchemaFilter<ValueObjectSchemaFilter>();
             options.SchemaFilter<RequireNonNullablePropertiesSchemaFilter>();
+            options.ParameterFilter<RequireNonNullableParameterFilter>();
 
             options.CustomOperationIds(api =>
             {

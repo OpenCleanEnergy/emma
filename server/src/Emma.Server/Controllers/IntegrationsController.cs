@@ -16,7 +16,9 @@ public class IntegrationsController : ControllerBase
     }
 
     [HttpGet("", Name = nameof(IntegrationsQuery))]
-    public async Task<IntegrationDescriptionDto[]> GetIntegrations(IntegrationsQuery query)
+    public async Task<IntegrationDescriptionDto[]> GetIntegrations(
+        [FromQuery] IntegrationsQuery query
+    )
     {
         var integrations = await _sender.Send(query);
         return integrations;
