@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.0.0-alpha.11](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.10...server-v1.0.0-alpha.11) (2024-05-29)
+
+
+### 🚀 Features
+
+* Adds development integration. ([68b0733](https://github.com/OpenCleanEnergy/emma/commit/68b07331f389f12f2f80a10b9829762bc96a2e60))
+
+
+### 🐛 Bug Fixes
+
+* Do not use request body in `DELETE` methods. ([e210c43](https://github.com/OpenCleanEnergy/emma/commit/e210c43c1199c1caca9b76c0f4c8c8e1812fc815))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump csharpier from 0.28.1 to 0.28.2 in /server ([#36](https://github.com/OpenCleanEnergy/emma/issues/36)) ([d7ffa25](https://github.com/OpenCleanEnergy/emma/commit/d7ffa257a8fcda1c10a56665c58a8930595dd549))
+* **deps:** bump dotnet-ef from 8.0.4 to 8.0.5 in /server ([#37](https://github.com/OpenCleanEnergy/emma/issues/37)) ([164001e](https://github.com/OpenCleanEnergy/emma/commit/164001e5f8ab53faa6e1cbb3b26029f96be25778))
+* **deps:** bump SimpleInjector from 5.4.5 to 5.4.6 in /server ([#38](https://github.com/OpenCleanEnergy/emma/issues/38)) ([7357910](https://github.com/OpenCleanEnergy/emma/commit/735791093d8fe55ba81616459f9ecd53ee255b21))
+* **deps:** bump SonarAnalyzer.CSharp from 9.23.2.88755 to 9.25.1.91650 in /server ([#35](https://github.com/OpenCleanEnergy/emma/issues/35)) ([8ef86f6](https://github.com/OpenCleanEnergy/emma/commit/8ef86f6c7d3fdd8b111b6233a76548a6239388e4))
+* **deps:** bump Vogen from 4.0.4 to 4.0.6 in /server ([#39](https://github.com/OpenCleanEnergy/emma/issues/39)) ([a5e94ef](https://github.com/OpenCleanEnergy/emma/commit/a5e94ef1a684a9a2b43a86680d93d4d91adc2853))
+
 ## [1.0.0-alpha.10](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.9...server-v1.0.0-alpha.10) (2024-05-26)
 
 
