@@ -50,7 +50,7 @@ public sealed class ShellyHostedService : IHostedService, IDisposable
 
     public async Task StopAsync(CancellationToken cancellationToken)
     {
-        _cancellationTokenSource.Cancel();
+        await _cancellationTokenSource.CancelAsync();
         await (_backgroundTask ?? Task.CompletedTask);
     }
 

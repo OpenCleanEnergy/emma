@@ -9,8 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Emma.Integrations.Shelly;
 
+[ApiController]
 [Route("integrations/shelly/v1")]
-public class ShellyController : Controller
+public class ShellyController : ControllerBase
 {
     private readonly ISender _sender;
     private readonly ShellyTrustTokenValidator _tokenValidator;
@@ -51,7 +52,7 @@ public class ShellyController : Controller
 
     [HttpGet("addable-devices", Name = nameof(AddableShellyDevicesQuery))]
     public async Task<IReadOnlyList<AddableShellyDeviceDto>> GetAddableDevices(
-        AddableShellyDevicesQuery query
+        [FromQuery] AddableShellyDevicesQuery query
     )
     {
         return await _sender.Send(query);

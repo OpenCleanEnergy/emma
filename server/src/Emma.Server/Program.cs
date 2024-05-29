@@ -11,6 +11,7 @@ using Emma.Server.Configuration;
 using Emma.Server.HostedServices;
 using Emma.Server.Identity;
 using Emma.Server.LongPolling;
+using Emma.Server.ModelBinding;
 using Emma.Server.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -47,7 +48,10 @@ builder.Services.AddSerilog(configuration =>
 
 // Controllers
 var mvcBuilder = services
-    .AddControllers()
+    .AddControllers(options =>
+    {
+        options.ModelMetadataDetailsProviders.Add(new RequiredBindingMetadataProvider());
+    })
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
@@ -130,7 +134,7 @@ if (entryAssembly == EntryAssembly.Default)
     await MigrateDbContext(container);
 }
 
-app.Run();
+await app.RunAsync();
 
 static ReloadableLogger GetBootstrapLogger(WebApplicationBuilder builder)
 {

@@ -22,6 +22,11 @@ dotnet_diagnostic.CA1716.severity = suggestion
 # S3267: Loops should be simplified with "LINQ" expressions
 dotnet_diagnostic.S3267.severity = suggestion
 
+# S6964: Property used as input in a controller action should be nullable or annotated with the Required attribute to avoid under-posting.
+# Url: https://rules.sonarsource.com/csharp/RSPEC-6964
+# Explanation: Fixed by RequiredBindingMetadataProvider
+dotnet_diagnostic.S6964.severity = none
+
 # SA0001: XML comment analysis is disabled due to project configuration
 dotnet_diagnostic.SA0001.severity = none
 
