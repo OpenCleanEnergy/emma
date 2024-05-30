@@ -2,6 +2,7 @@ using Pulumi;
 
 namespace Emma.DevOps;
 
+// https://community.hetzner.com/tutorials/basic-cloud-config
 public static class CloudConfig
 {
     public static Output<string> Render(Input<string> publicKey)
@@ -9,7 +10,6 @@ public static class CloudConfig
         return Output.Format(
             $"""
             #cloud-config
-            # from https://community.hetzner.com/tutorials/basic-cloud-config
             users:
               - name: devops
                 groups: users, admin, docker
