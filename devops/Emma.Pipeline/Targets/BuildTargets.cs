@@ -1,7 +1,6 @@
 namespace Emma.Pipeline.Targets;
 
 using Bullseye;
-using static Bullseye.Targets;
 using static SimpleExec.Command;
 
 public static class BuildTargets
@@ -26,7 +25,7 @@ public static class BuildTargets
         targets.Add(
             Build,
             "Builds the solution. If $CI == true then Configuration is 'Release' else 'Debug'.",
-            DependsOn(Restore),
+            dependsOn: [Restore],
             () =>
             {
                 var ci = bool.Parse(Environment.GetEnvironmentVariable("CI") ?? "false");

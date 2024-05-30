@@ -6,5 +6,6 @@ var targets = new Targets();
 targets.AddBuildTargets();
 targets.AddDockerTargets();
 targets.AddKeycloakTargets();
+targets.AddDeployTargets();
 
 await targets.RunAndExitAsync(args);
