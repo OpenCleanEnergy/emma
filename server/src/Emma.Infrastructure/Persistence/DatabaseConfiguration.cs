@@ -8,7 +8,7 @@ public class DatabaseConfiguration
     public required string Database { get; init; }
     public required string Username { get; init; }
     public required string Password { get; init; }
-    public bool SslRequired { get; init; }
+    public bool SslRequired { get; init; } = true;
 
     public string GetConnectionString()
     {
