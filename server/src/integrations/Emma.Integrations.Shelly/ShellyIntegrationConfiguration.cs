@@ -6,11 +6,11 @@ public class ShellyIntegrationConfiguration
 {
     public string? IntegratorTag { get; init; }
     public string? IntegratorToken { get; init; }
-    public Uri? CallbackBaseUri { get; init; }
+    public Uri? CallbackBaseUrl { get; init; }
 
     [MemberNotNullWhen(true, nameof(IntegratorTag))]
     [MemberNotNullWhen(true, nameof(IntegratorToken))]
-    [MemberNotNullWhen(true, nameof(CallbackBaseUri))]
+    [MemberNotNullWhen(true, nameof(CallbackBaseUrl))]
     public bool Validate(out IReadOnlyCollection<string> invalidProperties)
     {
         var invalid = new List<string>();
@@ -25,9 +25,9 @@ public class ShellyIntegrationConfiguration
             invalid.Add(nameof(IntegratorToken));
         }
 
-        if (CallbackBaseUri is null)
+        if (CallbackBaseUrl is null)
         {
-            invalid.Add(nameof(CallbackBaseUri));
+            invalid.Add(nameof(CallbackBaseUrl));
         }
 
         invalidProperties = invalid;

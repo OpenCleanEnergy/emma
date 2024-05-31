@@ -30,10 +30,10 @@ public class ShellyPermissionGrantUriQuery
             CancellationToken cancellationToken
         )
         {
-            var baseUri = _configuration.CallbackBaseUri;
+            var baseUrl = _configuration.CallbackBaseUrl;
             var userId = _currentUserReader.GetUserIdOrThrow();
             var callbackUri = new Uri(
-                $"{baseUri?.ToString().TrimEnd('/')}/integrations/shelly/v1/callback?user={userId}"
+                $"{baseUrl?.ToString().TrimEnd('/')}/integrations/shelly/v1/callback?user={userId}"
             );
 
             var tag = _configuration.IntegratorTag;

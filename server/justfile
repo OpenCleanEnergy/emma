@@ -25,8 +25,8 @@ build: restore
 # Sets Shelly integrator token as user secret.
 set-secret-shelly-integrator-token token: (_set-secret 'Integrations:Shelly:IntegratorToken' token)
 
-# Sets Shelly callback base uri (e.g. https://example.org/api).
-set-secret-shelly-callback-base-uri uri: (_set-secret 'Integrations:Shelly:CallbackBaseUri' uri)
+# Sets Shelly callback base url (e.g. https://example.org/api).
+set-secret-shelly-callback-base-url url: (_set-secret 'Integrations:Shelly:CallbackBaseUrl' url)
 
 # Clears all user secrets:
 clear-secrets:
