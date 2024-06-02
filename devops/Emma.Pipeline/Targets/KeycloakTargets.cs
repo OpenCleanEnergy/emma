@@ -4,17 +4,17 @@ using Bullseye;
 using Emma.Pipeline.Targets.Docker;
 using static SimpleExec.Command;
 
-public static class DockerTargets
+public static class KeycloakTargets
 {
-    public const string Tags = "docker:tags";
-    public const string Build = "docker:build";
-    public const string Publish = "docker:publish";
+    public const string Tags = "keycloak:tags";
+    public const string Build = "keycloak:build";
+    public const string Publish = "keycloak:publish";
 
-    public static Targets AddDockerTargets(this Targets targets)
+    public static Targets AddKeycloakTargets(this Targets targets)
     {
-        var workingDir = new DirectoryInfo("./server");
+        var workingDir = new DirectoryInfo("./keycloak");
         var dockerRegistry = Environment.GetEnvironmentVariable("DOCKER_REGISTRY") ?? "ghcr.io";
-        var dockerBaseImage = $"{dockerRegistry}/opencleanenergy/emma";
+        var dockerBaseImage = $"{dockerRegistry}/opencleanenergy/keycloak";
         var tags = DockerTags.FromBaseImage(dockerBaseImage, workingDir);
 
         targets.Add(

@@ -9,9 +9,12 @@ internal sealed class DockerTags
         _tags = tags;
     }
 
-    public static DockerTags FromBaseImage(string baseImage)
+    public static DockerTags FromBaseImage(string baseImage, DirectoryInfo workingDir)
     {
-        var version = ProjectVersion.FromProjectFile("./Directory.Build.props");
+        var version = ProjectVersion.FromNodePackage(
+            new FileInfo(Path.Combine(workingDir.FullName, "package.json"))
+        );
+
         var tags = GetVersionTags(version).Select(t => $"{baseImage}:{t}");
         return new DockerTags([.. tags]);
     }
@@ -26,24 +29,20 @@ internal sealed class DockerTags
         return _tags.AsEnumerable().GetEnumerator();
     }
 
-    private static string[] GetVersionTags(ProjectVersion version)
+    private static IEnumerable<string> GetVersionTags(ProjectVersion version)
     {
         if (version.IsPrerelease)
         {
-            return
-            [
-                $"{version.Major}.{version.Minor}.{version.Patch}-{version.PrereleaseType}",
-                $"{version.Major}.{version.Minor}.{version.Patch}-{version.PrereleaseType}.{version.PrereleaseVersion}",
-            ];
+            yield return $"{version.Major}.{version.Minor}.{version.Patch}-{version.PrereleaseType}";
+            yield return $"{version.Major}.{version.Minor}.{version.Patch}-{version.PrereleaseType}.{version.PrereleaseVersion}";
         }
         else
         {
-            return
-            [
-                $"{version.Major}",
-                $"{version.Major}.{version.Minor}",
-                $"{version.Major}.{version.Minor}.{version.Patch}",
-            ];
+            yield return $"{version.Major}";
+            yield return $"{version.Major}.{version.Minor}";
+            yield return $"{version.Major}.{version.Minor}.{version.Patch}";
         }
+
+        yield return "latest";
     }
 }

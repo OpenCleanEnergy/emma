@@ -1,11 +1,15 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace Emma.Pipeline.Targets.Docker;
 
 internal sealed partial class ProjectVersion
 {
+    private static readonly JsonSerializerOptions _serializerOptions =
+        new(JsonSerializerDefaults.Web);
+
     public int Major { get; private set; }
     public int Minor { get; private set; }
     public int Patch { get; private set; }
@@ -15,11 +19,11 @@ internal sealed partial class ProjectVersion
     public string? PrereleaseType { get; private set; }
     public int? PrereleaseVersion { get; private set; }
 
-    public static ProjectVersion FromProjectFile(string path)
+    public static ProjectVersion FromNodePackage(FileInfo packageJson)
     {
-        var project = File.ReadAllText(path);
-        var match = VersionRegex().Match(project);
-        return Parse(match.Value);
+        var json = File.ReadAllText(packageJson.FullName);
+        var nodePackage = JsonSerializer.Deserialize<NodePackage>(json, _serializerOptions)!;
+        return Parse(nodePackage.Version);
     }
 
     public static ProjectVersion Parse(string input)
