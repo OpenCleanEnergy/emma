@@ -30,6 +30,10 @@
       "release-type": "node",
       "prerelease-type": "alpha",
       "extra-files": ["Directory.Build.props"]
+    },
+    "keycloak": {
+      "release-type": "node",
+      "prerelease-type": "alpha"
     }
   }
 }
