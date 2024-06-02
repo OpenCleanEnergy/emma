@@ -11,10 +11,17 @@ public static class BuildTargets
 
     public static Targets AddBuildTargets(this Targets targets)
     {
+        const string workingDir = "./server";
+
         targets.Add(
             Restore,
             "Restores .NET dependencies. ",
-            () => RunAsync("dotnet", "restore --nologo --verbosity quiet")
+            () =>
+                RunAsync(
+                    "dotnet",
+                    "restore --nologo --verbosity quiet",
+                    workingDirectory: workingDir
+                )
         );
         targets.Add(
             Build,
@@ -26,7 +33,8 @@ public static class BuildTargets
                 var configuration = ci ? "Release" : "Debug";
                 return RunAsync(
                     "dotnet",
-                    $"build --no-restore --configuration {configuration} --nologo --verbosity quiet"
+                    $"build --no-restore --configuration {configuration} --nologo --verbosity quiet",
+                    workingDirectory: workingDir
                 );
             }
         );

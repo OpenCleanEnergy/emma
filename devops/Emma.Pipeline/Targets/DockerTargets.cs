@@ -34,7 +34,11 @@ public static class DockerTargets
             dependsOn: [Tags],
             () =>
             {
-                return RunAsync("docker", $"build {tags.ToBuildArgs()} .");
+                return RunAsync(
+                    "docker",
+                    $"build {tags.ToBuildArgs()} .",
+                    workingDirectory: "./server"
+                );
             }
         );
 
@@ -46,7 +50,8 @@ public static class DockerTargets
             {
                 return RunAsync(
                     "docker",
-                    $"buildx build --push --platform linux/amd64,linux/arm64 {tags.ToBuildArgs()} ."
+                    $"buildx build --push --platform linux/amd64,linux/arm64 {tags.ToBuildArgs()} .",
+                    workingDirectory: "./server"
                 );
             }
         );

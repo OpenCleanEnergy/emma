@@ -8,9 +8,6 @@ jobs:
   build-server:
     name: 🚂 Build server
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: server
 
     steps:
       - name: 🛒 Checkout
@@ -84,9 +81,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    defaults:
-      run:
-        working-directory: server
     env:
       DOCKER_REGISTRY: ghcr.io
     steps:

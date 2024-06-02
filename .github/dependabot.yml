@@ -12,9 +12,9 @@ updates:
       prefix: "build"
       include: "scope"
 
-  ## server
+  ## dotnet (server, devops)
   - package-ecosystem: "nuget"
-    directory: "server"
+    directory: "/"
     schedule:
       interval: "weekly"
     labels:
