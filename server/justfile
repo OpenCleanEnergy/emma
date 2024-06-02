@@ -10,10 +10,6 @@ format: _restore-tools
   xargs --replace dotnet-code-butler {} --no-sort-members-by-alphabet
   dotnet-csharpier .
 
-# Executes build pipeline for given target.
-target *args="--help":
-  dotnet run --project devops/Emma.Pipeline -- {{args}}
-
 # Restores NuGet packages
 restore:
   dotnet restore
