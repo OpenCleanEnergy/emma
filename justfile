@@ -38,7 +38,7 @@ start-docker:
 _compose-up project_dir: start-docker
   sudo docker compose \
     --project-directory {{project_dir}} \
-    up --detach --remove-orphans
+    up --build --detach --remove-orphans
 
 _compose-down project_dir: start-docker
   sudo docker compose \

@@ -2,22 +2,22 @@ volumes:
   keycloak_database_data:
   backend_database_data:
 
+secrets:
+  keycloak-env:
+    file: ./keycloak/.env
+
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:24.0.1
+    image: keycloak:local
+    build:
+      context: ../../keycloak
     depends_on:
       - keycloak-database
-    environment:
-    # https://www.keycloak.org/server/all-config
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-      - KC_DB=postgres
-      - KC_DB_URL_HOST=keycloak-database
-      - KC_DB_URL_DATABASE=dev
-      - KC_DB_USERNAME=dev
-      - KC_DB_PASSWORD=dev
     ports:
       - 5001:8080
+    secrets:
+      - source: keycloak-env
+        target: .env
     command: start-dev
 
   keycloak-config:
