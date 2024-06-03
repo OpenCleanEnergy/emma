@@ -1,14 +1,39 @@
+using System.Collections;
+
 namespace Emma.Pipeline.Targets.Docker;
 
-internal static class DockerTags
+internal sealed class DockerTags : IEnumerable<string>
 {
-    public static IEnumerable<string> GetTags(string baseImage)
+    private readonly string[] _tags;
+
+    private DockerTags(string[] tags)
     {
-        var version = ProjectVersion.FromProjectFile("./Directory.Build.props");
-        return GetVersionTags(version).Select(t => $"{baseImage}:{t}");
+        _tags = tags;
     }
 
-    private static IEnumerable<string> GetVersionTags(ProjectVersion version)
+    public static DockerTags FromBaseImage(string baseImage)
+    {
+        var version = ProjectVersion.FromProjectFile("./Directory.Build.props");
+        var tags = GetVersionTags(version).Select(t => $"{baseImage}:{t}");
+        return new DockerTags([.. tags]);
+    }
+
+    public string ToBuildArgs()
+    {
+        return string.Join(' ', _tags.Select(tag => $"--tag {tag}"));
+    }
+
+    public IEnumerator<string> GetEnumerator()
+    {
+        return ((IEnumerable<string>)_tags).GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return _tags.GetEnumerator();
+    }
+
+    private static string[] GetVersionTags(ProjectVersion version)
     {
         if (version.IsPrerelease)
         {

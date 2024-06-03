@@ -2,7 +2,6 @@ namespace Emma.Pipeline.Targets;
 
 using Bullseye;
 using Emma.Pipeline.Targets.Docker;
-using static Bullseye.Targets;
 using static SimpleExec.Command;
 
 public static class DockerTargets
@@ -15,13 +14,14 @@ public static class DockerTargets
     {
         var dockerRegistry = Environment.GetEnvironmentVariable("DOCKER_REGISTRY") ?? "ghcr.io";
         var dockerBaseImage = $"{dockerRegistry}/opencleanenergy/emma";
+        var tags = DockerTags.FromBaseImage(dockerBaseImage);
 
         targets.Add(
             Tags,
             "Prints the docker tags. The registry is read from $DOCKER_REGISTRY; defaults to 'ghcr.io'.",
             () =>
             {
-                foreach (var tag in DockerTags.GetTags(dockerBaseImage))
+                foreach (var tag in tags)
                 {
                     Console.WriteLine($"🏷️ {tag}");
                 }
@@ -34,23 +34,19 @@ public static class DockerTargets
             dependsOn: [Tags],
             () =>
             {
-                var tags = DockerTags.GetTags(dockerBaseImage);
-                var tagArgs = string.Join(" ", tags.Select(tag => $"--tag {tag}"));
-                return RunAsync("docker", $"build {tagArgs} .");
+                return RunAsync("docker", $"build {tags.ToBuildArgs()} .");
             }
         );
 
         targets.Add(
             Publish,
-            "Uses buildx to build and publish a multi-platform image.",
+            "Uses buildx to build and push a multi-platform image.",
             dependsOn: [Build],
             () =>
             {
-                var tags = DockerTags.GetTags(dockerBaseImage);
-                var tagArgs = string.Join(" ", tags.Select(tag => $"--tag {tag}"));
                 return RunAsync(
                     "docker",
-                    $"buildx build --platform linux/amd64,linux/arm64 {tagArgs}"
+                    $"buildx build --platform linux/amd64,linux/arm64 {tags.ToBuildArgs()} ."
                 );
             }
         );
