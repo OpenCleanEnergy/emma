@@ -1,6 +1,6 @@
 # Learn about building .NET container images:
 # https://github.com/dotnet/dotnet-docker/blob/main/samples/README.md
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 WORKDIR /source
 
 COPY .editorconfig .
@@ -17,7 +17,7 @@ RUN dotnet publish Emma.Server/Emma.Server.csproj \
     --output /app
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
 ENV ASPNETCORE_HTTP_PORTS=5000
 EXPOSE ${ASPNETCORE_HTTP_PORTS}
 WORKDIR /app
