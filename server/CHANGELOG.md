@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.19](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.18...server-v1.0.0-alpha.19) (2024-06-03)
+
+
+### 🐛 Bug Fixes
+
+* fixes multi-platform build /7 ([f62f40c](https://github.com/OpenCleanEnergy/emma/commit/f62f40cd3b381740f0e99388e88e233e98f039ac))
+
 ## [1.0.0-alpha.18](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.17...server-v1.0.0-alpha.18) (2024-06-03)
 
 
