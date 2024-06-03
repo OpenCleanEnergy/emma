@@ -23,7 +23,7 @@ public static class DockerTargets
             {
                 foreach (var tag in tags)
                 {
-                    Console.WriteLine($"🏷️ {tag}");
+                    Console.WriteLine($"🏷️  {tag}");
                 }
             }
         );

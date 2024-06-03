@@ -1,8 +1,6 @@
-using System.Collections;
-
 namespace Emma.Pipeline.Targets.Docker;
 
-internal sealed class DockerTags : IEnumerable<string>
+internal sealed class DockerTags
 {
     private readonly string[] _tags;
 
@@ -25,12 +23,7 @@ internal sealed class DockerTags : IEnumerable<string>
 
     public IEnumerator<string> GetEnumerator()
     {
-        return ((IEnumerable<string>)_tags).GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return _tags.GetEnumerator();
+        return _tags.AsEnumerable().GetEnumerator();
     }
 
     private static string[] GetVersionTags(ProjectVersion version)
