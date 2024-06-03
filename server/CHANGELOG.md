@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.0.0-alpha.12](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.11...server-v1.0.0-alpha.12) (2024-06-03)
+
+
+### 🚀 Features
+
+* Adds multi-platform docker image. ([44c91f2](https://github.com/OpenCleanEnergy/emma/commit/44c91f28796cf128cd2d6065b228ca5d691e4612))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump dotnet-ef from 8.0.5 to 8.0.6 in /server ([#49](https://github.com/OpenCleanEnergy/emma/issues/49)) ([db42f3d](https://github.com/OpenCleanEnergy/emma/commit/db42f3d1658b348a5b1aba83d04c43320fcf6edf))
+* **deps:** bump Microsoft.AspNetCore.Authentication.JwtBearer from 8.0.5 to 8.0.6 in /server ([#46](https://github.com/OpenCleanEnergy/emma/issues/46)) ([75464e7](https://github.com/OpenCleanEnergy/emma/commit/75464e7a64455d636f484b0edce7949c047eff12))
+* **deps:** bump Microsoft.EntityFrameworkCore.Design from 8.0.5 to 8.0.6 in /server in the ef-core group ([#45](https://github.com/OpenCleanEnergy/emma/issues/45)) ([083cf5e](https://github.com/OpenCleanEnergy/emma/commit/083cf5ed473b2a162d2421fc0a16848fee0081e1))
+* **deps:** bump SonarAnalyzer.CSharp from 9.25.1.91650 to 9.26.0.92422 in /server ([#47](https://github.com/OpenCleanEnergy/emma/issues/47)) ([16d13b1](https://github.com/OpenCleanEnergy/emma/commit/16d13b14b7ccc91cd41427a5490c64b64b9764ce))
+* **deps:** bump Vogen from 4.0.6 to 4.0.8 in /server ([#48](https://github.com/OpenCleanEnergy/emma/issues/48)) ([5bdee36](https://github.com/OpenCleanEnergy/emma/commit/5bdee366b0dc95054219d7c389dd17163c21010e))
+
 ## [1.0.0-alpha.11](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.10...server-v1.0.0-alpha.11) (2024-05-29)
 
 
