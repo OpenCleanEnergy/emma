@@ -14,6 +14,7 @@ ENV SKIP_SWAGGER_GEN=1
 RUN dotnet publish Emma.Server/Emma.Server.csproj \
     --no-restore \
     --configuration Release \
+    --arch ${TARGETARCH} \
     --output /app
 
 # final stage/image
