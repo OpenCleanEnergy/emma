@@ -1,20 +1,22 @@
 # Learn about building .NET container images:
 # https://github.com/dotnet/dotnet-docker/blob/main/samples/README.md
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+ARG TARGETARCH
 WORKDIR /source
 
 COPY .editorconfig .
 COPY Directory.Build.props .
 COPY *.sln .
 COPY src/. .
-RUN dotnet restore Emma.Server/Emma.Server.csproj
+RUN dotnet restore Emma.Server/Emma.Server.csproj \
+    --arch $TARGETARCH
 
 # Skip swagger generation in docker image.
 ENV SKIP_SWAGGER_GEN=1
 RUN dotnet publish Emma.Server/Emma.Server.csproj \
     --no-restore \
     --configuration Release \
-    --arch ${TARGETARCH} \
+    --arch $TARGETARCH \
     --output /app
 
 # final stage/image

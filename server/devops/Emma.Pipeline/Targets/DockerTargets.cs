@@ -38,7 +38,10 @@ public static class DockerTargets
             {
                 var tags = DockerTags.GetTags(baseImage);
                 var tagArgs = string.Join(" ", tags.Select(tag => $"--tag {tag}"));
-                return RunAsync("docker", $"buildx build --platform linux/amd64,linux/arm64 {tagArgs} .");
+                return RunAsync(
+                    "docker", 
+                    $"buildx build --load --platform linux/amd64,linux/arm64 {tagArgs} ."
+                );
             }
         );
 
