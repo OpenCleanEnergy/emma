@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:emma/domain/i_user_repository.dart';
 import 'package:emma/domain/user_status.dart';
 import 'package:emma/infrastructure/oidc_configuration.dart';
@@ -13,17 +15,21 @@ class OidcUserRepository implements IUserRepository {
   final Signal<String> _name = signal("");
 
   OidcUserRepository._(OidcConfiguration configuration) {
-    final redirectUri = switch (Platform.operatingSystem) {
-      Platform.android || Platform.iOS || Platform.macOS => Uri.parse('org.opence.emma:/oauth2redirect'),
-      Platform.linux || Platform.windows => Uri.parse('http://localhost:0'),
-      _ => Uri()
-    };
+    late final Uri redirectUri;
+    late final Uri? postLogoutRedirectUri;
 
-    final postLogoutRedirectUri = switch (Platform.operatingSystem) {
-      Platform.android || Platform.iOS || Platform.macOS => Uri.parse('org.opence.emma:/endsessionredirect'),
-      Platform.linux || Platform.windows => Uri.parse('http://localhost:0'),
-      _ => null
-    };
+    if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
+      redirectUri = Uri.parse('org.opence.emma:/oauth2redirect');
+      postLogoutRedirectUri = Uri.parse('org.opence.emma:/endsessionredirect');
+    }
+    else if (Platform.isLinux || Platform.isWindows) {
+       redirectUri = Uri.parse('http://localhost:0');
+       postLogoutRedirectUri = Uri.parse('http://localhost:0');
+    }
+    else {
+       redirectUri = Uri();
+       postLogoutRedirectUri = null;
+    }
 
     _manager = OidcUserManager.lazy(
           discoveryDocumentUri: OidcUtils.getOpenIdConfigWellKnownUri(
