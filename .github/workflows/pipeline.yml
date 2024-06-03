@@ -97,6 +97,7 @@ jobs:
         uses: ./.github/actions/setup-environment
         with:
           dotnet: true
+          docker: true
 
       - name: 🗝️ Login to Docker Hub
         uses: docker/login-action@v3
