@@ -13,7 +13,7 @@
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": false,
-      "redirectUris": ["*"],
+      "redirectUris": ["localhost"],
       "attributes": {},
       "defaultClientScopes": [
         "web-origins",
