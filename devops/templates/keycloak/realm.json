@@ -1,8 +1,30 @@
 {
   "realm": "emma",
   "enabled": true,
+  "registrationAllowed": true,
   "registrationEmailAsUsername": true,
-  "rememberMe": true,
+  "resetPasswordAllowed": true,
+  "verifyEmail": true,
+  "internationalizationEnabled": true,
+  "supportedLocales": [
+    "de",
+    "en"
+  ],
+  "defaultLocale": "de",
+  "smtpServer": {
+    "from": "${KC_SMTP_FROM}",
+    "fromDisplayName": "EMMA Team",
+    "replyTo": "",
+    "replyToDisplayName": "",
+    "envelopeFrom": "",
+    "host": "${KC_SMTP_HOST}",
+    "port": "587",
+    "starttls": "true",
+    "ssl": "false",
+    "auth": "true",
+    "user": "${KC_SMTP_USER}",
+    "password": "${KC_SMTP_PASSWORD}"
+  },
   "clients": [
     {
       "clientId": "emma_app",
@@ -31,19 +53,5 @@
         "microprofile-jwt"
       ]
     }
-  ],
-  "smtpServer": {
-    "from": "${KC_SMTP_FROM}",
-    "fromDisplayName": "EMMA Team",
-    "replyTo": "",
-    "replyToDisplayName": "",
-    "envelopeFrom": "",
-    "host": "${KC_SMTP_HOST}",
-    "port": "587",
-    "starttls": "true",
-    "ssl": "false",
-    "auth": "true",
-    "user": "${KC_SMTP_USER}",
-    "password": "${KC_SMTP_PASSWORD}"
-  }
+  ]
 }

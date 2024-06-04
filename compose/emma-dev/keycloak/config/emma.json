@@ -1,8 +1,15 @@
 {
   "realm": "emma",
   "enabled": true,
+  "registrationAllowed": true,
   "registrationEmailAsUsername": true,
-  "rememberMe": true,
+  "resetPasswordAllowed": true,
+  "internationalizationEnabled": true,
+  "supportedLocales": [
+    "de",
+    "en"
+  ],
+  "defaultLocale": "en",
   "clients": [
     {
       "clientId": "emma_app",
