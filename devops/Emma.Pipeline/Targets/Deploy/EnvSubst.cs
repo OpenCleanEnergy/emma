@@ -4,6 +4,19 @@ namespace Emma.Pipeline.Targets.Deploy;
 
 public static partial class EnvSubst
 {
+    public static void PrintRequiredEnvironmentVariables(FileInfo source)
+    {
+        var regex = EnvironmentVariableRegex();
+        var sourceContent = File.ReadAllText(source.FullName);
+        var matches = regex.Matches(sourceContent);
+        var variables = matches.Select(GetEnvironmentVariableName).Distinct().Order();
+        foreach (var variable in variables)
+        {
+            var icon = Environment.GetEnvironmentVariable(variable) is null ? "❌" : "✅";
+            Console.WriteLine($"{icon} {variable}");
+        }
+    }
+
     public static void Substitute(FileInfo source, FileInfo target)
     {
         var replacements = new List<Replacement>();
@@ -23,12 +36,14 @@ public static partial class EnvSubst
 
     private static string ReplaceEnvironmentVariable(Match match, List<Replacement> replacements)
     {
-        // ${ENV_VAR} => ENV_VAR
-        var environmentVariable = match.Value[2..^1];
+        var environmentVariable = GetEnvironmentVariableName(match);
         var value = Environment.GetEnvironmentVariable(environmentVariable);
         replacements.Add(new Replacement(environmentVariable, value));
         return value ?? string.Empty;
     }
+
+    // ${ENV_VAR} => ENV_VAR
+    private static string GetEnvironmentVariableName(Match match) => match.Value[2..^1];
 
     private static void LogAndOrThrowOnFailure(
         FileInfo source,
