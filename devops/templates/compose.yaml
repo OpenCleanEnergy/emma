@@ -1,0 +1,23 @@
+include:
+  - ./keycloak/compose.yml
+  - ./server/compose.yml
+
+volumes:
+  proxy_data:
+  proxy_config:
+
+services:
+  proxy:
+    image: caddy:2
+    volumes:
+      - proxy_data:/data # Certs etc.
+      - proxy_config:/config
+      - ./proxy/Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+    env_file:
+      - ./common/.env
+      - ./caddy/.env
+    restart: on-failure

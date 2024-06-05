@@ -29,11 +29,15 @@
     "server": {
       "release-type": "node",
       "prerelease-type": "alpha",
-      "extra-files": ["Directory.Build.props"]
+      "extra-files": [
+        "Directory.Build.props",
+        "../devops/templates/server/compose.yaml"
+      ]
     },
     "keycloak": {
       "release-type": "node",
-      "prerelease-type": "alpha"
+      "prerelease-type": "alpha",
+      "extra-files": ["../devops/templates/keycloak/compose.yaml"]
     }
   }
 }
