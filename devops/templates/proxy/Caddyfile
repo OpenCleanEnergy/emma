@@ -1,0 +1,11 @@
+{
+	admin off
+}
+
+{$SERVER_FQDN} {
+	reverse_proxy server:5000
+}
+
+{$AUTH_FQDN} {
+	reverse_proxy keycloak:8080
+}
