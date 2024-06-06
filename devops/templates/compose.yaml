@@ -19,5 +19,4 @@ services:
       - 443:443/udp
     env_file:
       - ./common/.env
-      - ./caddy/.env
     restart: on-failure
