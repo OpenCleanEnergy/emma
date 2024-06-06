@@ -42,8 +42,9 @@ public static partial class EnvSubst
         return value ?? string.Empty;
     }
 
-    // ${ENV_VAR} => ENV_VAR
-    private static string GetEnvironmentVariableName(Match match) => match.Value[2..^1];
+    // {{ENV_VAR}} or {{ ENV_VAR }} => ENV_VAR
+    private static string GetEnvironmentVariableName(Match match) =>
+        match.Value.Trim('{', '}', ' ');
 
     private static void LogAndOrThrowOnFailure(
         FileInfo source,
@@ -81,7 +82,7 @@ public static partial class EnvSubst
         }
     }
 
-    [GeneratedRegex(@"\${[a-zA-Z0-9_]+}", RegexOptions.None, 100)]
+    [GeneratedRegex(@"{{ *[a-zA-Z0-9_]+ *}}", RegexOptions.None, 100)]
     private static partial Regex EnvironmentVariableRegex();
 
     private sealed record Replacement(string EnvironmentVariable, string? Value);
