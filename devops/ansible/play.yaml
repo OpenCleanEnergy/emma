@@ -1,0 +1,6 @@
+- name: 🚀 Deploy
+  hosts: all
+  roles:
+    - debug
+    - docker
+    - deployment

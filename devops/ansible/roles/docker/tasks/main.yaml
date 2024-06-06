@@ -1,0 +1,49 @@
+# https://docs.docker.com/engine/install/fedora/
+
+- name: 🧹 Remove any old versions of Docker
+  become: true
+  ansible.builtin.dnf:
+    state: absent
+    name:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-selinux
+      - docker-engine-selinux
+      - docker-engine
+
+- name: 📦 Install packages to manage DNF repositories
+  become: true
+  ansible.builtin.dnf:
+    state: present
+    update_cache: true
+    name:
+      - dnf-plugins-core
+
+- name: ⚙ Setup the DNF repository
+  become: true
+  community.general.dnf_config_manager:
+    state: enabled
+    name: https://download.docker.com/linux/fedora/docker-ce.repo
+
+- name: 🐳 Install Docker Engine
+  become: true
+  ansible.builtin.dnf:
+    state: present
+    name:
+      - docker-ce 
+      - docker-ce-cli 
+      - containerd.io 
+      - docker-buildx-plugin 
+      - docker-compose-plugin
+
+- name: ✔ Ensure Docker is started
+  become: true
+  ansible.builtin.systemd_service:
+    name: docker
+    state: started
+    enabled: true
