@@ -27,6 +27,10 @@ reset-database: stop-dev-environment
 start-docker:
   sudo systemctl start docker
 
+# Executes build pipeline for given target.
+target *args="--help":
+  dotnet run --project devops/Emma.Pipeline -- {{args}}
+
 # App commands
 @app *args:
   cd 'app' && just {{ args }}
@@ -38,7 +42,7 @@ start-docker:
 _compose-up project_dir: start-docker
   sudo docker compose \
     --project-directory {{project_dir}} \
-    up --detach --remove-orphans
+    up --build --detach --remove-orphans
 
 _compose-down project_dir: start-docker
   sudo docker compose \

@@ -11,14 +11,16 @@ format: _restore-tools
   dotnet-csharpier .
 
 # Executes build pipeline for given target.
-target *args="default":
+target *args="--help":
   dotnet run --project devops/Emma.Pipeline -- {{args}}
 
 # Restores NuGet packages
-restore: (target "build:restore")
+restore:
+  dotnet restore
 
 # Builds the solution
-build: (target "build:build")
+build: restore
+  dotnet build
 
 # Sets Shelly integrator token as user secret.
 set-secret-shelly-integrator-token token: (_set-secret 'Integrations:Shelly:IntegratorToken' token)
