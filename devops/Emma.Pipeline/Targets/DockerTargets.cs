@@ -13,13 +13,12 @@ public static class DockerTargets
     public static Targets AddDockerTargets(this Targets targets)
     {
         var workingDir = new DirectoryInfo("./server");
-        var dockerRegistry = Environment.GetEnvironmentVariable("DOCKER_REGISTRY") ?? "ghcr.io";
-        var dockerBaseImage = $"{dockerRegistry}/opencleanenergy/emma";
+        var dockerBaseImage = $"opence/emma";
         var tags = DockerTags.FromBaseImage(dockerBaseImage, workingDir);
 
         targets.Add(
             Tags,
-            "Prints the docker tags. The registry is read from $DOCKER_REGISTRY; defaults to 'ghcr.io'.",
+            "Prints the docker tags.",
             () =>
             {
                 foreach (var tag in tags)

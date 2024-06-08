@@ -18,6 +18,7 @@
     "Npgsql",
     "oidc",
     "Oidc",
+    "opence",
     "Pulumi",
     "Riok",
     "trid",

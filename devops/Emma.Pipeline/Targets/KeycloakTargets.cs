@@ -13,13 +13,12 @@ public static class KeycloakTargets
     public static Targets AddKeycloakTargets(this Targets targets)
     {
         var workingDir = new DirectoryInfo("./keycloak");
-        var dockerRegistry = Environment.GetEnvironmentVariable("DOCKER_REGISTRY") ?? "ghcr.io";
-        var dockerBaseImage = $"{dockerRegistry}/opencleanenergy/keycloak";
+        var dockerBaseImage = $"opence/keycloak";
         var tags = DockerTags.FromBaseImage(dockerBaseImage, workingDir);
 
         targets.Add(
             Tags,
-            "Prints the docker tags. The registry is read from $DOCKER_REGISTRY; defaults to 'ghcr.io'.",
+            "Prints the docker tags.",
             () =>
             {
                 foreach (var tag in tags)
