@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.3](https://github.com/OpenCleanEnergy/emma/compare/keycloak-v1.0.0-alpha.2...keycloak-v1.0.0-alpha.3) (2024-06-08)
+
+
+### 🐛 Bug Fixes
+
+* Publish docker images to Docker Hub because ghcr.io requires PAT. ([d7737e1](https://github.com/OpenCleanEnergy/emma/commit/d7737e159a116b671a5803d95cf677fe290f4469))
+
 ## [1.0.0-alpha.2](https://github.com/OpenCleanEnergy/emma/compare/keycloak-v1.0.0-alpha.1...keycloak-v1.0.0-alpha.2) (2024-06-08)
 
 
