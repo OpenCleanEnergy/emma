@@ -43,7 +43,7 @@ runs:
     - name: 🐋 Set up QEMU
       if: ${{ inputs.docker == 'true' }}
       uses: docker/setup-qemu-action@v3
-    
+
     - name: 🐋 Set up Docker Buildx
       if: ${{ inputs.docker == 'true' }}
       uses: docker/setup-buildx-action@v3
@@ -52,11 +52,17 @@ runs:
       if: ${{ inputs.dotnet == 'true' }}
       shell: bash
       run: |
-        echo ".NET version: $(dotnet --version)"
+        echo "🟣 .NET version: $(dotnet --version)"
 
     - name: 🔵 Output installed versions
       if: ${{ inputs.flutter == 'true' }}
       shell: bash
       run: |
-        echo "Flutter version: $(flutter --version)"
-        echo "Java version:    $(java --version)"
+        echo "🔵 Flutter version: $(flutter --version)"
+        echo "🔵 Java version:    $(java --version)"
+
+    - name: 🐋 Output installed Docker version
+      if: ${{ inputs.docker == 'true' }}
+      shell: bash
+      run: |
+        echo "🐋 Docker version: $(docker --version)"
