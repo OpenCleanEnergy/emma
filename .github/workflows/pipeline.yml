@@ -95,7 +95,7 @@ jobs:
           dotnet: true
           docker: true
 
-      - name: 🗝️ Login to Docker Hub
+      - name: 🗝️ Login to container registry.
         uses: docker/login-action@v3
         with:
           registry: ${{ env.DOCKER_REGISTRY }}
@@ -124,7 +124,7 @@ jobs:
           dotnet: true
           docker: true
 
-      - name: 🗝️ Login to Docker Hub
+      - name: 🗝️ Login to container registry.
         uses: docker/login-action@v3
         with:
           registry: ${{ env.DOCKER_REGISTRY }}
