@@ -1,5 +1,4 @@
-# Learn about building .NET container images:
-# https://github.com/dotnet/dotnet-docker/blob/main/samples/README.md
+# https://github.com/dotnet/dotnet-docker/blob/main/samples/aspnetapp/Dockerfile.alpine
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 ARG TARGETARCH
 WORKDIR /source
@@ -15,12 +14,11 @@ RUN dotnet restore Emma.Server/Emma.Server.csproj \
 ENV SKIP_SWAGGER_GEN=1
 RUN dotnet publish Emma.Server/Emma.Server.csproj \
     --no-restore \
-    --configuration Release \
     --arch $TARGETARCH \
     --output /app
 
 # final stage/image
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
 ENV ASPNETCORE_HTTP_PORTS=5000
 EXPOSE ${ASPNETCORE_HTTP_PORTS}
 WORKDIR /app
