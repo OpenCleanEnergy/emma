@@ -6,7 +6,7 @@ using static SimpleExec.Command;
 
 public static class DeployTargets
 {
-    public const string PrintEnvironmentVariables = "deploy:print-env";
+    public const string DebugEnvironmentVariables = "deploy:debug-env";
     public const string Clean = "deploy:clean";
     public const string Templates = "deploy:templates";
 
@@ -30,7 +30,7 @@ public static class DeployTargets
             .Select(f => Path.GetRelativePath(templateDir.FullName, f.FullName));
 
         targets.Add(
-            PrintEnvironmentVariables,
+            DebugEnvironmentVariables,
             "Prints all required environment variables",
             forEach: templates,
             (template) =>
@@ -41,7 +41,7 @@ public static class DeployTargets
 
         targets.Add(
             Clean,
-            $"Clears the {renderedDir}",
+            $"Clears the {renderedDir} directory.",
             () =>
             {
                 if (renderedDir.Exists)
@@ -54,7 +54,7 @@ public static class DeployTargets
         targets.Add(
             Templates,
             $"Substitutes environment variables in {templateDir}/*",
-            dependsOn: [PrintEnvironmentVariables, Clean],
+            dependsOn: [Clean],
             forEach: templates,
             (template) =>
                 EnvSubst.Substitute(
@@ -103,6 +103,7 @@ public static class DeployTargets
         );
 
         var ansibleWorkingDir = "./devops/ansible";
+
         targets.Add(
             Ansible,
             "Executes Ansible Playbook",
@@ -115,6 +116,7 @@ public static class DeployTargets
                     "--inventory inventory.ini",
                     "--private-key ~/.ssh/hcloud-production",
                     "--diff",
+                    "-vv",
                     "play.yaml"
                 );
 
@@ -127,8 +129,8 @@ public static class DeployTargets
             }
         );
 
-        targets.Add(Up, "UP!", dependsOn: [Templates, PulumiUp, Ansible, PulumiSecure, Clean]);
-        targets.Add(Down, "DOWN!", dependsOn: [PulumiDown, Clean]);
+        targets.Add(Up, "🚀 UP", dependsOn: [Templates, PulumiUp, Ansible, PulumiSecure, Clean]);
+        targets.Add(Down, "🔨 DOWN", dependsOn: [PulumiDown, Clean]);
 
         return targets;
     }
