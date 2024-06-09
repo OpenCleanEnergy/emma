@@ -126,8 +126,7 @@ public static class DeployTargets
                 var args = string.Join(
                     ' ',
                     "--user devops",
-                    "--inventory inventory.ini",
-                    "--private-key ~/.ssh/hcloud-production",
+                    "--inventory ./tmp/inventory.ini",
                     "--diff",
                     "-vv",
                     "play.yaml"

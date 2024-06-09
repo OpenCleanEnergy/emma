@@ -19,6 +19,7 @@ public class DefaultStack : Stack
         var dataCenter = config.Require("data-center");
 
         var publicKey = config.Require("public-key");
+        var privateKeyBase64 = config.RequireSecret("private-key-base64");
 
         var sshKey = new SshKey(
             $"{stack}-ssh-key",
@@ -113,15 +114,29 @@ public class DefaultStack : Stack
             }
         );
 
-        _ = new Command(
-            "Ansible inventory",
-            new()
-            {
-                Create = "echo ${IPV4} > '../ansible/inventory.ini'",
-                Environment = new() { { "IPV4", ipv4.IpAddress } },
-                AssetPaths = ["../ansible/inventory.ini"]
-            }
-        );
+        if (sshEnabled)
+        {
+            var createOrUpdateSshKey = """
+                mkdir -p ../ansible/tmp && \
+                echo ${PRIVATE_KEY_BASE64} | base64 -d > ../ansible/tmp/private-ssh-key && \
+                chmod 600 ../ansible/tmp/private-ssh-key && \
+                echo "${SERVER_IP} ansible_ssh_private_key_file=tmp/private-ssh-key" > ../ansible/tmp/inventory.ini
+                """;
+            _ = new Command(
+                "Ansible inventory and private SSH key (600 -> owner read/write)",
+                new()
+                {
+                    Create = createOrUpdateSshKey,
+                    Update = createOrUpdateSshKey,
+                    Delete = "rm -rf ../ansible/tmp",
+                    Environment = new()
+                    {
+                        ["PRIVATE_KEY_BASE64"] = privateKeyBase64,
+                        ["SERVER_IP"] = ipv4.IpAddress,
+                    }
+                }
+            );
+        }
 
         _ = new Sleep(
             "Wait for server to boot",

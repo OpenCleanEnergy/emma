@@ -7,5 +7,7 @@ config:
     default: nbg1-dc3
   public-key:
     type: string
+  private-key-base64:
+    type: string
   ssh-enabled:
     type: boolean
