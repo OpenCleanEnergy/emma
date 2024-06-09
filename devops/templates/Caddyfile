@@ -1,7 +1,3 @@
-{
-	admin off
-}
-
 emma.opence.org {
 	# Server
 	redir /api /api/
