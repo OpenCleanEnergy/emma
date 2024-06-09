@@ -11,8 +11,26 @@ public class ShellyIntegrationConfiguration
     [MemberNotNullWhen(true, nameof(IntegratorTag))]
     [MemberNotNullWhen(true, nameof(IntegratorToken))]
     [MemberNotNullWhen(true, nameof(CallbackBaseUri))]
-    public bool IsValid =>
-        !string.IsNullOrEmpty(IntegratorTag)
-        && !string.IsNullOrEmpty(IntegratorToken)
-        && CallbackBaseUri != null;
+    public bool Validate(out IReadOnlyCollection<string> invalidProperties)
+    {
+        var invalid = new List<string>();
+
+        if (string.IsNullOrEmpty(IntegratorTag))
+        {
+            invalid.Add(nameof(IntegratorTag));
+        }
+
+        if (string.IsNullOrEmpty(IntegratorToken))
+        {
+            invalid.Add(nameof(IntegratorToken));
+        }
+
+        if (CallbackBaseUri is null)
+        {
+            invalid.Add(nameof(CallbackBaseUri));
+        }
+
+        invalidProperties = invalid;
+        return invalid.Count == 0;
+    }
 }

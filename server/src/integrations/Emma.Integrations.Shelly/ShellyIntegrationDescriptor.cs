@@ -13,10 +13,10 @@ public class ShellyIntegrationDescriptor : IIntegrationDescriptor
     }
 
     public static IntegrationId Id { get; } = IntegrationId.From("shelly");
+    public string Name { get; } = "Shelly";
+    public bool IsEnabled => _configuration.Validate(out _);
 
     IntegrationId IIntegrationDescriptor.Id => Id;
-    public string Name { get; } = "Shelly";
-    public bool IsEnabled => _configuration.IsValid;
 
     public bool Supports(DeviceCategory deviceCategory) => true;
 }

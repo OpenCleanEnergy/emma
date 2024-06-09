@@ -34,9 +34,13 @@ public sealed class ShellyHostedService : IHostedService, IDisposable
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        if (!_configuration.IsValid)
+        if (!_configuration.Validate(out var invalidProperties))
         {
-            _logger.Info("Configuration invalid. Service is shutting down.");
+            _logger.Info(
+                $"Configuration is invalid because of {invalidProperties}. Service is shutting down.",
+                invalidProperties
+            );
+
             return;
         }
 
