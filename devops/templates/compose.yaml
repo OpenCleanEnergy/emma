@@ -1,6 +1,6 @@
 include:
-  - ./keycloak/compose.yml
-  - ./server/compose.yml
+  - ./keycloak/compose.yaml
+  - ./server/compose.yaml
 
 volumes:
   proxy_data:
@@ -12,7 +12,7 @@ services:
     volumes:
       - proxy_data:/data # Certs etc.
       - proxy_config:/config
-      - ./proxy/Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile
     ports:
       - 80:80
       - 443:443

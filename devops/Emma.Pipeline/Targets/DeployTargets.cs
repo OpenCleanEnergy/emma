@@ -7,12 +7,15 @@ using static SimpleExec.Command;
 public static class DeployTargets
 {
     public const string PrintEnvironmentVariables = "deploy:print-env";
+    public const string Clean = "deploy:clean";
     public const string Templates = "deploy:templates";
 
     public const string SelectStack = "deploy:pulumi-select";
     public const string Up = "deploy:pulumi-up";
-
+    public const string Down = "deploy:pulumi-down";
     public const string Secure = "deploy:pulumi-secure";
+
+    public const string Ansible = "deploy:ansible";
 
     public static Targets AddDeployTargets(this Targets targets)
     {
@@ -34,9 +37,21 @@ public static class DeployTargets
         );
 
         targets.Add(
+            Clean,
+            $"Clears the {renderedDir}",
+            () =>
+            {
+                if (renderedDir.Exists)
+                {
+                    renderedDir.Delete(recursive: true);
+                }
+            }
+        );
+
+        targets.Add(
             Templates,
             $"Substitutes environment variables in {templateDir}/*",
-            dependsOn: [PrintEnvironmentVariables],
+            dependsOn: [PrintEnvironmentVariables, Clean],
             forEach: templates,
             (template) =>
                 EnvSubst.Substitute(
@@ -60,7 +75,7 @@ public static class DeployTargets
             () =>
                 RunAsync(
                     "pulumi",
-                    "up --config emma:ssh-enabled=true",
+                    "up --yes --emoji --config emma:ssh-enabled=true",
                     workingDirectory: pulumiWorkingDir
                 )
         );
@@ -72,9 +87,41 @@ public static class DeployTargets
             () =>
                 RunAsync(
                     "pulumi",
-                    "up --yes --config emma:ssh-enabled=false",
+                    "up --yes --emoji --config emma:ssh-enabled=false",
                     workingDirectory: pulumiWorkingDir
                 )
+        );
+
+        targets.Add(
+            Down,
+            "Executes pulumi down",
+            dependsOn: [SelectStack],
+            () => RunAsync("pulumi", "down --yes --emoji", workingDirectory: pulumiWorkingDir)
+        );
+
+        var ansibleWorkingDir = "./devops/ansible";
+        targets.Add(
+            Ansible,
+            "Executes Ansible Playbook",
+            dependsOn: [Templates, Up],
+            () =>
+            {
+                var args = string.Join(
+                    ' ',
+                    "--user devops",
+                    "--inventory inventory.ini",
+                    "--private-key ~/.ssh/hcloud-production",
+                    "--diff",
+                    "play.yaml"
+                );
+
+                return RunAsync(
+                    "ansible-playbook",
+                    args,
+                    ansibleWorkingDir,
+                    configureEnvironment: (env) => env.Add("ANSIBLE_HOST_KEY_CHECKING", "False")
+                );
+            }
         );
 
         return targets;

@@ -26,19 +26,21 @@
 
 - name: ⚙ Setup the DNF repository
   become: true
-  community.general.dnf_config_manager:
-    state: enabled
-    name: https://download.docker.com/linux/fedora/docker-ce.repo
+  ansible.builtin.yum_repository:
+    state: present
+    name: docker-ce
+    description: Docker CE
+    baseurl: https://download.docker.com/linux/fedora/docker-ce.repo
 
 - name: 🐳 Install Docker Engine
   become: true
   ansible.builtin.dnf:
     state: present
     name:
-      - docker-ce 
-      - docker-ce-cli 
-      - containerd.io 
-      - docker-buildx-plugin 
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
       - docker-compose-plugin
 
 - name: ✔ Ensure Docker is started
