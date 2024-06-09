@@ -7,8 +7,9 @@ using static SimpleExec.Command;
 public static class DeployTargets
 {
     public const string DebugEnvironmentVariables = "deploy:debug-env";
-    public const string Clean = "deploy:clean";
+    public const string PreClean = "deploy:pre-clean";
     public const string Templates = "deploy:templates";
+    public const string PostClean = "deploy:post-clean";
 
     public const string PulumiSelectStack = "deploy:pulumi-select";
     public const string PulumiUp = "deploy:pulumi-up";
@@ -40,7 +41,19 @@ public static class DeployTargets
         );
 
         targets.Add(
-            Clean,
+            PreClean,
+            $"Clears the {renderedDir} directory.",
+            () =>
+            {
+                if (renderedDir.Exists)
+                {
+                    renderedDir.Delete(recursive: true);
+                }
+            }
+        );
+
+        targets.Add(
+            PostClean,
             $"Clears the {renderedDir} directory.",
             () =>
             {
@@ -54,7 +67,7 @@ public static class DeployTargets
         targets.Add(
             Templates,
             $"Substitutes environment variables in {templateDir}/*",
-            dependsOn: [Clean],
+            dependsOn: [PreClean],
             forEach: templates,
             (template) =>
                 EnvSubst.Substitute(
@@ -129,8 +142,12 @@ public static class DeployTargets
             }
         );
 
-        targets.Add(Up, "🚀 UP", dependsOn: [Templates, PulumiUp, Ansible, PulumiSecure, Clean]);
-        targets.Add(Down, "🔨 DOWN", dependsOn: [PulumiDown, Clean]);
+        targets.Add(
+            Up,
+            "🚀 UP",
+            dependsOn: [Templates, PulumiUp, Ansible, PulumiSecure, PostClean]
+        );
+        targets.Add(Down, "🔨 DOWN", dependsOn: [PulumiDown, PostClean]);
 
         return targets;
     }
