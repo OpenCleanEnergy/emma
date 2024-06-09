@@ -5,7 +5,7 @@ config:
   data-center:
     type: string
     default: nbg1-dc3
-  public-key-file:
+  public-key:
     type: string
   ssh-enabled:
     type: boolean

@@ -2,11 +2,17 @@ namespace Emma.Pipeline.Targets;
 
 using Bullseye;
 using Emma.Pipeline.Targets.Deploy;
+using static SimpleExec.Command;
 
 public static class DeployTargets
 {
     public const string PrintEnvironmentVariables = "deploy:print-env";
     public const string Templates = "deploy:templates";
+
+    public const string SelectStack = "deploy:pulumi-select";
+    public const string Up = "deploy:pulumi-up";
+
+    public const string Secure = "deploy:pulumi-secure";
 
     public static Targets AddDeployTargets(this Targets targets)
     {
@@ -36,6 +42,38 @@ public static class DeployTargets
                 EnvSubst.Substitute(
                     new FileInfo(Path.Combine(templateDir.FullName, template)),
                     new FileInfo(Path.Combine(renderedDir.FullName, template))
+                )
+        );
+
+        var pulumiWorkingDir = "./devops/Emma.DevOps";
+
+        targets.Add(
+            SelectStack,
+            "Selects the pulumi stack.",
+            () => RunAsync("pulumi", "stack select production", workingDirectory: pulumiWorkingDir)
+        );
+
+        targets.Add(
+            Up,
+            "Executes pulumi up with SSH enabled.",
+            dependsOn: [SelectStack],
+            () =>
+                RunAsync(
+                    "pulumi",
+                    "up --config emma:ssh-enabled=true",
+                    workingDirectory: pulumiWorkingDir
+                )
+        );
+
+        targets.Add(
+            Secure,
+            "Executes pulumi up with SSH disabled.",
+            dependsOn: [SelectStack],
+            () =>
+                RunAsync(
+                    "pulumi",
+                    "up --yes --config emma:ssh-enabled=false",
+                    workingDirectory: pulumiWorkingDir
                 )
         );
 

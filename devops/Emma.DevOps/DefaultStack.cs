@@ -1,7 +1,7 @@
 using Pulumi;
+using Pulumi.Command.Local;
 using Pulumi.HCloud;
 using Pulumi.HCloud.Inputs;
-using Std = Pulumi.Std;
 
 namespace Emma.DevOps;
 
@@ -17,8 +17,7 @@ public class DefaultStack : Stack
         var sshEnabled = config.RequireBoolean("ssh-enabled");
         var dataCenter = config.Require("data-center");
 
-        var publicKeyFile = config.Require("public-key-file");
-        var publicKey = Std.File.Invoke(new() { Input = publicKeyFile }).Apply(file => file.Result);
+        var publicKey = config.Require("public-key");
 
         var sshKey = new SshKey(
             $"{stack}-ssh-key",
@@ -110,6 +109,16 @@ public class DefaultStack : Stack
                 FirewallIds = new[] { firewall.Id.Apply(int.Parse) },
                 Backups = true,
                 UserData = CloudConfig.Render(publicKey),
+            }
+        );
+
+        _ = new Command(
+            "Ansible inventory",
+            new()
+            {
+                Create = "echo ${IPV4} > '../ansible/inventory.ini'",
+                Environment = new() { { "IPV4", ipv4.IpAddress } },
+                AssetPaths = ["../ansible/inventory.ini"]
             }
         );
 
