@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.14](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.13...server-v1.0.0-alpha.14) (2024-06-09)
+
+
+### 🚀 Features
+
+* Renames `CallbackBaseUri` to `CallbackBaseUrl` ([7b10790](https://github.com/OpenCleanEnergy/emma/commit/7b1079042f6098ffbb94c3a325db396ee54e71e1))
+* **Shelly:** Log invalid properties on startup. ([8f3000a](https://github.com/OpenCleanEnergy/emma/commit/8f3000ae16462ab88a0c37c48a65213948de7042))
+
 ## [1.0.0-alpha.13](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.12...server-v1.0.0-alpha.13) (2024-06-09)
 
 
