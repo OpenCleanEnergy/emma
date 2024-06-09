@@ -127,7 +127,7 @@ public static class DeployTargets
             }
         );
 
-        targets.Add(Up, "UP!", dependsOn: [Templates, PulumiUp, Ansible, PulumiSecure]);
+        targets.Add(Up, "UP!", dependsOn: [Templates, PulumiUp, Ansible, PulumiSecure, Clean]);
         targets.Add(Down, "DOWN!", dependsOn: [PulumiDown, Clean]);
 
         return targets;
