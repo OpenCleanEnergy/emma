@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.13](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.12...server-v1.0.0-alpha.13) (2024-06-09)
+
+
+### 🚀 Features
+
+* own keycloak container image to scope environment variables to entrypoint ([#59](https://github.com/OpenCleanEnergy/emma/issues/59)) ([a2dff57](https://github.com/OpenCleanEnergy/emma/commit/a2dff57e462d8a10ab9e9bc3f43d94c054a7eddc))
+
+
+### 🐛 Bug Fixes
+
+* Fixes multi-platform container image. ([11bbf3c](https://github.com/OpenCleanEnergy/emma/commit/11bbf3c0d49463535835eeec3505cc434305ceee))
+
 ## [1.0.0-alpha.12](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.11...server-v1.0.0-alpha.12) (2024-06-03)
 
 
