@@ -10,12 +10,15 @@ public static class DeployTargets
     public const string Clean = "deploy:clean";
     public const string Templates = "deploy:templates";
 
-    public const string SelectStack = "deploy:pulumi-select";
-    public const string Up = "deploy:pulumi-up";
-    public const string Down = "deploy:pulumi-down";
-    public const string Secure = "deploy:pulumi-secure";
+    public const string PulumiSelectStack = "deploy:pulumi-select";
+    public const string PulumiUp = "deploy:pulumi-up";
+    public const string PulumiSecure = "deploy:pulumi-secure";
+    public const string PulumiDown = "deploy:pulumi-down";
 
     public const string Ansible = "deploy:ansible";
+
+    public const string Up = "deploy:up";
+    public const string Down = "deploy:down";
 
     public static Targets AddDeployTargets(this Targets targets)
     {
@@ -63,15 +66,15 @@ public static class DeployTargets
         var pulumiWorkingDir = "./devops/Emma.DevOps";
 
         targets.Add(
-            SelectStack,
+            PulumiSelectStack,
             "Selects the pulumi stack.",
             () => RunAsync("pulumi", "stack select production", workingDirectory: pulumiWorkingDir)
         );
 
         targets.Add(
-            Up,
+            PulumiUp,
             "Executes pulumi up with SSH enabled.",
-            dependsOn: [SelectStack],
+            dependsOn: [PulumiSelectStack],
             () =>
                 RunAsync(
                     "pulumi",
@@ -81,9 +84,9 @@ public static class DeployTargets
         );
 
         targets.Add(
-            Secure,
+            PulumiSecure,
             "Executes pulumi up with SSH disabled.",
-            dependsOn: [SelectStack],
+            dependsOn: [PulumiSelectStack],
             () =>
                 RunAsync(
                     "pulumi",
@@ -93,9 +96,9 @@ public static class DeployTargets
         );
 
         targets.Add(
-            Down,
+            PulumiDown,
             "Executes pulumi down",
-            dependsOn: [SelectStack],
+            dependsOn: [PulumiSelectStack],
             () => RunAsync("pulumi", "down --yes --emoji", workingDirectory: pulumiWorkingDir)
         );
 
@@ -103,7 +106,7 @@ public static class DeployTargets
         targets.Add(
             Ansible,
             "Executes Ansible Playbook",
-            dependsOn: [Templates, Up],
+            dependsOn: [Templates, PulumiUp],
             () =>
             {
                 var args = string.Join(
@@ -123,6 +126,9 @@ public static class DeployTargets
                 );
             }
         );
+
+        targets.Add(Up, "UP!", dependsOn: [Templates, PulumiUp, Ansible, PulumiSecure]);
+        targets.Add(Down, "DOWN!", dependsOn: [PulumiDown, Clean]);
 
         return targets;
     }
