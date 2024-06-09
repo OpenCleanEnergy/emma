@@ -23,10 +23,9 @@ public static partial class EnvSubst
         var regex = EnvironmentVariableRegex();
 
         var sourceContent = File.ReadAllText(source.FullName);
-        var targetContent = regex.Replace(
-            sourceContent,
-            match => ReplaceEnvironmentVariable(match, replacements)
-        );
+        var targetContent = regex
+            .Replace(sourceContent, match => ReplaceEnvironmentVariable(match, replacements))
+            .ReplaceLineEndings();
 
         LogAndOrThrowOnFailure(source, target, replacements);
 
