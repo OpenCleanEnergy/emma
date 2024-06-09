@@ -2,6 +2,7 @@ using Pulumi;
 using Pulumi.Command.Local;
 using Pulumi.HCloud;
 using Pulumi.HCloud.Inputs;
+using Pulumiverse.Time;
 
 namespace Emma.DevOps;
 
@@ -122,13 +123,10 @@ public class DefaultStack : Stack
             }
         );
 
-        _ = new Command(
-            "Wait for server restart",
-            new()
-            {
-                Create = "sleep 45s",
-                Environment = new() { { "DEPENDENCY", server.Id } },
-            }
+        _ = new Sleep(
+            "Wait for server to boot",
+            new() { CreateDuration = "60s" },
+            new() { DependsOn = [server] }
         );
 
         ServerId = server.Id;
