@@ -45,7 +45,7 @@ dependencies:
   oidc_default_store: ^0.2.0+8
   oidc: ^0.5.2
   package_info_plus: ^8.0.0
-  signals: ^5.2.0
+  signals: ^5.2.2
   url_launcher: ^6.2.6
 
 dev_dependencies:
