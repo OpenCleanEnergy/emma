@@ -109,6 +109,10 @@ public class DefaultStack : Stack
                 FirewallIds = new[] { firewall.Id.Apply(int.Parse) },
                 Backups = true,
                 UserData = CloudConfig.Render(publicKey),
+            },
+            new CustomResourceOptions
+            {
+                CustomTimeouts = new CustomTimeouts { Create = TimeSpan.FromSeconds(30) },
             }
         );
 
