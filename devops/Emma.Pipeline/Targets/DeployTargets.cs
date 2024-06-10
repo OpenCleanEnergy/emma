@@ -24,7 +24,8 @@ public static class DeployTargets
     public static Targets AddDeployTargets(this Targets targets)
     {
         var templateDir = new DirectoryInfo("./devops/templates");
-        var renderedDir = new DirectoryInfo("./devops/rendered");
+        var ansibleDir = new DirectoryInfo("/tmp/emma/ansible");
+        var renderedDir = new DirectoryInfo(Path.Combine(ansibleDir.FullName, "rendered"));
 
         var templates = templateDir
             .GetFiles("*", SearchOption.AllDirectories)
@@ -126,7 +127,7 @@ public static class DeployTargets
                 var args = string.Join(
                     ' ',
                     "--user devops",
-                    "--inventory ./tmp/inventory.ini",
+                    $"--inventory ${Path.Combine(ansibleDir.FullName, "inventory.ini")}",
                     "--diff",
                     "-vv",
                     "play.yaml"

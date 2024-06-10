@@ -116,21 +116,23 @@ public class DefaultStack : Stack
 
         if (sshEnabled)
         {
-            var createOrUpdateSshKey = """
-                mkdir -p ../ansible/tmp && \
-                echo ${PRIVATE_KEY_BASE64} | base64 -d > ../ansible/tmp/private-ssh-key && \
-                chmod 600 ../ansible/tmp/private-ssh-key && \
-                echo "${SERVER_IP} ansible_ssh_private_key_file=tmp/private-ssh-key" > ../ansible/tmp/inventory.ini
-                """;
+            var ansibleDir = new DirectoryInfo("/tmp/emma/ansible");
             _ = new Command(
                 "Ansible inventory and private SSH key (600 -> owner read/write)",
                 new()
                 {
-                    Create = createOrUpdateSshKey,
-                    Update = createOrUpdateSshKey,
+                    Create = """
+                        mkdir -p ${DIR} && \
+                        echo ${PRIVATE_KEY_BASE64} | base64 -d > ${KEY_FILE} && \
+                        chmod 600 ${KEY_FILE} && \
+                        echo "${SERVER_IP} ansible_ssh_private_key_file=${KEY_FILE}" > ${INV_FILE}
+                        """,
                     Delete = "rm -rf ../ansible/tmp",
                     Environment = new()
                     {
+                        ["DIR"] = ansibleDir.FullName,
+                        ["KEY_FILE"] = Path.Combine(ansibleDir.FullName, "private-ssh-key"),
+                        ["INV_FILE"] = Path.Combine(ansibleDir.FullName, "inventory.ini"),
                         ["PRIVATE_KEY_BASE64"] = privateKeyBase64,
                         ["SERVER_IP"] = ipv4.IpAddress,
                     }

@@ -8,7 +8,7 @@
 - name: 📤 Copy files files to remote host
   become: true
   ansible.builtin.copy:
-    src: ../rendered/
+    src: /tmp/emma/ansible/rendered/
     dest: /var/lib/emma/
     mode: 0644
     backup: true

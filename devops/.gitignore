@@ -485,4 +485,3 @@ $RECYCLE.BIN/
 
 # templates and rendered
 !templates/**/.env
-rendered/*
