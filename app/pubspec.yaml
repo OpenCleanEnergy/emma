@@ -43,7 +43,7 @@ dependencies:
   json_annotation: ^4.8.0
   logging: ^1.2.0
   oidc_default_store: ^0.2.0+8
-  oidc: ^0.5.2
+  oidc: ^0.7.0
   package_info_plus: ^8.0.0
   signals: ^5.2.2
   url_launcher: ^6.3.0
