@@ -47,6 +47,7 @@ dependencies:
   package_info_plus: ^8.0.0
   signals: ^5.2.2
   url_launcher: ^6.3.0
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:

@@ -26,6 +26,9 @@ generate-code:
     'lib/application/backend_api/swagger_generated_code/backend_api.swagger.dart'
   just format
 
+generate-icons: pub-get
+  dart run flutter_launcher_icons
+
 # Build the app
 build subcommand environment='production':
   flutter build {{subcommand}} \

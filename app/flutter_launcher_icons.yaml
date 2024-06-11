@@ -1,0 +1,10 @@
+flutter_launcher_icons:
+  image_path: "assets/icon-kitchen/play_store_512.png"
+  adaptive_icon_background: "assets/icon-kitchen/ic_launcher_background.png"
+  adaptive_icon_foreground: "assets/icon-kitchen/ic_launcher_foreground.png"
+  adaptive_icon_monochrome: "assets/icon-kitchen/ic_launcher_monochrome.png"
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  web:
+    generate: true
