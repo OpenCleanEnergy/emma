@@ -31,13 +31,13 @@
       "prerelease-type": "alpha",
       "extra-files": [
         "Directory.Build.props",
-        "../devops/templates/server/compose.yaml"
+        "/devops/templates/server/compose.yaml"
       ]
     },
     "keycloak": {
       "release-type": "node",
       "prerelease-type": "alpha",
-      "extra-files": ["../devops/templates/keycloak/compose.yaml"]
+      "extra-files": ["/devops/templates/keycloak/compose.yaml"]
     }
   }
 }
