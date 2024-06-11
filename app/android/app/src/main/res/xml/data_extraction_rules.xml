@@ -1,0 +1,5 @@
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="FlutterSecureStorage" />
+    </cloud-backup>
+</data-extraction-rules>
