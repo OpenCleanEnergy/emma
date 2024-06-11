@@ -127,7 +127,7 @@ public static class DeployTargets
                 var args = string.Join(
                     ' ',
                     "--user devops",
-                    $"--inventory ${Path.Combine(ansibleDir.FullName, "inventory.ini")}",
+                    $"--inventory {Path.Combine(ansibleDir.FullName, "inventory.ini")}",
                     "--diff",
                     "-vv",
                     "play.yaml"
