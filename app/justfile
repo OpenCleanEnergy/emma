@@ -26,13 +26,23 @@ generate-code:
     'lib/application/backend_api/swagger_generated_code/backend_api.swagger.dart'
   just format
 
-# Builds the app
+# Build the app
 build subcommand environment='production':
   flutter build {{subcommand}} \
   --dart-define-from-file appsettings.{{environment}}.json
 
-# Runs the app
+# Run the app
 run device-id='linux' environment='development':
   flutter run \
   --device-id {{device-id}} \
   --dart-define-from-file appsettings.{{environment}}.json
+
+# Start Android Device Bridge server as root. Stores adb executable in environment variable because `sudo` changes $PATH.
+adb-start:
+  ADB=$(command -v adb) && \
+  $ADB kill-server && \
+  sudo $ADB start-server
+
+# Install the app on connected device
+install-app environment='production': (build 'apk' 'production')
+  flutter install
