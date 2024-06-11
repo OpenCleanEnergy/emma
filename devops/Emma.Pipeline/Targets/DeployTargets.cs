@@ -43,7 +43,7 @@ public static class DeployTargets
 
         targets.Add(
             PreClean,
-            $"Clears the {renderedDir} directory.",
+            $"Clears the {ansibleDir} directory.",
             () =>
             {
                 if (renderedDir.Exists)
@@ -55,7 +55,7 @@ public static class DeployTargets
 
         targets.Add(
             PostClean,
-            $"Clears the {renderedDir} directory.",
+            $"Clears the {ansibleDir} directory.",
             () =>
             {
                 if (renderedDir.Exists)
