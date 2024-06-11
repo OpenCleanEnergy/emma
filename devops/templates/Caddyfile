@@ -13,6 +13,6 @@ emma.opence.org {
 
 	# Fallback
 	handle {
-		respond "¯\_(ツ)_/¯" 418
+		redir https://github.com/OpenCleanEnergy/emma
 	}
 }
