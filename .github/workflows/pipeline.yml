@@ -57,7 +57,7 @@ jobs:
       contents: write
       pull-requests: write
     outputs:
-      created: ${{ steps.release.outputs.release_created }}
+      created: ${{ steps.release.outputs.releases_created }}
       server-created: ${{ steps.release.outputs.server--release_created }}
       server-tag-name: ${{ steps.release.outputs.server--tag_name }}
       keycloak-created: ${{ steps.release.outputs.keycloak--release_created }}
