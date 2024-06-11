@@ -8,6 +8,7 @@ using Emma.Infrastructure.Persistence;
 using Emma.Infrastructure.Persistence.EntityFramework;
 using Emma.Server;
 using Emma.Server.Configuration;
+using Emma.Server.Health;
 using Emma.Server.HostedServices;
 using Emma.Server.Identity;
 using Emma.Server.LongPolling;
@@ -98,10 +99,19 @@ services
 
 services.AddSwaggerGen(keycloakConfiguration);
 
+// Identity
 services.AddIdentity();
+
+// Long polling
 services.AddLongPolling();
+
+// Database
 AddDbContext(builder, container);
 
+// Health check
+services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
+
+// Simple injector
 services.AddSimpleInjector(container, options => options.AddAspNetCore().AddControllerActivation());
 Bootstrapper.Bootstrap(container, builder.Configuration);
 
@@ -124,6 +134,8 @@ if (app.Environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 
 app.UseRouting();
+
+app.MapHealthChecks("/health", new() { ResponseWriter = HealthCheckResponseWriter.WriteResponse });
 
 app.UseAuthentication();
 app.UseAuthorization();
