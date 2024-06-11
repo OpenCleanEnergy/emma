@@ -1,7 +1,8 @@
 using Pulumi;
+using Pulumi.Command.Local;
 using Pulumi.HCloud;
 using Pulumi.HCloud.Inputs;
-using Std = Pulumi.Std;
+using Pulumiverse.Time;
 
 namespace Emma.DevOps;
 
@@ -17,8 +18,8 @@ public class DefaultStack : Stack
         var sshEnabled = config.RequireBoolean("ssh-enabled");
         var dataCenter = config.Require("data-center");
 
-        var publicKeyFile = config.Require("public-key-file");
-        var publicKey = Std.File.Invoke(new() { Input = publicKeyFile }).Apply(file => file.Result);
+        var publicKey = config.Require("public-key");
+        var privateKeyBase64 = config.RequireSecret("private-key-base64");
 
         var sshKey = new SshKey(
             $"{stack}-ssh-key",
@@ -111,6 +112,38 @@ public class DefaultStack : Stack
                 Backups = true,
                 UserData = CloudConfig.Render(publicKey),
             }
+        );
+
+        if (sshEnabled)
+        {
+            var ansibleDir = new DirectoryInfo("/tmp/emma/ansible");
+            _ = new Command(
+                "Ansible inventory and private SSH key (600 -> owner read/write)",
+                new()
+                {
+                    Create = """
+                        mkdir -p ${DIR} && \
+                        echo ${PRIVATE_KEY_BASE64} | base64 -d > ${KEY_FILE} && \
+                        chmod 600 ${KEY_FILE} && \
+                        echo "${SERVER_IP} ansible_ssh_private_key_file=${KEY_FILE}" > ${INV_FILE}
+                        """,
+                    Delete = "rm -rf ../ansible/tmp",
+                    Environment = new()
+                    {
+                        ["DIR"] = ansibleDir.FullName,
+                        ["KEY_FILE"] = Path.Combine(ansibleDir.FullName, "private-ssh-key"),
+                        ["INV_FILE"] = Path.Combine(ansibleDir.FullName, "inventory.ini"),
+                        ["PRIVATE_KEY_BASE64"] = privateKeyBase64,
+                        ["SERVER_IP"] = ipv4.IpAddress,
+                    }
+                }
+            );
+        }
+
+        _ = new Sleep(
+            "Wait for server to boot",
+            new() { CreateDuration = "60s" },
+            new() { DependsOn = [server] }
         );
 
         ServerId = server.Id;

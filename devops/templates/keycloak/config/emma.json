@@ -4,12 +4,27 @@
   "registrationAllowed": true,
   "registrationEmailAsUsername": true,
   "resetPasswordAllowed": true,
+  "verifyEmail": true,
   "internationalizationEnabled": true,
   "supportedLocales": [
     "de",
     "en"
   ],
-  "defaultLocale": "en",
+  "defaultLocale": "de",
+  "smtpServer": {
+    "from": "{{KC_SMTP_FROM}}",
+    "fromDisplayName": "EMMA Team",
+    "replyTo": "",
+    "replyToDisplayName": "",
+    "envelopeFrom": "",
+    "host": "{{KC_SMTP_HOST}}",
+    "port": "587",
+    "starttls": "true",
+    "ssl": "false",
+    "auth": "true",
+    "user": "{{KC_SMTP_USER}}",
+    "password": "{{KC_SMTP_PASSWORD}}"
+  },
   "clients": [
     {
       "clientId": "emma_app",
@@ -36,46 +51,6 @@
         "phone",
         "offline_access",
         "microprofile-jwt"
-      ]
-    },
-    {
-      "clientId": "emma_swagger",
-      "name": "EMMA Swagger/OpenAPI client",
-      "enabled": true,
-      "protocol": "openid-connect",
-      "publicClient": true,
-      "standardFlowEnabled": false,
-      "implicitFlowEnabled": true,
-      "directAccessGrantsEnabled": false,
-      "redirectUris": ["*"],
-      "attributes": {},
-      "defaultClientScopes": [
-        "web-origins",
-        "acr",
-        "profile",
-        "roles",
-        "email"
-      ],
-      "optionalClientScopes": [
-        "address",
-        "phone",
-        "offline_access",
-        "microprofile-jwt"
-      ]
-    }
-  ],
-  "users": [
-    {
-      "username": "dev@emma.dev",
-      "email": "dev@emma.dev",
-      "enabled": true,
-      "firstName": "Developer",
-      "lastName": "EMMA",
-      "credentials": [
-        {
-          "type": "password",
-          "value": "dev"
-        }
       ]
     }
   ]

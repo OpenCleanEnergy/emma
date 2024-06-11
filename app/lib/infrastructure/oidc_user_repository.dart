@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:emma/domain/i_user_repository.dart';
 import 'package:emma/domain/user_status.dart';
 import 'package:emma/infrastructure/oidc_configuration.dart';
@@ -8,12 +10,28 @@ import 'package:signals/signals.dart';
 
 class OidcUserRepository implements IUserRepository {
   final _logger = Logger("OidcUserRepository");
-  final OidcUserManager _manager;
+  late final OidcUserManager _manager;
   final Signal<UserStatus> _status = signal(UserStatus.unknown);
   final Signal<String> _name = signal("");
 
-  OidcUserRepository._(OidcConfiguration configuration)
-      : _manager = OidcUserManager.lazy(
+  OidcUserRepository._(OidcConfiguration configuration) {
+    late final Uri redirectUri;
+    late final Uri? postLogoutRedirectUri;
+
+    if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
+      redirectUri = Uri.parse('org.opence.emma:/oauth2redirect');
+      postLogoutRedirectUri = Uri.parse('org.opence.emma:/endsessionredirect');
+    }
+    else if (Platform.isLinux || Platform.isWindows) {
+       redirectUri = Uri.parse('http://localhost:0');
+       postLogoutRedirectUri = Uri.parse('http://localhost:0');
+    }
+    else {
+       redirectUri = Uri();
+       postLogoutRedirectUri = null;
+    }
+
+    _manager = OidcUserManager.lazy(
           discoveryDocumentUri: OidcUtils.getOpenIdConfigWellKnownUri(
             configuration.baseUri,
           ),
@@ -21,10 +39,11 @@ class OidcUserRepository implements IUserRepository {
               OidcClientAuthentication.none(clientId: configuration.clientId),
           store: OidcDefaultStore(),
           settings: OidcUserManagerSettings(
-            redirectUri: Uri.parse('http://localhost:0'),
-            postLogoutRedirectUri: Uri.parse('http://localhost:0'),
+            redirectUri: redirectUri,
+            postLogoutRedirectUri: postLogoutRedirectUri,
           ),
         );
+  }
 
   static Future<OidcUserRepository> create(
       OidcConfiguration configuration) async {

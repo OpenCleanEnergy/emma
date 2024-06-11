@@ -1,0 +1,18 @@
+emma.opence.org {
+	# Server
+	redir /api /api/
+	handle_path /api/* {
+		reverse_proxy server:5000
+	}
+
+	# Keycloak
+	redir /auth /auth/
+	handle /auth/* {
+		reverse_proxy keycloak:8080
+	}
+
+	# Fallback
+	handle {
+		redir https://github.com/OpenCleanEnergy/emma
+	}
+}

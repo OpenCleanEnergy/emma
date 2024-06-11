@@ -1,0 +1,30 @@
+# https://docs.docker.com/engine/install/fedora/
+- name: 📦 Install packages to manage DNF repositories
+  become: true
+  ansible.builtin.dnf:
+    state: present
+    name:
+      - dnf-plugins-core
+
+- name: ⚙ Setup the DNF repository
+  become: true
+  ansible.builtin.command:
+    cmd: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+
+- name: 🐳 Install Docker Engine
+  become: true
+  ansible.builtin.dnf:
+    state: present
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+
+- name: ✔ Ensure Docker is started
+  become: true
+  ansible.builtin.systemd_service:
+    name: docker
+    state: started
+    enabled: true

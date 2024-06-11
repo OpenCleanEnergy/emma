@@ -1,0 +1,16 @@
+secrets:
+  keycloak_env:
+    file: ./.env
+
+services:
+  keycloak:
+    # x-release-please-start-version
+    image: ghcr.io/opencleanenergy/keycloak:1.0.0-alpha
+    # x-release-please-end
+    command: start
+    secrets:
+      - source: keycloak_env
+        target: .env
+    env_file:
+      - ../common/.env
+    restart: on-failure

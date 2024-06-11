@@ -1,0 +1,15 @@
+secrets:
+  server_secrets:
+    file: ./secrets.json
+
+services:
+  server:
+    # x-release-please-start-version
+    image: ghcr.io/opencleanenergy/emma:1.0.0-alpha
+    # x-release-please-end
+    secrets:
+      - source: server_secrets
+        target: secrets.json
+    env_file:
+      - ../common/.env
+    restart: on-failure
