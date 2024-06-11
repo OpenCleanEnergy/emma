@@ -3,6 +3,7 @@
   "separate-pull-requests": true,
   "prerelease": true,
   "versioning": "prerelease",
+  "draft": true,
   "changelog-sections": [
     {
       "type": "feat",
