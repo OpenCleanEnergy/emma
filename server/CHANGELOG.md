@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.17](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.16...server-v1.0.0-alpha.17) (2024-06-11)
+
+
+### 🚀 Features
+
+* Adds basic Sentry monitoring. ([342286c](https://github.com/OpenCleanEnergy/emma/commit/342286c11e14dfe7627b651120025bc39844ccce))
+
+
+### 🐛 Bug Fixes
+
+* Logs warning with invalid properties if Shelly integration configuration is invalid. ([e144f33](https://github.com/OpenCleanEnergy/emma/commit/e144f338f09ba9e1c9132e9fa06f7bb08ff4137a))
+
 ## [1.0.0-alpha.16](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.15...server-v1.0.0-alpha.16) (2024-06-11)
 
 
