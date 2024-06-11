@@ -4,9 +4,14 @@ set fallback
 @default:
   just --list
 
+# dart fix and format
 format:
   dart fix --apply
   dart format {{justfile_directory()}}
+
+# flutter analyze
+analyze:
+  flutter analyze
 
 # Get the current package's dependencies
 pub-get:
@@ -21,7 +26,13 @@ generate-code:
     'lib/application/backend_api/swagger_generated_code/backend_api.swagger.dart'
   just format
 
-# Runs the app
-run device-id='linux':
-  flutter run --device-id {{device-id}}
+# Builds the app
+build subcommand environment='production':
+  flutter build {{subcommand}} \
+  --dart-define-from-file appsettings.{{environment}}.json
 
+# Runs the app
+run device-id='linux' environment='development':
+  flutter run \
+  --device-id {{device-id}} \
+  --dart-define-from-file appsettings.{{environment}}.json

@@ -21,28 +21,26 @@ class OidcUserRepository implements IUserRepository {
     if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
       redirectUri = Uri.parse('org.opence.emma:/oauth2redirect');
       postLogoutRedirectUri = Uri.parse('org.opence.emma:/endsessionredirect');
-    }
-    else if (Platform.isLinux || Platform.isWindows) {
-       redirectUri = Uri.parse('http://localhost:0');
-       postLogoutRedirectUri = Uri.parse('http://localhost:0');
-    }
-    else {
-       redirectUri = Uri();
-       postLogoutRedirectUri = null;
+    } else if (Platform.isLinux || Platform.isWindows) {
+      redirectUri = Uri.parse('http://localhost:0');
+      postLogoutRedirectUri = Uri.parse('http://localhost:0');
+    } else {
+      redirectUri = Uri();
+      postLogoutRedirectUri = null;
     }
 
     _manager = OidcUserManager.lazy(
-          discoveryDocumentUri: OidcUtils.getOpenIdConfigWellKnownUri(
-            configuration.baseUri,
-          ),
-          clientCredentials:
-              OidcClientAuthentication.none(clientId: configuration.clientId),
-          store: OidcDefaultStore(),
-          settings: OidcUserManagerSettings(
-            redirectUri: redirectUri,
-            postLogoutRedirectUri: postLogoutRedirectUri,
-          ),
-        );
+      discoveryDocumentUri: OidcUtils.getOpenIdConfigWellKnownUri(
+        configuration.baseUri,
+      ),
+      clientCredentials:
+          OidcClientAuthentication.none(clientId: configuration.clientId),
+      store: OidcDefaultStore(),
+      settings: OidcUserManagerSettings(
+        redirectUri: redirectUri,
+        postLogoutRedirectUri: postLogoutRedirectUri,
+      ),
+    );
   }
 
   static Future<OidcUserRepository> create(

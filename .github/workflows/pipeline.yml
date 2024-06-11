@@ -41,13 +41,13 @@ jobs:
           flutter: true
 
       - name: 🏗 Restore dependencies
-        run: flutter pub get
+        run: just pub-get
 
       - name: 🎨 Analyze
-        run: flutter analyze
+        run: just analyze
 
       - name: 🛠️ Build
-        run: flutter build appbundle
+        run: just build appbundle
 
   release-please:
     name: ✨ Release Please

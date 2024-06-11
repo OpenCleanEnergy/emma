@@ -33,16 +33,19 @@ Future<void> bootstrap() async {
 
   // - user
   final oidcConfiguration = OidcConfiguration(
-      baseUri: Uri.parse("http://localhost:5001/realms/emma"),
-      clientId: "emma_app");
+    baseUri: Uri.parse(const String.fromEnvironment("AUTH_URL")),
+    clientId: "emma_app",
+  );
 
   final oidcUserRepository = await OidcUserRepository.create(oidcConfiguration);
   di.registerSingleton<IUserRepository>(oidcUserRepository);
 
   // application
   // - backend api
-  final backendApiConfiguration =
-      BackendApiConfiguration(baseUrl: Uri.parse("http://localhost:5000"));
+  final backendApiConfiguration = BackendApiConfiguration(
+    baseUrl: Uri.parse(const String.fromEnvironment("API_URL")),
+  );
+
   di.registerLazySingleton(() => BackendApiFactory(
       configuration: backendApiConfiguration,
       userRepository: di<IUserRepository>()));
