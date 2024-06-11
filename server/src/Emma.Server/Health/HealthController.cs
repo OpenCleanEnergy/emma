@@ -1,4 +1,4 @@
-using System.Reflection;
+using Emma.Infrastructure.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -9,7 +9,6 @@ namespace Emma.Server.Health;
 [Route("[controller]")]
 public class HealthController : ControllerBase
 {
-    private static readonly Lazy<string> _lazyVersion = new(GetVersion);
     private readonly HealthCheckService _healthCheckService;
 
     public HealthController(HealthCheckService healthCheckService)
@@ -21,18 +20,8 @@ public class HealthController : ControllerBase
     [HttpGet]
     public async Task<HealthReportDto> GetHealthReport()
     {
-        var version = _lazyVersion.Value;
         var report = await _healthCheckService.CheckHealthAsync();
-        var dto = new HealthReportDto(version, report.Status, report.TotalDuration);
+        var dto = new HealthReportDto(AppVersion.Version, report.Status, report.TotalDuration);
         return dto;
-    }
-
-    private static string GetVersion()
-    {
-        var assembly = typeof(HealthController).Assembly;
-        var version = assembly
-            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-            ?.InformationalVersion;
-        return version ?? "0.0.0";
     }
 }

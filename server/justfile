@@ -24,6 +24,9 @@ set-secret-shelly-integrator-credentials tag token: (_set-secret 'Integrations:S
 # Sets Shelly callback base url (e.g. https://example.org/api).
 set-secret-shelly-callback-base-url url: (_set-secret 'Integrations:Shelly:CallbackBaseUrl' url)
 
+# Sets Sentry DSN.
+set-secret-sentry-dsn dsn: (_set-secret 'Sentry:Dsn' dsn)
+
 # Clears all user secrets:
 clear-secrets:
   dotnet user-secrets clear \
