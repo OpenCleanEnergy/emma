@@ -131,22 +131,3 @@ dotnet_diagnostic.RMG012.severity = error
 
 # RMG020: Source member is not mapped to any target member
 dotnet_diagnostic.RMG020.severity = silent
-
-[*{Request,Query,Command}.cs]
-# S2094: Classes should not be empty
-dotnet_diagnostic.S2094.severity = silent
-
-[**/*Migration*/**.cs]
-dotnet_diagnostic.CA1707.severity = silent
-dotnet_diagnostic.SA1122.severity = silent
-dotnet_diagnostic.SA1137.severity = silent
-dotnet_diagnostic.SA1204.severity = silent
-dotnet_diagnostic.SA1402.severity = silent
-dotnet_diagnostic.SA1518.severity = silent
-# CA1861: Avoid constant arrays as arguments
-dotnet_diagnostic.CA1861.severity = silent
-csharp_style_namespace_declarations = file_scoped:none
-
-[*EventHandler.cs]
-# CA1711: Identifiers should not have incorrect suffix
-dotnet_diagnostic.CA1711.severity = none
