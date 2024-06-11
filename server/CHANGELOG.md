@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.15](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.14...server-v1.0.0-alpha.15) (2024-06-11)
+
+
+### 🚀 Features
+
+* Set MSBuild property InvariantGlobalization to ensure same behavior for development and docker image. ([7e3cc16](https://github.com/OpenCleanEnergy/emma/commit/7e3cc16065f5eb3aea6961635d7bf7353e405f0d))
+
+
+### 📦️ Build System, Dependencies
+
+* deploy server ([#71](https://github.com/OpenCleanEnergy/emma/issues/71)) ([9bddff4](https://github.com/OpenCleanEnergy/emma/commit/9bddff418c59152cc39a5e345cfc2e17d40ad5bc))
+
 ## [1.0.0-alpha.14](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.13...server-v1.0.0-alpha.14) (2024-06-09)
 
 
