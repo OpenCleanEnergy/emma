@@ -1,11 +1,11 @@
 import 'package:emma/application/backend_api/backend_api_configuration.dart';
 import 'package:emma/application/backend_api/swagger_generated_code/client_index.dart';
 import 'package:emma/domain/i_user_repository.dart';
-import 'package:emma/infrastructure/app_info.dart';
 import 'package:emma/application/backend_api/backend_api_factory.dart';
 import 'package:emma/infrastructure/oidc_configuration.dart';
 import 'package:emma/infrastructure/oidc_user_repository.dart';
 import 'package:emma/infrastructure/window_size_writer.dart';
+import 'package:emma/ui/app_info_view_model.dart';
 import 'package:emma/ui/app_messenger.dart';
 import 'package:emma/ui/commands/command.dart';
 import 'package:emma/ui/devices/add/add_consumer_view_model.dart';
@@ -26,10 +26,6 @@ Future<void> bootstrap() async {
   }
 
   final di = GetIt.instance;
-
-  // infrastructure
-  final appInfo = await AppInfo.create();
-  di.registerSingleton(appInfo);
 
   // - user
   final oidcConfiguration = OidcConfiguration(
@@ -60,6 +56,7 @@ Future<void> bootstrap() async {
 
   // - user
   di.registerLazySingleton(() => UserViewModel(di<IUserRepository>()));
+  di.registerLazySingleton(() => AppInfoViewModel(api: di<BackendApi>()));
 
   // - devices
   di.registerFactory(() => DevicesViewModel(api: di<BackendApi>()));

@@ -889,6 +889,78 @@ extension $GridStatusDtoExtension on GridStatusDto {
 }
 
 @JsonSerializable(explicitToJson: true)
+class HealthReportDto {
+  const HealthReportDto({
+    required this.version,
+    required this.status,
+    required this.totalDuration,
+  });
+
+  factory HealthReportDto.fromJson(Map<String, dynamic> json) =>
+      _$HealthReportDtoFromJson(json);
+
+  static const toJsonFactory = _$HealthReportDtoToJson;
+  Map<String, dynamic> toJson() => _$HealthReportDtoToJson(this);
+
+  @JsonKey(name: 'version')
+  final String version;
+  @JsonKey(
+    name: 'status',
+    toJson: healthStatusToJson,
+    fromJson: healthStatusFromJson,
+  )
+  final enums.HealthStatus status;
+  @JsonKey(name: 'totalDuration')
+  final String totalDuration;
+  static const fromJsonFactory = _$HealthReportDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is HealthReportDto &&
+            (identical(other.version, version) ||
+                const DeepCollectionEquality()
+                    .equals(other.version, version)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.totalDuration, totalDuration) ||
+                const DeepCollectionEquality()
+                    .equals(other.totalDuration, totalDuration)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(version) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(totalDuration) ^
+      runtimeType.hashCode;
+}
+
+extension $HealthReportDtoExtension on HealthReportDto {
+  HealthReportDto copyWith(
+      {String? version, enums.HealthStatus? status, String? totalDuration}) {
+    return HealthReportDto(
+        version: version ?? this.version,
+        status: status ?? this.status,
+        totalDuration: totalDuration ?? this.totalDuration);
+  }
+
+  HealthReportDto copyWithWrapped(
+      {Wrapped<String>? version,
+      Wrapped<enums.HealthStatus>? status,
+      Wrapped<String>? totalDuration}) {
+    return HealthReportDto(
+        version: (version != null ? version.value : this.version),
+        status: (status != null ? status.value : this.status),
+        totalDuration:
+            (totalDuration != null ? totalDuration.value : this.totalDuration));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class HomeStatusDto {
   const HomeStatusDto({
     required this.batteryStatus,
@@ -1787,6 +1859,70 @@ List<enums.GridPowerDirection>? gridPowerDirectionNullableListFromJson(
   return gridPowerDirection
       .map((e) => gridPowerDirectionFromJson(e.toString()))
       .toList();
+}
+
+String? healthStatusNullableToJson(enums.HealthStatus? healthStatus) {
+  return healthStatus?.value;
+}
+
+String? healthStatusToJson(enums.HealthStatus healthStatus) {
+  return healthStatus.value;
+}
+
+enums.HealthStatus healthStatusFromJson(
+  Object? healthStatus, [
+  enums.HealthStatus? defaultValue,
+]) {
+  return enums.HealthStatus.values
+          .firstWhereOrNull((e) => e.value == healthStatus) ??
+      defaultValue ??
+      enums.HealthStatus.swaggerGeneratedUnknown;
+}
+
+enums.HealthStatus? healthStatusNullableFromJson(
+  Object? healthStatus, [
+  enums.HealthStatus? defaultValue,
+]) {
+  if (healthStatus == null) {
+    return null;
+  }
+  return enums.HealthStatus.values
+          .firstWhereOrNull((e) => e.value == healthStatus) ??
+      defaultValue;
+}
+
+String healthStatusExplodedListToJson(List<enums.HealthStatus>? healthStatus) {
+  return healthStatus?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<String> healthStatusListToJson(List<enums.HealthStatus>? healthStatus) {
+  if (healthStatus == null) {
+    return [];
+  }
+
+  return healthStatus.map((e) => e.value!).toList();
+}
+
+List<enums.HealthStatus> healthStatusListFromJson(
+  List? healthStatus, [
+  List<enums.HealthStatus>? defaultValue,
+]) {
+  if (healthStatus == null) {
+    return defaultValue ?? [];
+  }
+
+  return healthStatus.map((e) => healthStatusFromJson(e.toString())).toList();
+}
+
+List<enums.HealthStatus>? healthStatusNullableListFromJson(
+  List? healthStatus, [
+  List<enums.HealthStatus>? defaultValue,
+]) {
+  if (healthStatus == null) {
+    return defaultValue;
+  }
+
+  return healthStatus.map((e) => healthStatusFromJson(e.toString())).toList();
 }
 
 String? switchStatusNullableToJson(enums.SwitchStatus? switchStatus) {

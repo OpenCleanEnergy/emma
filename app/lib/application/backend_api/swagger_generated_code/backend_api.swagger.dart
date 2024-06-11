@@ -224,6 +224,18 @@ abstract class BackendApi extends ChopperService {
       {@Path('ElectricityMeterId') required String? electricityMeterId});
 
   ///
+  Future<chopper.Response<HealthReportDto>> Health_GetHealthReport() {
+    generatedMapping.putIfAbsent(
+        HealthReportDto, () => HealthReportDto.fromJsonFactory);
+
+    return _Health_GetHealthReport();
+  }
+
+  ///
+  @Get(path: '/health')
+  Future<chopper.Response<HealthReportDto>> _Health_GetHealthReport();
+
+  ///
   Future<chopper.Response<MeDto>> Hello_Me() {
     generatedMapping.putIfAbsent(MeDto, () => MeDto.fromJsonFactory);
 

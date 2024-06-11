@@ -194,6 +194,17 @@ final class _$BackendApi extends BackendApi {
   }
 
   @override
+  Future<Response<HealthReportDto>> _Health_GetHealthReport() {
+    final Uri $url = Uri.parse('/health');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<HealthReportDto, HealthReportDto>($request);
+  }
+
+  @override
   Future<Response<MeDto>> _Hello_Me() {
     final Uri $url = Uri.parse('/v1/hello/me');
     final Request $request = Request(

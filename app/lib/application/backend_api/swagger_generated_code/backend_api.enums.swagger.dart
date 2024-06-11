@@ -62,6 +62,22 @@ enum GridPowerDirection {
   const GridPowerDirection(this.value);
 }
 
+enum HealthStatus {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue('Unhealthy')
+  unhealthy('Unhealthy'),
+  @JsonValue('Degraded')
+  degraded('Degraded'),
+  @JsonValue('Healthy')
+  healthy('Healthy');
+
+  final String? value;
+
+  const HealthStatus(this.value);
+}
+
 enum SwitchStatus {
   @JsonValue(null)
   swaggerGeneratedUnknown(null),

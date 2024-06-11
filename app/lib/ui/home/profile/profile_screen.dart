@@ -1,6 +1,6 @@
-import 'package:emma/infrastructure/app_info.dart';
 import 'package:emma/infrastructure/window_size_writer.dart';
 import 'package:emma/ui/app_icons.dart';
+import 'package:emma/ui/home/profile/app_info.dart';
 import 'package:emma/ui/home/profile/development/screen_size_selector.dart';
 import 'package:emma/ui/locator.dart';
 import 'package:emma/ui/user_view_model.dart';
@@ -15,13 +15,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  late final AppInfo _appInfo;
   late final UserViewModel _vm;
 
   @override
   void initState() {
     super.initState();
-    _appInfo = locator.get<AppInfo>();
     _vm = locator.get<UserViewModel>();
   }
 
@@ -42,14 +40,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           title: ScreenSizeSelector()));
     }
 
-    items.add(Center(
-        child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        "Version: ${_appInfo.version}",
-        style: Theme.of(context).textTheme.labelMedium,
+    items.add(
+      const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: AppInfo(),
       ),
-    )));
+    );
 
     return Scaffold(
       appBar: AppBar(

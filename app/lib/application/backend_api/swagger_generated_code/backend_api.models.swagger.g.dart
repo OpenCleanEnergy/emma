@@ -211,6 +211,20 @@ Map<String, dynamic> _$GridStatusDtoToJson(GridStatusDto instance) =>
       'maximumPowerFeedIn': instance.maximumPowerFeedIn,
     };
 
+HealthReportDto _$HealthReportDtoFromJson(Map<String, dynamic> json) =>
+    HealthReportDto(
+      version: json['version'] as String,
+      status: healthStatusFromJson(json['status']),
+      totalDuration: json['totalDuration'] as String,
+    );
+
+Map<String, dynamic> _$HealthReportDtoToJson(HealthReportDto instance) =>
+    <String, dynamic>{
+      'version': instance.version,
+      'status': healthStatusToJson(instance.status),
+      'totalDuration': instance.totalDuration,
+    };
+
 HomeStatusDto _$HomeStatusDtoFromJson(Map<String, dynamic> json) =>
     HomeStatusDto(
       batteryStatus: BatteryStatusDto.fromJson(
