@@ -5,19 +5,17 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "app (linux, dev)",
+      "name": "app (dev)",
       "cwd": "app",
       "request": "launch",
       "type": "dart",
-      "deviceId": "linux",
       "args": ["--dart-define-from-file", "appsettings.development.json"]
     },
     {
-      "name": "app (linux, prod)",
+      "name": "app (prod)",
       "cwd": "app",
       "request": "launch",
       "type": "dart",
-      "deviceId": "linux",
       "args": ["--dart-define-from-file", "appsettings.production.json"]
     }
   ]
