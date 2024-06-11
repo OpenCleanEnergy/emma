@@ -5,7 +5,7 @@
     state: directory
     mode: 0755
 
-- name: 📤 Copy files files to remote host
+- name: 📤 Copy files to remote host
   become: true
   ansible.builtin.copy:
     src: /tmp/emma/ansible/rendered/
