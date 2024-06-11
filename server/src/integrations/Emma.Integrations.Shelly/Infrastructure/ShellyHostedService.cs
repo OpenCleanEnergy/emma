@@ -36,8 +36,8 @@ public sealed class ShellyHostedService : IHostedService, IDisposable
     {
         if (!_configuration.Validate(out var invalidProperties))
         {
-            _logger.Info(
-                $"Configuration is invalid because of {invalidProperties}. Service is shutting down.",
+            _logger.Warning(
+                "Configuration is invalid because of {invalidProperties}. Service is shutting down.",
                 invalidProperties
             );
 
