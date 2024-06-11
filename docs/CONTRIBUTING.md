@@ -90,3 +90,14 @@ sudo dnf install \
   libsecret libsecret-devel \
   jsoncpp jsoncpp-devel
 ```
+
+##### Troubleshooting
+
+> [!WARNING]
+> This version only understands SDK XML versions up to 3 but an SDK XML file of
+> version 4 was encountered. This can happen if you use versions of Android
+> Studio and the command-line tools that were released at different times.
+
+Go to `Android Studio -> SDK Manager -> Android SDK` and make sure your SDK Platforms and SDK Tools are up to date.
+
+---
