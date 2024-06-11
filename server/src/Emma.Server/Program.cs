@@ -8,7 +8,6 @@ using Emma.Infrastructure.Persistence;
 using Emma.Infrastructure.Persistence.EntityFramework;
 using Emma.Server;
 using Emma.Server.Configuration;
-using Emma.Server.Health;
 using Emma.Server.HostedServices;
 using Emma.Server.Identity;
 using Emma.Server.LongPolling;
@@ -134,8 +133,6 @@ if (app.Environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 
 app.UseRouting();
-
-app.MapHealthChecks("/health", new() { ResponseWriter = HealthCheckResponseWriter.WriteResponse });
 
 app.UseAuthentication();
 app.UseAuthorization();

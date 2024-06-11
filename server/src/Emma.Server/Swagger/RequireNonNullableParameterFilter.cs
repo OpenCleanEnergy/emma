@@ -1,7 +1,5 @@
-using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using Vogen;
 
 namespace Emma.Server.Swagger;
 
