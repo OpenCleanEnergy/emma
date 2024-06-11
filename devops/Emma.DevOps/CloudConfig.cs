@@ -36,7 +36,5 @@ public static class CloudConfig
               - systemctl enable --now fail2ban
             """
         );
-
-        // TODO: Avoid reboot?
     }
 }
