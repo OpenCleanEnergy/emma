@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.16](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.15...server-v1.0.0-alpha.16) (2024-06-11)
+
+
+### 🚀 Features
+
+* Adds `/health` check ([65d0253](https://github.com/OpenCleanEnergy/emma/commit/65d0253900574689dcc3a55c3fb8f0292fbe2d7e))
+
 ## [1.0.0-alpha.15](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.14...server-v1.0.0-alpha.15) (2024-06-11)
 
 
