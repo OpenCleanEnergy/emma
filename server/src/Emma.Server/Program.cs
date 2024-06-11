@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using Emma.Application.Shared.Events;
+using Emma.Infrastructure.Common;
 using Emma.Infrastructure.Common.Logging;
 using Emma.Infrastructure.Persistence;
 using Emma.Infrastructure.Persistence.EntityFramework;
@@ -179,6 +180,20 @@ static LoggerConfiguration ConfigureLogger(
     else
     {
         loggerConfiguration.WriteTo.Console(new CompactJsonFormatter());
+    }
+
+    var sentry = configuration.GetSection("Sentry")?.Get<SentryConfiguration>();
+    if (!string.IsNullOrEmpty(sentry?.Dsn))
+    {
+        loggerConfiguration.WriteTo.Sentry(options =>
+        {
+            options.Dsn = sentry.Dsn;
+            options.Debug = sentry.Debug;
+            options.MinimumBreadcrumbLevel = sentry.MinimumBreadcrumbLevel;
+            options.MinimumEventLevel = sentry.MinimumEventLevel;
+            options.Environment = environment.EnvironmentName;
+            options.Release = AppVersion.Version;
+        });
     }
 
     return loggerConfiguration;
