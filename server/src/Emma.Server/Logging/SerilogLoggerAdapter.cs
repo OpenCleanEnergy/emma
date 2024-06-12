@@ -4,7 +4,7 @@ using Serilog.Context;
 using Serilog.Core.Enrichers;
 using Serilog.Events;
 
-namespace Emma.Infrastructure.Common.Logging;
+namespace Emma.Server.Logging;
 
 [SuppressMessage(
     "StyleCop.CSharp.MaintainabilityRules",

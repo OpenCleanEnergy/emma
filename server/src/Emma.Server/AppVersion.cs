@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Emma.Infrastructure.Common;
+namespace Emma.Server;
 
 public static class AppVersion
 {
