@@ -11,6 +11,7 @@ using Emma.Server;
 using Emma.Server.Configuration;
 using Emma.Server.HostedServices;
 using Emma.Server.Identity;
+using Emma.Server.Logging;
 using Emma.Server.LongPolling;
 using Emma.Server.ModelBinding;
 using Emma.Server.Swagger;
@@ -131,7 +132,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseSerilogRequestLogging();
+app.UseSerilogRequestLogging(options =>
+{
+    options.GetLevel = RequestLoggingLevelFactory.GetLevel;
+});
 
 app.UseRouting();
 
