@@ -41,11 +41,6 @@ add-migration name: _restore-tools
   dotnet format 'src/Emma.Infrastructure/Emma.Infrastructure.csproj' \
     --include 'src/Emma.Infrastructure/Persistence/EntityFramework/Migrations/'
 
-# (Re-)initializes EF Core migrations
-init-migration:
-  rm --force --recursive 'src/Emma.Infrastructure/Persistence/EntityFramework/Migrations'
-  just add-migration 'Initial'
-
 # Runs the server and watches for changes
 run:
   dotnet watch --project 'src/Emma.Server/Emma.Server.csproj'
