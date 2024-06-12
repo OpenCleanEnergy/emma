@@ -7,7 +7,6 @@ using Emma.Domain.Consumers;
 using Emma.Domain.Meters;
 using Emma.Domain.Producers;
 using Emma.Infrastructure;
-using Emma.Infrastructure.Common.Logging;
 using Emma.Infrastructure.Devices.Consumers;
 using Emma.Infrastructure.Devices.Meters;
 using Emma.Infrastructure.Devices.Producers;
@@ -26,6 +25,7 @@ using Emma.Integrations.Shelly.Events;
 using Emma.Integrations.Shelly.Infrastructure;
 using Emma.Server.Events;
 using Emma.Server.Integrations;
+using Emma.Server.Logging;
 using MediatR;
 using SimpleInjector;
 
