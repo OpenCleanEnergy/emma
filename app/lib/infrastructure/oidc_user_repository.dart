@@ -37,6 +37,7 @@ class OidcUserRepository implements IUserRepository {
           OidcClientAuthentication.none(clientId: configuration.clientId),
       store: OidcDefaultStore(),
       settings: OidcUserManagerSettings(
+        scope: ['openid', 'profile', 'offline_access'],
         redirectUri: redirectUri,
         postLogoutRedirectUri: postLogoutRedirectUri,
       ),
