@@ -35,7 +35,7 @@ jobs:
           config-file: release-please/config.json
           manifest-file: release-please/manifest.json
           token: ${{ steps.app-token.outputs.token }}
-  
+
   debug-release-please:
     name: 🐞 Debug
     runs-on: ubuntu-latest
@@ -148,28 +148,37 @@ jobs:
 
       - name: 🐳 Build and push docker image
         run: just target keycloak:publish
-  
+
   deploy:
-    name: 🚀 Deploy
+    name: 🚀 Trigger deployment
     runs-on: ubuntu-latest
     needs:
-       - publish-server
-       - publish-keycloak
+      - publish-server
+      - publish-keycloak
     # always(): run even if one of 'needs' is skipped
-    # contains(needs.*.result, 'success'): Deploy if one 'needs' actually ran
-    if: always() && contains(needs.*.result, 'success')
+    # contains(needs.*.result, 'success') does not work
+    # see: https://github.com/actions/runner/issues/1251#issuecomment-1691111412
+    if: >
+      always() && (
+        needs.publish-server.result == 'success' ||
+        needs.publish-keycloak.result == 'success'
+      )
+    env:
+      REPOSITORY: emma-private
     steps:
       - name: 🗝 Get app token
-        if: contains(needs.*.result, 'success')
         uses: actions/create-github-app-token@v1
         id: app-token
         with:
           app-id: ${{ vars.EMMA_APP_ID }}
           private-key: ${{ secrets.EMMA_APP_PRIVATE_KEY }}
-      - name: 🚀 Deploy
-        if: contains(needs.*.result, 'success')
-        run: |
-          curl -X POST https://api.github.com/repos/OpenCleanEnergy/emma-private/dispatches \
-          -H 'Accept: application/vnd.github.everest-preview+json' \
-          -u ${{ steps.app-token.outputs.token }} \
-          --data '{"event_type": "deploy", "client_payload": { "ref": "${{github.ref}}" }}'
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ env.REPOSITORY }}
+
+      - name: 🚀 Trigger deployment
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          repository: ${{ github.repository_owner }}/${{ env.REPOSITORY }}
+          event-type: deploy
+          client-payload: '{ "ref": "${{ github.ref }}" }'
