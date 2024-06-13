@@ -156,8 +156,8 @@ jobs:
       - publish-server
       - publish-keycloak
     # always(): run even if one of 'needs' is skipped
-    # contains(needs.*.result, 'success'): Deploy if one 'needs' actually ran
-    if: contains(needs.*.result, 'skipped')
+    # https://github.com/actions/runner/issues/1251#issuecomment-1691111412
+    if: always() && (needs.publish-server.result == 'success' || needs.publish-keycloak.result == 'success')
     steps:
       - name: 🗝 Get app token
         uses: actions/create-github-app-token@v1
