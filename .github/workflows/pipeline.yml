@@ -157,10 +157,9 @@ jobs:
       - publish-keycloak
     # always(): run even if one of 'needs' is skipped
     # contains(needs.*.result, 'success'): Deploy if one 'needs' actually ran
-    if: always() && contains(needs.*.result, 'success')
+    if: contains(needs.*.result, 'skipped')
     steps:
       - name: 🗝 Get app token
-        if: contains(needs.*.result, 'success')
         uses: actions/create-github-app-token@v1
         id: app-token
         with:
@@ -170,7 +169,6 @@ jobs:
           repositories: emma-private
 
       - name: 🚀 Trigger deployment
-        if: contains(needs.*.result, 'success')
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ steps.app-token.outputs.token }}
