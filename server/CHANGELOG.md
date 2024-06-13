@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.18](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.17...server-v1.0.0-alpha.18) (2024-06-13)
+
+
+### 🚀 Features
+
+* Set log level based on request status code. ([#80](https://github.com/OpenCleanEnergy/emma/issues/80)) ([5accd53](https://github.com/OpenCleanEnergy/emma/commit/5accd531753dad827517900703980db27cbe8f7b))
+
 ## [1.0.0-alpha.17](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.16...server-v1.0.0-alpha.17) (2024-06-11)
 
 
