@@ -1,17 +1,20 @@
 using System.Diagnostics.CodeAnalysis;
-using Emma.Application.Shared.Logging;
 using Serilog.Context;
 using Serilog.Core.Enrichers;
 using Serilog.Events;
+using ILogger = Emma.Application.Shared.Logging.ILogger;
+using LogLevel = Emma.Application.Shared.Logging.LogLevel;
 
-namespace Emma.Infrastructure.Common.Logging;
+namespace Emma.Server.Logging;
 
 [SuppressMessage(
     "StyleCop.CSharp.MaintainabilityRules",
     "SA1402:File may only contain a single type",
     Justification = "Generic and non generic type may be in same file."
 )]
-public class SerilogLoggerAdapter<TContextT> : SerilogLoggerAdapter, ILogger<TContextT>
+public class SerilogLoggerAdapter<TContextT>
+    : SerilogLoggerAdapter,
+        Application.Shared.Logging.ILogger<TContextT>
 {
     public SerilogLoggerAdapter(Serilog.ILogger logger)
         : base(logger.ForContext<TContextT>()) { }

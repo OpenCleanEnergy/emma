@@ -5,7 +5,7 @@ using Serilog.Core;
 using Serilog.Events;
 using Vogen;
 
-namespace Emma.Infrastructure.Common.Logging;
+namespace Emma.Server.Logging;
 
 public class ValueObjectDestructuringPolicy : IDestructuringPolicy
 {

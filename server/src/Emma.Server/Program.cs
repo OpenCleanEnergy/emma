@@ -3,14 +3,13 @@ using System.Globalization;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using Emma.Application.Shared.Events;
-using Emma.Infrastructure.Common;
-using Emma.Infrastructure.Common.Logging;
 using Emma.Infrastructure.Persistence;
 using Emma.Infrastructure.Persistence.EntityFramework;
 using Emma.Server;
 using Emma.Server.Configuration;
 using Emma.Server.HostedServices;
 using Emma.Server.Identity;
+using Emma.Server.Logging;
 using Emma.Server.LongPolling;
 using Emma.Server.ModelBinding;
 using Emma.Server.Swagger;
@@ -131,7 +130,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseSerilogRequestLogging();
+app.UseSerilogRequestLogging(options =>
+{
+    options.GetLevel = RequestLoggingLevelFactory.GetLevel;
+});
 
 app.UseRouting();
 
@@ -176,11 +178,11 @@ static LoggerConfiguration ConfigureLogger(
             applyThemeToRedirectedOutput: true,
             theme: AnsiConsoleTheme.Literate
         );
+
+        return loggerConfiguration;
     }
-    else
-    {
-        loggerConfiguration.WriteTo.Console(new CompactJsonFormatter());
-    }
+
+    loggerConfiguration.WriteTo.Console(new CompactJsonFormatter());
 
     var sentry = configuration.GetSection("Sentry")?.Get<SentryConfiguration>();
     if (!string.IsNullOrEmpty(sentry?.Dsn))
