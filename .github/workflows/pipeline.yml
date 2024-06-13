@@ -159,13 +159,15 @@ jobs:
     # contains(needs.*.result, 'success'): Deploy if one 'needs' actually ran
     if: always() && contains(needs.*.result, 'success')
     steps:
-      - name: 🗝 Get app token        
+      - name: 🗝 Get app token
+        if: contains(needs.*.result, 'success')
         uses: actions/create-github-app-token@v1
         id: app-token
         with:
           app-id: ${{ vars.EMMA_APP_ID }}
           private-key: ${{ secrets.EMMA_APP_PRIVATE_KEY }}
-      - name: 🚀 Deploy        
+      - name: 🚀 Deploy
+        if: contains(needs.*.result, 'success')
         run: |
           curl -X POST https://api.github.com/repos/OpenCleanEnergy/emma-private/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
