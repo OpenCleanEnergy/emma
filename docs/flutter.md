@@ -36,6 +36,6 @@ sudo dnf install \
 > version 4 was encountered. This can happen if you use versions of Android
 > Studio and the command-line tools that were released at different times.
 
-Go to `Android Studio -> SDK Manager -> Android SDK` and make sure your SDK Platforms and SDK Tools are up to date.
+¯\\\_(ツ)\_/¯ don't know yet.
 
 ---
