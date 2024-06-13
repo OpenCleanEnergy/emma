@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.3](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.2...app-v1.0.0-alpha.3) (2024-06-13)
+
+
+### 🐛 Bug Fixes
+
+* Adds `offline_access` scope to extend refresh token lifetime. ([91e8b61](https://github.com/OpenCleanEnergy/emma/commit/91e8b61d3cab8bc28cd45b6e2d27db3e00a0cd84))
+
 ## [1.0.0-alpha.2](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.1...app-v1.0.0-alpha.2) (2024-06-11)
 
 
