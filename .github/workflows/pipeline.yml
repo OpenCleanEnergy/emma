@@ -42,12 +42,12 @@ jobs:
     needs:
       - release-please
     steps:
-      - name: Outputs
+      - name: 📣 Outputs
         run: |
-          echo "created: ${{ needs.release-please.outputs.created }}"
-          echo "app: ${{ needs.release-please.outputs.app-created }}"
-          echo "server: ${{ needs.release-please.outputs.server-created }}"
-          echo "keycloak: ${{ needs.release-please.outputs.keycloak-created }}"
+          echo '✨ Releases: ${{ needs.release-please.outputs.created }}'
+          echo '📱 App:       ${{ needs.release-please.outputs.app-created }}'
+          echo '🚂 Server:   ${{ needs.release-please.outputs.server-created }}'
+          echo '🕵️‍♂️ Keycloak: ${{ needs.release-please.outputs.keycloak-created }}'
 
   build-app:
     name: 📱 Build app
@@ -156,15 +156,21 @@ jobs:
        - release-please
        - publish-server
        - publish-keycloak
-    if: needs.release-please.outputs.server-created || needs.release-please.outputs.server-created
+    if: always()
     steps:
       - name: 🗝 Get app token
+        if: > 
+          needs.release-please.outputs.server-created || 
+          needs.release-please.outputs.keycloak-created
         uses: actions/create-github-app-token@v1
         id: app-token
         with:
           app-id: ${{ vars.EMMA_APP_ID }}
           private-key: ${{ secrets.EMMA_APP_PRIVATE_KEY }}
       - name: 🚀 Deploy
+        if: > 
+          needs.release-please.outputs.server-created || 
+          needs.release-please.outputs.keycloak-created
         run: |
           curl -X POST https://api.github.com/repos/OpenCleanEnergy/emma-private/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
