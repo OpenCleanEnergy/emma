@@ -153,24 +153,19 @@ jobs:
     name: 🚀 Deploy
     runs-on: ubuntu-latest
     needs:
-       - release-please
        - publish-server
        - publish-keycloak
-    if: always()
+    # always(): run even if one of 'needs' is skipped
+    # contains(needs.*.result, 'success'): Deploy if one 'needs' actually ran
+    if: always() && contains(needs.*.result, 'success')
     steps:
-      - name: 🗝 Get app token
-        if: > 
-          needs.release-please.outputs.server-created || 
-          needs.release-please.outputs.keycloak-created
+      - name: 🗝 Get app token        
         uses: actions/create-github-app-token@v1
         id: app-token
         with:
           app-id: ${{ vars.EMMA_APP_ID }}
           private-key: ${{ secrets.EMMA_APP_PRIVATE_KEY }}
-      - name: 🚀 Deploy
-        if: > 
-          needs.release-please.outputs.server-created || 
-          needs.release-please.outputs.keycloak-created
+      - name: 🚀 Deploy        
         run: |
           curl -X POST https://api.github.com/repos/OpenCleanEnergy/emma-private/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
