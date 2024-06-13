@@ -150,7 +150,7 @@ jobs:
         run: just target keycloak:publish
 
   deploy:
-    name: 🚀 Deploy
+    name: 🚀 Trigger deployment
     runs-on: ubuntu-latest
     needs:
       - publish-server
