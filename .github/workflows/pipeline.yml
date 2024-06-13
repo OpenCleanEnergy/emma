@@ -163,6 +163,8 @@ jobs:
         needs.publish-server.result == 'success' ||
         needs.publish-keycloak.result == 'success'
       )
+    env:
+      REPOSITORY: emma-private
     steps:
       - name: 🗝 Get app token
         uses: actions/create-github-app-token@v1
@@ -171,12 +173,12 @@ jobs:
           app-id: ${{ vars.EMMA_APP_ID }}
           private-key: ${{ secrets.EMMA_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
-          repositories: emma-private
+          repositories: ${{ env.REPOSITORY }}
 
       - name: 🚀 Trigger deployment
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ steps.app-token.outputs.token }}
-          repository: OpenCleanEnergy/emma-private
+          repository: ${{ github.repository_owner }}/${{ env.REPOSITORY }}
           event-type: deploy
           client-payload: '{ "ref": "${{github.ref}}" }'
