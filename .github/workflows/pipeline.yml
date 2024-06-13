@@ -18,11 +18,8 @@ jobs:
     outputs:
       created: ${{ steps.release.outputs.releases_created }}
       app-created: ${{ steps.release.outputs.app--release_created }}
-      app-tag-name: ${{ steps.release.outputs.app--tag_name }}
       server-created: ${{ steps.release.outputs.server--release_created }}
-      server-tag-name: ${{ steps.release.outputs.server--tag_name }}
       keycloak-created: ${{ steps.release.outputs.keycloak--release_created }}
-      keycloak-tag-name: ${{ steps.release.outputs.keycloak--tag_name }}
     steps:
       - name: 🗝 Get app token
         uses: actions/create-github-app-token@v1
@@ -38,6 +35,19 @@ jobs:
           config-file: release-please/config.json
           manifest-file: release-please/manifest.json
           token: ${{ steps.app-token.outputs.token }}
+  
+  debug-release-please:
+    name: 🐞 Debug
+    runs-on: ubuntu-latest
+    needs:
+      - release-please
+    steps:
+      - name: Outputs
+        run: |
+          echo "created: ${{ needs.release-please.outputs.created }}"
+          echo "app: ${{ needs.release-please.outputs.app-created }}"
+          echo "server: ${{ needs.release-please.outputs.server-created }}"
+          echo "keycloak: ${{ needs.release-please.outputs.keycloak-created }}"
 
   build-app:
     name: 📱 Build app
@@ -84,8 +94,8 @@ jobs:
     name: 🐳 Publish server docker image
     runs-on: ubuntu-latest
     needs:
-      - "release-please"
-      - "build-server"
+      - release-please
+      - build-server
     if: needs.release-please.outputs.server-created
     permissions:
       contents: read
@@ -114,7 +124,7 @@ jobs:
     name: 🐳 Publish keycloak docker image
     runs-on: ubuntu-latest
     needs:
-      - "release-please"
+      - release-please
     if: needs.release-please.outputs.keycloak-created
     permissions:
       contents: read
@@ -138,3 +148,25 @@ jobs:
 
       - name: 🐳 Build and push docker image
         run: just target keycloak:publish
+  
+  deploy:
+    name: 🚀 Deploy
+    runs-on: ubuntu-latest
+    needs:
+       - release-please
+       - publish-server
+       - publish-keycloak
+    if: needs.release-please.outputs.server-created || needs.release-please.outputs.server-created
+    steps:
+      - name: 🗝 Get app token
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.EMMA_APP_ID }}
+          private-key: ${{ secrets.EMMA_APP_PRIVATE_KEY }}
+      - name: 🚀 Deploy
+        run: |
+          curl -X POST https://api.github.com/repos/OpenCleanEnergy/emma-private/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ steps.app-token.outputs.token }} \
+          --data '{"event_type": "deploy", "client_payload": { "ref": "${{github.ref}}" }}'
