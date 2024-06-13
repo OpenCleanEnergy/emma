@@ -155,9 +155,15 @@ jobs:
     needs:
       - publish-server
       - publish-keycloak
+      - build-server
     # always(): run even if one of 'needs' is skipped
     # https://github.com/actions/runner/issues/1251#issuecomment-1691111412
-    if: always() && (needs.publish-server.result == 'success' || needs.publish-keycloak.result == 'success')
+    if: >
+      always() && (
+        needs.publish-server.result == 'success' ||
+        needs.publish-keycloak.result == 'success' ||
+        needs.build-server.result == 'success'
+      )
     steps:
       - name: 🗝 Get app token
         uses: actions/create-github-app-token@v1
