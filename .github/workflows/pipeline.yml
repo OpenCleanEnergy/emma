@@ -181,4 +181,4 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           repository: ${{ github.repository_owner }}/${{ env.REPOSITORY }}
           event-type: deploy
-          client-payload: '{ "ref": "${{github.ref}}" }'
+          client-payload: '{ "ref": "${{ github.ref }}" }'
