@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:emma/ui/app_icons.dart';
 import 'package:emma/ui/app_navigator.dart';
 import 'package:emma/ui/devices/add/select_device_category_screen.dart';

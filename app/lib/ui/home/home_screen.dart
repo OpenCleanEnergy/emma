@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:emma/ui/home/home_view_model.dart';
 import 'package:emma/ui/home/status/home_status_view.dart';
 import 'package:emma/ui/locator.dart';
