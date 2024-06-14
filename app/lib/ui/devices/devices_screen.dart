@@ -37,7 +37,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
   @override
   void dispose() {
     super.dispose();
-    _longPollingTimer?.cancel();
+    _longPollingTimer?.dispose();
   }
 
   @override
