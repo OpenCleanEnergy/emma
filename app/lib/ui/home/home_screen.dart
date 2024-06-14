@@ -4,7 +4,7 @@ import 'package:emma/ui/home/home_view_model.dart';
 import 'package:emma/ui/home/status/home_status_view.dart';
 import 'package:emma/ui/locator.dart';
 import 'package:emma/ui/shared/app_bar_command_progress_indicator.dart';
-import 'package:emma/ui/utils/polling/long_polling_timer.dart';
+import 'package:emma/ui/utils/polling/long_polling_handler.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  LongPollingTimer? _longPollingTimer;
+  LongPollingHandler? _longPollingHandler;
 
   late final HomeViewModel viewModel;
 
@@ -24,13 +24,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     viewModel = locator.get<HomeViewModel>();
     viewModel.init();
-    _longPollingTimer = LongPollingTimer(const Duration(seconds: 1), viewModel.refresh.call);
+    _longPollingHandler = LongPollingHandler(const Duration(seconds: 1), viewModel.refresh.call);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _longPollingTimer?.dispose();
+    _longPollingHandler?.dispose();
   }
 
   @override

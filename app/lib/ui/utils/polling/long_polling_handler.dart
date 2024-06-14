@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 
-class LongPollingTimer {
+class LongPollingHandler {
   final Future<bool> Function() _longPollingAction;
 
   late final AppLifecycleListener? _listener;
@@ -12,7 +12,7 @@ class LongPollingTimer {
   
   bool _disposed = false;
 
-  LongPollingTimer(
+  LongPollingHandler(
       Duration startDelay, Future<bool> Function() longPollingAction)
       : _longPollingAction = longPollingAction {
     _listener = AppLifecycleListener(onHide: _onHide, onShow: _onShow);

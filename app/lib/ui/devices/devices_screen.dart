@@ -8,7 +8,7 @@ import 'package:emma/ui/devices/widgets/devices_list.dart';
 import 'package:emma/ui/locator.dart';
 import 'package:emma/ui/shared/noop.dart';
 import 'package:emma/ui/shared/app_bar_command_progress_indicator.dart';
-import 'package:emma/ui/utils/polling/long_polling_timer.dart';
+import 'package:emma/ui/utils/polling/long_polling_handler.dart';
 import 'package:flutter/material.dart';
 
 class DevicesScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class DevicesScreen extends StatefulWidget {
 }
 
 class _DevicesScreenState extends State<DevicesScreen> {
-  LongPollingTimer? _longPollingTimer;
+  LongPollingHandler? _longPollingHandler;
 
   // The view model has to be stored in the state for it to work.
   // Otherwise the DevicesVieModel would be created multiple times
@@ -31,13 +31,13 @@ class _DevicesScreenState extends State<DevicesScreen> {
     super.initState();
     viewModel = locator.get<DevicesViewModel>();
     viewModel.init();
-    _longPollingTimer = LongPollingTimer(const Duration(seconds: 1), viewModel.refresh.call);
+    _longPollingHandler = LongPollingHandler(const Duration(seconds: 1), viewModel.refresh.call);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _longPollingTimer?.dispose();
+    _longPollingHandler?.dispose();
   }
 
   @override
