@@ -4,6 +4,7 @@ import 'package:emma/ui/home/home_view_model.dart';
 import 'package:emma/ui/home/status/home_status_view.dart';
 import 'package:emma/ui/locator.dart';
 import 'package:emma/ui/shared/app_bar_command_progress_indicator.dart';
+import 'package:emma/ui/utils/polling/long_polling_timer.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,8 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _disposed = false;
-  Timer? _timer;
+  LongPollingTimer? _longPollingTimer;
 
   late final HomeViewModel viewModel;
 
@@ -24,14 +24,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     viewModel = locator.get<HomeViewModel>();
     viewModel.init();
-    _timer = Timer(const Duration(seconds: 1), _timerCallback);
+    _longPollingTimer = LongPollingTimer(const Duration(seconds: 1), viewModel.refresh.call);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _disposed = true;
-    _timer?.cancel();
+    _longPollingTimer?.cancel();
   }
 
   @override
@@ -57,17 +56,5 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ));
-  }
-
-  Future<void> _timerCallback() async {
-    var success = false;
-    do {
-      success = await viewModel.refresh();
-    } while (!_disposed && success);
-
-    if (!success) {
-      // on failure: retry after 30 seconds
-      _timer = Timer(const Duration(seconds: 30), _timerCallback);
-    }
   }
 }

@@ -8,6 +8,7 @@ import 'package:emma/ui/devices/widgets/devices_list.dart';
 import 'package:emma/ui/locator.dart';
 import 'package:emma/ui/shared/noop.dart';
 import 'package:emma/ui/shared/app_bar_command_progress_indicator.dart';
+import 'package:emma/ui/utils/polling/long_polling_timer.dart';
 import 'package:flutter/material.dart';
 
 class DevicesScreen extends StatefulWidget {
@@ -18,8 +19,7 @@ class DevicesScreen extends StatefulWidget {
 }
 
 class _DevicesScreenState extends State<DevicesScreen> {
-  bool _disposed = false;
-  Timer? _timer;
+  LongPollingTimer? _longPollingTimer;
 
   // The view model has to be stored in the state for it to work.
   // Otherwise the DevicesVieModel would be created multiple times
@@ -31,14 +31,13 @@ class _DevicesScreenState extends State<DevicesScreen> {
     super.initState();
     viewModel = locator.get<DevicesViewModel>();
     viewModel.init();
-    _timer = Timer(const Duration(seconds: 1), _timerCallback);
+    _longPollingTimer = LongPollingTimer(const Duration(seconds: 1), viewModel.refresh.call);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _disposed = true;
-    _timer?.cancel();
+    _longPollingTimer?.cancel();
   }
 
   @override
@@ -57,17 +56,5 @@ class _DevicesScreenState extends State<DevicesScreen> {
 
   void _startAddFlow() {
     AppNavigator.push(const SelectDeviceCategoryScreen());
-  }
-
-  Future<void> _timerCallback() async {
-    var success = false;
-    do {
-      success = await viewModel.refresh();
-    } while (!_disposed && success);
-
-    if (!success) {
-      // on failure: retry after 30 seconds
-      _timer = Timer(const Duration(seconds: 30), _timerCallback);
-    }
   }
 }
