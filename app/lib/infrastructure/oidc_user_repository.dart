@@ -101,20 +101,3 @@ class OidcUserRepository implements IUserRepository {
     });
   }
 }
-
-class _User {
-  _User.from(OidcUser oidcUser)
-      : userId = oidcUser.claims.subject,
-        givenName = oidcUser.claims.getTyped("given_name"),
-        refreshToken = oidcUser.token.refreshToken != null;
-
-  final String? userId;
-  final String givenName;
-  final bool refreshToken;
-
-  Map<String, dynamic> toMap() => {
-        "userId": userId,
-        "givenName": givenName,
-        "refreshToken": refreshToken,
-      };
-}
