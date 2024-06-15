@@ -9,7 +9,6 @@ public class ShellyHostsAutoResetEvent
     private ShellyHostsAutoResetEvent()
     {
         _asyncAutoResetEvent = new AsyncAutoResetEvent();
-        _asyncAutoResetEvent.WaitAsync();
     }
 
     public static ShellyHostsAutoResetEvent Instance { get; } = new();
