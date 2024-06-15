@@ -1,7 +1,8 @@
-using Emma.Application.Shared.Logging;
 using Emma.Domain;
 using Emma.Integrations.Shelly.Domain.ValueObjects;
+using Microsoft.Extensions.Logging;
 using Websocket.Client;
+using ILogger = Emma.Application.Shared.Logging.ILogger;
 
 namespace Emma.Integrations.Shelly.Infrastructure;
 
@@ -11,7 +12,9 @@ public sealed class ShellyWebsocket : IDisposable
     private readonly ShellyWebsocketConfigurationFactory _configurationFactory;
     private readonly ShellyWebsocketMessageHandler _messageHandler;
     private readonly ILogger _logger;
+    private readonly ILoggerFactory _loggerFactory;
 
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
     private IDisposable[] _disposables = [];
     private WebsocketClient? _client;
     private ShellyWebsocketConfiguration? _configuration;
@@ -20,13 +23,15 @@ public sealed class ShellyWebsocket : IDisposable
         FullyQualifiedDomainName host,
         ShellyWebsocketConfigurationFactory configurationFactory,
         ShellyWebsocketMessageHandler messageHandler,
-        ILogger logger
+        ILogger logger,
+        ILoggerFactory loggerFactory
     )
     {
         _host = host;
         _configurationFactory = configurationFactory;
         _messageHandler = messageHandler;
         _logger = logger;
+        _loggerFactory = loggerFactory;
     }
 
     public async Task Start()
@@ -48,6 +53,9 @@ public sealed class ShellyWebsocket : IDisposable
         }
 
         _client?.Dispose();
+
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource.Dispose();
     }
 
     private async Task InitializeClient()
@@ -57,8 +65,16 @@ public sealed class ShellyWebsocket : IDisposable
             return;
         }
 
-        _configuration = await _configurationFactory.GetConfiguration(_host);
-        _client = new WebsocketClient(_configuration.Uri);
+        _configuration = await _configurationFactory.GetConfiguration(
+            _host,
+            _cancellationTokenSource.Token
+        );
+
+        _client = new WebsocketClient(
+            _configuration.Uri,
+            _loggerFactory.CreateLogger<WebsocketClient>()
+        );
+
         _disposables =
         [
             _client.DisconnectionHappened.Subscribe(OnDisconnectionHappened),
@@ -69,7 +85,11 @@ public sealed class ShellyWebsocket : IDisposable
 
     private async Task RefreshConfiguration()
     {
-        _configuration = await _configurationFactory.GetConfiguration(_host);
+        _configuration = await _configurationFactory.GetConfiguration(
+            _host,
+            _cancellationTokenSource.Token
+        );
+
         _client!.Url = _configuration.Uri;
         await _client.Reconnect();
     }

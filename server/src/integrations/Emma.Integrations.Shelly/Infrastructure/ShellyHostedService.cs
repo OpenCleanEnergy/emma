@@ -69,7 +69,7 @@ public sealed class ShellyHostedService : IHostedService, IDisposable
         {
             await Task.Delay(_retryDelay, AmbientTimeProvider.Current, cancellationToken);
         }
-        catch (TaskCanceledException tce) when (tce.CancellationToken == cancellationToken)
+        catch (OperationCanceledException ex) when (ex.CancellationToken == cancellationToken)
         {
             // delay canceled.
         }
