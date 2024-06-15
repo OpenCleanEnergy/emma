@@ -87,15 +87,17 @@ class OidcUserRepository implements IUserRepository {
   }
 
   void _onUserChanged(OidcUser? oidcUser) {
-    final user = oidcUser == null ? null : _User.from(oidcUser);
-    _logger.info("User: ${user?.toMap()}");
+    final name = oidcUser?.claims.getTyped<String?>("given_name") ?? "";
+    final status = switch (oidcUser) {
+      null => UserStatus.unauthenticated,
+      _ => UserStatus.authenticated
+    };
+
+    _logger.info("user changed: ${{"name": name, "status": status}}");
 
     batch(() {
-      _status.value = switch (user) {
-        null => UserStatus.unauthenticated,
-        _ => UserStatus.authenticated
-      };
-      _name.value = user?.givenName ?? "";
+      _name.value = name;
+      _status.value = status;
     });
   }
 }
