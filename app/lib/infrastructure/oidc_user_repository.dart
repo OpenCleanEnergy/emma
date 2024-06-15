@@ -70,6 +70,16 @@ class OidcUserRepository implements IUserRepository {
     await _manager.logout();
   }
 
+  @override
+  Future<void> refreshAccessTokenIfAboutToExpire(Duration tolerance) async {
+    final isAboutToExpire = _manager.currentUser?.token
+        .isAccessTokenAboutToExpire(tolerance: tolerance);
+
+    if (isAboutToExpire ?? false) {
+      await _manager.refreshToken();
+    }
+  }
+
   Future<void> _init() async {
     await _manager.init();
     _logger.info("Initialized");
