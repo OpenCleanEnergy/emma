@@ -1,43 +1,48 @@
-using System.Collections.Concurrent;
 using Emma.Application.Shared.Logging;
 using Emma.Integrations.Shelly.Domain.ValueObjects;
+using ILoggerFactory = Microsoft.Extensions.Logging.ILoggerFactory;
 
 namespace Emma.Integrations.Shelly.Infrastructure;
 
 public sealed class ShellyWebsocketManager : IShellyWebsocketManager, IDisposable
 {
-    private readonly ConcurrentDictionary<
-        FullyQualifiedDomainName,
-        ShellyWebsocket
-    > _webSocketsByHost = [];
+    private readonly Dictionary<FullyQualifiedDomainName, ShellyWebsocket> _webSocketsByHost = [];
 
     private readonly ShellyWebsocketConfigurationFactory _configurationFactory;
 
     private readonly ShellyWebsocketMessageHandler _messageHandler;
     private readonly ILogger _logger;
+    private readonly ILoggerFactory _loggerFactory;
 
     public ShellyWebsocketManager(
         ShellyWebsocketConfigurationFactory configurationFactory,
         ShellyWebsocketMessageHandler messageHandler,
-        ILogger<ShellyWebsocket> logger
+        ILogger<ShellyWebsocket> logger,
+        ILoggerFactory loggerFactory
     )
     {
         _configurationFactory = configurationFactory;
         _messageHandler = messageHandler;
         _logger = logger;
+        _loggerFactory = loggerFactory;
     }
 
-    public async Task Refresh(IReadOnlySet<FullyQualifiedDomainName> hosts)
+    public async Task Refresh(
+        IReadOnlySet<FullyQualifiedDomainName> hosts,
+        CancellationToken cancellationToken
+    )
     {
         var remove = _webSocketsByHost.Keys.Except(hosts);
 
         foreach (var host in remove)
         {
-            _webSocketsByHost.TryRemove(host, out var websocket);
+            _webSocketsByHost.Remove(host, out var websocket);
             websocket?.Dispose();
         }
 
         var add = hosts.Except(_webSocketsByHost.Keys);
+
+        var starts = new List<Task>();
 
         foreach (var host in add)
         {
@@ -45,12 +50,15 @@ public sealed class ShellyWebsocketManager : IShellyWebsocketManager, IDisposabl
                 host,
                 _configurationFactory,
                 _messageHandler,
-                _logger
+                _logger,
+                _loggerFactory
             );
 
-            await websocket.Start();
-            _webSocketsByHost.TryAdd(host, websocket);
+            _webSocketsByHost.Add(host, websocket);
+            starts.Add(websocket.Start(cancellationToken));
         }
+
+        await Task.WhenAll(starts);
     }
 
     public void Dispose()

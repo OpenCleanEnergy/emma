@@ -18,8 +18,11 @@ restore:
 build: restore
   dotnet build
 
-# Sets Shelly integrator tag and token as user secret.
-set-secret-shelly-integrator-credentials tag token: (_set-secret 'Integrations:Shelly:IntegratorTag' tag) (_set-secret 'Integrations:Shelly:IntegratorToken' token)
+# Sets Shelly integrator tag as user secret.
+set-secret-shelly-integrator-tag tag: (_set-secret 'Integrations:Shelly:IntegratorTag' tag)
+
+# Sets Shelly integrator token as user secret.
+set-secret-shelly-integrator-token token: (_set-secret 'Integrations:Shelly:IntegratorToken' token)
 
 # Sets Shelly callback base url (e.g. https://example.org/api).
 set-secret-shelly-callback-base-url url: (_set-secret 'Integrations:Shelly:CallbackBaseUrl' url)
