@@ -86,17 +86,33 @@ class OidcUserRepository implements IUserRepository {
     _manager.userChanges().listen(_onUserChanged);
   }
 
-  void _onUserChanged(OidcUser? user) {
-    _logger.info("User: ${user?.claims}");
+  void _onUserChanged(OidcUser? oidcUser) {
+    final user = oidcUser == null ? null : _User.from(oidcUser);
+    _logger.info("User: ${user?.toMap()}");
+
     batch(() {
       _status.value = switch (user) {
         null => UserStatus.unauthenticated,
         _ => UserStatus.authenticated
       };
-      _name.value = switch (user) {
-        null => "",
-        _ => user.claims.getTyped("given_name"),
-      };
+      _name.value = user?.givenName ?? "";
     });
   }
+}
+
+class _User {
+  _User.from(OidcUser oidcUser)
+      : userId = oidcUser.claims.subject,
+        givenName = oidcUser.claims.getTyped("given_name"),
+        refreshToken = oidcUser.token.refreshToken != null;
+
+  final String? userId;
+  final String givenName;
+  final bool refreshToken;
+
+  Map<String, dynamic> toMap() => {
+        "userId": userId,
+        "givenName": givenName,
+        "refreshToken": refreshToken,
+      };
 }

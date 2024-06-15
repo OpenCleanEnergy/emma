@@ -1,15 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
+import 'package:logging/logging.dart';
 
 class LongPollingHandler {
+  final _logger = Logger((LongPollingHandler).toString());
   final Future<bool> Function() _longPollingAction;
-
   late final AppLifecycleListener? _listener;
-
   Completer _completer = Completer()..complete();
   Timer? _timer;
-  
   bool _disposed = false;
 
   LongPollingHandler(
@@ -33,12 +32,14 @@ class LongPollingHandler {
   }
 
   void _onHide() {
+    _logger.fine("pause long polling.");
     if (_completer.isCompleted) {
       _completer = Completer();
     }
   }
 
   void _onShow() {
+    _logger.fine("resume long polling.");
     if (!_completer.isCompleted) {
       _completer.complete();
     }
