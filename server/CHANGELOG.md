@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.19](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.18...server-v1.0.0-alpha.19) (2024-06-15)
+
+
+### 🐛 Bug Fixes
+
+* **shelly:** Log and handle exceptions for Shelly websocket connections ([#85](https://github.com/OpenCleanEnergy/emma/issues/85)) ([ce22494](https://github.com/OpenCleanEnergy/emma/commit/ce22494b40b74e02fbd93d05bb4c3bf21d1e3254))
+
 ## [1.0.0-alpha.18](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.17...server-v1.0.0-alpha.18) (2024-06-13)
 
 
