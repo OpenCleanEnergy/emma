@@ -14,7 +14,7 @@ class LogsStore {
   void addLog(LogRecord record) {
     batch(() {
       records.add(record);
-      if (records.length > 25) {
+      if (records.length > 31) {
         records.removeAt(0);
       }
     });
