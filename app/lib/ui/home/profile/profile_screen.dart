@@ -1,8 +1,10 @@
 import 'package:emma/infrastructure/window_size_writer.dart';
 import 'package:emma/ui/app_icons.dart';
+import 'package:emma/ui/app_navigator.dart';
 import 'package:emma/ui/home/profile/app_info.dart';
 import 'package:emma/ui/home/profile/development/screen_size_selector.dart';
 import 'package:emma/ui/locator.dart';
+import 'package:emma/ui/logs/logs_screen.dart';
 import 'package:emma/ui/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
@@ -26,12 +28,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final items = <Widget>[
-      Watch((context) => ListTile(
-            leading: const Icon(AppIcons.logout),
-            title: const Text("Logout"),
-            onTap: _vm.logout.call,
-            enabled: !_vm.logout.isRunning.value,
-          ))
+      ListTile(
+        leading: const Icon(Icons.bug_report),
+        title: const Text("Logs"),
+        onTap: () => AppNavigator.push(const LogsScreen()),
+      ),
+      Watch(
+        (context) => ListTile(
+          leading: const Icon(AppIcons.logout),
+          title: const Text("Logout"),
+          onTap: _vm.logout.call,
+          enabled: !_vm.logout.isRunning.value,
+        ),
+      )
     ];
 
     if (WindowSizeWriter.isSupported) {

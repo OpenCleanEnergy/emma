@@ -70,23 +70,34 @@ class OidcUserRepository implements IUserRepository {
     await _manager.logout();
   }
 
+  @override
+  Future<void> refreshAccessTokenIfAboutToExpire(Duration tolerance) async {
+    final isAboutToExpire = _manager.currentUser?.token
+        .isAccessTokenAboutToExpire(tolerance: tolerance);
+
+    if (isAboutToExpire ?? false) {
+      await _manager.refreshToken();
+    }
+  }
+
   Future<void> _init() async {
     await _manager.init();
     _logger.info("Initialized");
     _manager.userChanges().listen(_onUserChanged);
   }
 
-  void _onUserChanged(OidcUser? user) {
-    _logger.info("User: ${user?.claims}");
+  void _onUserChanged(OidcUser? oidcUser) {
+    final name = oidcUser?.claims.getTyped<String?>("given_name") ?? "";
+    final status = switch (oidcUser) {
+      null => UserStatus.unauthenticated,
+      _ => UserStatus.authenticated
+    };
+
+    _logger.info("user changed: ${{"name": name, "status": status}}");
+
     batch(() {
-      _status.value = switch (user) {
-        null => UserStatus.unauthenticated,
-        _ => UserStatus.authenticated
-      };
-      _name.value = switch (user) {
-        null => "",
-        _ => user.claims.getTyped("given_name"),
-      };
+      _name.value = name;
+      _status.value = status;
     });
   }
 }

@@ -48,6 +48,7 @@ dependencies:
   signals: ^5.2.2
   url_launcher: ^6.3.0
   flutter_launcher_icons: ^0.13.1
+  mutex: ^3.1.0
 
 dev_dependencies:
   flutter_test:

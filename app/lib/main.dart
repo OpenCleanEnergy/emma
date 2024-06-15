@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:emma/app.dart';
+import 'package:emma/application/logs/logs_store.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -24,6 +25,8 @@ Future<void> main() async {
         stackTrace: record.stackTrace,
         zone: record.zone);
   });
+
+  Logger.root.onRecord.listen(LogsStore.instance.addLog);
 
   runApp(const App());
 }

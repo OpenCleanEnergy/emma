@@ -8,4 +8,6 @@ abstract interface class IUserRepository {
 
   Future<void> login();
   Future<void> logout();
+
+  Future<void> refreshAccessTokenIfAboutToExpire(Duration tolerance);
 }
