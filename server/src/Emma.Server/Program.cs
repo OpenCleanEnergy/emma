@@ -166,9 +166,10 @@ static LoggerConfiguration ConfigureLogger(
 {
     loggerConfiguration
         .ReadFrom.Configuration(configuration)
+        .Enrich.FromLogContext()
+        .Enrich.WithServiceInfo(ServiceInfo.Name, ServiceInfo.Version)
         .Destructure.AsScalar<JsonObject>()
-        .Destructure.With<ValueObjectDestructuringPolicy>()
-        .Enrich.FromLogContext();
+        .Destructure.With<ValueObjectDestructuringPolicy>();
 
     if (environment.IsDevelopment() || EntryAssembly.GetEntryAssembly() != EntryAssembly.Default)
     {
@@ -194,7 +195,7 @@ static LoggerConfiguration ConfigureLogger(
             options.MinimumBreadcrumbLevel = sentry.MinimumBreadcrumbLevel;
             options.MinimumEventLevel = sentry.MinimumEventLevel;
             options.Environment = environment.EnvironmentName;
-            options.Release = AppVersion.Version;
+            options.Release = ServiceInfo.Version;
         });
     }
 

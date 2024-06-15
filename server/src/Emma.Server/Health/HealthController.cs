@@ -20,7 +20,13 @@ public class HealthController : ControllerBase
     public async Task<HealthReportDto> GetHealthReport()
     {
         var report = await _healthCheckService.CheckHealthAsync();
-        var dto = new HealthReportDto(AppVersion.Version, report.Status, report.TotalDuration);
+        var dto = new HealthReportDto(
+            ServiceInfo.Name,
+            ServiceInfo.Version,
+            report.Status,
+            report.TotalDuration
+        );
+
         return dto;
     }
 }
