@@ -34,9 +34,9 @@ public sealed class ShellyWebsocket : IDisposable
         _loggerFactory = loggerFactory;
     }
 
-    public async Task Start()
+    public async Task Start(CancellationToken cancellationToken)
     {
-        await InitializeClient();
+        await InitializeClient(cancellationToken);
         await _client!.StartOrFail();
     }
 
@@ -58,17 +58,14 @@ public sealed class ShellyWebsocket : IDisposable
         _cancellationTokenSource.Dispose();
     }
 
-    private async Task InitializeClient()
+    private async Task InitializeClient(CancellationToken cancellationToken)
     {
         if (_client is not null)
         {
             return;
         }
 
-        _configuration = await _configurationFactory.GetConfiguration(
-            _host,
-            _cancellationTokenSource.Token
-        );
+        _configuration = await _configurationFactory.GetConfiguration(_host, cancellationToken);
 
         _client = new WebsocketClient(
             _configuration.Uri,

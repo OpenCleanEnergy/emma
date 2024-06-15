@@ -27,7 +27,10 @@ public sealed class ShellyWebsocketManager : IShellyWebsocketManager, IDisposabl
         _loggerFactory = loggerFactory;
     }
 
-    public async Task Refresh(IReadOnlySet<FullyQualifiedDomainName> hosts)
+    public async Task Refresh(
+        IReadOnlySet<FullyQualifiedDomainName> hosts,
+        CancellationToken cancellationToken
+    )
     {
         var remove = _webSocketsByHost.Keys.Except(hosts);
 
@@ -51,8 +54,8 @@ public sealed class ShellyWebsocketManager : IShellyWebsocketManager, IDisposabl
                 _loggerFactory
             );
 
-            starts.Add(websocket.Start());
-            _webSocketsByHost.TryAdd(host, websocket);
+            _webSocketsByHost.Add(host, websocket);
+            starts.Add(websocket.Start(cancellationToken));
         }
 
         await Task.WhenAll(starts);

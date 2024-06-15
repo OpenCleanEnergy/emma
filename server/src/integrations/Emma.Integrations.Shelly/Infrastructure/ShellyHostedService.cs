@@ -8,7 +8,7 @@ namespace Emma.Integrations.Shelly.Infrastructure;
 
 public sealed class ShellyHostedService : IHostedService, IDisposable
 {
-    private static TimeSpan _retryDelay = TimeSpan.FromSeconds(10);
+    private static readonly TimeSpan _retryDelay = TimeSpan.FromSeconds(10);
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
@@ -32,24 +32,20 @@ public sealed class ShellyHostedService : IHostedService, IDisposable
         _logger = logger;
     }
 
-    public async Task StartAsync(CancellationToken cancellationToken)
+    public Task StartAsync(CancellationToken cancellationToken)
     {
         if (!_configuration.Validate(out var invalidProperties))
         {
             _logger.Warning(
-                "Configuration is invalid because of {invalidProperties}. Service is shutting down.",
+                "Configuration is invalid because of {@invalidProperties}. Service is shutting down.",
                 invalidProperties
             );
 
-            return;
+            return Task.CompletedTask;
         }
 
-        _logger.Info("Initialize websockets.");
-        var hosts = await GetAllHosts();
-        await _websocketManager.Refresh(hosts);
-
-        _logger.Info("Done initializing websockets. Listening for changes in hosts.");
         _backgroundTask = Background(_cancellationTokenSource.Token);
+        return Task.CompletedTask;
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)
@@ -77,19 +73,22 @@ public sealed class ShellyHostedService : IHostedService, IDisposable
 
     private async Task Background(CancellationToken cancellationToken)
     {
-        while (!cancellationToken.IsCancellationRequested)
+        while (true)
         {
             try
             {
-                await WaitForChanges(cancellationToken);
-                var hosts = await GetAllHosts();
-                await _websocketManager.Refresh(hosts);
+                cancellationToken.ThrowIfCancellationRequested();
 
-                _logger.Info("Refreshed hosts.");
+                _logger.Info("Refresh hosts.");
+                var hosts = await GetAllHosts();
+                await _websocketManager.Refresh(hosts, cancellationToken);
+                _logger.Info("Refreshed hosts. Listen for changes in hosts.");
+                await WaitForChanges(cancellationToken);
             }
             catch (OperationCanceledException ex) when (ex.CancellationToken == cancellationToken)
             {
                 _logger.Info("Service is shutting down.");
+                return;
             }
             catch (Exception ex)
             {
