@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.21](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.20...server-v1.0.0-alpha.21) (2024-06-16)
+
+
+### 🐛 Bug Fixes
+
+* **shelly:** Support Shelly Gen 2+ devices ([#92](https://github.com/OpenCleanEnergy/emma/issues/92)) ([64cb9de](https://github.com/OpenCleanEnergy/emma/commit/64cb9de5fd3b70c90da18534393656758c709364))
+
 ## [1.0.0-alpha.20](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.19...server-v1.0.0-alpha.20) (2024-06-16)
 
 
