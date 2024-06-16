@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Emma.Integrations.Shelly.Domain.ValueObjects;
+using Emma.Integrations.Shelly.Events.Status;
 
 namespace Emma.Integrations.Shelly.Events;
 

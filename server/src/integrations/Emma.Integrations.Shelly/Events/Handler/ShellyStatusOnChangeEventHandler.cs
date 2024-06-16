@@ -7,6 +7,7 @@ using Emma.Domain.Units;
 using Emma.Integrations.Shared;
 using Emma.Integrations.Shelly.Domain;
 using Emma.Integrations.Shelly.Domain.ValueObjects;
+using Emma.Integrations.Shelly.Events.Status;
 
 namespace Emma.Integrations.Shelly.Events.Handler;
 

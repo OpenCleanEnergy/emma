@@ -20,9 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="**/*.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Update="**/*.json" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
-namespace Emma.Integrations.Shelly.Events;
+namespace Emma.Integrations.Shelly.Events.Status;
 
-public class ShellyStatus
+public partial class ShellyStatus
 {
     public IReadOnlyList<ShellyRelayStatus> Relays { get; init; } = [];
 

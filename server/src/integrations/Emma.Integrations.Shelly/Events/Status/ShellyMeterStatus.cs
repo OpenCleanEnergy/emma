@@ -1,6 +1,6 @@
 using Emma.Domain.Units;
 
-namespace Emma.Integrations.Shelly.Events;
+namespace Emma.Integrations.Shelly.Events.Status;
 
 public class ShellyMeterStatus
 {
