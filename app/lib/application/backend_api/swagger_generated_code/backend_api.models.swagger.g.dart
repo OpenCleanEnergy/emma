@@ -213,6 +213,7 @@ Map<String, dynamic> _$GridStatusDtoToJson(GridStatusDto instance) =>
 
 HealthReportDto _$HealthReportDtoFromJson(Map<String, dynamic> json) =>
     HealthReportDto(
+      name: json['name'] as String,
       version: json['version'] as String,
       status: healthStatusFromJson(json['status']),
       totalDuration: json['totalDuration'] as String,
@@ -220,6 +221,7 @@ HealthReportDto _$HealthReportDtoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$HealthReportDtoToJson(HealthReportDto instance) =>
     <String, dynamic>{
+      'name': instance.name,
       'version': instance.version,
       'status': healthStatusToJson(instance.status),
       'totalDuration': instance.totalDuration,

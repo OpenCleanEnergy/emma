@@ -891,6 +891,7 @@ extension $GridStatusDtoExtension on GridStatusDto {
 @JsonSerializable(explicitToJson: true)
 class HealthReportDto {
   const HealthReportDto({
+    required this.name,
     required this.version,
     required this.status,
     required this.totalDuration,
@@ -902,6 +903,8 @@ class HealthReportDto {
   static const toJsonFactory = _$HealthReportDtoToJson;
   Map<String, dynamic> toJson() => _$HealthReportDtoToJson(this);
 
+  @JsonKey(name: 'name')
+  final String name;
   @JsonKey(name: 'version')
   final String version;
   @JsonKey(
@@ -918,6 +921,8 @@ class HealthReportDto {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other is HealthReportDto &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.version, version) ||
                 const DeepCollectionEquality()
                     .equals(other.version, version)) &&
@@ -933,6 +938,7 @@ class HealthReportDto {
 
   @override
   int get hashCode =>
+      const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(version) ^
       const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(totalDuration) ^
@@ -941,18 +947,24 @@ class HealthReportDto {
 
 extension $HealthReportDtoExtension on HealthReportDto {
   HealthReportDto copyWith(
-      {String? version, enums.HealthStatus? status, String? totalDuration}) {
+      {String? name,
+      String? version,
+      enums.HealthStatus? status,
+      String? totalDuration}) {
     return HealthReportDto(
+        name: name ?? this.name,
         version: version ?? this.version,
         status: status ?? this.status,
         totalDuration: totalDuration ?? this.totalDuration);
   }
 
   HealthReportDto copyWithWrapped(
-      {Wrapped<String>? version,
+      {Wrapped<String>? name,
+      Wrapped<String>? version,
       Wrapped<enums.HealthStatus>? status,
       Wrapped<String>? totalDuration}) {
     return HealthReportDto(
+        name: (name != null ? name.value : this.name),
         version: (version != null ? version.value : this.version),
         status: (status != null ? status.value : this.status),
         totalDuration:

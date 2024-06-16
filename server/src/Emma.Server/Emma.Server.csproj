@@ -6,9 +6,9 @@
   </PropertyGroup>
   <Target Name="CreateSwaggerJson" AfterTargets="Build" Condition="$(SKIP_SWAGGER_GEN)!='1'">
     <Exec Command="dotnet tool restore" WorkingDirectory="$(ProjectDir)" />
-    <Exec Command="dotnet swagger tofile --output $(ProjectDir)Swagger/backend_api.json $(TargetDir)$(AssemblyName).dll v1" />
+    <Exec Command="dotnet swagger tofile --output $(ProjectDir)Swagger/backend_api.yaml --yaml $(TargetDir)$(AssemblyName).dll v1" />
     <Exec Command="echo '$(ProjectDir)../app/src/Swagger'" />
-    <Copy SourceFiles="$(ProjectDir)Swagger/backend_api.json" DestinationFolder="$(ProjectDir)../../../app/swagger" />
+    <Copy SourceFiles="$(ProjectDir)Swagger/backend_api.yaml" DestinationFolder="$(ProjectDir)../../../app/swagger" />
   </Target>
   <ItemGroup>
     <PackageReference Include="BetterStack.Logs.Serilog" Version="1.0.0" />

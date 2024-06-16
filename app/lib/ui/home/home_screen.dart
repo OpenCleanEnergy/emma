@@ -22,7 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     viewModel = locator.get<HomeViewModel>();
     viewModel.init();
-    _longPollingHandler = LongPollingHandler(const Duration(seconds: 1), viewModel.refresh.call);
+    _longPollingHandler =
+        LongPollingHandler(const Duration(seconds: 1), viewModel.refresh.call);
   }
 
   @override
