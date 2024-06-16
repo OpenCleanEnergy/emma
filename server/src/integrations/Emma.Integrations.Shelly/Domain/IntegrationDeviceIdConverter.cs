@@ -15,18 +15,23 @@ public static class IntegrationDeviceIdConverter
 
     public static ShellyDeviceId GetShellyDeviceId(IntegrationDeviceId integrationDeviceId)
     {
-        var parts = Split(integrationDeviceId);
-        return ShellyDeviceId.From(parts[0]);
+        var (deviceId, _) = Split(integrationDeviceId);
+        return ShellyDeviceId.From(deviceId);
     }
 
     public static ShellyChannelIndex GetShellyChannelIndex(IntegrationDeviceId integrationDeviceId)
     {
-        var parts = Split(integrationDeviceId);
-        return ShellyChannelIndex.From(int.Parse(parts[1], CultureInfo.InvariantCulture));
+        var (_, channelIndex) = Split(integrationDeviceId);
+        return ShellyChannelIndex.From(int.Parse(channelIndex, CultureInfo.InvariantCulture));
     }
 
-    private static string[] Split(IntegrationDeviceId integrationDeviceId)
+    private static (string DeviceId, string ChannelIndex) Split(
+        IntegrationDeviceId integrationDeviceId
+    )
     {
-        return integrationDeviceId.Value.Split(Separator);
+        var index = integrationDeviceId.Value.LastIndexOf(Separator);
+        var deviceId = integrationDeviceId.Value[..index];
+        var channelIndex = integrationDeviceId.Value[(index + 1)..];
+        return (deviceId, channelIndex);
     }
 }
