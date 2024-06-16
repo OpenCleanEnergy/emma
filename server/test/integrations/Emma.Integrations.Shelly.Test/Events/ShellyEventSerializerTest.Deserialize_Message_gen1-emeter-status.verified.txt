@@ -1,0 +1,30 @@
+﻿{
+  EventKey: emma.integrations.shelly.status-on-change,
+  Status: {
+    Relays: [
+      {
+        IsOn: false
+      }
+    ],
+    EMeters: [
+      {
+        Power: 0,
+        Total: 28094.8,
+        TotalReturned: 3.1
+      },
+      {
+        Power: 27.71,
+        Total: 26936.3,
+        TotalReturned: 0
+      },
+      {
+        Power: 0,
+        Total: 0,
+        TotalReturned: 0
+      }
+    ]
+  },
+  Timestamp: DateTimeOffset_1,
+  Event: Shelly:StatusOnChange,
+  DeviceId: 123456789
+}
