@@ -147,6 +147,7 @@ if (entryAssembly == EntryAssembly.Default)
 }
 
 await app.RunAsync();
+await Log.CloseAndFlushAsync();
 
 static ReloadableLogger GetBootstrapLogger(WebApplicationBuilder builder)
 {
