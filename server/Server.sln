@@ -23,6 +23,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emma.Application.Shared", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emma.Integrations.Development", "src\integrations\Emma.Integrations.Development\Emma.Integrations.Development.csproj", "{BAD76F68-E1AD-41C6-8BBE-06D9FAD00C26}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{79A93847-64ED-4E4D-B365-D4C3C2729058}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integrations", "integrations", "{0114E6CC-84EB-47FD-91F5-30CD4896F903}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emma.Integrations.Shelly.Test", "test\integrations\Emma.Integrations.Shelly.Test\Emma.Integrations.Shelly.Test.csproj", "{2DFA9324-C666-4D50-9EA2-F0197AFE24CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +67,10 @@ Global
 		{BAD76F68-E1AD-41C6-8BBE-06D9FAD00C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAD76F68-E1AD-41C6-8BBE-06D9FAD00C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAD76F68-E1AD-41C6-8BBE-06D9FAD00C26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DFA9324-C666-4D50-9EA2-F0197AFE24CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DFA9324-C666-4D50-9EA2-F0197AFE24CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DFA9324-C666-4D50-9EA2-F0197AFE24CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DFA9324-C666-4D50-9EA2-F0197AFE24CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,5 +85,7 @@ Global
 		{4CA29FC3-D5E0-450B-9501-2938FA4038BE} = {857EBC2A-8A73-4C09-8DED-D35E8C45B007}
 		{67D9A4F1-69C0-47B5-A167-B8715D659F62} = {7D9321BA-7B6F-4FFE-80E8-041A962C0C76}
 		{BAD76F68-E1AD-41C6-8BBE-06D9FAD00C26} = {857EBC2A-8A73-4C09-8DED-D35E8C45B007}
+		{0114E6CC-84EB-47FD-91F5-30CD4896F903} = {79A93847-64ED-4E4D-B365-D4C3C2729058}
+		{2DFA9324-C666-4D50-9EA2-F0197AFE24CC} = {0114E6CC-84EB-47FD-91F5-30CD4896F903}
 	EndGlobalSection
 EndGlobal

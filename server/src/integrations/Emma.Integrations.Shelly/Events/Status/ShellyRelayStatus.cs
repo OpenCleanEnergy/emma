@@ -1,4 +1,4 @@
-namespace Emma.Integrations.Shelly.Events;
+namespace Emma.Integrations.Shelly.Events.Status;
 
 public class ShellyRelayStatus
 {

@@ -7,6 +7,7 @@ using Emma.Domain.Units;
 using Emma.Integrations.Shared;
 using Emma.Integrations.Shelly.Domain;
 using Emma.Integrations.Shelly.Domain.ValueObjects;
+using Emma.Integrations.Shelly.Events.Status;
 
 namespace Emma.Integrations.Shelly.Events.Handler;
 
@@ -33,6 +34,7 @@ public class ShellyStatusOnChangeEventHandler
         var deviceId = request.DomainEvent.DeviceId;
         var status = request.DomainEvent.Status;
 
+        // Gen 1
         for (int i = 0; i < status.Relays.Count; i++)
         {
             await HandleRelay(deviceId, ShellyChannelIndex.From(i), status.Relays[i]);
@@ -46,6 +48,37 @@ public class ShellyStatusOnChangeEventHandler
         if (status.EMeters.Count > 0)
         {
             await HandleEMeters(deviceId, status.EMeters);
+        }
+
+        // Gen 2
+        for (int i = 0; i < status.Switches.Count; i++)
+        {
+            await HandleSwitch(deviceId, ShellyChannelIndex.From(i), status.Switches[i]);
+        }
+
+        if (status.EM.Count > 0)
+        {
+            await HandleEM(deviceId, status.EM);
+        }
+
+        if (status.EMData.Count > 0)
+        {
+            await HandleEMData(deviceId, status.EMData);
+        }
+
+        if (status.EM1.Count > 0)
+        {
+            await HandleEM1(deviceId, status.EM1);
+        }
+
+        if (status.EM1Data.Count > 0)
+        {
+            await HandleEM1Data(deviceId, status.EM1Data);
+        }
+
+        for (int i = 0; i < status.PM1.Count; i++)
+        {
+            await HandlePM1(deviceId, ShellyChannelIndex.From(i), status.PM1[i]);
         }
 
         await _unitOfWork.SaveChanges();
@@ -70,14 +103,14 @@ public class ShellyStatusOnChangeEventHandler
     }
 
     private async Task HandleMeter(
-        ShellyDeviceId shellyDeviceId,
+        ShellyDeviceId deviceId,
         ShellyChannelIndex index,
         ShellyMeterStatus meter
     )
     {
         var integration = new IntegrationIdentifier(
             ShellyIntegrationDescriptor.Id,
-            IntegrationDeviceIdConverter.GetIntegrationDeviceId(shellyDeviceId, index)
+            IntegrationDeviceIdConverter.GetIntegrationDeviceId(deviceId, index)
         );
 
         var switchConsumer = await _devicesRepository.FindSwitchConsumer(integration);
@@ -97,14 +130,155 @@ public class ShellyStatusOnChangeEventHandler
     }
 
     private async Task HandleEMeters(
-        ShellyDeviceId shellyDeviceId,
+        ShellyDeviceId deviceId,
         IReadOnlyList<ShellyEMeterStatus> meters
+    )
+    {
+        var power = meters.Sum(meter => meter.Power);
+        var total = meters.Sum(meter => meter.Total);
+        var totalReturned = meters.Sum(meter => meter.TotalReturned);
+
+        await ReportElectricityMeter(
+            deviceId,
+            power,
+            totalEnergyConsumption: total,
+            totalEnergyFeedIn: totalReturned
+        );
+    }
+
+    private async Task HandleSwitch(
+        ShellyDeviceId deviceId,
+        ShellyChannelIndex index,
+        ShellySwitchComponentStatus switchComponent
+    )
+    {
+        var integration = new IntegrationIdentifier(
+            ShellyIntegrationDescriptor.Id,
+            IntegrationDeviceIdConverter.GetIntegrationDeviceId(deviceId, index)
+        );
+
+        var switchConsumer = await _devicesRepository.FindSwitchConsumer(integration);
+        if (switchConsumer is not null)
+        {
+            switchConsumer.Switch(
+                switchComponent.Output ? SwitchStatus.On : SwitchStatus.Off,
+                SwitchActor.Integration
+            );
+
+            if (switchComponent.ActivePower.HasValue)
+            {
+                switchConsumer.ReportCurrentPowerConsumption(switchComponent.ActivePower.Value);
+            }
+
+            if (switchComponent.ActiveEnergy is not null)
+            {
+                switchConsumer.ReportTotalEnergyConsumption(switchComponent.ActiveEnergy.Total);
+            }
+
+            return;
+        }
+
+        var producer = await _devicesRepository.FindProducer(integration);
+        if (producer is not null)
+        {
+            if (switchComponent.ActivePower.HasValue)
+            {
+                producer.ReportCurrentPowerProduction(switchComponent.ActivePower.Value);
+            }
+
+            if (switchComponent.ReturnedActiveEnergy is not null)
+            {
+                producer.ReportTotalEnergyProduction(switchComponent.ReturnedActiveEnergy.Total);
+            }
+        }
+    }
+
+    private async Task HandleEM(
+        ShellyDeviceId deviceId,
+        IReadOnlyList<ShellyEMComponentStatus> meters
+    )
+    {
+        var power = meters.Sum(meter => meter.TotalActivePower ?? Watt.Zero);
+        await ReportElectricityMeter(deviceId, power, null, null);
+    }
+
+    private async Task HandleEMData(
+        ShellyDeviceId deviceId,
+        IReadOnlyList<ShellyEMDataComponentStatus> data
+    )
+    {
+        var total = data.Sum(em => em.TotalActive);
+        var totalReturned = data.Sum(em => em.TotalActiveReturned);
+        await ReportElectricityMeter(
+            deviceId,
+            null,
+            totalEnergyConsumption: total,
+            totalEnergyFeedIn: totalReturned
+        );
+    }
+
+    private async Task HandleEM1(
+        ShellyDeviceId deviceId,
+        IReadOnlyList<ShellyEM1ComponentStatus> meters
+    )
+    {
+        var power = meters.Sum(meter => meter.ActivePower ?? Watt.Zero);
+        await ReportElectricityMeter(deviceId, power, null, null);
+    }
+
+    private async Task HandleEM1Data(
+        ShellyDeviceId deviceId,
+        IReadOnlyList<ShellyEM1DataComponentStatus> data
+    )
+    {
+        var total = data.Sum(em1 => em1.TotalActiveEnergy);
+        var totalReturned = data.Sum(em => em.TotalActiveReturnedEnergy);
+        await ReportElectricityMeter(
+            deviceId,
+            null,
+            totalEnergyConsumption: total,
+            totalEnergyFeedIn: totalReturned
+        );
+    }
+
+    private async Task HandlePM1(
+        ShellyDeviceId deviceId,
+        ShellyChannelIndex index,
+        ShellyPM1ComponentStatus pm1Component
+    )
+    {
+        var integration = new IntegrationIdentifier(
+            ShellyIntegrationDescriptor.Id,
+            IntegrationDeviceIdConverter.GetIntegrationDeviceId(deviceId, index)
+        );
+
+        var switchConsumer = await _devicesRepository.FindSwitchConsumer(integration);
+        if (switchConsumer is not null)
+        {
+            switchConsumer.ReportCurrentPowerConsumption(pm1Component.ActivePower);
+            switchConsumer.ReportTotalEnergyConsumption(pm1Component.ActiveEnergy.Total);
+            return;
+        }
+
+        var producer = await _devicesRepository.FindProducer(integration);
+        if (producer is not null)
+        {
+            producer.ReportCurrentPowerProduction(pm1Component.ActivePower);
+            producer.ReportTotalEnergyProduction(pm1Component.ReturnedActiveEnergy.Total);
+        }
+    }
+
+    private async Task ReportElectricityMeter(
+        ShellyDeviceId deviceId,
+        Watt? currentPower,
+        WattHours? totalEnergyConsumption,
+        WattHours? totalEnergyFeedIn
     )
     {
         var integration = new IntegrationIdentifier(
             ShellyIntegrationDescriptor.Id,
             IntegrationDeviceIdConverter.GetIntegrationDeviceId(
-                shellyDeviceId,
+                deviceId,
                 ShellyChannelIndex.From(0)
             )
         );
@@ -115,20 +289,26 @@ public class ShellyStatusOnChangeEventHandler
             return;
         }
 
-        var power = meters.Sum(meter => meter.Power);
-        var total = meters.Sum(meter => meter.Total);
-        var totalReturned = meters.Sum(meter => meter.TotalReturned);
-
-        var direction = power switch
+        if (currentPower.HasValue)
         {
-            var x when x > Watt.Zero => GridPowerDirection.Consume,
-            var x when x < Watt.Zero => GridPowerDirection.FeedIn,
-            _ => GridPowerDirection.None
-        };
+            var direction = currentPower.Value switch
+            {
+                var x when x > Watt.Zero => GridPowerDirection.Consume,
+                var x when x < Watt.Zero => GridPowerDirection.FeedIn,
+                _ => GridPowerDirection.None
+            };
 
-        electricityMeter.ReportCurrentPower(power, direction);
+            electricityMeter.ReportCurrentPower(currentPower.Value, direction);
+        }
 
-        electricityMeter.TotalEnergyConsumption = total;
-        electricityMeter.TotalEnergyFeedIn = totalReturned;
+        if (totalEnergyConsumption.HasValue)
+        {
+            electricityMeter.TotalEnergyConsumption = totalEnergyConsumption.Value;
+        }
+
+        if (totalEnergyFeedIn.HasValue)
+        {
+            electricityMeter.TotalEnergyFeedIn = totalEnergyFeedIn.Value;
+        }
     }
 }

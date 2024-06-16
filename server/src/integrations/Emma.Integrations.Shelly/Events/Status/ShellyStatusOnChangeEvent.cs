@@ -1,6 +1,6 @@
 using Emma.Domain.Events;
 
-namespace Emma.Integrations.Shelly.Events;
+namespace Emma.Integrations.Shelly.Events.Status;
 
 /// <summary>
 /// https://shelly-api-docs.shelly.cloud/integrator-api/communication#shellystatusonchange.

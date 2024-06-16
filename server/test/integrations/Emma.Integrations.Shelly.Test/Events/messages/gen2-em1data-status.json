@@ -1,0 +1,21 @@
+{
+  "event": "Shelly:StatusOnChange",
+  "deviceId": "123456789",
+  "status": {
+    "em1data:0": {
+      "id": 0,
+      "total_act_energy": 1.111,
+      "total_act_ret_energy": 1.123
+    },
+    "em1data:1": {
+      "id": 1,
+      "total_act_energy": 22.22,
+      "total_act_ret_energy": 22.23
+    },
+    "em1data:2": {
+      "id": 2,
+      "total_act_energy": 333.3,
+      "total_act_ret_energy": 333.4
+    }
+  }
+}

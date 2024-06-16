@@ -1,0 +1,30 @@
+{
+  "event": "Shelly:StatusOnChange",
+  "deviceId": "123456789",
+  "status": {
+    "relays": [
+      {
+        "ison": true,
+        "has_timer": false,
+        "timer_started": 0,
+        "timer_duration": 0,
+        "timer_remaining": 0,
+        "overpower": false,
+        "source": "cloud"
+      }
+    ],
+    "meters": [
+      {
+        "power": 0,
+        "overpower": 0,
+        "is_valid": true,
+        "timestamp": 1718538312,
+        "counters": [0, 0, 0],
+        "total": 416127
+      }
+    ],
+    "temperature": 32.26,
+    "overtemperature": false,
+    "tmp": { "tC": 32.26, "tF": 90.07, "is_valid": true }
+  }
+}

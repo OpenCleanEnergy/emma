@@ -1,0 +1,19 @@
+﻿{
+  EventKey: emma.integrations.shelly.status-on-change,
+  Status: {
+    Relays: [
+      {
+        IsOn: true
+      }
+    ],
+    Meters: [
+      {
+        Power: 0,
+        Total: 416127
+      }
+    ]
+  },
+  Timestamp: DateTimeOffset_1,
+  Event: Shelly:StatusOnChange,
+  DeviceId: 123456789
+}

@@ -1,0 +1,24 @@
+{
+  "event": "Shelly:StatusOnChange",
+  "deviceId": "123456789",
+  "status": {
+    "em1:0": {
+      "id": 0,
+      "voltage": 236.1,
+      "current": 4.029,
+      "act_power": 1.111
+    },
+    "em1:1": {
+      "id": 1,
+      "voltage": 236.1,
+      "current": 4.029,
+      "act_power": 22.22
+    },
+    "em1:2": {
+      "id": 2,
+      "voltage": 236.1,
+      "current": 4.029,
+      "act_power": 333.3
+    }
+  }
+}
