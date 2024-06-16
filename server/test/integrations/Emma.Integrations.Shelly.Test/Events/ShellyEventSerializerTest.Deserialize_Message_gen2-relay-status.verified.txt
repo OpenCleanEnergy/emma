@@ -1,0 +1,25 @@
+﻿{
+  EventKey: emma.integrations.shelly.status-on-change,
+  Status: {
+    Switches: [
+      {
+        Id: 0,
+        Output: true
+      },
+      {
+        Id: 1,
+        Output: false,
+        Power: 123.456,
+        Energy: {
+          Total: 11.679
+        },
+        ReturnedEnergy: {
+          Total: 5.817
+        }
+      }
+    ]
+  },
+  Timestamp: DateTimeOffset_1,
+  Event: Shelly:StatusOnChange,
+  DeviceId: 123456789
+}

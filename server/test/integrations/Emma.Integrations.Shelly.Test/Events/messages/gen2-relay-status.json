@@ -1,0 +1,39 @@
+{
+  "event": "Shelly:StatusOnChange",
+  "deviceId": "123456789",
+  "status": {
+    "input:0": { "id": 0, "state": true },
+    "switch:0": {
+      "id": 0,
+      "source": "SHC",
+      "output": true,
+      "temperature": { "tC": 43.73, "tF": 110.72 }
+    },
+    "switch:1": {
+      "id": 1,
+      "source": "SHC",
+      "output": false,
+      "apower": 123.456,
+      "voltage": 225.9,
+      "current": 0,
+      "freq": 50,
+      "aenergy": {
+        "total": 11.679,
+        "by_minute": [0, 0, 0],
+        "minute_ts": 1654511972
+      },
+      "ret_aenergy": {
+        "total": 5.817,
+        "by_minute": [0, 0, 0],
+        "minute_ts": 1654511615
+      },
+      "temperature": {
+        "tC": 53.3,
+        "tF": 127.9
+      }
+    },
+    "code": "SNSW-001X16EU",
+    "id": "abc123",
+    "ts": 1718524818.22
+  }
+}

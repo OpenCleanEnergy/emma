@@ -5,8 +5,8 @@
     "input:0": { "id": 0, "state": true },
     "switch:0": {
       "id": 0,
-      "output": true,
       "source": "SHC",
+      "output": true,
       "temperature": { "tC": 43.73, "tF": 110.72 }
     },
     "code": "SNSW-001X16EU",
