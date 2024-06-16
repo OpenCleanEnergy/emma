@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.22](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.21...server-v1.0.0-alpha.22) (2024-06-16)
+
+
+### 🚀 Features
+
+* Hide current power consumption if no power consumption was reported (yet) ([17f2401](https://github.com/OpenCleanEnergy/emma/commit/17f240167a0822b314220dce2567b97f0d667fcd))
+* Improves logging in request pipeline. ([5ed1ee4](https://github.com/OpenCleanEnergy/emma/commit/5ed1ee4c1f7b0925e79ed0672ce812ae4f4e2d37))
+
 ## [1.0.0-alpha.21](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.20...server-v1.0.0-alpha.21) (2024-06-16)
 
 
