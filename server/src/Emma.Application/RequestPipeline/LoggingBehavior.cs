@@ -28,6 +28,7 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
 
         var context = new KeyValuePair<string, object?>[]
         {
+            KeyValuePair.Create<string, object?>("RequestType", typeof(TRequest)),
             KeyValuePair.Create<string, object?>("RequestId", requestId),
             KeyValuePair.Create<string, object?>("UserId", userId)
         };
@@ -62,7 +63,7 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
                 logLevel,
                 null,
                 "Handling {@Request}",
-                logLevel == LogLevel.Debug ? request : typeof(TRequest).Name
+                logLevel == LogLevel.Debug ? request : typeof(TRequest)
             );
 
             var (response, elapsedMilliseconds) = await HandleStopwatch(next);
@@ -71,8 +72,8 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
                 logLevel,
                 null,
                 "Handled {Request} with response {@Response} in {ElapsedMs} ms",
-                typeof(TRequest).Name,
-                logLevel == LogLevel.Debug ? response : typeof(TResponse).Name,
+                typeof(TRequest),
+                logLevel == LogLevel.Debug ? response : typeof(TResponse),
                 elapsedMilliseconds
             );
 
@@ -80,7 +81,7 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         }
         catch (Exception exception)
         {
-            _logger.Error(exception, "Exception while handling {Request}.", typeof(TRequest).Name);
+            _logger.Error(exception, "Exception while handling {@Request}.", request);
             throw;
         }
     }
