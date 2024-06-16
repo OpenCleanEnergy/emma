@@ -1501,6 +1501,7 @@ class SwitchConsumerDto {
     required this.name,
     required this.mode,
     required this.switchStatus,
+    required this.hasReportedPowerConsumption,
     required this.currentPowerConsumption,
   });
 
@@ -1526,6 +1527,8 @@ class SwitchConsumerDto {
     fromJson: switchStatusFromJson,
   )
   final enums.SwitchStatus switchStatus;
+  @JsonKey(name: 'hasReportedPowerConsumption')
+  final bool hasReportedPowerConsumption;
   @JsonKey(name: 'currentPowerConsumption')
   final num currentPowerConsumption;
   static const fromJsonFactory = _$SwitchConsumerDtoFromJson;
@@ -1543,6 +1546,11 @@ class SwitchConsumerDto {
             (identical(other.switchStatus, switchStatus) ||
                 const DeepCollectionEquality()
                     .equals(other.switchStatus, switchStatus)) &&
+            (identical(other.hasReportedPowerConsumption,
+                    hasReportedPowerConsumption) ||
+                const DeepCollectionEquality().equals(
+                    other.hasReportedPowerConsumption,
+                    hasReportedPowerConsumption)) &&
             (identical(
                     other.currentPowerConsumption, currentPowerConsumption) ||
                 const DeepCollectionEquality().equals(
@@ -1558,6 +1566,7 @@ class SwitchConsumerDto {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(mode) ^
       const DeepCollectionEquality().hash(switchStatus) ^
+      const DeepCollectionEquality().hash(hasReportedPowerConsumption) ^
       const DeepCollectionEquality().hash(currentPowerConsumption) ^
       runtimeType.hashCode;
 }
@@ -1568,12 +1577,15 @@ extension $SwitchConsumerDtoExtension on SwitchConsumerDto {
       String? name,
       enums.ControlMode? mode,
       enums.SwitchStatus? switchStatus,
+      bool? hasReportedPowerConsumption,
       num? currentPowerConsumption}) {
     return SwitchConsumerDto(
         id: id ?? this.id,
         name: name ?? this.name,
         mode: mode ?? this.mode,
         switchStatus: switchStatus ?? this.switchStatus,
+        hasReportedPowerConsumption:
+            hasReportedPowerConsumption ?? this.hasReportedPowerConsumption,
         currentPowerConsumption:
             currentPowerConsumption ?? this.currentPowerConsumption);
   }
@@ -1583,6 +1595,7 @@ extension $SwitchConsumerDtoExtension on SwitchConsumerDto {
       Wrapped<String>? name,
       Wrapped<enums.ControlMode>? mode,
       Wrapped<enums.SwitchStatus>? switchStatus,
+      Wrapped<bool>? hasReportedPowerConsumption,
       Wrapped<num>? currentPowerConsumption}) {
     return SwitchConsumerDto(
         id: (id != null ? id.value : this.id),
@@ -1590,6 +1603,9 @@ extension $SwitchConsumerDtoExtension on SwitchConsumerDto {
         mode: (mode != null ? mode.value : this.mode),
         switchStatus:
             (switchStatus != null ? switchStatus.value : this.switchStatus),
+        hasReportedPowerConsumption: (hasReportedPowerConsumption != null
+            ? hasReportedPowerConsumption.value
+            : this.hasReportedPowerConsumption),
         currentPowerConsumption: (currentPowerConsumption != null
             ? currentPowerConsumption.value
             : this.currentPowerConsumption));

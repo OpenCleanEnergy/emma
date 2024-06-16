@@ -15,6 +15,7 @@ class SwitchConsumerViewModel {
         name = signal(dto.name),
         mode = signal(_convertMode(dto.mode, dto.switchStatus)),
         status = signal(_convertStatus(dto.switchStatus)),
+        hasReportedPowerConsumption = signal(dto.hasReportedPowerConsumption),
         currentPowerConsumption =
             signal(dto.currentPowerConsumption.toDouble()) {
     delete = _delete.toCommand();
@@ -27,6 +28,7 @@ class SwitchConsumerViewModel {
   final Signal<String> name;
   final Signal<SwitchConsumerMode> mode;
   final Signal<SwitchConsumerStatus> status;
+  final Signal<bool> hasReportedPowerConsumption;
   final Signal<double> currentPowerConsumption;
 
   late final NoArgCommand delete;
@@ -39,6 +41,7 @@ class SwitchConsumerViewModel {
         name.value = dto.name;
         mode.value = _convertMode(dto.mode, dto.switchStatus);
         status.value = _convertStatus(dto.switchStatus);
+        hasReportedPowerConsumption.value = dto.hasReportedPowerConsumption;
         currentPowerConsumption.value = dto.currentPowerConsumption.toDouble();
       });
 
@@ -100,6 +103,13 @@ class SwitchConsumerViewModel {
       SwitchStatus.off => SwitchConsumerStatus.off,
       SwitchStatus.on => SwitchConsumerStatus.on,
     };
+  }
+
+  static double? _convertCurrentPowerConsumption(
+      num currentPowerConsumption, bool hasReportedPowerConsumption) {
+    return hasReportedPowerConsumption
+        ? currentPowerConsumption.toDouble()
+        : null;
   }
 }
 

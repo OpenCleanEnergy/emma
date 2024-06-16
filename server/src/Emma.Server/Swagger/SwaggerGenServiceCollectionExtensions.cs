@@ -22,7 +22,6 @@ public static class SwaggerGenServiceCollectionExtensions
                 }
             );
 
-            // options.UseAllOfToExtendReferenceSchemas();
             options.SupportNonNullableReferenceTypes();
             options.SchemaFilter<VogenSchemaFilter>();
             options.SchemaFilter<RequireNonNullablePropertiesSchemaFilter>();

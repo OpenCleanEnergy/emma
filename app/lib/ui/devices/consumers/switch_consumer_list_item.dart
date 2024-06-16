@@ -56,9 +56,10 @@ class SwitchConsumerListItem extends StatelessWidget {
                       color: _getTextColor(context, viewModel.status.value)),
                 )),
             subtitle: Watch(
-              (context) => UnitText.power(
-                  viewModel.currentPowerConsumption.value,
-                  color: _getTextColor(context, viewModel.status.value)),
+              (context) => viewModel.hasReportedPowerConsumption.value
+                  ? UnitText.power(viewModel.currentPowerConsumption.value,
+                      color: _getTextColor(context, viewModel.status.value))
+                  : const SizedBox.shrink(),
             ),
             trailing: IconButton(
               icon: const Icon(AppIcons.arrow_next),

@@ -25,8 +25,11 @@ public class SwitchConsumer : IHasOwner, IHasEvents
         SwitchConsumerSmartModeConfiguration.Default;
 
     public SwitchStatus SwitchStatus { get; private set; }
+    public bool HasReportedPowerConsumption { get; private set; }
     public Watt CurrentPowerConsumption { get; private set; } = Watt.Zero;
     public Watt MaximumPowerConsumption { get; private set; } = Watt.Zero;
+
+    public bool HasReportedTotalEnergyConsumption { get; private set; }
     public WattHours TotalEnergyConsumption { get; private set; } = WattHours.Zero;
     public required UserId OwnedBy { get; init; }
 
@@ -58,11 +61,14 @@ public class SwitchConsumer : IHasOwner, IHasEvents
         {
             MaximumPowerConsumption = value;
         }
+
+        HasReportedPowerConsumption = true;
     }
 
     public void ReportTotalEnergyConsumption(WattHours value)
     {
         TotalEnergyConsumption = value;
+        HasReportedTotalEnergyConsumption = true;
     }
 
     public bool HasEvents() => _events.Count > 0;

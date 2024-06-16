@@ -346,6 +346,7 @@ SwitchConsumerDto _$SwitchConsumerDtoFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       mode: controlModeFromJson(json['mode']),
       switchStatus: switchStatusFromJson(json['switchStatus']),
+      hasReportedPowerConsumption: json['hasReportedPowerConsumption'] as bool,
       currentPowerConsumption: json['currentPowerConsumption'] as num,
     );
 
@@ -355,5 +356,6 @@ Map<String, dynamic> _$SwitchConsumerDtoToJson(SwitchConsumerDto instance) =>
       'name': instance.name,
       'mode': controlModeToJson(instance.mode),
       'switchStatus': switchStatusToJson(instance.switchStatus),
+      'hasReportedPowerConsumption': instance.hasReportedPowerConsumption,
       'currentPowerConsumption': instance.currentPowerConsumption,
     };

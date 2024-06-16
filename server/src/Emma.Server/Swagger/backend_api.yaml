@@ -741,6 +741,7 @@ components:
     SwitchConsumerDto:
       required:
         - currentPowerConsumption
+        - hasReportedPowerConsumption
         - id
         - mode
         - name
@@ -755,6 +756,8 @@ components:
           $ref: '#/components/schemas/ControlMode'
         switchStatus:
           $ref: '#/components/schemas/SwitchStatus'
+        hasReportedPowerConsumption:
+          type: boolean
         currentPowerConsumption:
           $ref: '#/components/schemas/Watt'
       additionalProperties: false
