@@ -1,6 +1,4 @@
-using System.Text.Json.Serialization;
 using Emma.Domain.Units;
-using Emma.Integrations.Shelly.Domain.ValueObjects;
 
 namespace Emma.Integrations.Shelly.Events.Status;
 

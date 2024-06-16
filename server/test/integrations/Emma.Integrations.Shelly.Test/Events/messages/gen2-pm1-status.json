@@ -1,0 +1,30 @@
+{
+  "event": "Shelly:StatusOnChange",
+  "deviceId": "123456789",
+  "status": {
+    "pm1:0": {
+      "id": 0,
+      "voltage": 225.9,
+      "current": 0,
+      "apower": 123.456,
+      "freq": 50,
+      "aenergy": {
+        "total": 11.679,
+        "by_minute": [0, 0, 0],
+        "minute_ts": 1654511972
+      },
+      "ret_aenergy": {
+        "total": 4.126,
+        "by_minute": [0, 0, 0],
+        "minute_ts": 1654511318
+      },
+      "errors": [
+        "power_meter_failure",
+        "out_of_range:voltage",
+        "out_of_range:current",
+        "out_of_range:apower",
+        "out_of_range:aprtpower"
+      ]
+    }
+  }
+}

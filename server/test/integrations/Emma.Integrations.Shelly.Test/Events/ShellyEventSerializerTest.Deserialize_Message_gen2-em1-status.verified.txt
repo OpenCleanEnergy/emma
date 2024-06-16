@@ -1,21 +1,18 @@
 ﻿{
   EventKey: emma.integrations.shelly.status-on-change,
   Status: {
-    Switches: [
+    EM1: [
       {
         Id: 0,
-        Output: true
+        ActivePower: 1.111
       },
       {
         Id: 1,
-        Output: false,
-        ActivePower: 123.456,
-        ActiveEnergy: {
-          Total: 11.679
-        },
-        ReturnedActiveEnergy: {
-          Total: 5.817
-        }
+        ActivePower: 22.22
+      },
+      {
+        Id: 2,
+        ActivePower: 333.3
       }
     ]
   },

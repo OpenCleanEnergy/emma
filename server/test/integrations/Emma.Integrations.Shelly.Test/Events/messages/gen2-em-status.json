@@ -1,0 +1,10 @@
+{
+  "event": "Shelly:StatusOnChange",
+  "deviceId": "123456789",
+  "status": {
+    "em:0": {
+      "id": 0,
+      "total_act_power": 2484.782
+    }
+  }
+}

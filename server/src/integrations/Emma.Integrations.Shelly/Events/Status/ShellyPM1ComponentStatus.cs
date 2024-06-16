@@ -5,19 +5,18 @@ using Emma.Integrations.Shelly.Domain.ValueObjects;
 namespace Emma.Integrations.Shelly.Events.Status;
 
 /// <summary>
-/// https://shelly-api-docs.shelly.cloud/gen2/ComponentsAndServices/Switch#status.
+/// https://shelly-api-docs.shelly.cloud/gen2/ComponentsAndServices/PM1#status.
 /// </summary>
-public class ShellySwitchComponentStatus
+public class ShellyPM1ComponentStatus
 {
     public required ShellyChannelIndex Id { get; init; }
-    public bool Output { get; init; }
 
     [JsonPropertyName("apower")]
-    public Watt? Power { get; init; }
+    public Watt ActivePower { get; init; }
 
     [JsonPropertyName("aenergy")]
-    public ShellySwitchComponentStatusEnergy? Energy { get; init; }
+    public required ShellyPM1ComponentStatusEnergy ActiveEnergy { get; init; }
 
     [JsonPropertyName("ret_aenergy")]
-    public ShellySwitchComponentStatusEnergy? ReturnedEnergy { get; init; }
+    public required ShellyPM1ComponentStatusEnergy ReturnedActiveEnergy { get; init; }
 }
