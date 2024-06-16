@@ -45,27 +45,25 @@ class SwitchConsumerListItem extends StatelessWidget {
               ],
             ),
           ),
-          ListTile(
-            leading: Watch((context) => OnOffIndicator(
+          Watch((context) => ListTile(
+                leading: OnOffIndicator(
                   status: _getIndicatorStatus(viewModel.status.value),
-                )),
-            title: Watch((context) => Text(
+                ),
+                title: Text(
                   viewModel.name.value,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                       color: _getTextColor(context, viewModel.status.value)),
-                )),
-            subtitle: Watch(
-              (context) => viewModel.hasReportedPowerConsumption.value
-                  ? UnitText.power(viewModel.currentPowerConsumption.value,
-                      color: _getTextColor(context, viewModel.status.value))
-                  : const SizedBox.shrink(),
-            ),
-            trailing: IconButton(
-              icon: const Icon(AppIcons.arrow_next),
-              onPressed: _gotoEdit,
-            ),
-          ),
+                ),
+                subtitle: viewModel.hasReportedPowerConsumption.value
+                    ? UnitText.power(viewModel.currentPowerConsumption.value,
+                        color: _getTextColor(context, viewModel.status.value))
+                    : null,
+                trailing: IconButton(
+                  icon: const Icon(AppIcons.arrow_next),
+                  onPressed: _gotoEdit,
+                ),
+              )),
         ],
       ),
     );
