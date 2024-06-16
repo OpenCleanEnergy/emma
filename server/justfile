@@ -30,6 +30,9 @@ set-secret-shelly-callback-base-url url: (_set-secret 'Integrations:Shelly:Callb
 # Sets Sentry DSN.
 set-secret-sentry-dsn dsn: (_set-secret 'Sentry:Dsn' dsn)
 
+# Sets BetterStack source token.
+set-secret-betterstack-token token: (_set-secret 'BetterStack:SourceToken' token)
+
 # Clears all user secrets:
 clear-secrets:
   dotnet user-secrets clear \

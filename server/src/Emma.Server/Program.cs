@@ -147,6 +147,7 @@ if (entryAssembly == EntryAssembly.Default)
 }
 
 await app.RunAsync();
+await Log.CloseAndFlushAsync();
 
 static ReloadableLogger GetBootstrapLogger(WebApplicationBuilder builder)
 {
@@ -180,10 +181,21 @@ static LoggerConfiguration ConfigureLogger(
             theme: AnsiConsoleTheme.Literate
         );
 
-        return loggerConfiguration;
+        if (EntryAssembly.GetEntryAssembly() != EntryAssembly.Default)
+        {
+            return loggerConfiguration;
+        }
+    }
+    else
+    {
+        loggerConfiguration.WriteTo.Console(new CompactJsonFormatter());
     }
 
-    loggerConfiguration.WriteTo.Console(new CompactJsonFormatter());
+    var betterStack = configuration.GetSection("BetterStack").Get<BetterStackConfiguration>();
+    if (!string.IsNullOrEmpty(betterStack?.SourceToken))
+    {
+        loggerConfiguration.WriteTo.BetterStack(sourceToken: betterStack.SourceToken);
+    }
 
     var sentry = configuration.GetSection("Sentry")?.Get<SentryConfiguration>();
     if (!string.IsNullOrEmpty(sentry?.Dsn))

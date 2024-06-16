@@ -40,7 +40,11 @@ public class ShellyWebsocketMessageHandler
                 return;
             }
 
-            _logger.Debug("Message deserialized to {@ShellyEvent}", shellyEvent);
+            _logger.Debug(
+                "Message {Message} deserialized to {@ShellyEvent}",
+                message.Text,
+                shellyEvent
+            );
             await _eventPublisher.Publish(shellyEvent);
         }
         catch (Exception exception)
