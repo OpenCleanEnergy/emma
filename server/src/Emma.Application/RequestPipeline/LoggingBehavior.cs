@@ -3,7 +3,7 @@ using Emma.Application.Shared.Identity;
 using Emma.Application.Shared.Logging;
 using MediatR;
 
-namespace Emma.Application.Common;
+namespace Emma.Application.RequestPipeline;
 
 public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull

@@ -1,6 +1,6 @@
 using System.Reflection;
-using Emma.Application.Common;
 using Emma.Application.Integrations;
+using Emma.Application.RequestPipeline;
 using Emma.Application.Shared;
 using Emma.Application.Shared.Events;
 using Emma.Domain.Consumers;
