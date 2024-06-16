@@ -179,11 +179,17 @@ static LoggerConfiguration ConfigureLogger(
             applyThemeToRedirectedOutput: true,
             theme: AnsiConsoleTheme.Literate
         );
-
-        return loggerConfiguration;
+    }
+    else
+    {
+        loggerConfiguration.WriteTo.Console(new CompactJsonFormatter());
     }
 
-    loggerConfiguration.WriteTo.Console(new CompactJsonFormatter());
+    var betterStack = configuration.GetSection("BetterStack").Get<BetterStackConfiguration>();
+    if (!string.IsNullOrEmpty(betterStack?.SourceToken))
+    {
+        loggerConfiguration.WriteTo.BetterStack(sourceToken: betterStack.SourceToken);
+    }
 
     var sentry = configuration.GetSection("Sentry")?.Get<SentryConfiguration>();
     if (!string.IsNullOrEmpty(sentry?.Dsn))

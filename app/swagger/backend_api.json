@@ -945,12 +945,16 @@
       },
       "HealthReportDto": {
         "required": [
+          "name",
           "status",
           "totalDuration",
           "version"
         ],
         "type": "object",
         "properties": {
+          "name": {
+            "type": "string"
+          },
           "version": {
             "type": "string"
           },
