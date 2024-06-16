@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.20](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.19...server-v1.0.0-alpha.20) (2024-06-16)
+
+
+### 🚀 Features
+
+* Log service name and version and ([#83](https://github.com/OpenCleanEnergy/emma/issues/83)) ([e31c233](https://github.com/OpenCleanEnergy/emma/commit/e31c233752290f7a2c22246d8ebbc8ec21074f6a))
+* Log to BetterStack ([#90](https://github.com/OpenCleanEnergy/emma/issues/90)) ([c40546a](https://github.com/OpenCleanEnergy/emma/commit/c40546af82ccd11c5c6674eb907f2874d81ef15f))
+
 ## [1.0.0-alpha.19](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.18...server-v1.0.0-alpha.19) (2024-06-15)
 
 
