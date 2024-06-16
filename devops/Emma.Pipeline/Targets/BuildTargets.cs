@@ -44,7 +44,16 @@ public static class BuildTargets
             Test,
             "Runs all tests.",
             dependsOn: [Build],
-            () => RunAsync("dotnet", "test --no-build --nologo", workingDirectory: workingDir)
+            () =>
+            {
+                var ci = bool.Parse(Environment.GetEnvironmentVariable("CI") ?? "false");
+                var configuration = ci ? "Release" : "Debug";
+                return RunAsync(
+                    "dotnet",
+                    $"test --configuration {configuration} --no-build --logger GitHubActions --nologo",
+                    workingDirectory: workingDir
+                );
+            }
         );
 
         return targets;
