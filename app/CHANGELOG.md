@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.0-alpha.4](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.3...app-v1.0.0-alpha.4) (2024-06-16)
+
+
+### 🚀 Features
+
+* Hide current power consumption if no power consumption was reported (yet) ([17f2401](https://github.com/OpenCleanEnergy/emma/commit/17f240167a0822b314220dce2567b97f0d667fcd))
+* Log to BetterStack ([#90](https://github.com/OpenCleanEnergy/emma/issues/90)) ([c40546a](https://github.com/OpenCleanEnergy/emma/commit/c40546af82ccd11c5c6674eb907f2874d81ef15f))
+
+
+### 🐛 Bug Fixes
+
+* Fixes layout of consumer list item when no power consumption report is present. ([3bcf6c2](https://github.com/OpenCleanEnergy/emma/commit/3bcf6c21432e650e76de1adf6e44ed486e4fc3d4))
+* Stop long-polling as soon as app is hidden to prevent client exceptions. ([#87](https://github.com/OpenCleanEnergy/emma/issues/87)) ([d8b2c5e](https://github.com/OpenCleanEnergy/emma/commit/d8b2c5edeb0061a46bd5918d41da7155d68b4b71))
+
 ## [1.0.0-alpha.3](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.2...app-v1.0.0-alpha.3) (2024-06-13)
 
 
