@@ -180,6 +180,11 @@ static LoggerConfiguration ConfigureLogger(
             applyThemeToRedirectedOutput: true,
             theme: AnsiConsoleTheme.Literate
         );
+
+        if (EntryAssembly.GetEntryAssembly() != EntryAssembly.Default)
+        {
+            return loggerConfiguration;
+        }
     }
     else
     {
