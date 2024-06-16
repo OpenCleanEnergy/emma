@@ -76,9 +76,9 @@ public class ShellyStatusOnChangeEventHandler
             await HandleEM1Data(deviceId, status.EM1Data);
         }
 
-        if (status.PM1.Count > 0)
+        for (int i = 0; i < status.PM1.Count; i++)
         {
-            await HandlePM1(deviceId, status.PM1);
+            await HandlePM1(deviceId, ShellyChannelIndex.From(i), status.PM1[i]);
         }
 
         await _unitOfWork.SaveChanges();
@@ -243,18 +243,29 @@ public class ShellyStatusOnChangeEventHandler
 
     private async Task HandlePM1(
         ShellyDeviceId deviceId,
-        IReadOnlyList<ShellyPM1ComponentStatus> meters
+        ShellyChannelIndex index,
+        ShellyPM1ComponentStatus pm1Component
     )
     {
-        var power = meters.Sum(meter => meter.ActivePower);
-        var total = meters.Sum(meter => meter.ActiveEnergy.Total);
-        var totalReturned = meters.Sum(meter => meter.ReturnedActiveEnergy.Total);
-        await ReportElectricityMeter(
-            deviceId,
-            power,
-            totalEnergyConsumption: total,
-            totalEnergyFeedIn: totalReturned
+        var integration = new IntegrationIdentifier(
+            ShellyIntegrationDescriptor.Id,
+            IntegrationDeviceIdConverter.GetIntegrationDeviceId(deviceId, index)
         );
+
+        var switchConsumer = await _devicesRepository.FindSwitchConsumer(integration);
+        if (switchConsumer is not null)
+        {
+            switchConsumer.ReportCurrentPowerConsumption(pm1Component.ActivePower);
+            switchConsumer.ReportTotalEnergyConsumption(pm1Component.ActiveEnergy.Total);
+            return;
+        }
+
+        var producer = await _devicesRepository.FindProducer(integration);
+        if (producer is not null)
+        {
+            producer.ReportCurrentPowerProduction(pm1Component.ActivePower);
+            producer.ReportTotalEnergyProduction(pm1Component.ReturnedActiveEnergy.Total);
+        }
     }
 
     private async Task ReportElectricityMeter(
