@@ -61,9 +61,19 @@ public class ShellyStatusOnChangeEventHandler
             await HandleEM(deviceId, status.EM);
         }
 
+        if (status.EMData.Count > 0)
+        {
+            await HandleEMData(deviceId, status.EMData);
+        }
+
         if (status.EM1.Count > 0)
         {
             await HandleEM1(deviceId, status.EM1);
+        }
+
+        if (status.EM1Data.Count > 0)
+        {
+            await HandleEM1Data(deviceId, status.EM1Data);
         }
 
         if (status.PM1.Count > 0)
@@ -192,6 +202,21 @@ public class ShellyStatusOnChangeEventHandler
         await ReportElectricityMeter(deviceId, power, null, null);
     }
 
+    private async Task HandleEMData(
+        ShellyDeviceId deviceId,
+        IReadOnlyList<ShellyEMDataComponentStatus> data
+    )
+    {
+        var total = data.Sum(em => em.TotalActive);
+        var totalReturned = data.Sum(em => em.TotalActiveReturned);
+        await ReportElectricityMeter(
+            deviceId,
+            null,
+            totalEnergyConsumption: total,
+            totalEnergyFeedIn: totalReturned
+        );
+    }
+
     private async Task HandleEM1(
         ShellyDeviceId deviceId,
         IReadOnlyList<ShellyEM1ComponentStatus> meters
@@ -199,6 +224,21 @@ public class ShellyStatusOnChangeEventHandler
     {
         var power = meters.Sum(meter => meter.ActivePower ?? Watt.Zero);
         await ReportElectricityMeter(deviceId, power, null, null);
+    }
+
+    private async Task HandleEM1Data(
+        ShellyDeviceId deviceId,
+        IReadOnlyList<ShellyEM1DataComponentStatus> data
+    )
+    {
+        var total = data.Sum(em1 => em1.TotalActiveEnergy);
+        var totalReturned = data.Sum(em => em.TotalActiveReturnedEnergy);
+        await ReportElectricityMeter(
+            deviceId,
+            null,
+            totalEnergyConsumption: total,
+            totalEnergyFeedIn: totalReturned
+        );
     }
 
     private async Task HandlePM1(
@@ -219,7 +259,7 @@ public class ShellyStatusOnChangeEventHandler
 
     private async Task ReportElectricityMeter(
         ShellyDeviceId deviceId,
-        Watt currentPower,
+        Watt? currentPower,
         WattHours? totalEnergyConsumption,
         WattHours? totalEnergyFeedIn
     )
@@ -238,14 +278,17 @@ public class ShellyStatusOnChangeEventHandler
             return;
         }
 
-        var direction = currentPower switch
+        if (currentPower.HasValue)
         {
-            var x when x > Watt.Zero => GridPowerDirection.Consume,
-            var x when x < Watt.Zero => GridPowerDirection.FeedIn,
-            _ => GridPowerDirection.None
-        };
+            var direction = currentPower.Value switch
+            {
+                var x when x > Watt.Zero => GridPowerDirection.Consume,
+                var x when x < Watt.Zero => GridPowerDirection.FeedIn,
+                _ => GridPowerDirection.None
+            };
 
-        electricityMeter.ReportCurrentPower(currentPower, direction);
+            electricityMeter.ReportCurrentPower(currentPower.Value, direction);
+        }
 
         if (totalEnergyConsumption.HasValue)
         {
