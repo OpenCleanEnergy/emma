@@ -104,13 +104,6 @@ class SwitchConsumerViewModel {
       SwitchStatus.on => SwitchConsumerStatus.on,
     };
   }
-
-  static double? _convertCurrentPowerConsumption(
-      num currentPowerConsumption, bool hasReportedPowerConsumption) {
-    return hasReportedPowerConsumption
-        ? currentPowerConsumption.toDouble()
-        : null;
-  }
 }
 
 enum SwitchConsumerMode {
