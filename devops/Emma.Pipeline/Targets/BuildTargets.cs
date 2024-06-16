@@ -7,6 +7,7 @@ public static class BuildTargets
 {
     public const string Restore = "build:restore";
     public const string Build = "build:build";
+    public const string Test = "build:test";
 
     public static Targets AddBuildTargets(this Targets targets)
     {
@@ -22,6 +23,7 @@ public static class BuildTargets
                     workingDirectory: workingDir
                 )
         );
+
         targets.Add(
             Build,
             "Builds the solution. If $CI == true then Configuration is 'Release' else 'Debug'.",
@@ -36,6 +38,18 @@ public static class BuildTargets
                     workingDirectory: workingDir
                 );
             }
+        );
+
+        targets.Add(
+            Test,
+            "Runs all tests.",
+            dependsOn: [Build],
+            () =>
+                RunAsync(
+                    "dotnet",
+                    "test --no-build --logger GitHubActions --nologo",
+                    workingDirectory: workingDir
+                )
         );
 
         return targets;

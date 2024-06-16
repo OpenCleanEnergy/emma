@@ -74,8 +74,8 @@ jobs:
       - name: 🛠️ Build
         run: just build appbundle
 
-  build-server:
-    name: 🚂 Build server
+  test-server:
+    name: 🚂 Test server
     runs-on: ubuntu-latest
 
     steps:
@@ -87,15 +87,15 @@ jobs:
         with:
           dotnet: true
 
-      - name: 🛠️ Build
-        run: just target build:build
+      - name: 🧪 Test
+        run: just target build:test
 
   publish-server:
     name: 🐳 Publish server docker image
     runs-on: ubuntu-latest
     needs:
       - release-please
-      - build-server
+      - test-server
     if: needs.release-please.outputs.server-created
     permissions:
       contents: read
