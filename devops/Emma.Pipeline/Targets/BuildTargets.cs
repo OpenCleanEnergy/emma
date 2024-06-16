@@ -44,12 +44,7 @@ public static class BuildTargets
             Test,
             "Runs all tests.",
             dependsOn: [Build],
-            () =>
-                RunAsync(
-                    "dotnet",
-                    "test --no-build --logger GitHubActions --nologo",
-                    workingDirectory: workingDir
-                )
+            () => RunAsync("dotnet", "test --no-build --nologo", workingDirectory: workingDir)
         );
 
         return targets;
