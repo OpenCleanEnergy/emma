@@ -10,15 +10,12 @@ namespace Emma.Integrations.Shelly.Events.Status;
 )]
 public partial class ShellyStatus
 {
-    [JsonInclude]
     [JsonPropertyName("switch:0")]
     private ShellySwitchComponentStatus? _switch0 = null;
 
-    [JsonInclude]
     [JsonPropertyName("switch:1")]
     private ShellySwitchComponentStatus? _switch1 = null;
 
-    [JsonInclude]
     [JsonPropertyName("switch:2")]
     private ShellySwitchComponentStatus? _switch2 = null;
 

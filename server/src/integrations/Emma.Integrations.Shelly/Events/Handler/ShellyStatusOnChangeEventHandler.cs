@@ -143,7 +143,7 @@ public class ShellyStatusOnChangeEventHandler
     private async Task HandleSwitch(
         ShellyDeviceId deviceId,
         ShellyChannelIndex index,
-        ShellySwitchComponentStatus @switch
+        ShellySwitchComponentStatus switchComponent
     )
     {
         var integration = new IntegrationIdentifier(
@@ -155,18 +155,18 @@ public class ShellyStatusOnChangeEventHandler
         if (switchConsumer is not null)
         {
             switchConsumer.Switch(
-                @switch.Output ? SwitchStatus.On : SwitchStatus.Off,
+                switchComponent.Output ? SwitchStatus.On : SwitchStatus.Off,
                 SwitchActor.Integration
             );
 
-            if (@switch.Power.HasValue)
+            if (switchComponent.Power.HasValue)
             {
-                switchConsumer.ReportCurrentPowerConsumption(@switch.Power.Value);
+                switchConsumer.ReportCurrentPowerConsumption(switchComponent.Power.Value);
             }
 
-            if (@switch.Energy is not null)
+            if (switchComponent.Energy is not null)
             {
-                switchConsumer.ReportTotalEnergyConsumption(@switch.Energy.Total);
+                switchConsumer.ReportTotalEnergyConsumption(switchComponent.Energy.Total);
             }
 
             return;
@@ -175,14 +175,14 @@ public class ShellyStatusOnChangeEventHandler
         var producer = await _devicesRepository.FindProducer(integration);
         if (producer is not null)
         {
-            if (@switch.Power.HasValue)
+            if (switchComponent.Power.HasValue)
             {
-                producer.ReportCurrentPowerProduction(@switch.Power.Value);
+                producer.ReportCurrentPowerProduction(switchComponent.Power.Value);
             }
 
-            if (@switch.ReturnedEnergy is not null)
+            if (switchComponent.ReturnedEnergy is not null)
             {
-                producer.ReportTotalEnergyProduction(@switch.ReturnedEnergy.Total);
+                producer.ReportTotalEnergyProduction(switchComponent.ReturnedEnergy.Total);
             }
         }
     }
