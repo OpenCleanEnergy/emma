@@ -1,6 +1,7 @@
 import 'package:chopper/chopper.dart';
 import 'package:emma/application/backend_api/backend_api_configuration.dart';
 import 'package:emma/application/backend_api/interceptors/auth_interceptor.dart';
+import 'package:emma/application/backend_api/interceptors/client_info_interceptor.dart';
 import 'package:emma/application/backend_api/interceptors/error_interceptor.dart';
 import 'package:emma/application/backend_api/interceptors/logging_interceptor.dart';
 import 'package:emma/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
@@ -22,6 +23,7 @@ class BackendApiFactory {
     final interceptors = <Interceptor>[
       ErrorInterceptor(),
       LoggingInterceptor(logger: logger),
+      ClientInfoInterceptor(),
       AuthInterceptor(userRepository: _userRepository),
     ];
 

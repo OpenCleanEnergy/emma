@@ -15,26 +15,13 @@ public class ClientInfoEnricher : ILogEventEnricher
             return;
         }
 
-        var request = httpContext.Request;
-        var name = GetValueOrDefault("oce-client-name", request.Headers);
-        var version = GetValueOrDefault("oce-client-version", request.Headers);
-
-        var clientInfo = new Dictionary<string, string>();
-        if (name is not null)
-        {
-            clientInfo.Add("Name", name);
-        }
-
-        if (version is not null)
-        {
-            clientInfo.Add("Version", version);
-        }
-
-        if (clientInfo.Count == 0)
+        var userAgent = GetValueOrDefault("User-Agent", httpContext.Request.Headers);
+        if (userAgent is null)
         {
             return;
         }
 
+        var clientInfo = new Dictionary<string, string>() { ["UserAgent"] = userAgent };
         var clientProperty = propertyFactory.CreateProperty("Client", clientInfo);
         logEvent.AddPropertyIfAbsent(clientProperty);
     }
