@@ -169,6 +169,7 @@ static LoggerConfiguration ConfigureLogger(
         .ReadFrom.Configuration(configuration)
         .Enrich.FromLogContext()
         .Enrich.WithServiceInfo(ServiceInfo.Name, ServiceInfo.Version)
+        .Enrich.With<ClientInfoEnricher>()
         .Destructure.AsScalar<JsonObject>()
         .Destructure.With<ValueObjectDestructuringPolicy>();
 
