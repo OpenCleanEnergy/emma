@@ -12,9 +12,9 @@ updates:
       prefix: "build"
       include: "scope"
 
-  ## dotnet (server, devops)
+  #server
   - package-ecosystem: "nuget"
-    directory: "/"
+    directory: "server"
     schedule:
       interval: "weekly"
     labels:
@@ -33,6 +33,18 @@ updates:
       xunit:
         patterns:
           - "xunit*"
+  
+  # devops
+  - package-ecosystem: "nuget"
+    directory: "devops"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "nuget"
+    commit-message:
+      prefix: "build"
+      include: "scope"
 
   # GitHub
   - package-ecosystem: "github-actions"
