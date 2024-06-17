@@ -34,6 +34,12 @@ public sealed class ShellyHostedService : IHostedService, IDisposable
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
+        if (!_configuration.IsEnabled)
+        {
+            _logger.Info("Integration {Integration} is disabled. Service is shutting down.", ShellyIntegrationDescriptor.Id);
+            return;
+        }
+
         if (!_configuration.Validate(out var invalidProperties))
         {
             _logger.Warning(
