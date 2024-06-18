@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.5](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.4...app-v1.0.0-alpha.5) (2024-06-18)
+
+
+### 🚀 Features
+
+* Log app version ([#103](https://github.com/OpenCleanEnergy/emma/issues/103)) ([79463bd](https://github.com/OpenCleanEnergy/emma/commit/79463bda17ccbf3b871ca279a2d6b7abd8f9ec2b))
+* Publish to Google Play Store ([#106](https://github.com/OpenCleanEnergy/emma/issues/106)) ([1a0485b](https://github.com/OpenCleanEnergy/emma/commit/1a0485bbda958b3c7cdeae294501196b34ebfd2c))
+
 ## [1.0.0-alpha.4](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.3...app-v1.0.0-alpha.4) (2024-06-16)
 
 
