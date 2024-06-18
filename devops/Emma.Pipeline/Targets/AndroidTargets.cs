@@ -33,7 +33,10 @@ public static class AndroidTargets
                         $"Environment variable {keystoreEnv} does not exists."
                     );
                 var decoded = Convert.FromBase64String(base64);
-                return File.WriteAllBytesAsync(keystoreFile.FullName, decoded);
+                File.WriteAllBytes(keystoreFile.FullName, decoded);
+
+                Environment.SetEnvironmentVariable("CI", "true");
+                Environment.SetEnvironmentVariable("CM_KEYSTORE_PATH", keystoreFile.FullName);
             }
         );
 
@@ -72,7 +75,7 @@ public static class AndroidTargets
                     ' ',
                     "--release",
                     "--dart-define-from-file .env.production",
-                    $"--build-number {buildNumber}"
+                    $"--build-number {3}"
                 );
 
                 Run("flutter", $"build appbundle {args}", workingDirectory: workingDir);

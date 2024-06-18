@@ -2,8 +2,6 @@ using System.Text;
 using Google.Apis.AndroidPublisher.v3;
 using Google.Apis.AndroidPublisher.v3.Data;
 using Google.Apis.Auth.OAuth2;
-using Google.Apis.Discovery;
-using Google.Apis.Http;
 using Google.Apis.Services;
 
 namespace Emma.Pipeline.Targets.Android;
@@ -11,7 +9,7 @@ namespace Emma.Pipeline.Targets.Android;
 public class GooglePlay
 {
     public const string PackageName = "org.opence.emma";
-    AndroidPublisherService _service;
+    private readonly AndroidPublisherService _service;
 
     public GooglePlay(AndroidPublisherService service)
     {
@@ -57,7 +55,7 @@ public class GooglePlay
             {
                 Console.WriteLine($"  - Release: {release.Name} ({release.Status})");
 
-                foreach (var versionCode in release.VersionCodes)
+                foreach (var versionCode in release.VersionCodes ?? [])
                 {
                     Console.WriteLine($"    - Version Code: {versionCode}");
                     if (versionCode > max)
