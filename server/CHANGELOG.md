@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.0.0-alpha.23](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.22...server-v1.0.0-alpha.23) (2024-06-18)
+
+
+### 🚀 Features
+
+* Log app version ([#103](https://github.com/OpenCleanEnergy/emma/issues/103)) ([79463bd](https://github.com/OpenCleanEnergy/emma/commit/79463bda17ccbf3b871ca279a2d6b7abd8f9ec2b))
+
+
+### 🐛 Bug Fixes
+
+* **shelly:** Fixes failing websocket reconnect after token refresh. ([14c1f58](https://github.com/OpenCleanEnergy/emma/commit/14c1f583f8dc07982521d674af0c984271a80871))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump code-butler from 3.0.1 to 3.0.2 in /server ([#101](https://github.com/OpenCleanEnergy/emma/issues/101)) ([28170ad](https://github.com/OpenCleanEnergy/emma/commit/28170adb2a164f838bbec2e12fa538e35315d456))
+* **deps:** bump MediatR from 12.2.0 to 12.3.0 in /server ([#96](https://github.com/OpenCleanEnergy/emma/issues/96)) ([8eb055f](https://github.com/OpenCleanEnergy/emma/commit/8eb055fbce4b68cda1e700f64722d5f81ea87aa0))
+* **deps:** bump Microsoft.NET.Test.Sdk from 17.6.0 to 17.10.0 in /server ([#98](https://github.com/OpenCleanEnergy/emma/issues/98)) ([55bf547](https://github.com/OpenCleanEnergy/emma/commit/55bf5477fdf75af1518ca46b9956e6c65cef8d7d))
+* **deps:** bump Serilog from 3.1.1 to 4.0.0 in /server ([#100](https://github.com/OpenCleanEnergy/emma/issues/100)) ([7488d83](https://github.com/OpenCleanEnergy/emma/commit/7488d8318e231a22b078e3e3a2114f85ae0f117e))
+* **deps:** bump SonarAnalyzer.CSharp from 9.26.0.92422 to 9.27.0.93347 in /server ([#99](https://github.com/OpenCleanEnergy/emma/issues/99)) ([b954c0a](https://github.com/OpenCleanEnergy/emma/commit/b954c0ab520a66add6f545daa63377173b8e145a))
+
 ## [1.0.0-alpha.22](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.21...server-v1.0.0-alpha.22) (2024-06-16)
 
 
