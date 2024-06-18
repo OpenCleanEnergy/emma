@@ -22,6 +22,12 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     namespace "org.opence.emma"
     compileSdk flutter.compileSdkVersion
@@ -41,7 +47,6 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "org.opence.emma"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
@@ -54,11 +59,29 @@ android {
        ]
     }
 
-    buildTypes {
+    signingConfigs {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            if (System.getenv()["CM_KEYSTORE_PATH"]) {
+            storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
+            storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
+            keyAlias System.getenv()["CM_KEY_ALIAS"]
+            keyPassword System.getenv()["CM_KEY_PASSWORD"]
+            } else {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword  keystoreProperties['keyPassword']
+                storeFile  keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                storePassword  keystoreProperties['storePassword']
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
             signingConfig signingConfigs.debug
+        }
+
+        release {
+            signingConfig signingConfigs.release
         }
     }
 }

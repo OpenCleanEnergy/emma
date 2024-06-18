@@ -46,9 +46,10 @@ public static class DeployTargets
             $"Clears the {ansibleDir} directory.",
             () =>
             {
-                if (renderedDir.Exists)
+                ansibleDir.Refresh();
+                if (ansibleDir.Exists)
                 {
-                    renderedDir.Delete(recursive: true);
+                    ansibleDir.Delete(recursive: true);
                 }
             }
         );
@@ -58,9 +59,10 @@ public static class DeployTargets
             $"Clears the {ansibleDir} directory.",
             () =>
             {
-                if (renderedDir.Exists)
+                ansibleDir.Refresh();
+                if (ansibleDir.Exists)
                 {
-                    renderedDir.Delete(recursive: true);
+                    ansibleDir.Delete(recursive: true);
                 }
             }
         );
