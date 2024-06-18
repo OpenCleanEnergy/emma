@@ -9,14 +9,14 @@
       "cwd": "app",
       "request": "launch",
       "type": "dart",
-      "args": ["--dart-define-from-file", "appsettings.development.json"]
+      "args": ["--dart-define-from-file", ".env.development"]
     },
     {
       "name": "app (prod)",
       "cwd": "app",
       "request": "launch",
       "type": "dart",
-      "args": ["--dart-define-from-file", "appsettings.production.json"]
+      "args": ["--dart-define-from-file", ".env.production"]
     }
   ]
 }
