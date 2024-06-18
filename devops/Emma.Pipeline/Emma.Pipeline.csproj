@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Bullseye" Version="5.0.0" />
+    <PackageReference Include="Google.Apis.AndroidPublisher.v3" Version="1.68.0.3449" />
     <PackageReference Include="SimpleExec" Version="12.0.0" />
   </ItemGroup>
 

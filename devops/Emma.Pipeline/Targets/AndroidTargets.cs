@@ -1,11 +1,13 @@
 namespace Emma.Pipeline.Targets;
 
 using Bullseye;
+using Emma.Pipeline.Targets.Android;
 using static SimpleExec.Command;
 
 public static class AndroidTargets
 {
     public const string Keystore = "android:keystore";
+    public const string BuildNumber = "android:build-number";
 
     public const string Restore = "android:restore";
     public const string Analyze = "android:analyze";
@@ -17,6 +19,7 @@ public static class AndroidTargets
         const string workingDir = "./app";
         const string keystoreEnv = "KEYSTORE_FILE_BASE64";
         var keystoreFile = new FileInfo("/tmp/emma/key.jks");
+        long buildNumber = 0;
 
         targets.Add(
             Keystore,
@@ -31,6 +34,18 @@ public static class AndroidTargets
                     );
                 var decoded = Convert.FromBase64String(base64);
                 return File.WriteAllBytesAsync(keystoreFile.FullName, decoded);
+            }
+        );
+
+        targets.Add(
+            BuildNumber,
+            "Get next build number.",
+            () =>
+            {
+                buildNumber = GooglePlay
+                    .FromEnvironmentVariable("SERVICE_ACCOUNT_JSON_BASE64")
+                    .GetNextBuildNumber();
+                Console.WriteLine($"Next builder number: {buildNumber}");
             }
         );
 
@@ -50,14 +65,17 @@ public static class AndroidTargets
         targets.Add(
             Build,
             "Build an Android App Bundle file from your app.",
-            dependsOn: [Keystore, Analyze],
+            dependsOn: [Keystore, BuildNumber, Analyze],
             () =>
             {
-                Run(
-                    "flutter",
-                    $"build appbundle --release --dart-define-from-file .env.production",
-                    workingDirectory: workingDir
+                var args = string.Join(
+                    ' ',
+                    "--release",
+                    "--dart-define-from-file .env.production",
+                    $"--build-number {buildNumber}"
                 );
+
+                Run("flutter", $"build appbundle {args}", workingDirectory: workingDir);
             }
         );
 
