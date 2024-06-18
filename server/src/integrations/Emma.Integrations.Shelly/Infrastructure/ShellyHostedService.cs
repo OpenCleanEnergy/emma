@@ -36,8 +36,11 @@ public sealed class ShellyHostedService : IHostedService, IDisposable
     {
         if (!_configuration.IsEnabled)
         {
-            _logger.Info("Integration {Integration} is disabled. Service is shutting down.", ShellyIntegrationDescriptor.Id);
-            return;
+            _logger.Info(
+                "Integration {Integration} is disabled. Service is shutting down.",
+                ShellyIntegrationDescriptor.Id
+            );
+            return Task.CompletedTask;
         }
 
         if (!_configuration.Validate(out var invalidProperties))
