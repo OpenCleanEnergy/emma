@@ -4,6 +4,7 @@ namespace Emma.Integrations.Shelly;
 
 public class ShellyIntegrationConfiguration
 {
+    public bool IsEnabled { get; init; } = true;
     public string? IntegratorTag { get; init; }
     public string? IntegratorToken { get; init; }
     public Uri? CallbackBaseUrl { get; init; }
