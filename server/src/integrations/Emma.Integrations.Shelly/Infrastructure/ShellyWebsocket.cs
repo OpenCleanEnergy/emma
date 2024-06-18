@@ -80,7 +80,7 @@ public sealed class ShellyWebsocket : IDisposable
         ];
     }
 
-    private async Task RefreshConfiguration()
+    private async Task RestartWithNewConfiguration()
     {
         _configuration = await _configurationFactory.GetConfiguration(
             _host,
@@ -88,7 +88,10 @@ public sealed class ShellyWebsocket : IDisposable
         );
 
         _client!.Url = _configuration.Uri;
-        await _client.Reconnect();
+
+        // !IMPORTANT: Use Start() instead of Reconnect().
+        // _client.IsStarted is false at this point and Reconnect() won't work.
+        await _client.Start();
     }
 
     private void OnDisconnectionHappened(DisconnectionInfo info)
@@ -96,7 +99,7 @@ public sealed class ShellyWebsocket : IDisposable
         if (_configuration?.ValidUntil <= AmbientTimeProvider.UtcNow)
         {
             info.CancelReconnection = true;
-            _ = RefreshConfiguration();
+            _ = RestartWithNewConfiguration();
         }
     }
 
