@@ -32,7 +32,7 @@ generate-icons: pub-get
 # Build the app
 build subcommand environment='production':
   flutter build {{subcommand}} \
-  --debug
+  --debug \
   --dart-define-from-file .env.{{environment}}
 
 # Run the app
