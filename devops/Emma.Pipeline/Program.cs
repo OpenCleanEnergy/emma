@@ -7,6 +7,5 @@ targets.AddBuildTargets();
 targets.AddDockerTargets();
 targets.AddKeycloakTargets();
 targets.AddDeployTargets();
-targets.AddAndroidTargets();
 
 await targets.RunAndExitAsync(args);
