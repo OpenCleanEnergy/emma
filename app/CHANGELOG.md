@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.6](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.5...app-v1.0.0-alpha.6) (2024-06-19)
+
+
+### 🚀 Features
+
+* Add web app for development ([#108](https://github.com/OpenCleanEnergy/emma/issues/108)) ([b2ff38b](https://github.com/OpenCleanEnergy/emma/commit/b2ff38b023e2fd95011dcbd4fbf3fba8dc4bf077))
+* Deploy web app ([#112](https://github.com/OpenCleanEnergy/emma/issues/112)) ([c139697](https://github.com/OpenCleanEnergy/emma/commit/c13969743572c55a5bf36281a253b6aa2532b28e))
+
 ## [1.0.0-alpha.5](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.4...app-v1.0.0-alpha.5) (2024-06-18)
 
 
