@@ -32,7 +32,7 @@ generate-icons: pub-get
 # Build the app
 build subcommand environment='production':
   flutter build {{subcommand}} \
-  $([ '{{subcommand}}' == 'web' ] || echo '--debug' ) \
+  {{ if subcommand == "web" { "" } else { "--debug" } }} \
   --dart-define-from-file .env.{{environment}}
 
 # Run the app
