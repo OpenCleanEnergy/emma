@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:web/web.dart';
 
 class OidcConfiguration {
@@ -10,6 +11,11 @@ class OidcConfiguration {
   final String clientId;
 
   Uri getWebRedirectUri() {
+    if (!kIsWeb) {
+      throw UnsupportedError(
+          'This method is only supported on the web platform.');
+    }
+
     final origin = Uri.parse(_getOrigin());
     final href = _getBaseHref();
 
