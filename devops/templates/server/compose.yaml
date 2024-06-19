@@ -5,7 +5,7 @@ secrets:
 services:
   server:
     # x-release-please-start-version
-    image: ghcr.io/opencleanenergy/emma:1.0.0-alpha.23
+    image: ghcr.io/opencleanenergy/emma:1.0.0-alpha.24
     # x-release-please-end
     secrets:
       - source: server_secrets
