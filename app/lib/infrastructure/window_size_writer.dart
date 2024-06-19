@@ -13,7 +13,7 @@ abstract class WindowSizeWriter {
     'Galaxy Fold': const Size(280, 653),
     'Phone 9:16': const Size(360, 740),
     'Tablet 7"': const Size(600, 900),
-    'Tablet 10"': const Size(1280, 800),
+    'Tablet 10"': const Size(800, 1280),
   };
 
   static get isSupported => Platform.isLinux || Platform.isWindows;
