@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.7](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.6...app-v1.0.0-alpha.7) (2024-06-19)
+
+
+### 🐛 Bug Fixes
+
+* Adds missing `try_files` directive. ([b05ab90](https://github.com/OpenCleanEnergy/emma/commit/b05ab902c70050af7655897559794148a2470b5f))
+* Use official http catch all ([3a53de2](https://github.com/OpenCleanEnergy/emma/commit/3a53de22b075dca7a44734c1a71df927b650a166))
+
 ## [1.0.0-alpha.6](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.5...app-v1.0.0-alpha.6) (2024-06-19)
 
 
