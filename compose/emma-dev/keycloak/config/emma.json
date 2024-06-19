@@ -21,7 +21,7 @@
       "attributes": {
         "post.logout.redirect.uris": "org.opence.emma:/endsessionredirect##http://localhost*##"
       },
-      "webOrigins": ["+", "*"],
+      "webOrigins": ["*"],
       "defaultClientScopes": [
         "web-origins",
         "acr",

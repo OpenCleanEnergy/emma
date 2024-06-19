@@ -6,10 +6,7 @@
   "resetPasswordAllowed": true,
   "verifyEmail": true,
   "internationalizationEnabled": true,
-  "supportedLocales": [
-    "de",
-    "en"
-  ],
+  "supportedLocales": ["de", "en"],
   "defaultLocale": "de",
   "smtpServer": {
     "from": "{{KC_SMTP_FROM}}",
@@ -39,6 +36,7 @@
       "attributes": {
         "post.logout.redirect.uris": "org.opence.emma:/endsessionredirect##http://localhost*##"
       },
+      "webOrigins": ["*"],
       "defaultClientScopes": [
         "web-origins",
         "acr",
