@@ -25,7 +25,7 @@ public static class AppTargets
             () =>
                 Run(
                     "flutter",
-                    "build web --dart-define-from-file .env.production",
+                    "build web --base-href '/app/' --dart-define-from-file .env.production",
                     workingDirectory: workingDir.FullName
                 )
         );
