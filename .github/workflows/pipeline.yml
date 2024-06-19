@@ -53,10 +53,12 @@ jobs:
   build-app:
     name: 📱 Build app
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        subcommand: [appbundle, web]
     defaults:
       run:
         working-directory: app
-
     steps:
       - name: 🛒 Checkout
         uses: actions/checkout@v4
@@ -72,8 +74,8 @@ jobs:
       - name: 🎨 Analyze
         run: just analyze
 
-      - name: 🛠️ Build
-        run: just build appbundle
+      - name: 🛠️ Build ${{ matrix.subcommand }}
+        run: just build ${{ matrix.subcommand }}
 
   test-server:
     name: 🚂 Test server
