@@ -9,14 +9,24 @@
       "cwd": "app",
       "request": "launch",
       "type": "dart",
-      "args": ["--dart-define-from-file", ".env.development"]
+      "args": [
+        "--dart-define-from-file",
+        ".env.development",
+        "--web-port",
+        "5003"
+      ]
     },
     {
       "name": "app (prod)",
       "cwd": "app",
       "request": "launch",
       "type": "dart",
-      "args": ["--dart-define-from-file", ".env.production"]
+      "args": [
+        "--dart-define-from-file",
+        ".env.production",
+        "--web-port",
+        "5003"
+      ]
     }
   ]
 }

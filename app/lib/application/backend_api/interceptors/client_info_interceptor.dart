@@ -1,19 +1,23 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:chopper/chopper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class ClientInfoInterceptor implements Interceptor {
-  static const kUserAgentHeader = 'User-Agent';
-
   @override
   FutureOr<Response<BodyType>> intercept<BodyType>(
       Chain<BodyType> chain) async {
     final info = await PackageInfo.fromPlatform();
-    final userAgent =
-        '${info.packageName}/${info.version} (${Platform.operatingSystem})';
+    final platform = kIsWeb ? 'web' : Platform.operatingSystem;
 
-    chain.request.headers[kUserAgentHeader] = userAgent;
+    if (!kIsWeb) {
+      final userAgent = '${info.packageName}/${info.version} ($platform)';
+      chain.request.headers['User-Agent'] = userAgent;
+    }
+
+    chain.request.headers['OCE-Client-Version'] = info.version;
+    chain.request.headers['OCE-Client-Platform'] = platform;
 
     return chain.proceed(chain.request);
   }
