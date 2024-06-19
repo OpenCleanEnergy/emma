@@ -24,7 +24,10 @@
     "app": {
       "release-type": "node",
       "prerelease-type": "alpha",
-      "extra-files": [{ "type": "generic", "path": "pubspec.yaml" }]
+      "extra-files": [
+        { "type": "generic", "path": "pubspec.yaml" },
+        "/devops/templates/web-app/compose.yaml"
+      ]
     },
     "server": {
       "release-type": "node",

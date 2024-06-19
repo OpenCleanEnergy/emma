@@ -11,6 +11,12 @@ emma.opence.org {
 		reverse_proxy keycloak:8080
 	}
 
+	# Web App
+	redir /app /app/
+	handle /app/* {
+		reverse_proxy web-app:80
+	}
+
 	# Fallback
 	handle {
 		redir https://github.com/OpenCleanEnergy/emma

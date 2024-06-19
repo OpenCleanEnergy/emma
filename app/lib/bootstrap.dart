@@ -31,10 +31,6 @@ Future<void> bootstrap() async {
   final oidcConfiguration = OidcConfiguration(
     baseUri: Uri.parse(const String.fromEnvironment("AUTH_URL")),
     clientId: "emma_app",
-    webRedirectUri:
-        const String.fromEnvironment("AUTH_WEB_REDIRECT_URL").isNotEmpty
-            ? Uri.parse(const String.fromEnvironment("AUTH_WEB_REDIRECT_URL"))
-            : null,
   );
 
   final oidcUserRepository = await OidcUserRepository.create(oidcConfiguration);

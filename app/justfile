@@ -32,7 +32,7 @@ generate-icons: pub-get
 # Build the app
 build subcommand environment='production':
   flutter build {{subcommand}} \
-  --debug \
+  {{ if subcommand == "web" { "" } else { "--debug" } }} \
   --dart-define-from-file .env.{{environment}}
 
 # Run the app
@@ -40,7 +40,6 @@ run device-id='linux' environment='development':
   flutter run \
   --device-id {{device-id}} \
   --dart-define-from-file .env.{{environment}}
-  --web-port 5003
 
 # Start Android Device Bridge server as root. Stores adb executable in environment variable because `sudo` changes $PATH.
 adb-start:

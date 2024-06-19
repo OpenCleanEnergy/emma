@@ -11,10 +11,7 @@ internal sealed class DockerTags
 
     public static DockerTags FromBaseImage(string baseImage, DirectoryInfo workingDir)
     {
-        var version = ProjectVersion.FromNodePackage(
-            new FileInfo(Path.Combine(workingDir.FullName, "package.json"))
-        );
-
+        var version = ProjectVersion.FromDirectory(workingDir);
         var tags = GetVersionTags(version).Select(t => $"{baseImage}:{t}");
         return new DockerTags([.. tags]);
     }
