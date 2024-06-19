@@ -2,7 +2,7 @@
 	auto_https off
 }
 
-http://* {
+http:// {
 	root * /var/www/html
 	encode gzip
 	try_files {path} /app/index.html
