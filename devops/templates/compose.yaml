@@ -1,6 +1,7 @@
 include:
   - ./keycloak/compose.yaml
   - ./server/compose.yaml
+  - ./web-app/compose.yaml
 
 volumes:
   proxy_data:
