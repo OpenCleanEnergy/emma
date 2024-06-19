@@ -8,10 +8,6 @@ class ClientInfoInterceptor implements Interceptor {
   @override
   FutureOr<Response<BodyType>> intercept<BodyType>(
       Chain<BodyType> chain) async {
-    if (!kIsWeb) {
-      await _setUserAgent(chain);
-    }
-
     final info = await PackageInfo.fromPlatform();
     final platform = kIsWeb ? 'web' : Platform.operatingSystem;
 
@@ -26,6 +22,4 @@ class ClientInfoInterceptor implements Interceptor {
 
     return chain.proceed(chain.request);
   }
-
-  Future<void> _setUserAgent(Chain<dynamic> chain) async {}
 }
