@@ -21,10 +21,11 @@ class OidcUserRepository implements IUserRepository {
     Uri? frontChannelLogoutUri;
 
     if (kIsWeb) {
-      redirectUri = Uri.parse('http://localhost:22433/redirect.html');
-      postLogoutRedirectUri = Uri.parse('http://localhost:22433/redirect.html');
-      frontChannelLogoutUri = postLogoutRedirectUri.replace(queryParameters: {
-        ...postLogoutRedirectUri.queryParameters,
+      assert(configuration.webRedirectUri != null);
+      redirectUri = configuration.webRedirectUri!;
+      postLogoutRedirectUri = redirectUri;
+      frontChannelLogoutUri = redirectUri.replace(queryParameters: {
+        ...redirectUri.queryParameters,
         'requestType': 'front-channel-logout'
       });
     } else if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {

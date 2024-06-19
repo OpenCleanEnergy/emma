@@ -13,7 +13,7 @@
         "--dart-define-from-file",
         ".env.development",
         "--web-port",
-        "22433"
+        "5003"
       ]
     },
     {
@@ -25,7 +25,7 @@
         "--dart-define-from-file",
         ".env.production",
         "--web-port",
-        "22433"
+        "5003"
       ]
     }
   ]
