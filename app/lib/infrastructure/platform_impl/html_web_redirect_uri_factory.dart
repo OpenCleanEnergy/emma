@@ -1,6 +1,8 @@
+import 'package:emma/infrastructure/web_redirect_uri_factory.dart';
 import 'package:web/web.dart';
 
-abstract class WebRedirectUriFactory {
+class WebRedirectUriFactoryImpl extends WebRedirectUriFactory {
+  @override
   Uri getRedirectUri() {
     final origin = Uri.parse(_getOrigin());
     final href = _getBaseHref();
