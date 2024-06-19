@@ -130,6 +130,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(builder =>
+    builder
+        .SetIsOriginAllowed(origin =>
+            origin.Contains("localhost", StringComparison.OrdinalIgnoreCase)
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+);
+
 app.UseSerilogRequestLogging(options =>
 {
     options.GetLevel = RequestLoggingLevelFactory.GetLevel;
