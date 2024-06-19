@@ -16,7 +16,6 @@ class ClientInfoInterceptor implements Interceptor {
       chain.request.headers['User-Agent'] = userAgent;
     }
 
-    chain.request.headers['OCE-Client-Name'] = info.packageName;
     chain.request.headers['OCE-Client-Version'] = info.version;
     chain.request.headers['OCE-Client-Platform'] = platform;
 
