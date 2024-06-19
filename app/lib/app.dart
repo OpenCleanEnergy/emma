@@ -56,7 +56,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'EMMA',
         navigatorKey: AppNavigator.key,
         scaffoldMessengerKey: AppMessenger.key,
         theme: ThemeData(
