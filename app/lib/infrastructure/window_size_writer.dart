@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:desktop_window/desktop_window.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class WindowSizeWriter {
   static String _current = "Pixel 7";
@@ -16,7 +17,7 @@ abstract class WindowSizeWriter {
     'Tablet 10"': const Size(800, 1280),
   };
 
-  static get isSupported => Platform.isLinux || Platform.isWindows;
+  static get isSupported => !kIsWeb && (Platform.isLinux || Platform.isWindows);
   static get current => _current;
 
   static Future<void> setSize([String? key]) async {

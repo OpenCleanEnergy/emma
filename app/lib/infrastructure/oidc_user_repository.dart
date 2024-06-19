@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:emma/domain/i_user_repository.dart';
 import 'package:emma/domain/user_status.dart';
 import 'package:emma/infrastructure/oidc_configuration.dart';
+import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:oidc/oidc.dart';
 import 'package:oidc_default_store/oidc_default_store.dart';
@@ -15,18 +16,23 @@ class OidcUserRepository implements IUserRepository {
   final Signal<String> _name = signal("");
 
   OidcUserRepository._(OidcConfiguration configuration) {
-    late final Uri redirectUri;
-    late final Uri? postLogoutRedirectUri;
+    Uri redirectUri = Uri();
+    Uri? postLogoutRedirectUri;
+    Uri? frontChannelLogoutUri;
 
-    if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
+    if (kIsWeb) {
+      redirectUri = Uri.parse('http://localhost:22433/redirect.html');
+      postLogoutRedirectUri = Uri.parse('http://localhost:22433/redirect.html');
+      frontChannelLogoutUri = postLogoutRedirectUri.replace(queryParameters: {
+        ...postLogoutRedirectUri.queryParameters,
+        'requestType': 'front-channel-logout'
+      });
+    } else if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
       redirectUri = Uri.parse('org.opence.emma:/oauth2redirect');
       postLogoutRedirectUri = Uri.parse('org.opence.emma:/endsessionredirect');
     } else if (Platform.isLinux || Platform.isWindows) {
       redirectUri = Uri.parse('http://localhost:0');
       postLogoutRedirectUri = Uri.parse('http://localhost:0');
-    } else {
-      redirectUri = Uri();
-      postLogoutRedirectUri = null;
     }
 
     _manager = OidcUserManager.lazy(
@@ -40,6 +46,7 @@ class OidcUserRepository implements IUserRepository {
         scope: ['openid', 'profile', 'offline_access'],
         redirectUri: redirectUri,
         postLogoutRedirectUri: postLogoutRedirectUri,
+        frontChannelLogoutUri: frontChannelLogoutUri,
       ),
     );
   }

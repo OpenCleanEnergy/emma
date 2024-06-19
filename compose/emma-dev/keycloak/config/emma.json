@@ -5,10 +5,7 @@
   "registrationEmailAsUsername": true,
   "resetPasswordAllowed": true,
   "internationalizationEnabled": true,
-  "supportedLocales": [
-    "de",
-    "en"
-  ],
+  "supportedLocales": ["de", "en"],
   "defaultLocale": "en",
   "clients": [
     {
@@ -24,6 +21,7 @@
       "attributes": {
         "post.logout.redirect.uris": "org.opence.emma:/endsessionredirect##http://localhost*##"
       },
+      "webOrigins": ["+", "*"],
       "defaultClientScopes": [
         "web-origins",
         "acr",
