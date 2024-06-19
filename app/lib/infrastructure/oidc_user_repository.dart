@@ -21,8 +21,7 @@ class OidcUserRepository implements IUserRepository {
     Uri? frontChannelLogoutUri;
 
     if (kIsWeb) {
-      assert(configuration.webRedirectUri != null);
-      redirectUri = configuration.webRedirectUri!;
+      redirectUri = configuration.getWebRedirectUri();
       postLogoutRedirectUri = redirectUri;
       frontChannelLogoutUri = redirectUri.replace(queryParameters: {
         ...redirectUri.queryParameters,
