@@ -5,8 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class ClientInfoInterceptor implements Interceptor {
-  static const kUserAgentHeader = 'User-Agent';
-
   @override
   FutureOr<Response<BodyType>> intercept<BodyType>(
       Chain<BodyType> chain) async {
@@ -14,14 +12,20 @@ class ClientInfoInterceptor implements Interceptor {
       await _setUserAgent(chain);
     }
 
+    final info = await PackageInfo.fromPlatform();
+    final platform = kIsWeb ? 'web' : Platform.operatingSystem;
+
+    if (!kIsWeb) {
+      final userAgent = '${info.packageName}/${info.version} ($platform)';
+      chain.request.headers['User-Agent'] = userAgent;
+    }
+
+    chain.request.headers['OCE-Client-Name'] = info.packageName;
+    chain.request.headers['OCE-Client-Version'] = info.version;
+    chain.request.headers['OCE-Client-Platform'] = platform;
+
     return chain.proceed(chain.request);
   }
 
-  Future<void> _setUserAgent(Chain<dynamic> chain) async {
-    final info = await PackageInfo.fromPlatform();
-    final os = Platform.operatingSystem;
-    final userAgent = '${info.packageName}/${info.version} ($os)';
-
-    chain.request.headers[kUserAgentHeader] = userAgent;
-  }
+  Future<void> _setUserAgent(Chain<dynamic> chain) async {}
 }

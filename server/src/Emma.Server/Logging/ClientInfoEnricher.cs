@@ -21,7 +21,14 @@ public class ClientInfoEnricher : ILogEventEnricher
             return;
         }
 
-        var clientInfo = new Dictionary<string, string>() { ["UserAgent"] = userAgent };
+        var clientInfo = new Dictionary<string, string?>()
+        {
+            ["UserAgent"] = userAgent,
+            ["Name"] = GetValueOrDefault("OCE-Client-Name", httpContext.Request.Headers),
+            ["Version"] = GetValueOrDefault("OCE-Client-Version", httpContext.Request.Headers),
+            ["Platform"] = GetValueOrDefault("OCE-Client-Platform", httpContext.Request.Headers),
+        };
+
         var clientProperty = propertyFactory.CreateProperty("Client", clientInfo);
         logEvent.AddPropertyIfAbsent(clientProperty);
     }
