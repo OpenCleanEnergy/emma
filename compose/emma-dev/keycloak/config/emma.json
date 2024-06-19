@@ -17,9 +17,9 @@
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": false,
-      "redirectUris": ["org.opence.emma:/oauth2redirect", "http://localhost*"],
+      "redirectUris": ["http://localhost*", "org.opence.emma:/oauth2redirect"],
       "attributes": {
-        "post.logout.redirect.uris": "org.opence.emma:/endsessionredirect##http://localhost*##"
+        "post.logout.redirect.uris": "org.opence.emma:/endsessionredirect##http://localhost*"
       },
       "webOrigins": ["*"],
       "defaultClientScopes": [
