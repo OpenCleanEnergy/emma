@@ -20,7 +20,8 @@ emma.opence.org {
 	# Website
 	handle {
 		reverse_proxy https://kc6jmov4.opence.org {
-			# https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#https
+			# Set Host header to kc6jmov4.opence.org
+			# see: https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#https
 			header_up Host {upstream_hostport}
 		}
 	}
