@@ -1,1 +1,5 @@
-![placeholder](media/ic_launcher_foreground.png){:style="display:block; margin-left:auto; margin-right:auto"}
+---
+app_links:
+  show: true
+  web_app: https://emma.opence.org/app
+---
