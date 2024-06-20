@@ -17,8 +17,12 @@ emma.opence.org {
 		reverse_proxy web-app:80
 	}
 
-	# Fallback
+	# Website
 	handle {
-		redir https://github.com/OpenCleanEnergy/emma
+		reverse_proxy https://kc6jmov4.opence.org {
+			# Set Host header to kc6jmov4.opence.org
+			# see: https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#https
+			header_up Host {upstream_hostport}
+		}
 	}
 }
