@@ -17,8 +17,8 @@ emma.opence.org {
 		reverse_proxy web-app:80
 	}
 
-	# Fallback
+	# Website
 	handle {
-		redir https://github.com/OpenCleanEnergy/emma
+		reverse_proxy kc6jmov4.opence.org
 	}
 }
