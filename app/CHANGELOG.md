@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.8](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.7...app-v1.0.0-alpha.8) (2024-06-20)
+
+
+### 🐛 Bug Fixes
+
+* Fixes app name and description ([46ca67f](https://github.com/OpenCleanEnergy/emma/commit/46ca67fca38cbdaa0790201c579df55ba854c657))
+
 ## [1.0.0-alpha.7](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.6...app-v1.0.0-alpha.7) (2024-06-19)
 
 
