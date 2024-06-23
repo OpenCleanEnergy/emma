@@ -1,3 +1,10 @@
 title: EMMA
 url: https://emma.opence.org
-remote_theme: pages-themes/cayman@v0.2.0
+
+theme: minima
+minima:
+  skin: auto
+
+header_pages:
+  - impressum.md
+  - datenschutz.html

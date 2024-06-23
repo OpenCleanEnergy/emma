@@ -1,6 +1,6 @@
 ---
+layout: page
 title: Impressum
-description: ""
 ---
 
 Sebastian Rumohr
