@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="Vogen" Version="4.0.8" />
+    <PackageReference Include="Vogen" Version="4.0.12" />
     <PackageReference Include="Medo.Uuid7" Version="1.9.1" />
     <PackageReference Include="NMolecules.DDD" Version="0.2.2" />
   </ItemGroup>
