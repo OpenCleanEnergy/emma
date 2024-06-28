@@ -6,6 +6,7 @@ abstract interface class IUserRepository {
   ReadonlySignal<String> get name;
   String? get accessToken;
 
+  Future<void> register();
   Future<void> login();
   Future<void> logout();
 

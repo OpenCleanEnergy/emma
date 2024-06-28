@@ -68,6 +68,23 @@ class OidcUserRepository implements IUserRepository {
   String? get accessToken => _manager.currentUser?.token.accessToken;
 
   @override
+  Future<void> register() async {
+    final endpointSegmentsCopy = [
+      ..._manager.discoveryDocument.authorizationEndpoint!.pathSegments
+    ];
+    endpointSegmentsCopy[endpointSegmentsCopy.length - 1] = "registrations";
+
+    final registrationEndpoint = _manager
+        .discoveryDocument.authorizationEndpoint!
+        .replace(pathSegments: endpointSegmentsCopy);
+
+    await _manager.loginAuthorizationCodeFlow(
+      discoveryDocumentOverride: _manager.discoveryDocument
+          .copyWith(authorizationEndpoint: registrationEndpoint),
+    );
+  }
+
+  @override
   Future<void> login() async {
     await _manager.loginAuthorizationCodeFlow();
   }

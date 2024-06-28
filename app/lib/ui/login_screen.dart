@@ -2,7 +2,6 @@ import 'package:emma/ui/app_icons.dart';
 import 'package:emma/ui/locator.dart';
 import 'package:emma/ui/user_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:signals/signals_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,11 +23,36 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Watch((context) => FilledButton.icon(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox.square(
+                    dimension: 42,
+                    child: Image.asset("assets/icon_foreground_64.webp")),
+                const SizedBox(width: 16),
+                Text(
+                  "EMMA",
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+              ],
+            ),
+            const SizedBox(height: 48),
+            FilledButton.tonalIcon(
               icon: const Icon(AppIcons.login),
               label: const Text("Login"),
               onPressed: viewModel.login.call,
-            )),
+            ),
+            const SizedBox(height: 48),
+            const Text("Noch keinen Account?"),
+            TextButton(
+              onPressed: viewModel.register.call,
+              child: const Text("Registrieren"),
+            ),
+          ],
+        ),
       ),
     );
   }
