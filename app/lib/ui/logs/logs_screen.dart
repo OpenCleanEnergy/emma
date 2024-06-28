@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
 class LogsScreen extends StatefulWidget {
+  static const title = "Logs";
   const LogsScreen({super.key});
 
   @override
@@ -17,7 +18,7 @@ class _LogsScreenState extends State<LogsScreen> {
     const style = TextStyle(fontFamily: 'monospace');
 
     return Scaffold(
-        appBar: AppBar(title: const Text("Logs")),
+        appBar: AppBar(title: const Text(LogsScreen.title)),
         body: Watch(
           (context) => ListView.separated(
               padding: const EdgeInsets.all(8.0),

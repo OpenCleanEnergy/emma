@@ -34,8 +34,12 @@ class AppIcons {
 
   static const IconData close = Icons.close;
 
+  static const IconData error = Icons.error_outline;
+
   static const IconData home = Icons.home_rounded;
   static const IconData home_outlined = Icons.home_outlined;
+
+  static const IconData info = Icons.info_outline;
 
   static const IconData login = Icons.login_rounded;
   static const IconData logout = Icons.logout_rounded;

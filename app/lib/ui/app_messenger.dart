@@ -1,3 +1,4 @@
+import 'package:emma/ui/app_icons.dart';
 import 'package:emma/ui/commands/command.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
@@ -9,7 +10,7 @@ abstract class AppMessenger {
 
   static void info(String message) {
     _withIcon(
-        Icon(Icons.info_outline,
+        Icon(AppIcons.info,
             color: Theme.of(_state.context).colorScheme.surface),
         message);
   }
@@ -31,7 +32,7 @@ abstract class AppMessenger {
           "Es ist ein Fehler aufgetreten.\nVersuche es später noch einmal."]) {
     _withIcon(
         Icon(
-          Icons.error_outline,
+          AppIcons.error,
           color: Theme.of(_state.context).colorScheme.errorContainer,
         ),
         message);

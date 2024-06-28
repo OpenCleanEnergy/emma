@@ -1,6 +1,7 @@
 import 'package:emma/infrastructure/window_size_writer.dart';
 import 'package:emma/ui/app_icons.dart';
 import 'package:emma/ui/app_navigator.dart';
+import 'package:emma/ui/home/profile/about_screen.dart';
 import 'package:emma/ui/home/profile/app_info.dart';
 import 'package:emma/ui/home/profile/development/screen_size_selector.dart';
 import 'package:emma/ui/locator.dart';
@@ -29,14 +30,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final items = <Widget>[
       ListTile(
+        leading: const Icon(AppIcons.info),
+        title: const Text(AboutScreen.title),
+        trailing: const Icon(AppIcons.arrow_next),
+        onTap: () => AppNavigator.push(const AboutScreen()),
+      ),
+      ListTile(
         leading: const Icon(Icons.bug_report),
-        title: const Text("Logs"),
+        title: const Text(LogsScreen.title),
+        trailing: const Icon(AppIcons.arrow_next),
         onTap: () => AppNavigator.push(const LogsScreen()),
       ),
       Watch(
         (context) => ListTile(
           leading: const Icon(AppIcons.logout),
           title: const Text("Logout"),
+          trailing: const Icon(AppIcons.arrow_next),
           onTap: _vm.logout.call,
           enabled: !_vm.logout.isRunning.value,
         ),
