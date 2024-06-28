@@ -9,7 +9,7 @@ class ProductionOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const spacer = SizedBox(width: 8, height: 8);
+    const spacer = SizedBox.square(dimension: 8);
     return Column(
       children: [
         Text(

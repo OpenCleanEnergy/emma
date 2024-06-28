@@ -20,8 +20,7 @@ class DualCircularProgressIndicator extends StatelessWidget {
       children: [
         CircularProgressIndicator(
           value: secondaryValue,
-          valueColor: AlwaysStoppedAnimation(
-              Theme.of(context).colorScheme.inversePrimary),
+          color: Theme.of(context).colorScheme.inversePrimary,
           backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
           strokeWidth: strokeWidth,
         ),

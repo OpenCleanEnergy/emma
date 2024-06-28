@@ -51,9 +51,8 @@ class StatusIndicator extends StatelessWidget {
             Watch((context) => UnitText(value.value, unit)),
           ],
         ),
-        SizedBox(
-          height: _indicatorSize,
-          width: _indicatorSize,
+        SizedBox.square(
+          dimension: _indicatorSize,
           child: Watch(
             (context) => TweenAnimationBuilder<double>(
               tween: _tween.value,
