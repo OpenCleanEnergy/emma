@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0-alpha.9](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.8...app-v1.0.0-alpha.9) (2024-06-28)
+
+
+### 🚀 Features
+
+* Adds information screen. ([8a3dad8](https://github.com/OpenCleanEnergy/emma/commit/8a3dad82bbb5220ba4461f7c8a60d2a582a8bf1b))
+* New login screen. ([522f9b6](https://github.com/OpenCleanEnergy/emma/commit/522f9b67b4af88930da41876c21e4edcaf7052c0))
+
+
+### 🐛 Bug Fixes
+
+* Translate `noop()` message. ([d4a304a](https://github.com/OpenCleanEnergy/emma/commit/d4a304ad508d69706ea2c65eb8e4882840e035f7))
+
 ## [1.0.0-alpha.8](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.7...app-v1.0.0-alpha.8) (2024-06-20)
 
 
