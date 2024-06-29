@@ -1,6 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using DotNetCore.CAP;
 using Emma.Infrastructure.Events.CAP;
@@ -21,10 +19,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using Serilog.Events;
-using Serilog.Extensions.Hosting;
-using Serilog.Formatting.Compact;
-using Serilog.Sinks.SystemConsole.Themes;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 
@@ -41,11 +35,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddDockerSecretsJson();
 
 var services = builder.Services;
-var logger = GetBootstrapLogger(builder).ForContext<Program>();
+var logger = SerilogLoggerFactory.GetBootstrapLogger(builder).ForContext<Program>();
 logger.Information("🚀 Started with {EntryAssembly}", entryAssembly);
 
 builder.Services.AddSerilog(configuration =>
-    ConfigureLogger(builder.Configuration, builder.Environment, configuration)
+    SerilogLoggerFactory.ConfigureLogger(builder.Configuration, builder.Environment, configuration)
 );
 
 // Controllers
@@ -159,79 +153,22 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers().RequireAuthorization();
 
-if (entryAssembly == EntryAssembly.Default)
+var cts = new CancellationTokenSource();
+try
 {
-    await MigrateDbContext(container);
-    await BootstrapCAP(container);
+    if (entryAssembly == EntryAssembly.Default)
+    {
+        await MigrateDbContext(container);
+        await BootstrapCAP(container, cts.Token);
+    }
+
+    await app.RunAsync();
 }
-
-await app.RunAsync();
-await Log.CloseAndFlushAsync();
-
-static ReloadableLogger GetBootstrapLogger(WebApplicationBuilder builder)
+finally
 {
-    return ConfigureLogger(
-            builder.Configuration,
-            builder.Environment,
-            new LoggerConfiguration().MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-        )
-        .CreateBootstrapLogger();
-}
-
-static LoggerConfiguration ConfigureLogger(
-    IConfiguration configuration,
-    IWebHostEnvironment environment,
-    LoggerConfiguration loggerConfiguration
-)
-{
-    loggerConfiguration
-        .ReadFrom.Configuration(configuration)
-        .Enrich.FromLogContext()
-        .Enrich.WithServiceInfo(ServiceInfo.Name, ServiceInfo.Version)
-        .Enrich.With<ClientInfoEnricher>()
-        .Destructure.AsScalar<JsonObject>()
-        .Destructure.With<ValueObjectDestructuringPolicy>();
-
-    if (environment.IsDevelopment() || EntryAssembly.GetEntryAssembly() != EntryAssembly.Default)
-    {
-        loggerConfiguration.WriteTo.Console(
-            outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:l}{NewLine}{Properties}{NewLine}{Exception}",
-            formatProvider: CultureInfo.InvariantCulture,
-            applyThemeToRedirectedOutput: true,
-            theme: AnsiConsoleTheme.Literate
-        );
-
-        if (EntryAssembly.GetEntryAssembly() != EntryAssembly.Default)
-        {
-            return loggerConfiguration;
-        }
-    }
-    else
-    {
-        loggerConfiguration.WriteTo.Console(new CompactJsonFormatter());
-    }
-
-    var betterStack = configuration.GetSection("BetterStack").Get<BetterStackConfiguration>();
-    if (!string.IsNullOrEmpty(betterStack?.SourceToken))
-    {
-        loggerConfiguration.WriteTo.BetterStack(sourceToken: betterStack.SourceToken);
-    }
-
-    var sentry = configuration.GetSection("Sentry")?.Get<SentryConfiguration>();
-    if (!string.IsNullOrEmpty(sentry?.Dsn))
-    {
-        loggerConfiguration.WriteTo.Sentry(options =>
-        {
-            options.Dsn = sentry.Dsn;
-            options.Debug = sentry.Debug;
-            options.MinimumBreadcrumbLevel = sentry.MinimumBreadcrumbLevel;
-            options.MinimumEventLevel = sentry.MinimumEventLevel;
-            options.Environment = environment.EnvironmentName;
-            options.Release = ServiceInfo.Version;
-        });
-    }
-
-    return loggerConfiguration;
+    await cts.CancelAsync();
+    cts.Dispose();
+    await Log.CloseAndFlushAsync();
 }
 
 static void AddDbContext(WebApplicationBuilder builder, Container container)
@@ -267,9 +204,8 @@ static async Task MigrateDbContext(Container container)
     await context.Database.MigrateAsync();
 }
 
-static async Task BootstrapCAP(Container container)
+static async Task BootstrapCAP(Container container, CancellationToken cancellationToken)
 {
-    using var scope = AsyncScopedLifestyle.BeginScope(container);
     await using var bootstrapper = container.GetInstance<IBootstrapper>();
-    await bootstrapper.BootstrapAsync();
+    await bootstrapper.BootstrapAsync(cancellationToken);
 }
