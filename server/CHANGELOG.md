@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.26](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.25...server-v1.0.0-alpha.26) (2024-06-29)
+
+
+### 🐛 Bug Fixes
+
+* Fixes `ShellyStatus` serialization. ([1c78de9](https://github.com/OpenCleanEnergy/emma/commit/1c78de9b11c791d39e8b2b792ce27dc657536300))
+
 ## [1.0.0-alpha.25](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.24...server-v1.0.0-alpha.25) (2024-06-29)
 
 
