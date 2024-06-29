@@ -10,6 +10,14 @@ namespace Emma.Integrations.Shelly.Events.Status;
 )]
 public partial class ShellyStatus
 {
+    // Backing fields
+    private IReadOnlyList<ShellySwitchComponentStatus>? _switches;
+    private IReadOnlyList<ShellyEMComponentStatus>? _em;
+    private IReadOnlyList<ShellyEMDataComponentStatus>? _emData;
+    private IReadOnlyList<ShellyEM1ComponentStatus>? _em1;
+    private IReadOnlyList<ShellyEM1DataComponentStatus>? _em1Data;
+    private IReadOnlyList<ShellyPM1ComponentStatus>? _pm1;
+
     // switch
     [JsonPropertyName("switch:0")]
     private ShellySwitchComponentStatus? _switch0 = null;
@@ -56,31 +64,65 @@ public partial class ShellyStatus
     // Maximum of 4 switches available in
     // https://shelly-api-docs.shelly.cloud/gen2/Devices/Gen2/ShellyPro4PM and
     // https://shelly-api-docs.shelly.cloud/gen2/Devices/Gen2/ShellyPlusI4
-    public IReadOnlyList<ShellySwitchComponentStatus> Switches =>
-        [.. new[] { _switch0, _switch1, _switch2, _switch3 }.OfType<ShellySwitchComponentStatus>()];
+    public IReadOnlyList<ShellySwitchComponentStatus> Switches
+    {
+        get =>
+            _switches
+            ??
+            [
+                .. new[]
+                {
+                    _switch0,
+                    _switch1,
+                    _switch2,
+                    _switch3
+                }.OfType<ShellySwitchComponentStatus>()
+            ];
+        init => _switches = value;
+    }
 
     // Maximum of 1 EM in
     // https://shelly-api-docs.shelly.cloud/gen2/Devices/Gen2/ShellyPro3EM
-    public IReadOnlyList<ShellyEMComponentStatus> EM =>
-        [.. new[] { _em0 }.OfType<ShellyEMComponentStatus>()];
+    public IReadOnlyList<ShellyEMComponentStatus> EM
+    {
+        get => _em ?? [.. new[] { _em0 }.OfType<ShellyEMComponentStatus>()];
+        init => _em = value;
+    }
 
     // Maximum of 1 EMData in
     // https://shelly-api-docs.shelly.cloud/gen2/Devices/Gen2/ShellyPro3EM
-    public IReadOnlyList<ShellyEMDataComponentStatus> EMData =>
-        [.. new[] { _emData0 }.OfType<ShellyEMDataComponentStatus>()];
+    public IReadOnlyList<ShellyEMDataComponentStatus> EMData
+    {
+        get => _emData ?? [.. new[] { _emData0 }.OfType<ShellyEMDataComponentStatus>()];
+        init => _emData = value;
+    }
 
     // Maximum of 3 EM1 in
     // https://shelly-api-docs.shelly.cloud/gen2/Devices/Gen2/ShellyPro3EM
-    public IReadOnlyList<ShellyEM1ComponentStatus> EM1 =>
-        [.. new[] { _em10, _em11, _em12 }.OfType<ShellyEM1ComponentStatus>()];
+    public IReadOnlyList<ShellyEM1ComponentStatus> EM1
+    {
+        get => _em1 ?? [.. new[] { _em10, _em11, _em12 }.OfType<ShellyEM1ComponentStatus>()];
+        init => _em1 = value;
+    }
 
     // Maximum of 3 EM1Data in
     // https://shelly-api-docs.shelly.cloud/gen2/Devices/Gen2/ShellyPro3EM
-    public IReadOnlyList<ShellyEM1DataComponentStatus> EM1Data =>
-        [.. new[] { _em1Data0, _em1Data1, _em1Data2 }.OfType<ShellyEM1DataComponentStatus>()];
+    public IReadOnlyList<ShellyEM1DataComponentStatus> EM1Data
+    {
+        get =>
+            _em1Data
+            ??
+            [
+                .. new[] { _em1Data0, _em1Data1, _em1Data2 }.OfType<ShellyEM1DataComponentStatus>()
+            ];
+        init => _em1Data = value;
+    }
 
     // Maximum of 1 PM1 in
     // https://shelly-api-docs.shelly.cloud/gen2/Devices/Gen3/ShellyMiniPMG3
-    public IReadOnlyList<ShellyPM1ComponentStatus> PM1 =>
-        [.. new[] { _pm10 }.OfType<ShellyPM1ComponentStatus>()];
+    public IReadOnlyList<ShellyPM1ComponentStatus> PM1
+    {
+        get => _pm1 ?? [.. new[] { _pm10 }.OfType<ShellyPM1ComponentStatus>()];
+        init => _pm1 = value;
+    }
 }

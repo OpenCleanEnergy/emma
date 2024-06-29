@@ -9,6 +9,6 @@ public record SwitchConsumerSwitchedEvent(
     SwitchActor Actor
 ) : IEvent
 {
-    public EventKey EventKey { get; } = EventKey.From("consumers.switch.switched-on");
+    public EventKey EventKey { get; } = EventKey.From("consumers.switch.switched");
     public DateTimeOffset Timestamp { get; init; } = AmbientTimeProvider.UtcNow;
 }
