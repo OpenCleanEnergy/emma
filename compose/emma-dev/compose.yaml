@@ -1,6 +1,7 @@
 volumes:
   keycloak_database_data:
   backend_database_data:
+  rabbitmq_data:
 
 secrets:
   keycloak-env:
@@ -54,10 +55,18 @@ services:
       POSTGRES_USER: dev
       POSTGRES_PASSWORD: dev
 
-
   adminer:
     image: adminer:latest
     ports:
       - 5002:8080
     environment:
       - ADMINER_DEFAULT_SERVER=backend-database
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/mnesia
+    ports:
+      - 5672:5672
+      - 5003:15672

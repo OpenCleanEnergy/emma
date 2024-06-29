@@ -2,11 +2,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-using Emma.Application.Shared.Events;
+using DotNetCore.CAP;
+using Emma.Infrastructure.Events.CAP;
 using Emma.Infrastructure.Persistence;
 using Emma.Infrastructure.Persistence.EntityFramework;
 using Emma.Server;
 using Emma.Server.Configuration;
+using Emma.Server.Events;
 using Emma.Server.HostedServices;
 using Emma.Server.Identity;
 using Emma.Server.Logging;
@@ -71,7 +73,7 @@ services.AddRouting(options =>
 // Authentication
 var keycloakConfiguration =
     builder.Configuration.GetSection("Keycloak").Get<KeycloakConfiguration>()
-    ?? throw new InvalidOperationException("Keycloak is not configured.");
+    ?? throw new InvalidOperationException("'Keycloak' is not configured.");
 
 services
     .AddAuthentication(options =>
@@ -109,6 +111,13 @@ AddDbContext(builder, container);
 
 // Health check
 services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
+
+// Events
+services.AddEvents(
+    container,
+    builder.Configuration.GetSection("Events").Get<CapConfiguration>()
+        ?? throw new InvalidOperationException("'Events' is not configured.")
+);
 
 // Simple injector
 services.AddSimpleInjector(container, options => options.AddAspNetCore().AddControllerActivation());
@@ -153,6 +162,7 @@ app.MapControllers().RequireAuthorization();
 if (entryAssembly == EntryAssembly.Default)
 {
     await MigrateDbContext(container);
+    await BootstrapCAP(container);
 }
 
 await app.RunAsync();
@@ -240,9 +250,6 @@ static void AddDbContext(WebApplicationBuilder builder, Container container)
     {
         builder.Services.AddScoped((_) => container.GetAllInstances<IUnitOfWorkInterceptor>());
         builder.Services.AddScoped<IInterceptor, EntityFrameworkUnitOfWorkInterceptor>();
-
-        builder.Services.AddScoped((_) => container.GetInstance<IEventPublisher>());
-        builder.Services.AddScoped<IInterceptor, EntityFrameworkEventPublisherInterceptor>();
     }
 
     builder.Services.AddDbContext<AppDbContext>(
@@ -258,4 +265,11 @@ static async Task MigrateDbContext(Container container)
     using var scope = AsyncScopedLifestyle.BeginScope(container);
     using var context = container.GetInstance<AppDbContext>();
     await context.Database.MigrateAsync();
+}
+
+static async Task BootstrapCAP(Container container)
+{
+    using var scope = AsyncScopedLifestyle.BeginScope(container);
+    await using var bootstrapper = container.GetInstance<IBootstrapper>();
+    await bootstrapper.BootstrapAsync();
 }

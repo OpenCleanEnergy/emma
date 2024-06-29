@@ -1,6 +1,6 @@
 using Emma.Application.Shared.Events;
 using Emma.Domain.Events;
-using Emma.Infrastructure;
+using Emma.Infrastructure.Events;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 

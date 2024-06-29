@@ -3,7 +3,7 @@ using Emma.Application.Shared.Identity;
 using Emma.Application.Shared.Logging;
 using MediatR;
 
-namespace Emma.Application.RequestPipeline;
+namespace Emma.Infrastructure.RequestPipeline;
 
 public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
@@ -57,13 +57,15 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
     {
         try
         {
-            var logLevel = _logger.IsEnabled(LogLevel.Debug) ? LogLevel.Debug : LogLevel.Info;
+            var (verbose, logLevel) = _logger.IsEnabled(LogLevel.Debug)
+                ? (true, LogLevel.Debug)
+                : (false, LogLevel.Info);
 
             _logger.Log(
                 logLevel,
                 null,
                 "Handling {@Request}",
-                logLevel == LogLevel.Debug ? request : typeof(TRequest)
+                verbose ? request : typeof(TRequest)
             );
 
             var (response, elapsedMilliseconds) = await HandleStopwatch(next);
@@ -72,8 +74,8 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
                 logLevel,
                 null,
                 "Handled {Request} with response {@Response} in {ElapsedMs} ms",
-                typeof(TRequest),
-                logLevel == LogLevel.Debug ? response : typeof(TResponse),
+                verbose ? request : typeof(TRequest),
+                verbose ? response : typeof(TResponse),
                 elapsedMilliseconds
             );
 

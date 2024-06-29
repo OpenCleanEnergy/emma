@@ -1,6 +1,6 @@
 using Emma.Application.Shared.Events;
 
-namespace Emma.Application;
+namespace Emma.Application.Integrations.Events;
 
 public class IntegrationsEventChannel : IEventChannel
 {

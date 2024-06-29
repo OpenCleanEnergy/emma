@@ -2,7 +2,7 @@ using Emma.Application.Shared.Events;
 using Emma.Domain.Events;
 using MediatR;
 
-namespace Emma.Infrastructure;
+namespace Emma.Infrastructure.Events;
 
 public class MediatREventMediator : IEventMediator
 {

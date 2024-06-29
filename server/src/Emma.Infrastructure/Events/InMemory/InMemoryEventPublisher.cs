@@ -1,7 +1,7 @@
 using Emma.Application.Shared.Events;
 using Emma.Domain.Events;
 
-namespace Emma.Infrastructure.Events;
+namespace Emma.Infrastructure.Events.InMemory;
 
 public class InMemoryEventPublisher : IEventPublisher
 {
