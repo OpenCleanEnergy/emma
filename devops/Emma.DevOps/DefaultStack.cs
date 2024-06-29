@@ -183,18 +183,21 @@ public class DefaultStack : Stack
             }
         );
 
+        var now = new Static("now");
+
         var envDir = new DirectoryInfo("/tmp/emma");
         _ = new Command(
-            ".env file with CloudAMQP secrets",
+            "File with CloudAMQP secret url.",
             new()
             {
                 Create = """
                 mkdir -p ${DIR} && \
                 echo "${INSTANCE_URL}" > ${FILE}
+                echo "Updated at ${NOW}"
                 """,
-                Delete = "rm -rf ../ansible/tmp",
                 Environment = new()
                 {
+                    ["NOW"] = now.Rfc3339,
                     ["DIR"] = envDir.FullName,
                     ["FILE"] = Path.Combine(envDir.FullName, "Events__LavinMQ__Url"),
                     ["INSTANCE_URL"] = instance.Url,

@@ -1,4 +1,4 @@
 config:
-  emma:ssh-enabled: "false"
+  emma:ssh-enabled: "true"
 environment:
   - emma-production
