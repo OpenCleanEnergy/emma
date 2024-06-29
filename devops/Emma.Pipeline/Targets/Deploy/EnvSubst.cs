@@ -4,7 +4,10 @@ namespace Emma.Pipeline.Targets.Deploy;
 
 public static partial class EnvSubst
 {
-    public static void PrintRequiredEnvironmentVariables(FileInfo source)
+    public static void PrintRequiredEnvironmentVariables(
+        FileInfo source,
+        DirectoryInfo keyPerFileDir
+    )
     {
         var regex = EnvironmentVariableRegex();
         var sourceContent = File.ReadAllText(source.FullName);
@@ -12,19 +15,25 @@ public static partial class EnvSubst
         var variables = matches.Select(GetEnvironmentVariableName).Distinct().Order();
         foreach (var variable in variables)
         {
-            var icon = Environment.GetEnvironmentVariable(variable) is null ? "❌" : "✅";
+            var exists =
+                Environment.GetEnvironmentVariable(variable) is not null
+                || File.Exists(Path.Combine(keyPerFileDir.FullName, variable));
+            var icon = exists ? "✅" : "❌";
             Console.WriteLine($"{icon} {variable}");
         }
     }
 
-    public static void Substitute(FileInfo source, FileInfo target)
+    public static void Substitute(FileInfo source, FileInfo target, DirectoryInfo keyPerFileDir)
     {
         var replacements = new List<Replacement>();
         var regex = EnvironmentVariableRegex();
 
         var sourceContent = File.ReadAllText(source.FullName);
         var targetContent = regex
-            .Replace(sourceContent, match => ReplaceEnvironmentVariable(match, replacements))
+            .Replace(
+                sourceContent,
+                match => ReplaceEnvironmentVariable(match, keyPerFileDir, replacements)
+            )
             .ReplaceLineEndings();
 
         LogAndOrThrowOnFailure(source, target, replacements);
@@ -33,11 +42,23 @@ public static partial class EnvSubst
         File.WriteAllText(target.FullName, targetContent);
     }
 
-    private static string ReplaceEnvironmentVariable(Match match, List<Replacement> replacements)
+    private static string ReplaceEnvironmentVariable(
+        Match match,
+        DirectoryInfo keyPerFileDir,
+        List<Replacement> replacements
+    )
     {
         var environmentVariable = GetEnvironmentVariableName(match);
+
         var value = Environment.GetEnvironmentVariable(environmentVariable);
-        replacements.Add(new Replacement(environmentVariable, value));
+
+        var file = Path.Combine(keyPerFileDir.FullName, environmentVariable);
+        if (value is null && File.Exists(file))
+        {
+            value = File.ReadAllLines(file).FirstOrDefault();
+        }
+
+        replacements.Add(new Replacement(environmentVariable, value is not null));
         return value ?? string.Empty;
     }
 
@@ -52,22 +73,16 @@ public static partial class EnvSubst
     )
     {
         Console.WriteLine($"[{nameof(EnvSubst)}] {source.FullName} => {target.FullName}");
-        var columnWidth = replacements
-            .Select(r => r.EnvironmentVariable.Length)
-            .DefaultIfEmpty(1)
-            .Max();
 
-        var ordered = replacements.OrderBy(r => r.Value is null).ThenBy(r => r.EnvironmentVariable);
+        var ordered = replacements.OrderBy(r => r.Success).ThenBy(r => r.EnvironmentVariable);
 
         var missingVariables = new List<string>();
 
-        foreach (var (envVar, value) in ordered)
+        foreach (var (envVar, success) in ordered)
         {
-            Console.WriteLine(
-                $"[{nameof(EnvSubst)}] {envVar.PadRight(columnWidth)} => {value ?? @"¯\_(ツ)_/¯"}"
-            );
+            Console.WriteLine($"[{nameof(EnvSubst)}] {(success ? "✅" : "❌")} {envVar}");
 
-            if (value is null)
+            if (!success)
             {
                 missingVariables.Add(envVar);
             }
@@ -84,5 +99,5 @@ public static partial class EnvSubst
     [GeneratedRegex(@"{{ *[a-zA-Z0-9_]+ *}}", RegexOptions.None, 100)]
     private static partial Regex EnvironmentVariableRegex();
 
-    private sealed record Replacement(string EnvironmentVariable, string? Value);
+    private sealed record Replacement(string EnvironmentVariable, bool Success);
 }
