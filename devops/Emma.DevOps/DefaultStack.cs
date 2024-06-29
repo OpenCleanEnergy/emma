@@ -183,21 +183,17 @@ public class DefaultStack : Stack
             }
         );
 
-        var now = new Static("now");
-
         var envDir = new DirectoryInfo("/tmp/emma");
         _ = new Command(
-            "File with CloudAMQP secret url.",
+            $"File with CloudAMQP secret url - {DateTime.UtcNow.Ticks}",
             new()
             {
                 Create = """
                 mkdir -p ${DIR} && \
                 echo "${INSTANCE_URL}" > ${FILE}
-                echo "Updated at ${NOW}"
                 """,
                 Environment = new()
                 {
-                    ["NOW"] = now.Rfc3339,
                     ["DIR"] = envDir.FullName,
                     ["FILE"] = Path.Combine(envDir.FullName, "Events__LavinMQ__Url"),
                     ["INSTANCE_URL"] = instance.Url,
