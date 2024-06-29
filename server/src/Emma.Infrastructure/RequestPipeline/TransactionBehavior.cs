@@ -24,15 +24,12 @@ public class TransactionBehavior<TRequest, TResponse> : IPipelineBehavior<TReque
         CancellationToken cancellationToken
     )
     {
-        var queryInterfaces = typeof(TRequest).FindInterfaces(
-            (Type type, object? _) =>
-            {
-                return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IQuery<>);
-            },
-            null
+        var requiresTransaction = typeof(TRequest).IsDefined(
+            typeof(RequiresTransactionAttribute),
+            inherit: true
         );
 
-        if (queryInterfaces.Length > 0)
+        if (!requiresTransaction)
         {
             return await next();
         }
