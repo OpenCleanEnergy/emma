@@ -190,14 +190,14 @@ public class DefaultStack : Stack
             {
                 Create = """
                 mkdir -p ${DIR} && \
-                echo "${INSTANCE_URI}" > ${ENV_FILE}
+                echo "${INSTANCE_URL}" > ${FILE}
                 """,
                 Delete = "rm -rf ../ansible/tmp",
                 Environment = new()
                 {
                     ["DIR"] = envDir.FullName,
-                    ["ENV_FILE"] = Path.Combine(envDir.FullName, "Events__LavinMQ__Uri"),
-                    ["INSTANCE_URI"] = instance.Url,
+                    ["FILE"] = Path.Combine(envDir.FullName, "Events__LavinMQ__Url"),
+                    ["INSTANCE_URL"] = instance.Url,
                 }
             }
         );

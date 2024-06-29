@@ -22,7 +22,7 @@ public static class CapServiceCollectionExtensions
                 rabbitMQ.ExchangeName = configuration.LavinMQ.ExchangeName;
                 rabbitMQ.ConnectionFactoryOptions = (factory) =>
                 {
-                    factory.Uri = configuration.LavinMQ.Uri;
+                    factory.Uri = configuration.LavinMQ.Url;
                 };
             });
         });
