@@ -6,7 +6,7 @@ using static SimpleExec.Command;
 
 public static class DeployTargets
 {
-    public const string DebugEnvironmentVariables = "deploy:debug-env";
+    public const string DebugTemplates = "deploy:templates-debug";
     public const string Templates = "deploy:templates";
     public const string PostClean = "deploy:post-clean";
 
@@ -32,11 +32,11 @@ public static class DeployTargets
             .Select(f => Path.GetRelativePath(templateDir.FullName, f.FullName));
 
         targets.Add(
-            DebugEnvironmentVariables,
-            $"Prints all required environment variables. Uses {tempDir}/{{variable}} as fallback.",
+            DebugTemplates,
+            $"Prints all required variables. Uses {tempDir}/{{variable}} as lookup.",
             forEach: templates,
             (template) =>
-                EnvSubst.PrintRequiredEnvironmentVariables(
+                TemplateSubst.PrintRequiredVariables(
                     new FileInfo(Path.Combine(templateDir.FullName, template)),
                     tempDir
                 )
@@ -57,10 +57,10 @@ public static class DeployTargets
 
         targets.Add(
             Templates,
-            $"Substitutes environment variables in {templateDir}/*. Uses {tempDir}/{{variable}} as fallback.",
+            $"Substitutes template variables in {templateDir}/*. Uses {tempDir}/{{variable}} as lookup.",
             forEach: templates,
             (template) =>
-                EnvSubst.Substitute(
+                TemplateSubst.Substitute(
                     new FileInfo(Path.Combine(templateDir.FullName, template)),
                     new FileInfo(Path.Combine(renderedDir.FullName, template)),
                     tempDir

@@ -2,17 +2,14 @@ using System.Text.RegularExpressions;
 
 namespace Emma.Pipeline.Targets.Deploy;
 
-public static partial class EnvSubst
+public static partial class TemplateSubst
 {
-    public static void PrintRequiredEnvironmentVariables(
-        FileInfo source,
-        DirectoryInfo keyPerFileDir
-    )
+    public static void PrintRequiredVariables(FileInfo source, DirectoryInfo keyPerFileDir)
     {
-        var regex = EnvironmentVariableRegex();
+        var regex = VariableRegex();
         var sourceContent = File.ReadAllText(source.FullName);
         var matches = regex.Matches(sourceContent);
-        var variables = matches.Select(GetEnvironmentVariableName).Distinct().Order();
+        var variables = matches.Select(GetVariableName).Distinct().Order();
         foreach (var variable in variables)
         {
             var exists =
@@ -26,14 +23,11 @@ public static partial class EnvSubst
     public static void Substitute(FileInfo source, FileInfo target, DirectoryInfo keyPerFileDir)
     {
         var replacements = new List<Replacement>();
-        var regex = EnvironmentVariableRegex();
+        var regex = VariableRegex();
 
         var sourceContent = File.ReadAllText(source.FullName);
         var targetContent = regex
-            .Replace(
-                sourceContent,
-                match => ReplaceEnvironmentVariable(match, keyPerFileDir, replacements)
-            )
+            .Replace(sourceContent, match => ReplaceVariable(match, keyPerFileDir, replacements))
             .ReplaceLineEndings();
 
         LogAndOrThrowOnFailure(source, target, replacements);
@@ -42,29 +36,28 @@ public static partial class EnvSubst
         File.WriteAllText(target.FullName, targetContent);
     }
 
-    private static string ReplaceEnvironmentVariable(
+    private static string ReplaceVariable(
         Match match,
         DirectoryInfo keyPerFileDir,
         List<Replacement> replacements
     )
     {
-        var environmentVariable = GetEnvironmentVariableName(match);
+        var variable = GetVariableName(match);
 
-        var value = Environment.GetEnvironmentVariable(environmentVariable);
+        var value = Environment.GetEnvironmentVariable(variable);
 
-        var file = Path.Combine(keyPerFileDir.FullName, environmentVariable);
+        var file = Path.Combine(keyPerFileDir.FullName, variable);
         if (value is null && File.Exists(file))
         {
             value = File.ReadAllLines(file).FirstOrDefault();
         }
 
-        replacements.Add(new Replacement(environmentVariable, value is not null));
+        replacements.Add(new Replacement(variable, value is not null));
         return value ?? string.Empty;
     }
 
-    // {{ENV_VAR}} or {{ ENV_VAR }} => ENV_VAR
-    private static string GetEnvironmentVariableName(Match match) =>
-        match.Value.Trim('{', '}', ' ');
+    // {{A_VAR}} or {{ A_VAR }} => A_VAR
+    private static string GetVariableName(Match match) => match.Value.Trim('{', '}', ' ');
 
     private static void LogAndOrThrowOnFailure(
         FileInfo source,
@@ -72,19 +65,19 @@ public static partial class EnvSubst
         List<Replacement> replacements
     )
     {
-        Console.WriteLine($"[{nameof(EnvSubst)}] {source.FullName} => {target.FullName}");
+        Console.WriteLine($"[{nameof(TemplateSubst)}] {source.FullName} => {target.FullName}");
 
-        var ordered = replacements.OrderBy(r => r.Success).ThenBy(r => r.EnvironmentVariable);
+        var ordered = replacements.OrderBy(r => r.Success).ThenBy(r => r.Variable);
 
         var missingVariables = new List<string>();
 
-        foreach (var (envVar, success) in ordered)
+        foreach (var (variable, success) in ordered)
         {
-            Console.WriteLine($"[{nameof(EnvSubst)}] {(success ? "✅" : "❌")} {envVar}");
+            Console.WriteLine($"[{nameof(TemplateSubst)}] {(success ? "✅" : "❌")} {variable}");
 
             if (!success)
             {
-                missingVariables.Add(envVar);
+                missingVariables.Add(variable);
             }
         }
 
@@ -97,7 +90,7 @@ public static partial class EnvSubst
     }
 
     [GeneratedRegex(@"{{ *[a-zA-Z0-9_]+ *}}", RegexOptions.None, 100)]
-    private static partial Regex EnvironmentVariableRegex();
+    private static partial Regex VariableRegex();
 
-    private sealed record Replacement(string EnvironmentVariable, bool Success);
+    private sealed record Replacement(string Variable, bool Success);
 }
