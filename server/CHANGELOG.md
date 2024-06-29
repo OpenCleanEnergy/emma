@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.0.0-alpha.25](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.24...server-v1.0.0-alpha.25) (2024-06-29)
+
+
+### 🚀 Features
+
+* Use managed LavinMQ instead of in-memory queue. ([#122](https://github.com/OpenCleanEnergy/emma/issues/122)) ([0803054](https://github.com/OpenCleanEnergy/emma/commit/0803054802710ac54cca558ba02a8286c9f0e948))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump Riok.Mapperly from 3.5.1 to 3.6.0 in /server ([#118](https://github.com/OpenCleanEnergy/emma/issues/118)) ([74dcb60](https://github.com/OpenCleanEnergy/emma/commit/74dcb6074634b213ff4b2066fcf375d1b68385e9))
+* **deps:** bump Verify.Xunit from 25.0.3 to 25.0.4 in /server ([#119](https://github.com/OpenCleanEnergy/emma/issues/119)) ([90fefd4](https://github.com/OpenCleanEnergy/emma/commit/90fefd464ff9d5d965e90716c90a508c7698a625))
+* **deps:** bump Vogen from 4.0.8 to 4.0.12 in /server ([#116](https://github.com/OpenCleanEnergy/emma/issues/116)) ([33bc219](https://github.com/OpenCleanEnergy/emma/commit/33bc219e70120b8de27e95e7ce35ef053e6ff2a2))
+* **deps:** bump Websocket.Client from 5.1.1 to 5.1.2 in /server ([#117](https://github.com/OpenCleanEnergy/emma/issues/117)) ([ae9d1d5](https://github.com/OpenCleanEnergy/emma/commit/ae9d1d5ab5b1a0fd53d17521d29fec97b3923e92))
+
 ## [1.0.0-alpha.24](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.23...server-v1.0.0-alpha.24) (2024-06-19)
 
 
