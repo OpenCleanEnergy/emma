@@ -19,11 +19,11 @@ public static class CapServiceCollectionExtensions
             options.UseEntityFramework<AppDbContext>();
             options.UseRabbitMQ(rabbitMQ =>
             {
-                rabbitMQ.HostName = configuration.RabbitMQ.Host;
-                rabbitMQ.Port = configuration.RabbitMQ.Port;
-                rabbitMQ.UserName = configuration.RabbitMQ.Username;
-                rabbitMQ.Password = configuration.RabbitMQ.Password;
                 rabbitMQ.ExchangeName = configuration.RabbitMQ.ExchangeName;
+                rabbitMQ.ConnectionFactoryOptions = (factory) =>
+                {
+                    factory.Uri = configuration.RabbitMQ.Uri;
+                };
             });
         });
     }
