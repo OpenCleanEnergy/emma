@@ -111,7 +111,7 @@ public static class DeployTargets
         targets.Add(
             Ansible,
             "Executes Ansible Playbook",
-            dependsOn: [Templates, PulumiUp],
+            dependsOn: [PulumiUp, Templates],
             () =>
             {
                 var args = string.Join(
@@ -135,7 +135,7 @@ public static class DeployTargets
         targets.Add(
             Up,
             "🚀 UP",
-            dependsOn: [Templates, PulumiUp, Ansible, PulumiSecure, PostClean]
+            dependsOn: [PulumiUp, Templates, Ansible, PulumiSecure, PostClean]
         );
         targets.Add(Down, "🔨 DOWN", dependsOn: [PulumiDown, PostClean]);
 
