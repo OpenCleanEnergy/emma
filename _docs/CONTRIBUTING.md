@@ -65,3 +65,19 @@ at your system.
 - [flutter for Desktop (development) and Android](https://docs.flutter.dev/get-started/install)
   - [Additional steps](./flutter.md) may be required.
 - [Pulumi](https://www.pulumi.com/docs/install/)
+
+### Development environment
+
+Start the development environment
+
+```bash
+just launch-dev-environment
+```
+
+Available services ([by compose.yaml](../compose/emma-dev/compose.yaml)):
+
+- [Keycloak](http://localhost:5001)
+- [Adminer](http://localhost:5002)
+- [Message queue](http://localhost:5003)
+  - Username: `guest`
+  - Password: `guest`

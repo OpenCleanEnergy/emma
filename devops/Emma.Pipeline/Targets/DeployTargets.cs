@@ -6,8 +6,7 @@ using static SimpleExec.Command;
 
 public static class DeployTargets
 {
-    public const string DebugEnvironmentVariables = "deploy:debug-env";
-    public const string PreClean = "deploy:pre-clean";
+    public const string DebugTemplates = "deploy:templates-debug";
     public const string Templates = "deploy:templates";
     public const string PostClean = "deploy:post-clean";
 
@@ -23,8 +22,9 @@ public static class DeployTargets
 
     public static Targets AddDeployTargets(this Targets targets)
     {
+        var tempDir = new DirectoryInfo("/tmp/emma");
         var templateDir = new DirectoryInfo("./devops/templates");
-        var ansibleDir = new DirectoryInfo("/tmp/emma/ansible");
+        var ansibleDir = new DirectoryInfo(Path.Combine(tempDir.FullName, "ansible"));
         var renderedDir = new DirectoryInfo(Path.Combine(ansibleDir.FullName, "rendered"));
 
         var templates = templateDir
@@ -32,50 +32,38 @@ public static class DeployTargets
             .Select(f => Path.GetRelativePath(templateDir.FullName, f.FullName));
 
         targets.Add(
-            DebugEnvironmentVariables,
-            "Prints all required environment variables",
+            DebugTemplates,
+            $"Prints all required variables. Uses {tempDir}/{{variable}} as lookup.",
             forEach: templates,
             (template) =>
-                EnvSubst.PrintRequiredEnvironmentVariables(
-                    new FileInfo(Path.Combine(templateDir.FullName, template))
+                TemplateSubst.PrintRequiredVariables(
+                    new FileInfo(Path.Combine(templateDir.FullName, template)),
+                    tempDir
                 )
         );
 
         targets.Add(
-            PreClean,
-            $"Clears the {ansibleDir} directory.",
-            () =>
-            {
-                ansibleDir.Refresh();
-                if (ansibleDir.Exists)
-                {
-                    ansibleDir.Delete(recursive: true);
-                }
-            }
-        );
-
-        targets.Add(
             PostClean,
-            $"Clears the {ansibleDir} directory.",
+            $"Clears the {tempDir} directory.",
             () =>
             {
-                ansibleDir.Refresh();
-                if (ansibleDir.Exists)
+                tempDir.Refresh();
+                if (tempDir.Exists)
                 {
-                    ansibleDir.Delete(recursive: true);
+                    tempDir.Delete(recursive: true);
                 }
             }
         );
 
         targets.Add(
             Templates,
-            $"Substitutes environment variables in {templateDir}/*",
-            dependsOn: [PreClean],
+            $"Substitutes template variables in {templateDir}/*. Uses {tempDir}/{{variable}} as lookup.",
             forEach: templates,
             (template) =>
-                EnvSubst.Substitute(
+                TemplateSubst.Substitute(
                     new FileInfo(Path.Combine(templateDir.FullName, template)),
-                    new FileInfo(Path.Combine(renderedDir.FullName, template))
+                    new FileInfo(Path.Combine(renderedDir.FullName, template)),
+                    tempDir
                 )
         );
 
@@ -123,7 +111,7 @@ public static class DeployTargets
         targets.Add(
             Ansible,
             "Executes Ansible Playbook",
-            dependsOn: [Templates, PulumiUp],
+            dependsOn: [PulumiUp, Templates],
             () =>
             {
                 var args = string.Join(
@@ -147,7 +135,7 @@ public static class DeployTargets
         targets.Add(
             Up,
             "🚀 UP",
-            dependsOn: [Templates, PulumiUp, Ansible, PulumiSecure, PostClean]
+            dependsOn: [PulumiUp, Templates, Ansible, PulumiSecure, PostClean]
         );
         targets.Add(Down, "🔨 DOWN", dependsOn: [PulumiDown, PostClean]);
 

@@ -7,7 +7,7 @@ namespace Emma.Integrations.Shelly.Infrastructure;
 
 public class ShellyWebsocketConfigurationFactory
 {
-    private static readonly Uri _getAccessTokenUri =
+    private static readonly Uri _getAccessTokenUrl =
         new("https://api.shelly.cloud/integrator/get_access_token");
 
     private readonly ShellyIntegrationConfiguration _configuration;
@@ -85,7 +85,7 @@ public class ShellyWebsocketConfigurationFactory
 
     private async Task<string> RequestAccessToken(CancellationToken cancellationToken)
     {
-        var response = await _getAccessTokenUri.PostUrlEncodedAsync(
+        var response = await _getAccessTokenUrl.PostUrlEncodedAsync(
             new { itg = _configuration.IntegratorTag, token = _configuration.IntegratorToken },
             cancellationToken: cancellationToken
         );

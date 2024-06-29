@@ -8,5 +8,5 @@ public class SentryConfiguration
     public string? Dsn { get; init; }
     public double? TracesSampleRate { get; init; }
     public LogEventLevel MinimumBreadcrumbLevel { get; init; } = LogEventLevel.Information;
-    public LogEventLevel MinimumEventLevel { get; init; } = LogEventLevel.Warning;
+    public LogEventLevel MinimumEventLevel { get; init; } = LogEventLevel.Error;
 }

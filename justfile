@@ -23,6 +23,7 @@ stop-dyndns-environment: (_compose-down 'compose/emma-dyndns')
 reset-database: stop-dev-environment
   sudo docker volume rm emma-dev_backend_database_data || echo "volume already removed"
   sudo docker volume rm emma-dev_keycloak_database_data || echo "volume already removed"
+  sudo docker volume rm emma-dev_lavinmq_data || echo "volume already removed"
 
 start-docker:
   sudo systemctl start docker

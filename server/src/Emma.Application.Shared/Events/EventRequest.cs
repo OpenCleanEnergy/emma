@@ -9,6 +9,7 @@ namespace Emma.Application.Shared.Events;
     "S2326:Unused type parameters should be removed",
     Justification = "TEventChannel is actually used."
 )]
+[RequiresTransaction]
 public sealed record EventRequest<TEvent, TEventChannel>(TEvent DomainEvent) : IRequest
     where TEvent : IEvent
     where TEventChannel : IEventChannel;

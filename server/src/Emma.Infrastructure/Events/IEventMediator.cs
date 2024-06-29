@@ -1,7 +1,7 @@
 using Emma.Application.Shared.Events;
 using Emma.Domain.Events;
 
-namespace Emma.Infrastructure;
+namespace Emma.Infrastructure.Events;
 
 public interface IEventMediator
 {

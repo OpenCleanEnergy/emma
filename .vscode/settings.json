@@ -13,6 +13,7 @@
     "hcloud",
     "keycloak",
     "Keycloak",
+    "LavinMQ",
     "Mapperly",
     "MediatR",
     "Npgsql",

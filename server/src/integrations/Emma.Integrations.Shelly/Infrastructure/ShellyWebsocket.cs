@@ -68,7 +68,7 @@ public sealed class ShellyWebsocket : IDisposable
         _configuration = await _configurationFactory.GetConfiguration(_host, cancellationToken);
 
         _client = new WebsocketClient(
-            _configuration.Uri,
+            _configuration.Url,
             _loggerFactory.CreateLogger<WebsocketClient>()
         );
 
@@ -87,7 +87,7 @@ public sealed class ShellyWebsocket : IDisposable
             _cancellationTokenSource.Token
         );
 
-        _client!.Url = _configuration.Uri;
+        _client!.Url = _configuration.Url;
 
         // !IMPORTANT: Use Start() instead of Reconnect().
         // _client.IsStarted is false at this point and Reconnect() won't work.

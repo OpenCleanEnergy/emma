@@ -1,4 +1,5 @@
 using Pulumi;
+using Pulumi.CloudAmqp;
 using Pulumi.Command.Local;
 using Pulumi.HCloud;
 using Pulumi.HCloud.Inputs;
@@ -122,11 +123,11 @@ public class DefaultStack : Stack
                 new()
                 {
                     Create = """
-                        mkdir -p ${DIR} && \
-                        echo ${PRIVATE_KEY_BASE64} | base64 -d > ${KEY_FILE} && \
-                        chmod 600 ${KEY_FILE} && \
-                        echo "${SERVER_IP} ansible_ssh_private_key_file=${KEY_FILE}" > ${INV_FILE}
-                        """,
+                    mkdir -p ${DIR} && \
+                    echo ${PRIVATE_KEY_BASE64} | base64 -d > ${KEY_FILE} && \
+                    chmod 600 ${KEY_FILE} && \
+                    echo "${SERVER_IP} ansible_ssh_private_key_file=${KEY_FILE}" > ${INV_FILE}
+                    """,
                     Delete = "rm -rf ../ansible/tmp",
                     Environment = new()
                     {
@@ -146,6 +147,8 @@ public class DefaultStack : Stack
             new() { DependsOn = [server] }
         );
 
+        AmqpInstance = ConfigureCloudAmqp(stack);
+
         ServerId = server.Id;
         Ipv4 = ipv4.IpAddress;
         Ipv6 = ipv6.IpAddress;
@@ -163,4 +166,42 @@ public class DefaultStack : Stack
 
     [Output("ssh-enabled")]
     public Output<bool> SshEnabled { get; init; }
+
+    [Output("amqp-instance")]
+    public Output<string> AmqpInstance { get; init; }
+
+    private static Output<string> ConfigureCloudAmqp(string stack)
+    {
+        var instance = new Instance(
+            $"{stack}-amqp",
+            new()
+            {
+                Name = $"{stack}-amqp",
+                Plan = "lemming",
+                Region = "azure-arm::westeurope",
+                Tags = { stack, "emma" }
+            }
+        );
+
+        var envDir = new DirectoryInfo("/tmp/emma");
+        _ = new Command(
+            ".env file with CloudAMQP secrets",
+            new()
+            {
+                Create = """
+                mkdir -p ${DIR} && \
+                echo "${INSTANCE_URL}" > ${FILE}
+                """,
+                Delete = "rm -rf ../ansible/tmp",
+                Environment = new()
+                {
+                    ["DIR"] = envDir.FullName,
+                    ["FILE"] = Path.Combine(envDir.FullName, "Events__LavinMQ__Url"),
+                    ["INSTANCE_URL"] = instance.Url,
+                }
+            }
+        );
+
+        return instance.Id;
+    }
 }

@@ -3,7 +3,7 @@ using Emma.Application.Shared.Events;
 using Emma.Application.Shared.Logging;
 using Emma.Domain.Events;
 
-namespace Emma.Infrastructure.Events;
+namespace Emma.Infrastructure.Events.InMemory;
 
 public sealed class InMemoryEventChannels : IInMemoryEventChannels, IDisposable
 {

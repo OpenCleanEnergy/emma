@@ -1,6 +1,5 @@
 using System.Reflection;
 using Emma.Application.Integrations;
-using Emma.Application.RequestPipeline;
 using Emma.Application.Shared;
 using Emma.Application.Shared.Events;
 using Emma.Domain.Consumers;
@@ -11,9 +10,11 @@ using Emma.Infrastructure.Devices.Consumers;
 using Emma.Infrastructure.Devices.Meters;
 using Emma.Infrastructure.Devices.Producers;
 using Emma.Infrastructure.Events;
+using Emma.Infrastructure.Events.CAP;
 using Emma.Infrastructure.Integrations;
 using Emma.Infrastructure.Persistence;
 using Emma.Infrastructure.Persistence.EntityFramework;
+using Emma.Infrastructure.RequestPipeline;
 using Emma.Infrastructure.Shelly;
 using Emma.Integrations.Development;
 using Emma.Integrations.Shared;
@@ -91,8 +92,7 @@ public static class Bootstrapper
         container.Register(typeof(IRequestHandler<>), Assemblies);
 
         // Events
-        container.RegisterSingleton<IEventPublisher, InMemoryEventPublisher>();
-        container.RegisterSingleton<IInMemoryEventChannels, InMemoryEventChannels>();
+        container.RegisterSingleton<IEventPublisher, CapEventPublisher>();
 
         container.RegisterInstance<IEventMediator>(
             new SimpleInjectorScopedEventMediator(container, new MediatREventMediator(mediator))
@@ -103,7 +103,10 @@ public static class Bootstrapper
         );
 
         // Pipeline
-        container.Collection.Register(typeof(IPipelineBehavior<,>), [typeof(LoggingBehavior<,>),]);
+        container.Collection.Register(
+            typeof(IPipelineBehavior<,>),
+            [typeof(LoggingBehavior<,>), typeof(TransactionBehavior<,>),]
+        );
     }
 
     private static void AddPersistence(Container container)

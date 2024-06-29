@@ -1,6 +1,6 @@
 using Emma.Domain.Events;
 
-namespace Emma.Infrastructure.Events;
+namespace Emma.Infrastructure.Events.InMemory;
 
 public interface IInMemoryEventChannels
 {

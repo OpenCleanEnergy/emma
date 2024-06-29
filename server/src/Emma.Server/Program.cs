@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-using Emma.Application.Shared.Events;
+using DotNetCore.CAP;
+using Emma.Infrastructure.Events.CAP;
 using Emma.Infrastructure.Persistence;
 using Emma.Infrastructure.Persistence.EntityFramework;
 using Emma.Server;
 using Emma.Server.Configuration;
+using Emma.Server.Events;
 using Emma.Server.HostedServices;
 using Emma.Server.Identity;
 using Emma.Server.Logging;
@@ -19,10 +19,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using Serilog.Events;
-using Serilog.Extensions.Hosting;
-using Serilog.Formatting.Compact;
-using Serilog.Sinks.SystemConsole.Themes;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 
@@ -39,11 +35,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddDockerSecretsJson();
 
 var services = builder.Services;
-var logger = GetBootstrapLogger(builder).ForContext<Program>();
+var logger = SerilogLoggerFactory.GetBootstrapLogger(builder).ForContext<Program>();
 logger.Information("🚀 Started with {EntryAssembly}", entryAssembly);
 
 builder.Services.AddSerilog(configuration =>
-    ConfigureLogger(builder.Configuration, builder.Environment, configuration)
+    SerilogLoggerFactory.ConfigureLogger(builder.Configuration, builder.Environment, configuration)
 );
 
 // Controllers
@@ -71,7 +67,7 @@ services.AddRouting(options =>
 // Authentication
 var keycloakConfiguration =
     builder.Configuration.GetSection("Keycloak").Get<KeycloakConfiguration>()
-    ?? throw new InvalidOperationException("Keycloak is not configured.");
+    ?? throw new InvalidOperationException("'Keycloak' is not configured.");
 
 services
     .AddAuthentication(options =>
@@ -109,6 +105,13 @@ AddDbContext(builder, container);
 
 // Health check
 services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
+
+// Events
+services.AddEvents(
+    container,
+    builder.Configuration.GetSection("Events").Get<CapConfiguration>()
+        ?? throw new InvalidOperationException("'Events' is not configured.")
+);
 
 // Simple injector
 services.AddSimpleInjector(container, options => options.AddAspNetCore().AddControllerActivation());
@@ -150,78 +153,22 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers().RequireAuthorization();
 
-if (entryAssembly == EntryAssembly.Default)
+var cts = new CancellationTokenSource();
+try
 {
-    await MigrateDbContext(container);
+    if (entryAssembly == EntryAssembly.Default)
+    {
+        await MigrateDbContext(container);
+        await BootstrapCAP(container, cts.Token);
+    }
+
+    await app.RunAsync();
 }
-
-await app.RunAsync();
-await Log.CloseAndFlushAsync();
-
-static ReloadableLogger GetBootstrapLogger(WebApplicationBuilder builder)
+finally
 {
-    return ConfigureLogger(
-            builder.Configuration,
-            builder.Environment,
-            new LoggerConfiguration().MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-        )
-        .CreateBootstrapLogger();
-}
-
-static LoggerConfiguration ConfigureLogger(
-    IConfiguration configuration,
-    IWebHostEnvironment environment,
-    LoggerConfiguration loggerConfiguration
-)
-{
-    loggerConfiguration
-        .ReadFrom.Configuration(configuration)
-        .Enrich.FromLogContext()
-        .Enrich.WithServiceInfo(ServiceInfo.Name, ServiceInfo.Version)
-        .Enrich.With<ClientInfoEnricher>()
-        .Destructure.AsScalar<JsonObject>()
-        .Destructure.With<ValueObjectDestructuringPolicy>();
-
-    if (environment.IsDevelopment() || EntryAssembly.GetEntryAssembly() != EntryAssembly.Default)
-    {
-        loggerConfiguration.WriteTo.Console(
-            outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:l}{NewLine}{Properties}{NewLine}{Exception}",
-            formatProvider: CultureInfo.InvariantCulture,
-            applyThemeToRedirectedOutput: true,
-            theme: AnsiConsoleTheme.Literate
-        );
-
-        if (EntryAssembly.GetEntryAssembly() != EntryAssembly.Default)
-        {
-            return loggerConfiguration;
-        }
-    }
-    else
-    {
-        loggerConfiguration.WriteTo.Console(new CompactJsonFormatter());
-    }
-
-    var betterStack = configuration.GetSection("BetterStack").Get<BetterStackConfiguration>();
-    if (!string.IsNullOrEmpty(betterStack?.SourceToken))
-    {
-        loggerConfiguration.WriteTo.BetterStack(sourceToken: betterStack.SourceToken);
-    }
-
-    var sentry = configuration.GetSection("Sentry")?.Get<SentryConfiguration>();
-    if (!string.IsNullOrEmpty(sentry?.Dsn))
-    {
-        loggerConfiguration.WriteTo.Sentry(options =>
-        {
-            options.Dsn = sentry.Dsn;
-            options.Debug = sentry.Debug;
-            options.MinimumBreadcrumbLevel = sentry.MinimumBreadcrumbLevel;
-            options.MinimumEventLevel = sentry.MinimumEventLevel;
-            options.Environment = environment.EnvironmentName;
-            options.Release = ServiceInfo.Version;
-        });
-    }
-
-    return loggerConfiguration;
+    await cts.CancelAsync();
+    cts.Dispose();
+    await Log.CloseAndFlushAsync();
 }
 
 static void AddDbContext(WebApplicationBuilder builder, Container container)
@@ -240,9 +187,6 @@ static void AddDbContext(WebApplicationBuilder builder, Container container)
     {
         builder.Services.AddScoped((_) => container.GetAllInstances<IUnitOfWorkInterceptor>());
         builder.Services.AddScoped<IInterceptor, EntityFrameworkUnitOfWorkInterceptor>();
-
-        builder.Services.AddScoped((_) => container.GetInstance<IEventPublisher>());
-        builder.Services.AddScoped<IInterceptor, EntityFrameworkEventPublisherInterceptor>();
     }
 
     builder.Services.AddDbContext<AppDbContext>(
@@ -258,4 +202,10 @@ static async Task MigrateDbContext(Container container)
     using var scope = AsyncScopedLifestyle.BeginScope(container);
     using var context = container.GetInstance<AppDbContext>();
     await context.Database.MigrateAsync();
+}
+
+static async Task BootstrapCAP(Container container, CancellationToken cancellationToken)
+{
+    await using var bootstrapper = container.GetInstance<IBootstrapper>();
+    await bootstrapper.BootstrapAsync(cancellationToken);
 }
