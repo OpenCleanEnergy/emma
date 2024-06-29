@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.27](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.26...server-v1.0.0-alpha.27) (2024-06-29)
+
+
+### 🐛 Bug Fixes
+
+* do not use `TransactionBehavior` ([1095ed3](https://github.com/OpenCleanEnergy/emma/commit/1095ed3b2e063a93c4fa08950486c26aa6b1e5d2))
+* Rollback to `emma:1.0.0-alpha.24` due to unknown bug. ([718e790](https://github.com/OpenCleanEnergy/emma/commit/718e79063f858ee14487237100d9c7ea166fc104))
+
 ## [1.0.0-alpha.26](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.25...server-v1.0.0-alpha.26) (2024-06-29)
 
 
