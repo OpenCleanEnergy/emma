@@ -1,7 +1,7 @@
 volumes:
   keycloak_database_data:
   backend_database_data:
-  rabbitmq_data:
+  lavinmq_data:
 
 secrets:
   keycloak-env:
@@ -62,11 +62,11 @@ services:
     environment:
       - ADMINER_DEFAULT_SERVER=backend-database
 
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: rabbitmq
+  lavinmq:
+    image: cloudamqp/lavinmq
+    container_name: lavinmq
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq/mnesia
+      - lavinmq_data:/var/lib/lavinmq
     ports:
       - 5672:5672
       - 5003:15672

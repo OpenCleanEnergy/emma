@@ -78,4 +78,6 @@ Available services ([by compose.yaml](../compose/emma-dev/compose.yaml)):
 
 - [Keycloak](http://localhost:5001)
 - [Adminer](http://localhost:5002)
-- [RabbitMQ](http://localhost:5003)
+- [Message queue](http://localhost:5003)
+  - Username: `guest`
+  - Password: `guest`
