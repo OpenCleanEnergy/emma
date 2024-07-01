@@ -33,7 +33,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  chopper: ^8.0.0
+  chopper: ^8.0.1+1
   confirm_dialog: ^1.0.3
   cupertino_icons: ^1.0.6
   desktop_window: ^0.4.0
