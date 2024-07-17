@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.0-alpha.28](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.27...server-v1.0.0-alpha.28) (2024-07-17)
+
+
+### 🐛 Bug Fixes
+
+* fixes `TransactionBehavior` ([#140](https://github.com/OpenCleanEnergy/emma/issues/140)) ([73befc7](https://github.com/OpenCleanEnergy/emma/commit/73befc73d0d744b80796afc45305a7a66aebb76e))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump Medo.Uuid7 from 1.9.1 to 2.0.0 in /server ([#130](https://github.com/OpenCleanEnergy/emma/issues/130)) ([64ce0cf](https://github.com/OpenCleanEnergy/emma/commit/64ce0cffddb21c2a7b2a03e04085bab780c30208))
+* **deps:** bump Sentry.Serilog from 4.7.0 to 4.9.0 in /server ([#136](https://github.com/OpenCleanEnergy/emma/issues/136)) ([28a0c18](https://github.com/OpenCleanEnergy/emma/commit/28a0c18e077425502675d47ceb1449143e4b19fa))
+* **deps:** bump SonarAnalyzer.CSharp from 9.27.0.93347 to 9.29.0.95321 in /server ([#137](https://github.com/OpenCleanEnergy/emma/issues/137)) ([bf3b836](https://github.com/OpenCleanEnergy/emma/commit/bf3b836cb379cb5c8cda529d11077a6291f429b7))
+
 ## [1.0.0-alpha.27](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.26...server-v1.0.0-alpha.27) (2024-06-29)
 
 
