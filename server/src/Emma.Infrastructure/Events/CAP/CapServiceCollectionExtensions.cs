@@ -19,10 +19,10 @@ public static class CapServiceCollectionExtensions
             options.UseEntityFramework<AppDbContext>();
             options.UseRabbitMQ(rabbitMQ =>
             {
-                rabbitMQ.ExchangeName = configuration.LavinMQ.ExchangeName;
+                rabbitMQ.ExchangeName = configuration.RabbitMQ.ExchangeName;
                 rabbitMQ.ConnectionFactoryOptions = (factory) =>
                 {
-                    factory.Uri = configuration.LavinMQ.Url;
+                    factory.Uri = configuration.RabbitMQ.Url;
                 };
             });
         });

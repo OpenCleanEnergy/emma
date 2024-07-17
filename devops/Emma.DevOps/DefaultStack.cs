@@ -195,7 +195,7 @@ public class DefaultStack : Stack
                 Environment = new()
                 {
                     ["DIR"] = envDir.FullName,
-                    ["FILE"] = Path.Combine(envDir.FullName, "Events__LavinMQ__Url"),
+                    ["FILE"] = Path.Combine(envDir.FullName, "Events__RabbitMQ__Url"),
                     ["INSTANCE_URL"] = instance.Url,
                 }
             }
