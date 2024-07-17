@@ -174,23 +174,29 @@ public class DefaultStack : Stack
 
         var ansibleDir = new DirectoryInfo(Path.Combine(outputDir.FullName, "ansible"));
         ansibleDir.Create();
+
+        var privateKeyFile = new FileInfo(Path.Combine(ansibleDir.FullName, "private-ssh-key"));
         privateKeyBase64.Apply(async base64 =>
         {
-            var path = Path.Combine(ansibleDir.FullName, "private-ssh-key");
             var bytes = Convert.FromBase64String(base64);
-            await File.WriteAllBytesAsync(path, bytes);
+            await File.WriteAllBytesAsync(privateKeyFile.FullName, bytes);
 
             if (OperatingSystem.IsLinux())
             {
                 // owner read/write -> 600
-                File.SetUnixFileMode(path, UnixFileMode.UserRead | UnixFileMode.UserWrite);
+                File.SetUnixFileMode(
+                    privateKeyFile.FullName,
+                    UnixFileMode.UserRead | UnixFileMode.UserWrite
+                );
             }
         });
 
         ipv4.IpAddress.Apply(ipAddress =>
             File.WriteAllTextAsync(
                 Path.Combine(ansibleDir.FullName, "inventory.ini"),
-                ipAddress + Environment.NewLine
+                $"""
+                {ipAddress} ansible_ssh_private_key_file={privateKeyFile.FullName}
+                """
             )
         );
 
