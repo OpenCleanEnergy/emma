@@ -82,7 +82,7 @@ public static class DeployTargets
             () =>
                 RunAsync(
                     "pulumi",
-                    "up --yes --emoji --config emma:ssh-enabled=true",
+                    $"up --yes --config emma:ssh-enabled=true --config output-dir={tempDir.FullName}",
                     workingDirectory: pulumiWorkingDir
                 )
         );
@@ -94,7 +94,7 @@ public static class DeployTargets
             () =>
                 RunAsync(
                     "pulumi",
-                    "up --yes --emoji --config emma:ssh-enabled=false",
+                    $"up --yes --config emma:ssh-enabled=false --config output-dir={tempDir.FullName}",
                     workingDirectory: pulumiWorkingDir
                 )
         );

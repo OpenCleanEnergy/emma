@@ -1,6 +1,5 @@
 using Pulumi;
 using Pulumi.CloudAmqp;
-using Pulumi.Command.Local;
 using Pulumi.HCloud;
 using Pulumi.HCloud.Inputs;
 using Pulumiverse.Time;
@@ -16,6 +15,9 @@ public class DefaultStack : Stack
         var stack = Deployment.Instance.StackName;
 
         var config = new Pulumi.Config();
+
+        var outputDir = new DirectoryInfo(config.Require("output-dir"));
+
         var sshEnabled = config.RequireBoolean("ssh-enabled");
         var dataCenter = config.Require("data-center");
 
@@ -115,44 +117,35 @@ public class DefaultStack : Stack
             }
         );
 
-        if (sshEnabled)
-        {
-            var ansibleDir = new DirectoryInfo("/tmp/emma/ansible");
-            _ = new Command(
-                "Ansible inventory and private SSH key (600 -> owner read/write)",
-                new()
-                {
-                    Create = """
-                    mkdir -p ${DIR} && \
-                    echo ${PRIVATE_KEY_BASE64} | base64 -d > ${KEY_FILE} && \
-                    chmod 600 ${KEY_FILE} && \
-                    echo "${SERVER_IP} ansible_ssh_private_key_file=${KEY_FILE}" > ${INV_FILE}
-                    """,
-                    Delete = "rm -rf ../ansible/tmp",
-                    Environment = new()
-                    {
-                        ["DIR"] = ansibleDir.FullName,
-                        ["KEY_FILE"] = Path.Combine(ansibleDir.FullName, "private-ssh-key"),
-                        ["INV_FILE"] = Path.Combine(ansibleDir.FullName, "inventory.ini"),
-                        ["PRIVATE_KEY_BASE64"] = privateKeyBase64,
-                        ["SERVER_IP"] = ipv4.IpAddress,
-                    }
-                }
-            );
-        }
-
         _ = new Sleep(
             "Wait for server to boot",
             new() { CreateDuration = "60s" },
             new() { DependsOn = [server] }
         );
 
-        AmqpInstance = ConfigureCloudAmqp(stack);
+        var cloudAmqpInstance = new Instance(
+            $"{stack}-amqp",
+            new()
+            {
+                Name = $"{stack}-amqp",
+                Plan = "lemming",
+                Region = "azure-arm::westeurope",
+                Tags = { stack, "emma" }
+            }
+        );
 
+        AmqpInstance = cloudAmqpInstance.Id;
         ServerId = server.Id;
         Ipv4 = ipv4.IpAddress;
         Ipv6 = ipv6.IpAddress;
         SshEnabled = Output.Create(sshEnabled);
+
+        ApplyOutput(
+            outputDir: outputDir,
+            ipv4: ipv4,
+            privateKeyBase64: privateKeyBase64,
+            cloudAmqpInstance: cloudAmqpInstance
+        );
     }
 
     [Output("server-id")]
@@ -170,37 +163,39 @@ public class DefaultStack : Stack
     [Output("amqp-instance")]
     public Output<string> AmqpInstance { get; init; }
 
-    private static Output<string> ConfigureCloudAmqp(string stack)
+    private static void ApplyOutput(
+        DirectoryInfo outputDir,
+        PrimaryIp ipv4,
+        Output<string> privateKeyBase64,
+        Instance cloudAmqpInstance
+    )
     {
-        var instance = new Instance(
-            $"{stack}-amqp",
-            new()
+        outputDir.Create();
+
+        var ansibleDir = new DirectoryInfo(Path.Combine(outputDir.FullName, "ansible"));
+        ansibleDir.Create();
+        privateKeyBase64.Apply(async base64 =>
+        {
+            var path = Path.Combine(ansibleDir.FullName, "private-ssh-key");
+            var bytes = Convert.FromBase64String(base64);
+            await File.WriteAllBytesAsync(path, bytes);
+
+            if (OperatingSystem.IsLinux())
             {
-                Name = $"{stack}-amqp",
-                Plan = "lemming",
-                Region = "azure-arm::westeurope",
-                Tags = { stack, "emma" }
+                // owner read/write -> 600
+                File.SetUnixFileMode(path, UnixFileMode.UserRead | UnixFileMode.UserWrite);
             }
+        });
+
+        ipv4.IpAddress.Apply(ipAddress =>
+            File.WriteAllTextAsync(
+                Path.Combine(ansibleDir.FullName, "inventory.ini"),
+                ipAddress + Environment.NewLine
+            )
         );
 
-        var envDir = new DirectoryInfo("/tmp/emma");
-        _ = new Command(
-            $"File with CloudAMQP secret url - {DateTime.UtcNow.Ticks}",
-            new()
-            {
-                Create = """
-                mkdir -p ${DIR} && \
-                echo "${INSTANCE_URL}" > ${FILE}
-                """,
-                Environment = new()
-                {
-                    ["DIR"] = envDir.FullName,
-                    ["FILE"] = Path.Combine(envDir.FullName, "Events__RabbitMQ__Url"),
-                    ["INSTANCE_URL"] = instance.Url,
-                }
-            }
+        cloudAmqpInstance.Url.Apply(url =>
+            File.WriteAllTextAsync(Path.Combine(outputDir.FullName, "Events__RabbitMQ__Url"), url)
         );
-
-        return instance.Id;
     }
 }
