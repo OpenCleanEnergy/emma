@@ -103,7 +103,10 @@ public static class Bootstrapper
         );
 
         // Pipeline
-        container.Collection.Register(typeof(IPipelineBehavior<,>), [typeof(LoggingBehavior<,>)]);
+        container.Collection.Register(
+            typeof(IPipelineBehavior<,>),
+            [typeof(LoggingBehavior<,>), typeof(TransactionBehavior<,>)]
+        );
     }
 
     private static void AddPersistence(Container container)

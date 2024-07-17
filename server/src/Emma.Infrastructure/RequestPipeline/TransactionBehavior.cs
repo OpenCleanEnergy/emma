@@ -1,22 +1,20 @@
 using DotNetCore.CAP;
 using Emma.Application.Shared;
+using Emma.Application.Shared.Events;
 using Emma.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Emma.Infrastructure.RequestPipeline;
 
-public class TransactionBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public class TransactionBehavior<TRequest, TResponse>(
+    AppDbContext dbContext,
+    ICapPublisher capPublisher
+) : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
 {
-    private readonly AppDbContext _dbContext;
-    private readonly ICapPublisher _capPublisher;
-
-    public TransactionBehavior(AppDbContext dbContext, ICapPublisher capPublisher)
-    {
-        _dbContext = dbContext;
-        _capPublisher = capPublisher;
-    }
+    private readonly AppDbContext _dbContext = dbContext;
+    private readonly ICapPublisher _capPublisher = capPublisher;
 
     public async Task<TResponse> Handle(
         TRequest request,
@@ -24,10 +22,7 @@ public class TransactionBehavior<TRequest, TResponse> : IPipelineBehavior<TReque
         CancellationToken cancellationToken
     )
     {
-        var requiresTransaction = typeof(TRequest).IsDefined(
-            typeof(RequiresTransactionAttribute),
-            inherit: true
-        );
+        var requiresTransaction = request is ICommand or IEventRequest;
 
         if (!requiresTransaction)
         {
@@ -36,13 +31,14 @@ public class TransactionBehavior<TRequest, TResponse> : IPipelineBehavior<TReque
 
         var transaction = await _dbContext.Database.BeginTransactionAsync(
             _capPublisher,
-            autoCommit: true,
             cancellationToken: cancellationToken
         );
 
-        using (transaction)
+        await using (transaction)
         {
-            return await next();
+            var response = await next();
+            await transaction.CommitAsync(cancellationToken);
+            return response;
         }
     }
 }
