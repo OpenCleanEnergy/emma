@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenEMS.Domain\OpenEMS.Domain.csproj" />
+  </ItemGroup>
+</Project>
