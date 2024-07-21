@@ -30,7 +30,7 @@ start-docker:
 
 # Executes build pipeline for given target.
 target *args="--help":
-  dotnet run --project devops/Emma.Pipeline -- {{args}}
+  dotnet run --project devops/OpenEMS.Pipeline -- {{args}}
 
 # App commands
 @app *args:

@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Riok.Mapperly" Version="3.6.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenEMS.Domain\OpenEMS.Domain.csproj" />
+    <ProjectReference Include="..\OpenEMS.Integrations.Shared\OpenEMS.Integrations.Shared.csproj" />
+    <ProjectReference Include="..\OpenEMS.Application.Shared\OpenEMS.Application.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Devices/Meters/" />
+  </ItemGroup>
+</Project>

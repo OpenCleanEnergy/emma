@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenEMS.Application\OpenEMS.Application.csproj" />
+    <ProjectReference
+      Include="..\integrations\OpenEMS.Integrations.Shelly\OpenEMS.Integrations.Shelly.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="crozone.AsyncResetEvents" Version="1.0.2" />
+    <PackageReference Include="DotNetCore.CAP" Version="8.2.0" />
+    <PackageReference Include="DotNetCore.CAP.PostgreSql" Version="8.2.0" />
+    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+  </ItemGroup>
+
+</Project>

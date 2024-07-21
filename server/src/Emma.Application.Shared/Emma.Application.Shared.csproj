@@ -1,8 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <PackageReference Include="MediatR" Version="12.4.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Emma.Domain\Emma.Domain.csproj" />
-  </ItemGroup>
-</Project>
