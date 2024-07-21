@@ -15,7 +15,7 @@ public static class AppTargets
     {
         var workingDir = new DirectoryInfo("./app");
         var dockerRegistry = Environment.GetEnvironmentVariable("DOCKER_REGISTRY") ?? "ghcr.io";
-        var dockerBaseImage = $"{dockerRegistry}/opencleanenergy/emma-web-app";
+        var dockerBaseImage = $"{dockerRegistry}/opencleanenergy/openems-web-app";
         var tags = DockerTags.FromBaseImage(dockerBaseImage, workingDir);
 
         // Builds the flutter web app

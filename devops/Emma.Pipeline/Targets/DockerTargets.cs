@@ -14,7 +14,7 @@ public static class DockerTargets
     {
         var workingDir = new DirectoryInfo("./server");
         var dockerRegistry = Environment.GetEnvironmentVariable("DOCKER_REGISTRY") ?? "ghcr.io";
-        var dockerBaseImage = $"{dockerRegistry}/opencleanenergy/emma";
+        var dockerBaseImage = $"{dockerRegistry}/opencleanenergy/openems";
         var tags = DockerTags.FromBaseImage(dockerBaseImage, workingDir);
 
         targets.Add(
