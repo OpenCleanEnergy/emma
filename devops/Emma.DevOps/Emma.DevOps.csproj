@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Pulumi" Version="3.64.0" />
     <PackageReference Include="Pulumi.Cloudamqp" Version="3.18.0" />
-    <PackageReference Include="Pulumi.HCloud" Version="1.19.1" />
+    <PackageReference Include="Pulumi.HCloud" Version="1.19.2" />
     <PackageReference Include="Pulumiverse.Time" Version="0.0.17" />
   </ItemGroup>
 
