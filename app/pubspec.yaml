@@ -45,7 +45,7 @@ dependencies:
   oidc_default_store: ^0.2.0+8
   oidc: ^0.7.0
   package_info_plus: ^8.0.1
-  signals: ^5.2.2
+  signals: ^5.3.0
   url_launcher: ^6.3.0
   flutter_launcher_icons: ^0.13.1
   mutex: ^3.1.0
