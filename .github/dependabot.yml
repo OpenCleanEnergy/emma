@@ -11,6 +11,10 @@ updates:
     commit-message:
       prefix: "build"
       include: "scope"
+    groups
+      app:
+        patterns:
+          - "*"
 
   #server
   - package-ecosystem: "nuget"
