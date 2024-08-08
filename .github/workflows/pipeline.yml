@@ -6,7 +6,7 @@ on:
 
 env:
   DOCKER_REGISTRY: ghcr.io
-  PRIVATE_REPOSITORY: emma-private
+  PRIVATE_REPOSITORY: OpenEMS-private
 
 jobs:
   release-please:
@@ -199,8 +199,6 @@ jobs:
         needs.publish-keycloak.result == 'success' ||
         needs.publish-web-app.result == 'success'
       )
-    env:
-      PRIVATE_REPOSITORY: emma-private
     steps:
       - name: 🗝 Get app token
         uses: actions/create-github-app-token@v1
