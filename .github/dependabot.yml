@@ -11,7 +11,7 @@ updates:
     commit-message:
       prefix: "build"
       include: "scope"
-    groups
+    groups:
       app:
         patterns:
           - "*"
