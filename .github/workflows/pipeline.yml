@@ -26,8 +26,8 @@ jobs:
         uses: actions/create-github-app-token@v1
         id: app-token
         with:
-          app-id: ${{ vars.EMMA_APP_ID }}
-          private-key: ${{ secrets.EMMA_APP_PRIVATE_KEY }}
+          app-id: ${{ vars.OCE_APP_ID }}
+          private-key: ${{ secrets.OCE_APP_PRIVATE_KEY }}
 
       - name: ✨ Release Please
         id: release
@@ -204,8 +204,8 @@ jobs:
         uses: actions/create-github-app-token@v1
         id: app-token
         with:
-          app-id: ${{ vars.EMMA_APP_ID }}
-          private-key: ${{ secrets.EMMA_APP_PRIVATE_KEY }}
+          app-id: ${{ vars.OCE_APP_ID }}
+          private-key: ${{ secrets.OCE_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
           repositories: ${{ env.PRIVATE_REPOSITORY }}
 
@@ -229,8 +229,8 @@ jobs:
         uses: actions/create-github-app-token@v1
         id: app-token
         with:
-          app-id: ${{ vars.EMMA_APP_ID }}
-          private-key: ${{ secrets.EMMA_APP_PRIVATE_KEY }}
+          app-id: ${{ vars.OCE_APP_ID }}
+          private-key: ${{ secrets.OCE_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
           repositories: ${{ env.PRIVATE_REPOSITORY }}
 
