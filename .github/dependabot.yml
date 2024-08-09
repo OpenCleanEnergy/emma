@@ -28,16 +28,10 @@ updates:
       prefix: "build"
       include: "scope"
     groups:
-      ef-core:
+      server:
         patterns:
-          - "*EntityFrameworkCore*"
-      swagger:
-        patterns:
-          - "swashbuckle*"
-      xunit:
-        patterns:
-          - "xunit*"
-  
+          - "*"
+
   # devops
   - package-ecosystem: "nuget"
     directory: "devops"
@@ -49,6 +43,10 @@ updates:
     commit-message:
       prefix: "build"
       include: "scope"
+    groups:
+      devops:
+        patterns:
+          - "*"
 
   # GitHub
   - package-ecosystem: "github-actions"
