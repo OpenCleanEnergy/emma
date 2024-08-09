@@ -4,6 +4,10 @@ set fallback
 @default:
   just --list
 
+# Upgrade the flutter SDK
+upgrade-sdk:
+  flutter upgrade
+
 # dart fix and format
 format:
   dart fix --apply
@@ -21,9 +25,6 @@ pub-get:
 generate-code:
   dart run build_runner clean
   dart run build_runner build --delete-conflicting-outputs
-  @echo 'Fixing backend_api.swagger.dart because of version mismatch.'
-  sed -i 's/Iterable<dynamic>? interceptors/List<Interceptor>? interceptors/g' \
-    'lib/application/backend_api/swagger_generated_code/backend_api.swagger.dart'
   just format
 
 generate-icons: pub-get
