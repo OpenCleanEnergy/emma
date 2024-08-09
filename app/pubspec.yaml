@@ -33,7 +33,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  chopper: ^8.0.0
+  chopper: ^8.0.1+1
   confirm_dialog: ^1.0.3
   cupertino_icons: ^1.0.6
   desktop_window: ^0.4.0
@@ -45,7 +45,7 @@ dependencies:
   oidc_default_store: ^0.2.0+8
   oidc: ^0.7.0
   package_info_plus: ^8.0.1
-  signals: ^5.2.2
+  signals: ^5.3.0
   url_launcher: ^6.3.0
   flutter_launcher_icons: ^0.13.1
   mutex: ^3.1.0
@@ -55,10 +55,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  build_runner: ^2.4.11
-  chopper_generator: ^8.0.0
+  build_runner: ^2.4.12
+  chopper_generator: ^8.0.1
   json_serializable: ^6.6.1
-  swagger_dart_code_generator: ^2.10.4
+  swagger_dart_code_generator: ^3.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
