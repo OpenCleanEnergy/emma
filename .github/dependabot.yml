@@ -12,7 +12,7 @@ updates:
       prefix: "build"
       include: "scope"
     groups:
-      app:
+      dependencies:
         patterns:
           - "*"
 
@@ -28,7 +28,7 @@ updates:
       prefix: "build"
       include: "scope"
     groups:
-      server:
+      dependencies:
         patterns:
           - "*"
 
@@ -44,7 +44,7 @@ updates:
       prefix: "build"
       include: "scope"
     groups:
-      devops:
+      dependencies:
         patterns:
           - "*"
 

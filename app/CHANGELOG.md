@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.0-alpha.10](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.9...app-v1.0.0-alpha.10) (2024-08-09)
+
+
+### 📦️ Build System, Dependencies
+
+* Bump `win32` from 5.5.0 to 5.5.3 ([48c5ac9](https://github.com/OpenCleanEnergy/emma/commit/48c5ac996adcc02e47aed9c5974ff9b86a4d6234))
+* **deps:** bump package_info_plus from 8.0.0 to 8.0.1 in /app ([#151](https://github.com/OpenCleanEnergy/emma/issues/151)) ([e3bfcce](https://github.com/OpenCleanEnergy/emma/commit/e3bfcce8e700c3e340ad7a61a88dc6f59e5f1966))
+* **deps:** bump the app group in /app with 5 updates ([#165](https://github.com/OpenCleanEnergy/emma/issues/165)) ([9603c29](https://github.com/OpenCleanEnergy/emma/commit/9603c29801809ff00dc25c6ba11e52fa8ff26874))
+
 ## [1.0.0-alpha.9](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.8...app-v1.0.0-alpha.9) (2024-06-28)
 
 
