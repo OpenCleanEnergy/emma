@@ -12,12 +12,12 @@ class AboutScreen extends StatelessWidget {
       ListTile(
         title: const Text("Impressum"),
         trailing: const Icon(Icons.open_in_new),
-        onTap: () => launchUrlString("https://opencleanenergy.org/legal-notice"),
+        onTap: () => launchUrlString("https://opencleanenergy.org/legal-notice/"),
       ),
       ListTile(
         title: const Text("Datenschutz"),
         trailing: const Icon(Icons.open_in_new),
-        onTap: () => launchUrlString("https://emma.opence.org/datenschutz"),
+        onTap: () => launchUrlString("https://opencleanenergy.org/privacy-policy/"),
       ),
       Column(
         children: [
