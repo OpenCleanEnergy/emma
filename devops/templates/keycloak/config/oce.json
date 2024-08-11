@@ -10,8 +10,8 @@
   "supportedLocales": ["de", "en"],
   "defaultLocale": "de",
   "smtpServer": {
+    "fromDisplayName": "Opcen Clean Energy",
     "from": "{{KC_SMTP_FROM}}",
-    "fromDisplayName": "EMMA Team",
     "replyTo": "",
     "replyToDisplayName": "",
     "envelopeFrom": "",
