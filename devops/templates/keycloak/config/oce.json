@@ -24,7 +24,7 @@
   },
   "clients": [
     {
-      "clientId": "open-ems-app",
+      "clientId": "openems-app",
       "name": "OpenEMS native app",
       "enabled": true,
       "protocol": "openid-connect",
@@ -35,10 +35,10 @@
       "redirectUris": [
         "https://openems.opencleanenergy.org/*",
         "http://localhost*",
-        "org.opence.emma:/oauth2redirect"
+        "org.opencleanenergy.openems:/oauth2redirect"
       ],
       "attributes": {
-        "post.logout.redirect.uris": "org.opence.emma:/endsessionredirect##http://localhost*##https://openems.opencleanenergy.org/*"
+        "post.logout.redirect.uris": "org.opencleanenergy.openems:/endsessionredirect##http://localhost*##https://openems.opencleanenergy.org/*"
       },
       "webOrigins": ["*"],
       "defaultClientScopes": [

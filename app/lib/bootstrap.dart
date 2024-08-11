@@ -30,7 +30,7 @@ Future<void> bootstrap() async {
   // - user
   final oidcConfiguration = OidcConfiguration(
     baseUri: Uri.parse(const String.fromEnvironment("AUTH_URL")),
-    clientId: "open-ems-app",
+    clientId: "openems-app",
   );
 
   final oidcUserRepository = await OidcUserRepository.create(oidcConfiguration);
