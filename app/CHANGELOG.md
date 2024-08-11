@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.13](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.12...app-v1.0.0-alpha.13) (2024-08-11)
+
+
+### 🐛 Bug Fixes
+
+* Fixes app crash after login ([83754d3](https://github.com/OpenCleanEnergy/emma/commit/83754d3b795263212fd1d0ff008883a01692e3ed))
+
 ## [1.0.0-alpha.12](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.11...app-v1.0.0-alpha.12) (2024-08-11)
 
 
