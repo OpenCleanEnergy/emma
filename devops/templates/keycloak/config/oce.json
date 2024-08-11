@@ -10,7 +10,7 @@
   "supportedLocales": ["de", "en"],
   "defaultLocale": "de",
   "smtpServer": {
-    "fromDisplayName": "Opcen Clean Energy",
+    "fromDisplayName": "Open Clean Energy",
     "from": "{{KC_SMTP_FROM}}",
     "replyTo": "",
     "replyToDisplayName": "",
