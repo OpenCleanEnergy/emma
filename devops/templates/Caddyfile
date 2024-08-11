@@ -1,14 +1,8 @@
-emma.opence.org {
+openems.opencleanenergy.org {
 	# Server
 	redir /api /api/
 	handle_path /api/* {
 		reverse_proxy server:5000
-	}
-
-	# Keycloak
-	redir /auth /auth/
-	handle /auth/* {
-		reverse_proxy keycloak:8080
 	}
 
 	# Web App
@@ -19,10 +13,14 @@ emma.opence.org {
 
 	# Website
 	handle {
-		reverse_proxy https://kc6jmov4.opence.org {
-			# Set Host header to kc6jmov4.opence.org
-			# see: https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#https
-			header_up Host {upstream_hostport}
-		}
+		redir https://opencleanenergy.org
+	}
+}
+
+auth.opencleanenergy.org {
+	# Keycloak
+	redir /auth /auth/
+	handle /auth/* {
+		reverse_proxy keycloak:8080
 	}
 }

@@ -9,8 +9,8 @@
   "defaultLocale": "en",
   "clients": [
     {
-      "clientId": "emma_app",
-      "name": "EMMA native app",
+      "clientId": "open-ems-app",
+      "name": "OpenEMS native app",
       "enabled": true,
       "protocol": "openid-connect",
       "publicClient": true,
@@ -37,8 +37,8 @@
       ]
     },
     {
-      "clientId": "emma_swagger",
-      "name": "EMMA Swagger/OpenAPI client",
+      "clientId": "swagger",
+      "name": "Swagger/OpenAPI client",
       "enabled": true,
       "protocol": "openid-connect",
       "publicClient": true,
