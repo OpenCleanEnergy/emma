@@ -778,7 +778,7 @@ components:
       description: '**client_id:** `swagger`'
       flows:
         implicit:
-          authorizationUrl: http://localhost:5001/realms/emma/protocol/openid-connect/auth
+          authorizationUrl: http://localhost:5001/realms/oce/protocol/openid-connect/auth
           scopes: { }
 security:
   - oauth: [ ]
