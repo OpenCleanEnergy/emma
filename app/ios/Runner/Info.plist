@@ -52,7 +52,7 @@
 	        <string>Editor</string>
 	        <key>CFBundleURLSchemes</key>
 	        <array>
-	            <string>org.opence.emma</string>
+	            <string>org.opencleanenergy.openems</string>
 	        </array>
 	    </dict>
 	</array>
