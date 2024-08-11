@@ -1,16 +1,10 @@
-- name: 📂 Generate the destination directory
-  become: true
-  ansible.builtin.file:
-    path: /var/lib/emma
-    state: directory
-    mode: "0755"
-
 - name: 📤 Copy files to remote host
   become: true
   ansible.builtin.copy:
     src: /tmp/emma/ansible/rendered/
     dest: /var/lib/emma/
-    mode: "0644"
+    directory_mode: "755"
+    mode: "644"
     backup: true
 
 - name: 🚀 Launch docker compose stack
