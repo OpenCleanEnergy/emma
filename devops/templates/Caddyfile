@@ -19,8 +19,5 @@ openems.opencleanenergy.org {
 
 auth.opencleanenergy.org {
 	# Keycloak
-	redir /auth /auth/
-	handle /auth/* {
-		reverse_proxy keycloak:8080
-	}
+	reverse_proxy keycloak:8080
 }
