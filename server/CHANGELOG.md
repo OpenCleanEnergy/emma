@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.0.0-alpha.29](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.28...server-v1.0.0-alpha.29) (2024-08-11)
+
+
+### 🚀 Features
+
+* Changes domains ([#169](https://github.com/OpenCleanEnergy/emma/issues/169)) ([00f71d9](https://github.com/OpenCleanEnergy/emma/commit/00f71d9e83e40e473542487aa698126e1017ce80))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump FluentAssertions.Analyzers from 0.32.0 to 0.33.0 in /server ([#153](https://github.com/OpenCleanEnergy/emma/issues/153)) ([32a4ee2](https://github.com/OpenCleanEnergy/emma/commit/32a4ee2cc66f22203822eea95566e7d313c33aec))
+* **deps:** bump MediatR from 12.3.0 to 12.4.0 in /server ([#154](https://github.com/OpenCleanEnergy/emma/issues/154)) ([b128746](https://github.com/OpenCleanEnergy/emma/commit/b12874668224401c45be2189835ad4eae7dc798e))
+* **deps:** bump Serilog.AspNetCore from 8.0.1 to 8.0.2 in /server ([#156](https://github.com/OpenCleanEnergy/emma/issues/156)) ([93df582](https://github.com/OpenCleanEnergy/emma/commit/93df582806a615e6f5203b454760c2bcabc04b91))
+* **deps:** bump the ef-core group in /server with 2 updates ([#142](https://github.com/OpenCleanEnergy/emma/issues/142)) ([7503714](https://github.com/OpenCleanEnergy/emma/commit/7503714e8f70491a53554909f8d47d066875edd8))
+* **deps:** bump the server group in /server with 8 updates ([#167](https://github.com/OpenCleanEnergy/emma/issues/167)) ([bb65bcd](https://github.com/OpenCleanEnergy/emma/commit/bb65bcdda4bb5ca7bdf7d797c4728a810f349baf))
+* **deps:** bump the xunit group in /server with 2 updates ([#143](https://github.com/OpenCleanEnergy/emma/issues/143)) ([8361111](https://github.com/OpenCleanEnergy/emma/commit/8361111e64a9c5d6996c63dd1ea7bdc18ea8cce4))
+* **deps:** bump Verify.Xunit from 25.0.4 to 26.0.0 in /server ([#144](https://github.com/OpenCleanEnergy/emma/issues/144)) ([9916b8d](https://github.com/OpenCleanEnergy/emma/commit/9916b8d809082df2c1f78a9875d478c5430caed4))
+* **deps:** bump Vogen from 4.0.12 to 4.0.16 in /server ([#155](https://github.com/OpenCleanEnergy/emma/issues/155)) ([2597f5c](https://github.com/OpenCleanEnergy/emma/commit/2597f5c1c8945ccafbe8ecb23d63e494cf605577))
+
 ## [1.0.0-alpha.28](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.27...server-v1.0.0-alpha.28) (2024-07-17)
 
 
