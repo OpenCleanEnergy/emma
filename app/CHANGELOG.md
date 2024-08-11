@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.0-alpha.11](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.10...app-v1.0.0-alpha.11) (2024-08-11)
+
+
+### 🚀 Features
+
+* Changes domains ([#169](https://github.com/OpenCleanEnergy/emma/issues/169)) ([00f71d9](https://github.com/OpenCleanEnergy/emma/commit/00f71d9e83e40e473542487aa698126e1017ce80))
+* Update link to privacy policy. ([9e954b2](https://github.com/OpenCleanEnergy/emma/commit/9e954b2af2599ecc35980a3510d51c555730e187))
+* updates link to legal notice. ([75a214d](https://github.com/OpenCleanEnergy/emma/commit/75a214d19c38cb65eb1b275599c16ea20b39d57b))
+
 ## [1.0.0-alpha.10](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.9...app-v1.0.0-alpha.10) (2024-08-09)
 
 
