@@ -1,5 +1,6 @@
 {
   "realm": "oce",
+  "displayName": "Open Clean Energy",
   "enabled": true,
   "registrationAllowed": true,
   "registrationEmailAsUsername": true,
