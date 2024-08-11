@@ -2,4 +2,4 @@
 
 ## Contributing
 
-See [_docs/CONTRIBUTING.md](_docs/CONTRIBUTING.md).
+See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md).
