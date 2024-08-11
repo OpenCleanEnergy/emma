@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.12](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.11...app-v1.0.0-alpha.12) (2024-08-11)
+
+
+### 🐛 Bug Fixes
+
+* fix redirect schemes in android and ios settings. ([7da97f6](https://github.com/OpenCleanEnergy/emma/commit/7da97f68ac568b06dec7b0090a459a0548095f17))
+
 ## [1.0.0-alpha.11](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.10...app-v1.0.0-alpha.11) (2024-08-11)
 
 
