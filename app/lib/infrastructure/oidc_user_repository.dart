@@ -28,8 +28,9 @@ class OidcUserRepository implements IUserRepository {
         'requestType': 'front-channel-logout'
       });
     } else if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
-      redirectUri = Uri.parse('org.opence.emma:/oauth2redirect');
-      postLogoutRedirectUri = Uri.parse('org.opence.emma:/endsessionredirect');
+      redirectUri = Uri.parse('org.opencleanenergy.openems:/oauth2redirect');
+      postLogoutRedirectUri =
+          Uri.parse('org.opencleanenergy.openems:/endsessionredirect');
     } else if (Platform.isLinux || Platform.isWindows) {
       redirectUri = Uri.parse('http://localhost:0');
       postLogoutRedirectUri = Uri.parse('http://localhost:0');

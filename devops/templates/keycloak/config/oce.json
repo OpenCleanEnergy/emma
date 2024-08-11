@@ -1,5 +1,6 @@
 {
-  "realm": "emma",
+  "realm": "oce",
+  "displayName": "Open Clean Energy",
   "enabled": true,
   "registrationAllowed": true,
   "registrationEmailAsUsername": true,
@@ -9,8 +10,8 @@
   "supportedLocales": ["de", "en"],
   "defaultLocale": "de",
   "smtpServer": {
+    "fromDisplayName": "Opcen Clean Energy",
     "from": "{{KC_SMTP_FROM}}",
-    "fromDisplayName": "EMMA Team",
     "replyTo": "",
     "replyToDisplayName": "",
     "envelopeFrom": "",
@@ -24,8 +25,8 @@
   },
   "clients": [
     {
-      "clientId": "emma_app",
-      "name": "EMMA native app",
+      "clientId": "openems-app",
+      "name": "OpenEMS native app",
       "enabled": true,
       "protocol": "openid-connect",
       "publicClient": true,
@@ -33,12 +34,12 @@
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": false,
       "redirectUris": [
-        "https://emma.opence.org/*",
+        "https://openems.opencleanenergy.org/*",
         "http://localhost*",
-        "org.opence.emma:/oauth2redirect"
+        "org.opencleanenergy.openems:/oauth2redirect"
       ],
       "attributes": {
-        "post.logout.redirect.uris": "org.opence.emma:/endsessionredirect##http://localhost*##https://emma.opence.org/*"
+        "post.logout.redirect.uris": "org.opencleanenergy.openems:/endsessionredirect##http://localhost*##https://openems.opencleanenergy.org/*"
       },
       "webOrigins": ["*"],
       "defaultClientScopes": [

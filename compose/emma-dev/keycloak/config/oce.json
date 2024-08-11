@@ -1,5 +1,6 @@
 {
-  "realm": "emma",
+  "realm": "oce",
+  "displayName": "Open Clean Energy",
   "enabled": true,
   "registrationAllowed": true,
   "registrationEmailAsUsername": true,
@@ -9,17 +10,20 @@
   "defaultLocale": "en",
   "clients": [
     {
-      "clientId": "emma_app",
-      "name": "EMMA native app",
+      "clientId": "openems-app",
+      "name": "OpenEMS native app",
       "enabled": true,
       "protocol": "openid-connect",
       "publicClient": true,
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": false,
-      "redirectUris": ["http://localhost*", "org.opence.emma:/oauth2redirect"],
+      "redirectUris": [
+        "http://localhost*",
+        "org.opencleanenergy.openems:/oauth2redirect"
+      ],
       "attributes": {
-        "post.logout.redirect.uris": "org.opence.emma:/endsessionredirect##http://localhost*"
+        "post.logout.redirect.uris": "org.opencleanenergy.openems:/endsessionredirect##http://localhost*"
       },
       "webOrigins": ["*"],
       "defaultClientScopes": [
@@ -37,8 +41,8 @@
       ]
     },
     {
-      "clientId": "emma_swagger",
-      "name": "EMMA Swagger/OpenAPI client",
+      "clientId": "swagger",
+      "name": "Swagger/OpenAPI client",
       "enabled": true,
       "protocol": "openid-connect",
       "publicClient": true,

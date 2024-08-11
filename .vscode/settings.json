@@ -19,6 +19,8 @@
     "Npgsql",
     "oidc",
     "Oidc",
+    "opencleanenergy",
+    "openems",
     "Pulumi",
     "Riok",
     "trid",
