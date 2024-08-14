@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.14](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.13...app-v1.0.0-alpha.14) (2024-08-14)
+
+
+### 🚀 Features
+
+* Rename package name to `org.opencleanenergy.openems` ([#176](https://github.com/OpenCleanEnergy/emma/issues/176)) ([10d3dc1](https://github.com/OpenCleanEnergy/emma/commit/10d3dc1d15f591770421b15dbd890717c514a17f))
+
 ## [1.0.0-alpha.13](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.12...app-v1.0.0-alpha.13) (2024-08-11)
 
 
