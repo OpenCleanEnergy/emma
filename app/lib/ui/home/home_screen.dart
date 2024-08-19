@@ -38,22 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           bottom: AppBarCommandProgressIndicator(command: viewModel.init),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 4),
-          child: Column(
-            children: [
-              Center(child: HomeStatusView(viewModel: viewModel)),
-              const SizedBox(height: 24),
-              Expanded(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 640),
-                  child: Image.asset(
-                      "assets/isometric-house-collection_1146735_brown.webp"),
-                ),
-              ),
-              const SizedBox(height: 16),
-            ],
-          ),
-        ));
+        body: Center(child: HomeStatusView(viewModel: viewModel)));
   }
 }
