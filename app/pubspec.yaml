@@ -83,7 +83,6 @@ flutter:
   # https://flutter.dev/assets-and-images/#from-packages
 
   assets:
-    - assets/isometric-house-collection_1146735_brown.webp
     - assets/icon_foreground_64.webp
 
   # To add custom fonts to your application, add a fonts section here,
