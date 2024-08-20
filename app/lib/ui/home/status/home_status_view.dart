@@ -7,7 +7,7 @@ import 'package:emma/ui/home/status/status_power_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
-class HomeStatusView extends StatelessWidget {
+class HomeStatusView extends StatefulWidget {
   HomeStatusView({
     super.key,
     required this.viewModel,
@@ -15,15 +15,23 @@ class HomeStatusView extends StatelessWidget {
 
   final HomeViewModel viewModel;
 
+  @override
+  State<HomeStatusView> createState() => _HomeStatusViewState();
+}
+
+class _HomeStatusViewState extends State<HomeStatusView>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller;
+
   // Avoid redraw of flow on each value change.
   late final _producerFlowDirection = computed(() {
-    return viewModel.producerStatus.currentPowerProduction.value > 0
+    return widget.viewModel.producerStatus.currentPowerProduction.value > 0
         ? StatusPowerFlowDirection.down
         : StatusPowerFlowDirection.none;
   });
 
   late final _gridFlowDirection = computed(() {
-    return switch (viewModel.gridStatus.currentPowerDirection.value) {
+    return switch (widget.viewModel.gridStatus.currentPowerDirection.value) {
       GridPowerDirection.swaggerGeneratedUnknown =>
         StatusPowerFlowDirection.none,
       GridPowerDirection.none => StatusPowerFlowDirection.none,
@@ -33,24 +41,45 @@ class HomeStatusView extends StatelessWidget {
   });
 
   @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+    _controller.repeat();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _producerFlowDirection.dispose();
+    _gridFlowDirection.dispose();
+    _controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Watch(
       (context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (viewModel.producerStatus.isAvailable.value) ...[
-            PhotovoltaicStatusIndicator(viewModel: viewModel.producerStatus),
+          if (widget.viewModel.producerStatus.isAvailable.value) ...[
+            PhotovoltaicStatusIndicator(
+                viewModel: widget.viewModel.producerStatus),
             StatusPowerFlow(
+              controller: _controller,
               direction: _producerFlowDirection.value,
             )
           ],
-          HomeStatusIndicator(viewModel: viewModel.consumerStatus),
-          if (viewModel.gridStatus.isAvailable.value) ...[
+          HomeStatusIndicator(viewModel: widget.viewModel.consumerStatus),
+          if (widget.viewModel.gridStatus.isAvailable.value) ...[
             StatusPowerFlow(
+              controller: _controller,
               direction: _gridFlowDirection.value,
             ),
-            GridStatusIndicator(viewModel: viewModel.gridStatus),
+            GridStatusIndicator(viewModel: widget.viewModel.gridStatus),
           ]
         ],
       ),

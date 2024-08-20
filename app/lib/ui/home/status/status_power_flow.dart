@@ -1,77 +1,100 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:simple_animations/simple_animations.dart';
 
 class StatusPowerFlow extends StatelessWidget {
   static const double _spacing = 16;
-  static const Duration _duration = Duration(seconds: 2);
 
-  static final _offsetProperty = MovieTweenProperty<double>();
-  static final _opacityProperty = MovieTweenProperty<double>();
-  static final _tween = MovieTween()
-    ..scene(duration: _duration, curve: Curves.easeInOutCubic)
-        .tween(
-            _offsetProperty, Tween(begin: -0.5 * _spacing, end: 0.5 * _spacing))
-        .tween(_opacityProperty, Tween(begin: 0.0, end: 1.0));
+  final Animation<double> _opacity;
+  final Animation<double> _offset;
 
-  const StatusPowerFlow({super.key, required this.direction});
+  StatusPowerFlow({
+    super.key,
+    required this.controller,
+    required this.direction,
+  })  : _opacity = Tween<double>(
+          begin: 0.0,
+          end: 1.0,
+        ).animate(CurvedAnimation(
+          parent: controller,
+          curve: Curves.easeInOut,
+        )),
+        _offset = Tween(
+          begin: -0.5 * _spacing,
+          end: 0.5 * _spacing,
+        ).animate(CurvedAnimation(
+          parent: controller,
+          curve: Curves.easeInOut,
+        ));
 
+  final AnimationController controller;
   final StatusPowerFlowDirection direction;
 
   @override
   Widget build(BuildContext context) {
-    final iconSize = 48.0;
+    const iconSize = 48.0;
 
     final inner = switch (direction) {
-      StatusPowerFlowDirection.none => Transform.rotate(
-          angle: pi / 2,
+      StatusPowerFlowDirection.none => RotatedBox(
+          quarterTurns: 1,
           child: Icon(
             Icons.remove,
             size: iconSize,
-          )),
-      _ => LoopAnimationBuilder(
-          duration: _duration,
-          tween: _tween,
-          builder: (context, value, child) {
-            return Stack(
-              children: [
-                Transform.translate(
-                    offset: Offset(0, value.get(_offsetProperty) - _spacing),
-                    child: Opacity(
-                      opacity: value.get(_opacityProperty),
-                      child: child,
-                    )),
-                Transform.translate(
-                  offset: Offset(0, value.get(_offsetProperty)),
-                  child: child,
-                ),
-                Transform.translate(
-                  offset: Offset(0, value.get(_offsetProperty) + _spacing),
-                  child: Opacity(
-                    opacity: 1.0 - value.get(_opacityProperty),
-                    child: child,
-                  ),
-                )
-              ],
-            );
-          },
-          child: Transform.rotate(
-              angle: pi / 2,
-              child: Icon(
-                Icons.chevron_right_rounded,
-                size: iconSize,
-              )),
+          ),
         ),
+      _ => AnimatedBuilder(
+          animation: controller,
+          builder: _buildAnimation,
+          child: RotatedBox(
+            quarterTurns: switch (direction) {
+              StatusPowerFlowDirection.none => 0,
+              StatusPowerFlowDirection.down => 1,
+              StatusPowerFlowDirection.up => 3,
+            },
+            child: Icon(
+              Icons.chevron_right_rounded,
+              size: iconSize,
+            ),
+          ),
+        )
     };
 
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: switch (direction) {
-          StatusPowerFlowDirection.none => inner,
-          StatusPowerFlowDirection.down => inner,
-          StatusPowerFlowDirection.up =>
-            Transform.rotate(angle: pi, child: inner),
-        });
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: inner,
+    );
+  }
+
+  Widget _buildAnimation(BuildContext context, Widget? child) {
+    assert(child != null);
+    final directionFactor = switch (direction) {
+      StatusPowerFlowDirection.none => 0.0,
+      StatusPowerFlowDirection.down => 1.0,
+      StatusPowerFlowDirection.up => -1.0,
+    };
+
+    final fadeIn = Transform.translate(
+        offset: Offset(0, -1 * directionFactor * _spacing),
+        child: Opacity(
+          opacity: _opacity.value,
+          child: child,
+        ));
+
+    final fadeOut = Transform.translate(
+      offset: Offset(0, directionFactor * _spacing),
+      child: Opacity(
+        opacity: 1.0 - _opacity.value,
+        child: child,
+      ),
+    );
+
+    return Transform.translate(
+        offset: Offset(0, directionFactor * _offset.value),
+        child: Stack(
+          children: [
+            fadeOut,
+            fadeIn,
+            child!,
+          ],
+        ));
   }
 }
 
