@@ -33,7 +33,7 @@ class _HomeStatusViewState extends State<HomeStatusView>
   late final _producerFlowType = computed(() {
     return widget.viewModel.producerStatus.currentPowerProduction.value > 0
         ? StatusPowerFlowType.good
-        : StatusPowerFlowType.bad;
+        : StatusPowerFlowType.neutral;
   });
 
   late final _gridFlowDirection = computed(() {
