@@ -57,20 +57,20 @@ class _HomeStatusViewState extends State<HomeStatusView>
 
   @override
   void initState() {
-    super.initState();
     _controller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
     );
     _controller.repeat();
+    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     _producerFlowDirection.dispose();
     _gridFlowDirection.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
