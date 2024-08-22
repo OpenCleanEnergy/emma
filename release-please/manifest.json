@@ -1,5 +1,5 @@
 {
-  "app": "1.0.0-alpha.14",
-  "server": "1.0.0-alpha.29",
+  "app": "1.0.0-alpha.15",
+  "server": "1.0.0-alpha.30",
   "keycloak": "1.0.0-alpha.3"
 }
