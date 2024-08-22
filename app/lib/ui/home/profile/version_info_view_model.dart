@@ -3,10 +3,10 @@ import 'package:emma/ui/commands/command.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:signals/signals.dart';
 
-class AppInfoViewModel {
+class VersionInfoViewModel {
   final BackendApi _api;
 
-  AppInfoViewModel({required BackendApi api}) : _api = api {
+  VersionInfoViewModel({required BackendApi api}) : _api = api {
     init = _init.toCommand();
   }
   late final NoArgCommand init;

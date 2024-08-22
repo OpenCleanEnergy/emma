@@ -5,7 +5,7 @@ import 'package:emma/application/backend_api/backend_api_factory.dart';
 import 'package:emma/infrastructure/oidc_configuration.dart';
 import 'package:emma/infrastructure/oidc_user_repository.dart';
 import 'package:emma/infrastructure/window_size_writer.dart';
-import 'package:emma/ui/app_info_view_model.dart';
+import 'package:emma/ui/home/profile/version_info_view_model.dart';
 import 'package:emma/ui/app_messenger.dart';
 import 'package:emma/ui/commands/command.dart';
 import 'package:emma/ui/devices/add/add_consumer_view_model.dart';
@@ -56,7 +56,7 @@ Future<void> bootstrap() async {
 
   // - user
   di.registerLazySingleton(() => UserViewModel(di<IUserRepository>()));
-  di.registerLazySingleton(() => AppInfoViewModel(api: di<BackendApi>()));
+  di.registerLazySingleton(() => VersionInfoViewModel(api: di<BackendApi>()));
 
   // - devices
   di.registerFactory(() => DevicesViewModel(api: di<BackendApi>()));

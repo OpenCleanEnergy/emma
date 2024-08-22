@@ -1,8 +1,8 @@
 import 'package:emma/infrastructure/window_size_writer.dart';
 import 'package:emma/ui/app_icons.dart';
 import 'package:emma/ui/app_navigator.dart';
-import 'package:emma/ui/home/profile/about_screen.dart';
-import 'package:emma/ui/home/profile/app_info.dart';
+import 'package:emma/ui/home/profile/information_screen.dart';
+import 'package:emma/ui/home/profile/version_info.dart';
 import 'package:emma/ui/home/profile/development/screen_size_selector.dart';
 import 'package:emma/ui/locator.dart';
 import 'package:emma/ui/logs/logs_screen.dart';
@@ -61,7 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     items.add(
       const Padding(
         padding: EdgeInsets.all(8.0),
-        child: AppInfo(),
+        child: VersionInfo(),
       ),
     );
 

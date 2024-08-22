@@ -1,9 +1,5 @@
 # Assets
 
-## [isometric-house-collection_1146735](https://www.freepik.com/free-vector/isometric-house-collection_1146735.htm)
-
-- Attribution required
-
 ## [app icons by icon kitchen](https://icon.kitchen/i/H4sIAAAAAAAAA0WOzw6CMAzG36VeuRhZSLj6CHIzHsZWZLFQsjGNIby73cBw6Z9fv7bfAm9NEQPUC1jtX02PA0LdaQpYQPdsvpO0YMhN2s%2BQ0HWvZSOgJOA4kxvRytQZHpPceUMIa5YzsRd2Uq1RVSWi9mCXc6lKldn%2FUx4lcOv1RrZjBczJm93Nye2BbaRk%2FQ56tJ5ddsBB4gdbeKw%2FFUIyoN0AAAA%3D)
 
 Update icons:

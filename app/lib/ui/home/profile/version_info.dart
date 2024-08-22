@@ -1,22 +1,22 @@
-import 'package:emma/ui/app_info_view_model.dart';
+import 'package:emma/ui/home/profile/version_info_view_model.dart';
 import 'package:emma/ui/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
-class AppInfo extends StatefulWidget {
-  const AppInfo({super.key});
+class VersionInfo extends StatefulWidget {
+  const VersionInfo({super.key});
 
   @override
-  State<AppInfo> createState() => _AppInfoState();
+  State<VersionInfo> createState() => _VersionInfoState();
 }
 
-class _AppInfoState extends State<AppInfo> {
-  late final AppInfoViewModel _appInfo;
+class _VersionInfoState extends State<VersionInfo> {
+  late final VersionInfoViewModel _appInfo;
 
   @override
   void initState() {
     super.initState();
-    _appInfo = locator.get<AppInfoViewModel>();
+    _appInfo = locator.get<VersionInfoViewModel>();
     _appInfo.init();
   }
 

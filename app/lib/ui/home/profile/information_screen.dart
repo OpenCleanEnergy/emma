@@ -12,24 +12,18 @@ class AboutScreen extends StatelessWidget {
       ListTile(
         title: const Text("Impressum"),
         trailing: const Icon(Icons.open_in_new),
-        onTap: () => launchUrlString("https://opencleanenergy.org/legal-notice/"),
+        onTap: () =>
+            launchUrlString("https://opencleanenergy.org/legal-notice/"),
       ),
       ListTile(
         title: const Text("Datenschutz"),
         trailing: const Icon(Icons.open_in_new),
-        onTap: () => launchUrlString("https://opencleanenergy.org/privacy-policy/"),
+        onTap: () =>
+            launchUrlString("https://opencleanenergy.org/privacy-policy/"),
       ),
       Column(
         children: [
           const ListTile(title: Text("Bildquellen:")),
-          ListTile(
-            title: const Padding(
-              padding: EdgeInsets.only(left: 16.0),
-              child: Text("Freepik"),
-            ),
-            trailing: const Icon(Icons.open_in_new),
-            onTap: () => launchUrlString("https://freepik.com"),
-          ),
           ListTile(
             title: const Padding(
               padding: EdgeInsets.only(left: 16.0),

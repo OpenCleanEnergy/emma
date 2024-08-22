@@ -50,6 +50,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   mutex: ^3.1.0
   web: ^0.5.1
+  simple_animations: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -82,7 +83,6 @@ flutter:
   # https://flutter.dev/assets-and-images/#from-packages
 
   assets:
-    - assets/isometric-house-collection_1146735_brown.webp
     - assets/icon_foreground_64.webp
 
   # To add custom fonts to your application, add a fonts section here,
