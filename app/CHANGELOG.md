@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.15](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.14...app-v1.0.0-alpha.15) (2024-08-22)
+
+
+### 🚀 Features
+
+* Energy flow on home screen. ([#182](https://github.com/OpenCleanEnergy/emma/issues/182)) ([520379c](https://github.com/OpenCleanEnergy/emma/commit/520379c1a4904ee3bd9863726274f1c8b743fe89))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group across 1 directory with 2 updates ([#178](https://github.com/OpenCleanEnergy/emma/issues/178)) ([fc485c9](https://github.com/OpenCleanEnergy/emma/commit/fc485c947dbf44f602071d1998b167fac16d6081))
+
 ## [1.0.0-alpha.14](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.13...app-v1.0.0-alpha.14) (2024-08-14)
 
 
