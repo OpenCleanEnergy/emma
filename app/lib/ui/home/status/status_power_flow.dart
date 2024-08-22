@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class StatusPowerFlow extends StatelessWidget {
+  static const _iconSize = 48.0;
   static const _spacing = 16.0;
 
   static final _opacityTween = Tween<double>(
@@ -23,6 +24,7 @@ class StatusPowerFlow extends StatelessWidget {
     super.key,
     required this.controller,
     required this.direction,
+    this.type = StatusPowerFlowType.neutral,
   })  : _opacity = _opacityTween.animate(CurvedAnimation(
           parent: controller,
           curve: Curves.easeInOut,
@@ -39,17 +41,24 @@ class StatusPowerFlow extends StatelessWidget {
 
   final AnimationController controller;
   final StatusPowerFlowDirection direction;
+  final StatusPowerFlowType type;
 
   @override
   Widget build(BuildContext context) {
-    const iconSize = 48.0;
+    final theme = Theme.of(context);
+    final color = switch (type) {
+      StatusPowerFlowType.neutral => null,
+      StatusPowerFlowType.good => theme.colorScheme.primary,
+      StatusPowerFlowType.bad => theme.colorScheme.error,
+    };
 
     final inner = switch (direction) {
       StatusPowerFlowDirection.none => RotatedBox(
           quarterTurns: 1,
           child: Icon(
             Icons.remove,
-            size: iconSize,
+            size: _iconSize,
+            color: color,
           ),
         ),
       _ => AnimatedBuilder(
@@ -59,7 +68,8 @@ class StatusPowerFlow extends StatelessWidget {
             angle: _radian,
             child: Icon(
               Icons.chevron_right_rounded,
-              size: iconSize,
+              size: _iconSize,
+              color: color,
             ),
           ),
         )
@@ -105,4 +115,10 @@ enum StatusPowerFlowDirection {
   none,
   down,
   up,
+}
+
+enum StatusPowerFlowType {
+  neutral,
+  good,
+  bad,
 }

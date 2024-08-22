@@ -1,4 +1,3 @@
-import 'package:emma/ui/app_icons.dart';
 import 'package:emma/ui/shared/unit_text.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
@@ -13,14 +12,12 @@ class StatusIndicator extends StatelessWidget {
     required this.value,
     required this.unit,
     this.maxValue,
-    ReadonlySignal<StatusIndicatorDirection>? direction,
-  }) : direction = direction ?? signal(StatusIndicatorDirection.none);
+  });
 
   final ReadonlySignal<IconData> icon;
   final ReadonlySignal<double> value;
   final ReadonlySignal<double>? maxValue;
   final String unit;
-  final ReadonlySignal<StatusIndicatorDirection> direction;
 
   late final _indicatorValue = computed(() {
     if (value.value == 0) {
@@ -46,8 +43,7 @@ class StatusIndicator extends StatelessWidget {
       children: [
         Column(
           children: [
-            Watch((context) => Row(
-                mainAxisSize: MainAxisSize.min, children: _getIcons(context))),
+            Watch((context) => Icon(icon.value, size: _iconSize)),
             Watch((context) => UnitText(value.value, unit)),
           ],
         ),
@@ -69,25 +65,6 @@ class StatusIndicator extends StatelessWidget {
         )
       ],
     );
-  }
-
-  List<Icon> _getIcons(BuildContext context) {
-    final defaultIcon = Icon(icon.value, size: _iconSize);
-    final directionIcon = switch (direction.value) {
-      StatusIndicatorDirection.none => null,
-      StatusIndicatorDirection.up => Icon(
-          AppIcons.arrow_upward,
-          size: _iconSize,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-      StatusIndicatorDirection.down => Icon(
-          AppIcons.arrow_downward,
-          size: _iconSize,
-          color: Theme.of(context).colorScheme.error,
-        )
-    };
-
-    return [defaultIcon, if (directionIcon != null) directionIcon];
   }
 }
 

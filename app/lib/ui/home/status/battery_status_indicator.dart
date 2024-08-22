@@ -1,4 +1,3 @@
-import 'package:emma/application/backend_api/swagger_generated_code/backend_api.enums.swagger.dart';
 import 'package:emma/ui/app_icons.dart';
 import 'package:emma/ui/home/home_view_model.dart';
 import 'package:emma/ui/home/status/status_indicator.dart';
@@ -12,7 +11,6 @@ class BatteryStatusIndicator extends StatelessWidget {
   final BatteryStatusViewModel viewModel;
 
   late final _icon = computed(_getBatteryIcon);
-  late final _direction = computed(_getDirection);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,6 @@ class BatteryStatusIndicator extends StatelessWidget {
       value: viewModel.charge,
       maxValue: signal(_maxValue),
       unit: "%",
-      direction: _direction,
     );
   }
 
@@ -40,15 +37,5 @@ class BatteryStatusIndicator extends StatelessWidget {
     final value = viewModel.charge.value / _maxValue;
     final index = (value * (icons.length - 1)).round();
     return icons[index];
-  }
-
-  StatusIndicatorDirection _getDirection() {
-    return switch (viewModel.chargeStatus.value) {
-      BatteryChargeStatus.swaggerGeneratedUnknown =>
-        StatusIndicatorDirection.none,
-      BatteryChargeStatus.idle => StatusIndicatorDirection.none,
-      BatteryChargeStatus.charging => StatusIndicatorDirection.up,
-      BatteryChargeStatus.discharging => StatusIndicatorDirection.down
-    };
   }
 }

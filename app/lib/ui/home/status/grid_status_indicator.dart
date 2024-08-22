@@ -5,38 +5,39 @@ import 'package:emma/ui/home/status/status_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
-class GridStatusIndicator extends StatelessWidget {
-  GridStatusIndicator({super.key, required this.viewModel});
+class GridStatusIndicator extends StatefulWidget {
+  const GridStatusIndicator({super.key, required this.viewModel});
 
   final GridStatusViewModel viewModel;
 
-  late final _direction = computed(() {
-    return switch (viewModel.currentPowerDirection.value) {
-      GridPowerDirection.swaggerGeneratedUnknown =>
-        StatusIndicatorDirection.none,
-      GridPowerDirection.none => StatusIndicatorDirection.none,
-      GridPowerDirection.consume => StatusIndicatorDirection.down,
-      GridPowerDirection.feedin => StatusIndicatorDirection.up,
+  @override
+  State<GridStatusIndicator> createState() => _GridStatusIndicatorState();
+}
+
+class _GridStatusIndicatorState extends State<GridStatusIndicator> {
+  late final _maximumPower = computed(() {
+    return switch (widget.viewModel.currentPowerDirection.value) {
+      GridPowerDirection.swaggerGeneratedUnknown => 1.0,
+      GridPowerDirection.none => 1.0,
+      GridPowerDirection.consume =>
+        widget.viewModel.maximumPowerConsumption.value,
+      GridPowerDirection.feedin => widget.viewModel.maximumPowerFeedIn.value,
     };
   });
 
-  late final _maximumPower = computed(() => switch (_direction.value) {
-        StatusIndicatorDirection.none => 1.0,
-        // Import
-        StatusIndicatorDirection.up => viewModel.maximumPowerFeedIn.value,
-        // Export
-        StatusIndicatorDirection.down =>
-          viewModel.maximumPowerConsumption.value,
-      });
+  @override
+  void dispose() {
+    _maximumPower.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return StatusIndicator(
       icon: signal(AppIcons.transmission_tower),
-      value: viewModel.currentPower,
+      value: widget.viewModel.currentPower,
       maxValue: _maximumPower,
       unit: "W",
-      direction: _direction,
     );
   }
 }

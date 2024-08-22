@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
 class HomeStatusView extends StatefulWidget {
-  HomeStatusView({
+  const HomeStatusView({
     super.key,
     required this.viewModel,
   });
@@ -30,6 +30,12 @@ class _HomeStatusViewState extends State<HomeStatusView>
         : StatusPowerFlowDirection.none;
   });
 
+  late final _producerFlowType = computed(() {
+    return widget.viewModel.producerStatus.currentPowerProduction.value > 0
+        ? StatusPowerFlowType.good
+        : StatusPowerFlowType.bad;
+  });
+
   late final _gridFlowDirection = computed(() {
     return switch (widget.viewModel.gridStatus.currentPowerDirection.value) {
       GridPowerDirection.swaggerGeneratedUnknown =>
@@ -37,6 +43,15 @@ class _HomeStatusViewState extends State<HomeStatusView>
       GridPowerDirection.none => StatusPowerFlowDirection.none,
       GridPowerDirection.consume => StatusPowerFlowDirection.up,
       GridPowerDirection.feedin => StatusPowerFlowDirection.down,
+    };
+  });
+
+  late final _gridFlowType = computed(() {
+    return switch (widget.viewModel.gridStatus.currentPowerDirection.value) {
+      GridPowerDirection.swaggerGeneratedUnknown => StatusPowerFlowType.neutral,
+      GridPowerDirection.none => StatusPowerFlowType.neutral,
+      GridPowerDirection.consume => StatusPowerFlowType.bad,
+      GridPowerDirection.feedin => StatusPowerFlowType.good,
     };
   });
 
@@ -71,6 +86,7 @@ class _HomeStatusViewState extends State<HomeStatusView>
             StatusPowerFlow(
               controller: _controller,
               direction: _producerFlowDirection.value,
+              type: _producerFlowType.value,
             )
           ],
           HomeStatusIndicator(viewModel: widget.viewModel.consumerStatus),
@@ -78,6 +94,7 @@ class _HomeStatusViewState extends State<HomeStatusView>
             StatusPowerFlow(
               controller: _controller,
               direction: _gridFlowDirection.value,
+              type: _gridFlowType.value,
             ),
             GridStatusIndicator(viewModel: widget.viewModel.gridStatus),
           ]
