@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.17](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.16...app-v1.0.0-alpha.17) (2024-08-22)
+
+
+### 🐛 Bug Fixes
+
+* add landscape orientation for home status view. ([d599dae](https://github.com/OpenCleanEnergy/emma/commit/d599dae7bde6dfd02a2d640e2fb7518fa72756fd))
+
+
+### 📦️ Build System, Dependencies
+
+* Adds `signals_lint` linter ([fb28263](https://github.com/OpenCleanEnergy/emma/commit/fb28263f447aadb4db228cd98c187f7f1bd5deb9))
+
 ## [1.0.0-alpha.16](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.15...app-v1.0.0-alpha.16) (2024-08-22)
 
 
