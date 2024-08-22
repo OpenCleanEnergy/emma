@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.16](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.15...app-v1.0.0-alpha.16) (2024-08-22)
+
+
+### 🐛 Bug Fixes
+
+* use neutral flow type for zero production ([12e86ae](https://github.com/OpenCleanEnergy/emma/commit/12e86ae0f14173a114729ce8cbdc711e2d6c9c4b))
+
 ## [1.0.0-alpha.15](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.14...app-v1.0.0-alpha.15) (2024-08-22)
 
 
