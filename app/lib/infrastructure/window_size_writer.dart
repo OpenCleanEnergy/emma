@@ -5,6 +5,7 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class WindowSizeWriter {
+  static bool _orientationToggle = false;
   static String _current = "Pixel 7";
 
   static final sizes = {
@@ -29,5 +30,19 @@ abstract class WindowSizeWriter {
 
     _current = key;
     await DesktopWindow.setWindowSize(size);
+  }
+
+  static Future<void> toggleOrientation() async {
+    final size = sizes[_current];
+    if (size == null) {
+      return;
+    }
+
+    _orientationToggle = !_orientationToggle;
+
+    await DesktopWindow.setWindowSize(switch (_orientationToggle) {
+      false => size,
+      true => Size(size.height, size.width),
+    });
   }
 }

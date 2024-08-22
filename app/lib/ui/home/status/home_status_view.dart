@@ -27,7 +27,7 @@ class _HomeStatusViewState extends State<HomeStatusView>
   late final _producerFlowDirection = computed(() {
     return widget.viewModel.producerStatus.currentPowerProduction.value > 0
         ? StatusPowerFlowDirection.down
-        : StatusPowerFlowDirection.none;
+        : StatusPowerFlowDirection.noneVertical;
   });
 
   late final _producerFlowType = computed(() {
@@ -39,8 +39,8 @@ class _HomeStatusViewState extends State<HomeStatusView>
   late final _gridFlowDirection = computed(() {
     return switch (widget.viewModel.gridStatus.currentPowerDirection.value) {
       GridPowerDirection.swaggerGeneratedUnknown =>
-        StatusPowerFlowDirection.none,
-      GridPowerDirection.none => StatusPowerFlowDirection.none,
+        StatusPowerFlowDirection.noneVertical,
+      GridPowerDirection.none => StatusPowerFlowDirection.noneVertical,
       GridPowerDirection.consume => StatusPowerFlowDirection.up,
       GridPowerDirection.feedin => StatusPowerFlowDirection.down,
     };
@@ -68,38 +68,90 @@ class _HomeStatusViewState extends State<HomeStatusView>
   @override
   void dispose() {
     _producerFlowDirection.dispose();
+    _producerFlowType.dispose();
     _gridFlowDirection.dispose();
+    _gridFlowType.dispose();
     _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Watch(
-      (context) => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if (widget.viewModel.producerStatus.isAvailable.value) ...[
-            PhotovoltaicStatusIndicator(
-                viewModel: widget.viewModel.producerStatus),
-            StatusPowerFlow(
-              controller: _controller,
-              direction: _producerFlowDirection.value,
-              type: _producerFlowType.value,
-            )
-          ],
-          HomeStatusIndicator(viewModel: widget.viewModel.consumerStatus),
-          if (widget.viewModel.gridStatus.isAvailable.value) ...[
-            StatusPowerFlow(
-              controller: _controller,
-              direction: _gridFlowDirection.value,
-              type: _gridFlowType.value,
-            ),
-            GridStatusIndicator(viewModel: widget.viewModel.gridStatus),
-          ]
-        ],
-      ),
+    return OrientationBuilder(
+      builder: (context, orientation) => switch (orientation) {
+        Orientation.portrait => _buildPortrait(context),
+        Orientation.landscape => _buildLandscape(context),
+      },
+    );
+  }
+
+  Widget _buildPortrait(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Watch((context) => Column(
+              children: [
+                if (widget.viewModel.producerStatus.isAvailable.value) ...[
+                  PhotovoltaicStatusIndicator(
+                      viewModel: widget.viewModel.producerStatus),
+                  StatusPowerFlow(
+                    controller: _controller,
+                    direction: _producerFlowDirection.value,
+                    type: _producerFlowType.value,
+                  )
+                ],
+              ],
+            )),
+        HomeStatusIndicator(viewModel: widget.viewModel.consumerStatus),
+        Watch((context) => Column(
+              children: [
+                if (widget.viewModel.gridStatus.isAvailable.value) ...[
+                  StatusPowerFlow(
+                    controller: _controller,
+                    direction: _gridFlowDirection.value,
+                    type: _gridFlowType.value,
+                  ),
+                  GridStatusIndicator(viewModel: widget.viewModel.gridStatus),
+                ]
+              ],
+            )),
+      ],
+    );
+  }
+
+  Widget _buildLandscape(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Watch(
+          (context) => Row(children: [
+            if (widget.viewModel.producerStatus.isAvailable.value) ...[
+              PhotovoltaicStatusIndicator(
+                  viewModel: widget.viewModel.producerStatus),
+              StatusPowerFlow(
+                controller: _controller,
+                direction: _producerFlowDirection.value.toLandscape(),
+                type: _producerFlowType.value,
+              )
+            ]
+          ]),
+        ),
+        HomeStatusIndicator(viewModel: widget.viewModel.consumerStatus),
+        Watch(
+          (context) => Row(children: [
+            if (widget.viewModel.gridStatus.isAvailable.value) ...[
+              StatusPowerFlow(
+                controller: _controller,
+                direction: _gridFlowDirection.value.toLandscape(),
+                type: _gridFlowType.value,
+              ),
+              GridStatusIndicator(viewModel: widget.viewModel.gridStatus),
+            ]
+          ]),
+        )
+      ],
     );
   }
 }

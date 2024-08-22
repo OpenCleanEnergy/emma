@@ -42,6 +42,7 @@ class StatusIndicator extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Watch((context) => Icon(icon.value, size: _iconSize)),
             Watch((context) => UnitText(value.value, unit)),

@@ -34,8 +34,11 @@ class StatusPowerFlow extends StatelessWidget {
           curve: Curves.easeInOut,
         )),
         _radian = switch (direction) {
-          StatusPowerFlowDirection.none => 0,
+          StatusPowerFlowDirection.noneHorizontal => 0,
+          StatusPowerFlowDirection.noneVertical => math.pi * 0.5,
+          StatusPowerFlowDirection.right => 0,
           StatusPowerFlowDirection.down => math.pi * 0.5,
+          StatusPowerFlowDirection.left => math.pi * 1.0,
           StatusPowerFlowDirection.up => math.pi * 1.5,
         };
 
@@ -53,8 +56,10 @@ class StatusPowerFlow extends StatelessWidget {
     };
 
     final inner = switch (direction) {
-      StatusPowerFlowDirection.none => RotatedBox(
-          quarterTurns: 1,
+      StatusPowerFlowDirection.noneVertical ||
+      StatusPowerFlowDirection.noneHorizontal =>
+        Transform.rotate(
+          angle: _radian,
           child: Icon(
             Icons.remove,
             size: _iconSize,
@@ -76,7 +81,7 @@ class StatusPowerFlow extends StatelessWidget {
     };
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.all(12),
       child: inner,
     );
   }
@@ -85,7 +90,7 @@ class StatusPowerFlow extends StatelessWidget {
     assert(child != null);
 
     final fadeIn = Transform.translate(
-        offset: Offset.fromDirection(_radian * -1, _spacing),
+        offset: Offset.fromDirection(_radian + math.pi, _spacing),
         child: Opacity(
           opacity: _opacity.value,
           child: child,
@@ -112,9 +117,27 @@ class StatusPowerFlow extends StatelessWidget {
 }
 
 enum StatusPowerFlowDirection {
-  none,
+  noneHorizontal,
+  noneVertical,
+  right,
   down,
+  left,
   up,
+}
+
+extension StatusPowerFlowDirectionExtensions on StatusPowerFlowDirection {
+  StatusPowerFlowDirection toLandscape() {
+    return switch (this) {
+      StatusPowerFlowDirection.noneHorizontal =>
+        StatusPowerFlowDirection.noneHorizontal,
+      StatusPowerFlowDirection.noneVertical =>
+        StatusPowerFlowDirection.noneHorizontal,
+      StatusPowerFlowDirection.right => StatusPowerFlowDirection.right,
+      StatusPowerFlowDirection.down => StatusPowerFlowDirection.right,
+      StatusPowerFlowDirection.left => StatusPowerFlowDirection.left,
+      StatusPowerFlowDirection.up => StatusPowerFlowDirection.left,
+    };
+  }
 }
 
 enum StatusPowerFlowType {
