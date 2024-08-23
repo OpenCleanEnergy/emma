@@ -18,10 +18,11 @@ class AppIcons {
   // Default:
   static const IconData add = Icons.add;
 
-  static const IconData arrow_downward = Icons.arrow_downward_rounded;
-  static const IconData arrow_upward = Icons.arrow_upward_rounded;
   static const IconData arrow_next = Icons.chevron_right_rounded;
   static const IconData arrow_prev = Icons.chevron_left_rounded;
+  static const IconData arrow_flow_right = Icons.chevron_right_rounded;
+  static const IconData arrow_flow_right_double =
+      Icons.keyboard_double_arrow_right_rounded;
 
   static const IconData battery_0_bar = Icons.battery_0_bar_rounded;
   static const IconData battery_1_bar = Icons.battery_1_bar_rounded;
