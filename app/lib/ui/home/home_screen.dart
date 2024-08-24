@@ -35,9 +35,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          bottom: AppBarCommandProgressIndicator(command: viewModel.init),
-        ),
-        body: Center(child: HomeStatusView(viewModel: viewModel)));
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: AppBarCommandProgressIndicator(command: viewModel.init),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: HomeStatusView(viewModel: viewModel),
+          ),
+        ],
+      ),
+    );
   }
 }
