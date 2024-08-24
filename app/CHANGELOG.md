@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.18](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.17...app-v1.0.0-alpha.18) (2024-08-24)
+
+
+### 🚀 Features
+
+* Use chevron arrow for electricity meter list item to match power flow icons. ([cc1409f](https://github.com/OpenCleanEnergy/emma/commit/cc1409fcf3edc635491f0f1ca73316e03532fb45))
+
+
+### 🐛 Bug Fixes
+
+* Fixes home screen layout. status view was off center. ([a700c33](https://github.com/OpenCleanEnergy/emma/commit/a700c3330ba060116b5a2a7d804dd0e1d15b3baa))
+
 ## [1.0.0-alpha.17](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.16...app-v1.0.0-alpha.17) (2024-08-22)
 
 
