@@ -6,16 +6,16 @@ import 'package:flutter/foundation.dart';
 
 abstract class WindowSizeWriter {
   static bool _orientationToggle = false;
-  static String _current = "Pixel 7";
+  static String _current = "Phone Play Store";
 
   static final sizes = {
+    'Phone Play Store': const Size(360, 740),
+    'Tablet 7" Play Store': const Size(600, 900),
+    'Tablet 10" Play Store': const Size(800, 1280),
     'Pixel 7': const Size(412, 915),
     'Galaxy S8+': const Size(360, 740),
     'iPhone SE': const Size(375, 667),
     'Galaxy Fold': const Size(280, 653),
-    'Phone 9:16': const Size(360, 740),
-    'Tablet 7"': const Size(600, 900),
-    'Tablet 10"': const Size(800, 1280),
   };
 
   static get isSupported => !kIsWeb && (Platform.isLinux || Platform.isWindows);
