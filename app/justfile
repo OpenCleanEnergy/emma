@@ -52,3 +52,7 @@ adb-start:
 # Install the app on connected device
 install-app environment='production': (build 'apk' 'production')
   flutter install
+
+# Convert screenshots for play store
+play-store-convert:
+  cd assets/google-play-store/screenshots && ./convert.sh
