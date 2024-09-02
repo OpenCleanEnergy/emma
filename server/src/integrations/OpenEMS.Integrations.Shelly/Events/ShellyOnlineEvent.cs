@@ -7,6 +7,6 @@ namespace OpenEMS.Integrations.Shelly.Events;
 /// </summary>
 public sealed class ShellyOnlineEvent : ShellyEvent
 {
-    public override EventKey EventKey { get; } = "emma.integrations.shelly.online";
+    public override EventKey EventKey { get; } = "openems.integrations.shelly.online";
     public required ShellyOnlineStatus Online { get; init; }
 }

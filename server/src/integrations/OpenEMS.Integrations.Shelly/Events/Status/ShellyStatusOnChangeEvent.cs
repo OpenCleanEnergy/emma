@@ -7,6 +7,6 @@ namespace OpenEMS.Integrations.Shelly.Events.Status;
 /// </summary>
 public class ShellyStatusOnChangeEvent : ShellyEvent
 {
-    public override EventKey EventKey { get; } = "emma.integrations.shelly.status-on-change";
+    public override EventKey EventKey { get; } = "openems.integrations.shelly.status-on-change";
     public required ShellyStatus Status { get; init; }
 }

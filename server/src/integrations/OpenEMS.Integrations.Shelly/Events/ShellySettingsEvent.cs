@@ -7,5 +7,5 @@ namespace OpenEMS.Integrations.Shelly.Events;
 /// </summary>
 public class ShellySettingsEvent : ShellyEvent
 {
-    public override EventKey EventKey { get; } = "emma.integrations.shelly.settings";
+    public override EventKey EventKey { get; } = "openems.integrations.shelly.settings";
 }

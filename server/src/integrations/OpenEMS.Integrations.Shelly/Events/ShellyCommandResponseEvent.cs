@@ -5,7 +5,7 @@ namespace OpenEMS.Integrations.Shelly.Events;
 
 public sealed class ShellyCommandResponseEvent : ShellyEvent
 {
-    public override EventKey EventKey { get; } = "emma.integrations.shelly.response";
+    public override EventKey EventKey { get; } = "openems.integrations.shelly.response";
     public required TransactionId TrId { get; init; }
 
     public required ShellyCommandResponseEventData Data { get; init; }
