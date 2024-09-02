@@ -34,11 +34,15 @@ class _StatusIndicatorState extends State<StatusIndicator> {
       return 1.0;
     } else if (maxValue < value) {
       return 1.0;
-    } else {
-      final fraction = value / maxValue;
-      // Round to 2 decimal places
-      return (fraction * 100).round() / 100;
     }
+
+    final fraction = value / maxValue;
+    // Round to 2 decimal places
+    final rounded = (fraction * 100).round() / 100;
+
+    // As long as the value is greater than 0,
+    // the rounded value should be at least 0.01
+    return value > 0 && rounded == 0 ? 0.01 : rounded;
   });
 
   late final _tween = computed(() => Tween<double>(
