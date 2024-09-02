@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.19](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.18...app-v1.0.0-alpha.19) (2024-09-02)
+
+
+### 🚀 Features
+
+* Improve status indicator on home screen. ([#191](https://github.com/OpenCleanEnergy/emma/issues/191)) ([e35cb2b](https://github.com/OpenCleanEnergy/emma/commit/e35cb2b85d345b5d50e6ed3562f4b2a07b8254d6))
+
+
+### 📦️ Build System, Dependencies
+
+* Uses [`flutter.minSdkVersion` constant](https://github.com/flutter/flutter/blob/master/packages/flutter_tools/gradle/src/main/groovy/flutter.groovy#L48) because it is `21` right now. ([e547b50](https://github.com/OpenCleanEnergy/emma/commit/e547b50e306e42ec88eb9882ff9c0cc6ab46668e))
+
 ## [1.0.0-alpha.18](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.17...app-v1.0.0-alpha.18) (2024-08-24)
 
 

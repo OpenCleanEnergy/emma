@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.31](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.30...server-v1.0.0-alpha.31) (2024-09-02)
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group in /server with 7 updates ([#188](https://github.com/OpenCleanEnergy/emma/issues/188)) ([b2a29b3](https://github.com/OpenCleanEnergy/emma/commit/b2a29b33d5e1bcb75eb269910cba99cf47fdeff4))
+
 ## [1.0.0-alpha.30](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.29...server-v1.0.0-alpha.30) (2024-08-22)
 
 
