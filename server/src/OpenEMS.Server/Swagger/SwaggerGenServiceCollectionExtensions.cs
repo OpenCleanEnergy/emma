@@ -16,7 +16,7 @@ public static class SwaggerGenServiceCollectionExtensions
                 "v1",
                 new OpenApiInfo
                 {
-                    Title = "EMMA backend server",
+                    Title = "OpenEMS backend server",
                     Version = "v1",
                     Description = $"You **MUST** authorize first!",
                 }
@@ -49,8 +49,8 @@ public static class SwaggerGenServiceCollectionExtensions
                         Implicit = new OpenApiOAuthFlow
                         {
                             AuthorizationUrl = keycloakConfiguration.AuthorizationEndpoint,
-                        }
-                    }
+                        },
+                    },
                 }
             );
             options.AddSecurityRequirement(
@@ -62,11 +62,11 @@ public static class SwaggerGenServiceCollectionExtensions
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = securityId
-                            }
+                                Id = securityId,
+                            },
                         },
                         Array.Empty<string>()
-                    }
+                    },
                 }
             );
         });

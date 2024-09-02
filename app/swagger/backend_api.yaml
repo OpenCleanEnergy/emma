@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: EMMA backend server
+  title: OpenEMS backend server
   description: You **MUST** authorize first!
   version: v1
 paths:
