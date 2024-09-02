@@ -22,7 +22,7 @@ public static class DeployTargets
 
     public static Targets AddDeployTargets(this Targets targets)
     {
-        var tempDir = new DirectoryInfo("/tmp/emma");
+        var tempDir = new DirectoryInfo("/tmp/openems");
         var templateDir = new DirectoryInfo("./devops/templates");
         var ansibleDir = new DirectoryInfo(Path.Combine(tempDir.FullName, "ansible"));
         var renderedDir = new DirectoryInfo(Path.Combine(ansibleDir.FullName, "rendered"));
