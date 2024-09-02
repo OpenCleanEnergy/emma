@@ -130,7 +130,7 @@ public class DefaultStack : Stack
                 Name = $"{stack}-amqp",
                 Plan = "lemming",
                 Region = "azure-arm::westeurope",
-                Tags = { stack, "emma" }
+                Tags = { stack, "OpenEMS" }
             }
         );
 
