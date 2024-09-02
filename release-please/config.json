@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-  "separate-pull-requests": false,
+  "separate-pull-requests": true,
   "prerelease": true,
   "versioning": "prerelease",
   "changelog-sections": [
@@ -26,7 +26,7 @@
       "prerelease-type": "alpha",
       "extra-files": [
         { "type": "generic", "path": "pubspec.yaml" },
-        "/devops/templates/web-app/compose.yaml"
+        { "type": "yaml", "path": "/devops/templates/web-app/compose.yaml" }
       ]
     },
     "server": {
