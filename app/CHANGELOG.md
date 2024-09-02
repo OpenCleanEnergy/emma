@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.20](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.19...app-v1.0.0-alpha.20) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* As long as the status value is greater than 0, there should be a minimal progress indication. ([7bfd8cd](https://github.com/OpenCleanEnergy/emma/commit/7bfd8cddb5bed2f008dcb75053a47c075b2709bc))
+
 ## [1.0.0-alpha.19](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.18...app-v1.0.0-alpha.19) (2024-09-02)
 
 
