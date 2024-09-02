@@ -6,7 +6,7 @@ public static class ServiceInfo
 {
     private static readonly Lazy<string> _lazyVersion = new(GetVersion);
 
-    public static string Name => "emma-server";
+    public static string Name => "openems-server";
     public static string Version => _lazyVersion.Value;
 
     private static string GetVersion()
