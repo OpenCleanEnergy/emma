@@ -68,11 +68,11 @@
   ],
   "users": [
     {
-      "username": "dev@emma.dev",
-      "email": "dev@emma.dev",
+      "username": "dev@openems.dev",
+      "email": "dev@openems.dev",
       "enabled": true,
       "firstName": "Developer",
-      "lastName": "EMMA",
+      "lastName": "OpenEMS",
       "credentials": [
         {
           "type": "password",

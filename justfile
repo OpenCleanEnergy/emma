@@ -9,21 +9,21 @@ format:
   just server format
 
 # Launches the local development environment
-launch-dev-environment: (_compose-up 'compose/emma-dev')
+launch-dev-environment: (_compose-up 'compose/openems-dev')
 
 # Stops the local development environment
-stop-dev-environment: (_compose-down 'compose/emma-dev')
+stop-dev-environment: (_compose-down 'compose/openems-dev')
 
 # Launches the dynamic DNS environment
-launch-dyndns-environment: (_compose-up 'compose/emma-dyndns')
+launch-dyndns-environment: (_compose-up 'compose/openems-dyndns')
 
 # Stops the dynamic DNS environment
-stop-dyndns-environment: (_compose-down 'compose/emma-dyndns')
+stop-dyndns-environment: (_compose-down 'compose/openems-dyndns')
 
 reset-database: stop-dev-environment
-  sudo docker volume rm emma-dev_backend_database_data || echo "volume already removed"
-  sudo docker volume rm emma-dev_keycloak_database_data || echo "volume already removed"
-  sudo docker volume rm emma-dev_lavinmq_data || echo "volume already removed"
+  sudo docker volume rm openems-dev_backend_database_data || echo "volume already removed"
+  sudo docker volume rm openems-dev_keycloak_database_data || echo "volume already removed"
+  sudo docker volume rm openems-dev_lavinmq_data || echo "volume already removed"
 
 start-docker:
   sudo systemctl start docker

@@ -64,7 +64,6 @@ services:
 
   lavinmq:
     image: cloudamqp/lavinmq
-    container_name: lavinmq
     volumes:
       - lavinmq_data:/var/lib/lavinmq
     ports:
