@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.21](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.20...app-v1.0.0-alpha.21) (2024-09-03)
+
+
+### 📦️ Build System, Dependencies
+
+* Rename backend server to OpenEMS ([#195](https://github.com/OpenCleanEnergy/emma/issues/195)) ([ceba24a](https://github.com/OpenCleanEnergy/emma/commit/ceba24aeb38260a46e53455596ae05874f72a504))
+
 ## [1.0.0-alpha.20](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.19...app-v1.0.0-alpha.20) (2024-09-02)
 
 
