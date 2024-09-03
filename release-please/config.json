@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-  "separate-pull-requests": false,
+  "separate-pull-requests": true,
   "prerelease": true,
   "versioning": "prerelease",
   "changelog-sections": [
