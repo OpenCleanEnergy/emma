@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.32](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.31...server-v1.0.0-alpha.32) (2024-09-03)
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group in /server with 2 updates ([#193](https://github.com/OpenCleanEnergy/emma/issues/193)) ([8f292b5](https://github.com/OpenCleanEnergy/emma/commit/8f292b5f0e825b1128091adbdcdb59162d29de51))
+* Rename backend server to OpenEMS ([#195](https://github.com/OpenCleanEnergy/emma/issues/195)) ([ceba24a](https://github.com/OpenCleanEnergy/emma/commit/ceba24aeb38260a46e53455596ae05874f72a504))
+
 ## [1.0.0-alpha.31](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.30...server-v1.0.0-alpha.31) (2024-09-02)
 
 
