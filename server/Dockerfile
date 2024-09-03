@@ -7,12 +7,12 @@ COPY .editorconfig .
 COPY Directory.Build.props .
 COPY *.sln .
 COPY src/. .
-RUN dotnet restore Emma.Server/Emma.Server.csproj \
+RUN dotnet restore OpenEMS.Server/OpenEMS.Server.csproj \
     --arch $TARGETARCH
 
 # Skip swagger generation in docker image.
 ENV SKIP_SWAGGER_GEN=1
-RUN dotnet publish Emma.Server/Emma.Server.csproj \
+RUN dotnet publish OpenEMS.Server/OpenEMS.Server.csproj \
     --no-restore \
     --arch $TARGETARCH \
     --output /app
@@ -24,9 +24,9 @@ EXPOSE ${ASPNETCORE_HTTP_PORTS}
 WORKDIR /app
 COPY --from=build /app .
 USER $APP_UID
-ENTRYPOINT ["./Emma.Server"]
+ENTRYPOINT ["./OpenEMS.Server"]
 
 LABEL org.opencontainers.image.source="https://github.com/OpenCleanEnergy/emma"
 LABEL org.opencontainers.image.licenses="AGPL-3.0"
-LABEL org.opencontainers.image.description="EMMA server container image. \
+LABEL org.opencontainers.image.description="OpenEMS server container image. \
     The server is listening on port ${ASPNETCORE_HTTP_PORTS}"

@@ -1,0 +1,84 @@
+{
+  "realm": "oce",
+  "displayName": "Open Clean Energy",
+  "enabled": true,
+  "registrationAllowed": true,
+  "registrationEmailAsUsername": true,
+  "resetPasswordAllowed": true,
+  "internationalizationEnabled": true,
+  "supportedLocales": ["de", "en"],
+  "defaultLocale": "en",
+  "clients": [
+    {
+      "clientId": "openems-app",
+      "name": "OpenEMS native app",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": [
+        "http://localhost*",
+        "org.opencleanenergy.openems:/oauth2redirect"
+      ],
+      "attributes": {
+        "post.logout.redirect.uris": "org.opencleanenergy.openems:/endsessionredirect##http://localhost*"
+      },
+      "webOrigins": ["*"],
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    },
+    {
+      "clientId": "swagger",
+      "name": "Swagger/OpenAPI client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["*"],
+      "attributes": {},
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "dev@openems.dev",
+      "email": "dev@openems.dev",
+      "enabled": true,
+      "firstName": "Developer",
+      "lastName": "OpenEMS",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "dev"
+        }
+      ]
+    }
+  ]
+}

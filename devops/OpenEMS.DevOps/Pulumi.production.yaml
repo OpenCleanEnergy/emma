@@ -1,0 +1,5 @@
+config:
+  emma:output-dir: /tmp/openems
+  emma:ssh-enabled: "false"
+environment:
+  - emma-production

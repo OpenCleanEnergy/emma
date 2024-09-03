@@ -36,20 +36,20 @@ set-secret-betterstack-token token: (_set-secret 'BetterStack:SourceToken' token
 # Clears all user secrets:
 clear-secrets:
   dotnet user-secrets clear \
-    --project 'src/Emma.Server/Emma.Server.csproj'
+    --project 'src/OpenEMS.Server/OpenEMS.Server.csproj'
 
 # Adds a new EF Core migration
 add-migration name: _restore-tools
   dotnet ef migrations add {{name}} \
-    --startup-project 'src/Emma.Server/Emma.Server.csproj' \
-    --project 'src/Emma.Infrastructure/Emma.Infrastructure.csproj' \
+    --startup-project 'src/OpenEMS.Server/OpenEMS.Server.csproj' \
+    --project 'src/OpenEMS.Infrastructure/OpenEMS.Infrastructure.csproj' \
     --output-dir 'Persistence/EntityFramework/Migrations'
-  dotnet format 'src/Emma.Infrastructure/Emma.Infrastructure.csproj' \
-    --include 'src/Emma.Infrastructure/Persistence/EntityFramework/Migrations/'
+  dotnet format 'src/OpenEMS.Infrastructure/OpenEMS.Infrastructure.csproj' \
+    --include 'src/OpenEMS.Infrastructure/Persistence/EntityFramework/Migrations/'
 
 # Runs the server and watches for changes
 run:
-  dotnet watch --project 'src/Emma.Server/Emma.Server.csproj'
+  dotnet watch --project 'src/OpenEMS.Server/OpenEMS.Server.csproj'
 
 _restore-tools:
   dotnet tool restore
@@ -58,5 +58,5 @@ _restore-tools:
 # ~/.microsoft/usersecrets/<user_secrets_id>/secrets.json
 _set-secret key value:
   dotnet user-secrets set '{{key}}' '{{value}}' \
-    --project 'src/Emma.Server/Emma.Server.csproj'
+    --project 'src/OpenEMS.Server/OpenEMS.Server.csproj'
 

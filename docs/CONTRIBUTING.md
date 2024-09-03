@@ -74,7 +74,7 @@ Start the development environment
 just launch-dev-environment
 ```
 
-Available services ([by compose.yaml](../compose/emma-dev/compose.yaml)):
+Available services ([by compose.yaml](../compose/openems-dev/compose.yaml)):
 
 - [Keycloak](http://localhost:5001)
 - [Adminer](http://localhost:5002)
