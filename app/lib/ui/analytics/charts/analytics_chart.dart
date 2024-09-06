@@ -1,26 +1,28 @@
+import 'package:emma/ui/analytics/analytics_view_model.dart';
+import 'package:emma/ui/analytics/charts/analytics_chart_control.dart';
 import 'package:emma/ui/analytics/charts/analytics_day_chart.dart';
 import 'package:flutter/material.dart';
 
 class AnalyticsChart extends StatelessWidget {
-  const AnalyticsChart({super.key});
+  const AnalyticsChart({super.key, required this.viewModel});
+
+  final AnalyticsViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text("Leistungsverlauf", style: Theme.of(context).textTheme.bodyLarge),
-        const SizedBox(height: 8),
-        const AspectRatio(
-          aspectRatio: 1.3,
-          child: Padding(
-            padding: EdgeInsets.only(
-              right: 16,
-              bottom: 16,
-            ),
-            child: AnalyticsDayChart(),
-          ),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: 16,
+        bottom: 16,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnalyticsDayChart(viewModel: viewModel),
+          const SizedBox(height: 8),
+          AnalyticsChartControl(viewModel: viewModel)
+        ],
+      ),
     );
   }
 }

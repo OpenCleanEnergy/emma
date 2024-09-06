@@ -13,6 +13,11 @@ class AnalyticsViewModel {
     debugLabel: "analytics.vm.range",
   );
 
+  final showProduction = signal(true);
+  final showHome = signal(true);
+  final showGridFeedIn = signal(true);
+  final showGridConsume = signal(true);
+
   ReadonlySignal<AnalyticsPeriod> get period => _period;
   ReadonlySignal<DateTimeRange> get range => _range;
   late final ReadonlySignal<bool> canSetNextRange = computed(

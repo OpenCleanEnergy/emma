@@ -30,7 +30,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           const SelfSufficiencyMetricView(),
           const OwnConsumptionMetricView(),
           const SizedBox(height: 32),
-          const AnalyticsChart(),
+          AnalyticsChart(viewModel: _vm),
         ],
       ),
     );

@@ -1,18 +1,37 @@
+import 'package:emma/application/analytics/default_home_power.dart';
+import 'package:emma/ui/analytics/analytics_view_model.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_color_scheme.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:signals/signals_flutter.dart';
 
 class AnalyticsDayChart extends StatelessWidget {
-  const AnalyticsDayChart({super.key});
+  const AnalyticsDayChart({super.key, required this.viewModel});
+
+  final AnalyticsViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
-    return LineChart(
-      mainData(
-        Theme.of(context).textTheme,
-        AnalyticsChartColorScheme.of(context),
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text("Leistungsverlauf", style: Theme.of(context).textTheme.bodyLarge),
+        const SizedBox(height: 8),
+        AspectRatio(
+          aspectRatio: 1.333,
+          child: Watch(
+            (context) => LineChart(
+              mainData(
+                Theme.of(context).textTheme,
+                AnalyticsChartColorScheme.of(context),
+              ),
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -22,7 +41,7 @@ class AnalyticsDayChart extends StatelessWidget {
       gridData: FlGridData(
         show: true,
         drawVerticalLine: false,
-        horizontalInterval: 1,
+        horizontalInterval: 50,
         getDrawingHorizontalLine: (value) {
           return FlLine(
             color: colorScheme.mainGridLine,
@@ -70,9 +89,10 @@ class AnalyticsDayChart extends StatelessWidget {
       minX: 0,
       maxX: 24,
       minY: 0,
-      maxY: 6,
+      maxY: 500,
       lineBarsData: [
         LineChartBarData(
+          show: viewModel.showProduction.value,
           spots: const [
             FlSpot(0, 3),
             FlSpot(2.6, 2),
@@ -93,22 +113,20 @@ class AnalyticsDayChart extends StatelessWidget {
           ),
         ),
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 5),
-            FlSpot(2.6, 1),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 5.1),
-            FlSpot(8, 2),
-            FlSpot(9.5, 2),
-            FlSpot(11, 3),
-          ],
+          show: viewModel.showHome.value,
+          spots: defaultHomePower
+              .map(
+                (p) => FlSpot(
+                    (p.time.day - 1) * 24 + p.time.hour + p.time.minute / 60,
+                    p.power),
+              )
+              .toList(),
           isCurved: true,
           color: AnalyticsChartColors.home,
           barWidth: 2,
           isStrokeCapRound: true,
           dotData: const FlDotData(show: false),
           belowBarData: BarAreaData(
-            show: true,
             color: AnalyticsChartColors.home.toBarAreaColor(),
           ),
         ),
@@ -117,12 +135,13 @@ class AnalyticsDayChart extends StatelessWidget {
   }
 
   Widget yAxisTitleWidgets(TextTheme theme, double value, TitleMeta meta) {
-    final text = switch (value.toInt()) {
-      1 => '10k',
-      3 => '30k',
-      5 => '50k',
-      _ => '',
-    };
+    late final String text;
+    final power = value.toInt();
+    if (power % 50 == 0) {
+      text = '${power}W';
+    } else {
+      text = '';
+    }
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
