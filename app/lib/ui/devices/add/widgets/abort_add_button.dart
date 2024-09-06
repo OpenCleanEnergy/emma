@@ -1,5 +1,6 @@
 import 'package:emma/ui/app_icons.dart';
 import 'package:emma/ui/app_navigator.dart';
+import 'package:emma/ui/shared/app_bar_action_button.dart';
 import 'package:flutter/material.dart';
 
 class AbortAddButton extends StatelessWidget {
@@ -7,7 +8,7 @@ class AbortAddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
+    return AppBarActionButton(
         onPressed: () => AppNavigator.popUntilFirst(),
         icon: const Icon(AppIcons.close));
   }

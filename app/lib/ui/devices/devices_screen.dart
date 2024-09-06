@@ -4,6 +4,7 @@ import 'package:emma/ui/devices/add/select_device_category_screen.dart';
 import 'package:emma/ui/devices/devices_view_model.dart';
 import 'package:emma/ui/devices/widgets/devices_list.dart';
 import 'package:emma/ui/locator.dart';
+import 'package:emma/ui/shared/app_bar_action_button.dart';
 import 'package:emma/ui/shared/noop.dart';
 import 'package:emma/ui/shared/app_bar_command_progress_indicator.dart';
 import 'package:emma/ui/utils/polling/long_polling_handler.dart';
@@ -44,9 +45,14 @@ class _DevicesScreenState extends State<DevicesScreen> {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            const IconButton(onPressed: noop, icon: Icon(Icons.low_priority)),
-            IconButton(
-                onPressed: _startAddFlow, icon: const Icon(AppIcons.add)),
+            const AppBarActionButton(
+              onPressed: noop,
+              icon: Icon(Icons.low_priority),
+            ),
+            AppBarActionButton(
+              onPressed: _startAddFlow,
+              icon: const Icon(AppIcons.add),
+            ),
           ],
           bottom: AppBarCommandProgressIndicator(command: viewModel.init),
         ),

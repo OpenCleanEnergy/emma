@@ -2,7 +2,6 @@ import 'package:emma/ui/analytics/analytics_screen.dart';
 import 'package:emma/ui/app_icons.dart';
 import 'package:emma/ui/devices/devices_screen.dart';
 import 'package:emma/ui/home/home_screen.dart';
-import 'package:emma/ui/home/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 // from
@@ -23,7 +22,6 @@ class _LayoutState extends State<Layout> {
     const pages = [
       DevicesScreen(),
       HomeScreen(),
-      ProfileScreen(),
       AnalyticsScreen(),
     ];
 
@@ -36,10 +34,6 @@ class _LayoutState extends State<Layout> {
           icon: Icon(AppIcons.home_outlined),
           selectedIcon: Icon(AppIcons.home),
           label: "Zuhause"),
-      NavigationDestination(
-          icon: Icon(AppIcons.person_outlined),
-          selectedIcon: Icon(AppIcons.person),
-          label: "Profil"),
       NavigationDestination(
           icon: Icon(AppIcons.pie_chart_outlined),
           selectedIcon: Icon(AppIcons.pie_chart),
