@@ -1,3 +1,4 @@
+import 'package:emma/ui/analytics/analytics_screen.dart';
 import 'package:emma/ui/app_icons.dart';
 import 'package:emma/ui/devices/devices_screen.dart';
 import 'package:emma/ui/home/home_screen.dart';
@@ -23,6 +24,7 @@ class _LayoutState extends State<Layout> {
       DevicesScreen(),
       HomeScreen(),
       ProfileScreen(),
+      AnalyticsScreen(),
     ];
 
     const destinations = [
@@ -38,6 +40,10 @@ class _LayoutState extends State<Layout> {
           icon: Icon(AppIcons.person_outlined),
           selectedIcon: Icon(AppIcons.person),
           label: "Profil"),
+      NavigationDestination(
+          icon: Icon(AppIcons.pie_chart_outlined),
+          selectedIcon: Icon(AppIcons.pie_chart),
+          label: "Analysen"),
     ];
 
     return Scaffold(
