@@ -18,20 +18,24 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: AnalyticsRangePicker(viewModel: _vm),
-          ),
-          const SizedBox(height: 32),
-          const SelfSufficiencyMetricView(),
-          const OwnConsumptionMetricView(),
-          const SizedBox(height: 32),
-          AnalyticsChart(viewModel: _vm),
-        ],
+    return Banner(
+      message: "DEMO",
+      location: BannerLocation.topEnd,
+      child: Scaffold(
+        body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: AnalyticsRangePicker(viewModel: _vm),
+            ),
+            const SizedBox(height: 32),
+            const SelfSufficiencyMetricView(),
+            const OwnConsumptionMetricView(),
+            const SizedBox(height: 32),
+            AnalyticsChart(viewModel: _vm),
+          ],
+        ),
       ),
     );
   }
