@@ -1,3 +1,4 @@
+import 'package:emma/ui/analytics/analytics_chart.dart';
 import 'package:emma/ui/analytics/analytics_range_picker.dart';
 import 'package:emma/ui/analytics/analytics_view_model.dart';
 import 'package:emma/ui/analytics/metrics/own_consumption_metric_view.dart';
@@ -28,6 +29,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           const SizedBox(height: 32),
           SelfSufficiencyMetricView(),
           OwnConsumptionMetricView(),
+          AnalyticsChart(),
         ],
       ),
     );

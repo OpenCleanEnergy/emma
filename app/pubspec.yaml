@@ -51,6 +51,7 @@ dependencies:
   mutex: ^3.1.0
   web: ^0.5.1
   simple_animations: ^5.0.2
+  fl_chart: ^0.69.0
 
 dev_dependencies:
   flutter_test:
