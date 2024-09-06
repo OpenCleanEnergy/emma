@@ -4,7 +4,7 @@ import 'package:emma/ui/analytics/metrics/analytics_circular_percentage_indicato
 import 'package:emma/ui/shared/unit_text.dart';
 
 class SelfSufficiencyMetricView extends StatelessWidget {
-  SelfSufficiencyMetricView({
+  const SelfSufficiencyMetricView({
     super.key,
   });
 

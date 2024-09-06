@@ -6,7 +6,6 @@ class AnalyticsCircularPercentageIndicator extends StatelessWidget {
   const AnalyticsCircularPercentageIndicator._({
     required this.percentage,
     required this.size,
-    this.strokeWidth,
     required this.child,
   });
 
@@ -29,7 +28,6 @@ class AnalyticsCircularPercentageIndicator extends StatelessWidget {
 
   final double percentage;
   final double size;
-  final double? strokeWidth;
   final Widget? child;
 
   @override
@@ -37,7 +35,6 @@ class AnalyticsCircularPercentageIndicator extends StatelessWidget {
     return CircularValueIndicator(
       value: percentage,
       size: size,
-      strokeWidth: strokeWidth,
       child: child,
     );
   }

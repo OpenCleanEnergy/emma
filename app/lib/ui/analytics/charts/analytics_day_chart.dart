@@ -1,43 +1,31 @@
+import 'package:emma/ui/analytics/charts/analytics_chart_color_scheme.dart';
+import 'package:emma/ui/analytics/charts/analytics_chart_colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class AnalyticsChart extends StatelessWidget {
+class AnalyticsDayChart extends StatelessWidget {
+  const AnalyticsDayChart({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.3,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          right: 18,
-          left: 12,
-          top: 24,
-          bottom: 12,
-        ),
-        child: LineChart(
-          mainData(Theme.of(context).colorScheme),
-        ),
+    return LineChart(
+      mainData(
+        Theme.of(context).textTheme,
+        AnalyticsChartColorScheme.of(context),
       ),
     );
   }
 
-  LineChartData mainData(ColorScheme colorScheme) {
-    final mainGridLineColor = colorScheme.surfaceDim;
+  LineChartData mainData(
+      TextTheme textTheme, AnalyticsChartColorScheme colorScheme) {
     return LineChartData(
       gridData: FlGridData(
         show: true,
-        drawVerticalLine: true,
+        drawVerticalLine: false,
         horizontalInterval: 1,
-        verticalInterval: 1,
         getDrawingHorizontalLine: (value) {
           return FlLine(
-            color: mainGridLineColor,
-            strokeWidth: 1,
-            dashArray: [8, 8],
-          );
-        },
-        getDrawingVerticalLine: (value) {
-          return FlLine(
-            color: mainGridLineColor,
+            color: colorScheme.mainGridLine,
             strokeWidth: 1,
             dashArray: [8, 8],
           );
@@ -56,29 +44,31 @@ class AnalyticsChart extends StatelessWidget {
             showTitles: true,
             reservedSize: 30,
             interval: 1,
-            getTitlesWidget: bottomTitleWidgets,
+            getTitlesWidget: (value, meta) =>
+                xAxisTitleWidgets(textTheme, value, meta),
           ),
         ),
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
             interval: 1,
-            getTitlesWidget: leftTitleWidgets,
+            getTitlesWidget: (value, meta) =>
+                yAxisTitleWidgets(textTheme, value, meta),
             reservedSize: 42,
           ),
         ),
       ),
       borderData: FlBorderData(
         show: true,
-        border: Border(bottom: BorderSide(color: colorScheme.onSurface)),
+        border: Border(bottom: BorderSide(color: colorScheme.border)),
       ),
       lineTouchData: LineTouchData(
         touchTooltipData: LineTouchTooltipData(
-            getTooltipColor: (touchedSpot) => colorScheme.surfaceContainer,
-            tooltipBorder: BorderSide(color: colorScheme.outline)),
+            getTooltipColor: (touchedSpot) => colorScheme.tooltip,
+            tooltipBorder: BorderSide(color: colorScheme.border)),
       ),
       minX: 0,
-      maxX: 11,
+      maxX: 24,
       minY: 0,
       maxY: 6,
       lineBarsData: [
@@ -93,15 +83,13 @@ class AnalyticsChart extends StatelessWidget {
             FlSpot(11, 4),
           ],
           isCurved: true,
-          color: colorScheme.primary,
+          color: AnalyticsChartColors.production,
           barWidth: 2,
           isStrokeCapRound: true,
-          dotData: const FlDotData(
-            show: false,
-          ),
+          dotData: const FlDotData(show: false),
           belowBarData: BarAreaData(
             show: true,
-            color: colorScheme.primary.withOpacity(0.067),
+            color: AnalyticsChartColors.production.toBarAreaColor(),
           ),
         ),
         LineChartBarData(
@@ -115,22 +103,20 @@ class AnalyticsChart extends StatelessWidget {
             FlSpot(11, 3),
           ],
           isCurved: true,
-          color: colorScheme.tertiary,
+          color: AnalyticsChartColors.home,
           barWidth: 2,
           isStrokeCapRound: true,
-          dotData: const FlDotData(
-            show: false,
-          ),
+          dotData: const FlDotData(show: false),
           belowBarData: BarAreaData(
             show: true,
-            color: colorScheme.tertiary.withOpacity(0.067),
+            color: AnalyticsChartColors.home.toBarAreaColor(),
           ),
         ),
       ],
     );
   }
 
-  Widget leftTitleWidgets(double value, TitleMeta meta) {
+  Widget yAxisTitleWidgets(TextTheme theme, double value, TitleMeta meta) {
     final text = switch (value.toInt()) {
       1 => '10k',
       3 => '30k',
@@ -138,29 +124,25 @@ class AnalyticsChart extends StatelessWidget {
       _ => '',
     };
 
-    return SideTitleWidget(child: Text(text), axisSide: meta.axisSide);
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      child: Text(text, style: theme.labelSmall),
+    );
   }
 
-  Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    String text;
-    switch (value.toInt()) {
-      case 2:
-        text = 'MAR';
-        break;
-      case 5:
-        text = 'JUN';
-        break;
-      case 8:
-        text = 'SEP';
-        break;
-      default:
-        text = '';
-        break;
+  Widget xAxisTitleWidgets(TextTheme theme, double value, TitleMeta meta) {
+    late final String text;
+    final hour = value.toInt();
+    if (hour % 2 == 0) {
+      text = '$hour:00';
+    } else {
+      text = '';
     }
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      child: Text(text),
+      angle: -45,
+      child: Text(text, style: theme.labelSmall),
     );
   }
 }

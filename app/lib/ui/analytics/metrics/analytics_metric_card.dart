@@ -39,15 +39,15 @@ class AnalyticsMetricCard extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     title,
                     style: Theme.of(context).appBarTheme.titleTextStyle ??
                         Theme.of(context).textTheme.titleLarge,
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Builder(builder: detailsBuilder),
-                  Spacer()
+                  const Spacer()
                 ],
               ),
             ),

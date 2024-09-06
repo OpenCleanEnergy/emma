@@ -4,7 +4,7 @@ import 'package:emma/ui/shared/unit_text.dart';
 import 'package:flutter/material.dart';
 
 class OwnConsumptionMetricView extends StatelessWidget {
-  OwnConsumptionMetricView({
+  const OwnConsumptionMetricView({
     super.key,
   });
 

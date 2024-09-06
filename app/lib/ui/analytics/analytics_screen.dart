@@ -1,6 +1,6 @@
-import 'package:emma/ui/analytics/analytics_chart.dart';
 import 'package:emma/ui/analytics/analytics_range_picker.dart';
 import 'package:emma/ui/analytics/analytics_view_model.dart';
+import 'package:emma/ui/analytics/charts/analytics_chart.dart';
 import 'package:emma/ui/analytics/metrics/own_consumption_metric_view.dart';
 import 'package:emma/ui/analytics/metrics/self_sufficiency_metric_view.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +27,10 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             child: AnalyticsRangePicker(viewModel: _vm),
           ),
           const SizedBox(height: 32),
-          SelfSufficiencyMetricView(),
-          OwnConsumptionMetricView(),
-          AnalyticsChart(),
+          const SelfSufficiencyMetricView(),
+          const OwnConsumptionMetricView(),
+          const SizedBox(height: 32),
+          const AnalyticsChart(),
         ],
       ),
     );
