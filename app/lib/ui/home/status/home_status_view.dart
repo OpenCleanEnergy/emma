@@ -24,36 +24,49 @@ class _HomeStatusViewState extends State<HomeStatusView>
   late final AnimationController _controller;
 
   // Avoid redraw of flow on each value change.
-  late final _producerFlowDirection = computed(() {
-    return widget.viewModel.producerStatus.currentPowerProduction.value > 0
-        ? StatusPowerFlowDirection.down
-        : StatusPowerFlowDirection.noneVertical;
-  });
+  late final _producerFlowDirection = computed(
+    () {
+      return widget.viewModel.producerStatus.currentPowerProduction.value > 0
+          ? StatusPowerFlowDirection.down
+          : StatusPowerFlowDirection.noneVertical;
+    },
+    debugLabel: "homeStatusView.producerFlowDirection",
+  );
 
-  late final _producerFlowType = computed(() {
-    return widget.viewModel.producerStatus.currentPowerProduction.value > 0
-        ? StatusPowerFlowType.good
-        : StatusPowerFlowType.neutral;
-  });
+  late final _producerFlowType = computed(
+    () {
+      return widget.viewModel.producerStatus.currentPowerProduction.value > 0
+          ? StatusPowerFlowType.good
+          : StatusPowerFlowType.neutral;
+    },
+    debugLabel: "homeStatusView.producerFlowType",
+  );
 
-  late final _gridFlowDirection = computed(() {
-    return switch (widget.viewModel.gridStatus.currentPowerDirection.value) {
-      GridPowerDirection.swaggerGeneratedUnknown =>
-        StatusPowerFlowDirection.noneVertical,
-      GridPowerDirection.none => StatusPowerFlowDirection.noneVertical,
-      GridPowerDirection.consume => StatusPowerFlowDirection.up,
-      GridPowerDirection.feedin => StatusPowerFlowDirection.down,
-    };
-  });
+  late final _gridFlowDirection = computed(
+    () {
+      return switch (widget.viewModel.gridStatus.currentPowerDirection.value) {
+        GridPowerDirection.swaggerGeneratedUnknown =>
+          StatusPowerFlowDirection.noneVertical,
+        GridPowerDirection.none => StatusPowerFlowDirection.noneVertical,
+        GridPowerDirection.consume => StatusPowerFlowDirection.up,
+        GridPowerDirection.feedin => StatusPowerFlowDirection.down,
+      };
+    },
+    debugLabel: "homeStatusView.gridFlowDirection",
+  );
 
-  late final _gridFlowType = computed(() {
-    return switch (widget.viewModel.gridStatus.currentPowerDirection.value) {
-      GridPowerDirection.swaggerGeneratedUnknown => StatusPowerFlowType.neutral,
-      GridPowerDirection.none => StatusPowerFlowType.neutral,
-      GridPowerDirection.consume => StatusPowerFlowType.bad,
-      GridPowerDirection.feedin => StatusPowerFlowType.good,
-    };
-  });
+  late final _gridFlowType = computed(
+    () {
+      return switch (widget.viewModel.gridStatus.currentPowerDirection.value) {
+        GridPowerDirection.swaggerGeneratedUnknown =>
+          StatusPowerFlowType.neutral,
+        GridPowerDirection.none => StatusPowerFlowType.neutral,
+        GridPowerDirection.consume => StatusPowerFlowType.bad,
+        GridPowerDirection.feedin => StatusPowerFlowType.good,
+      };
+    },
+    debugLabel: "homeStatusView.gridFlowType",
+  );
 
   @override
   void initState() {

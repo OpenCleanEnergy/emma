@@ -14,7 +14,10 @@ abstract class Command {
 
   ReadonlySignal<bool> get isRunning => _isRunning;
   ReadonlySignal<Object?> get error => _error;
-  ReadonlySignal<bool> get hasError => computed(() => error.value != null);
+  ReadonlySignal<bool> get hasError => computed(
+        () => error.value != null,
+        debugLabel: "command.hasError",
+      );
 
   void _onBeforeCall() {
     batch(() {
