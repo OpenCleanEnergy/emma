@@ -1,3 +1,4 @@
+import 'package:emma/application/analytics/analytics_demo_data.dart';
 import 'package:emma/ui/analytics/analytics_period.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals.dart';
@@ -28,6 +29,8 @@ class AnalyticsViewModel {
     debugLabel: "analytics.vm.canSetNextRange",
   );
 
+  late final day = computed(() => AnalyticsDemoData.day(_range.value));
+
   void setPeriod(AnalyticsPeriod period) {
     batch(() {
       _period.value = period;
@@ -57,7 +60,10 @@ class AnalyticsViewModel {
       AnalyticsPeriod period, DateTime seed) {
     switch (period) {
       case AnalyticsPeriod.day:
-        return DateTimeRange(start: seed, end: seed);
+        return DateTimeRange(
+          start: seed,
+          end: seed.add(const Duration(days: 1)),
+        );
       case AnalyticsPeriod.week:
         // Monday = 1
         final dayOfWeek = seed.weekday;

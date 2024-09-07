@@ -1,4 +1,3 @@
-import 'package:emma/application/analytics/default_home_power.dart';
 import 'package:emma/ui/analytics/analytics_view_model.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_color_scheme.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_colors.dart';
@@ -37,11 +36,19 @@ class AnalyticsDayChart extends StatelessWidget {
 
   LineChartData mainData(
       TextTheme textTheme, AnalyticsChartColorScheme colorScheme) {
+    final maxX = viewModel.day.value.end
+        .difference(viewModel.day.value.start)
+        .inMinutes
+        .toDouble();
+
+    const horizontalInterval = 50.0;
+    const verticalInterval = 120.0;
     return LineChartData(
       gridData: FlGridData(
         show: true,
         drawVerticalLine: false,
-        horizontalInterval: 50,
+        horizontalInterval: horizontalInterval,
+        verticalInterval: verticalInterval,
         getDrawingHorizontalLine: (value) {
           return FlLine(
             color: colorScheme.mainGridLine,
@@ -62,7 +69,7 @@ class AnalyticsDayChart extends StatelessWidget {
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 30,
-            interval: 1,
+            interval: verticalInterval,
             getTitlesWidget: (value, meta) =>
                 xAxisTitleWidgets(textTheme, value, meta),
           ),
@@ -70,7 +77,7 @@ class AnalyticsDayChart extends StatelessWidget {
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
-            interval: 1,
+            interval: horizontalInterval,
             getTitlesWidget: (value, meta) =>
                 yAxisTitleWidgets(textTheme, value, meta),
             reservedSize: 42,
@@ -87,7 +94,7 @@ class AnalyticsDayChart extends StatelessWidget {
             tooltipBorder: BorderSide(color: colorScheme.border)),
       ),
       minX: 0,
-      maxX: 24,
+      maxX: maxX,
       minY: 0,
       maxY: 500,
       lineBarsData: [
@@ -114,11 +121,15 @@ class AnalyticsDayChart extends StatelessWidget {
         ),
         LineChartBarData(
           show: viewModel.showHome.value,
-          spots: defaultHomePower
+          spots: viewModel.day.value.home
               .map(
                 (p) => FlSpot(
-                    (p.time.day - 1) * 24 + p.time.hour + p.time.minute / 60,
-                    p.power),
+                  p.time
+                      .difference(viewModel.day.value.start)
+                      .inMinutes
+                      .toDouble(),
+                  p.power,
+                ),
               )
               .toList(),
           isCurved: true,
@@ -150,14 +161,8 @@ class AnalyticsDayChart extends StatelessWidget {
   }
 
   Widget xAxisTitleWidgets(TextTheme theme, double value, TitleMeta meta) {
-    late final String text;
-    final hour = value.toInt();
-    if (hour % 2 == 0) {
-      text = '$hour:00';
-    } else {
-      text = '';
-    }
-
+    final minutes = value.toInt();
+    final text = '${minutes ~/ 60}:${minutes % 60}';
     return SideTitleWidget(
       axisSide: meta.axisSide,
       angle: -45,
