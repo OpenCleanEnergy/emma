@@ -1,6 +1,9 @@
+import 'dart:math' as math;
+
 import 'package:emma/ui/analytics/analytics_view_model.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_color_scheme.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_colors.dart';
+import 'package:emma/ui/analytics/charts/nice_scale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
@@ -41,13 +44,25 @@ class AnalyticsDayChart extends StatelessWidget {
         .inMinutes
         .toDouble();
 
-    const horizontalInterval = 50.0;
+    final maxValue =
+        viewModel.day.value.home.map((x) => x.power).reduce(math.max);
+
+    final niceScale = NiceScale.calculate(
+      maxTicks: 10,
+      min: 0,
+      max: maxValue,
+    );
+
     const verticalInterval = 120.0;
     return LineChartData(
+      minX: 0,
+      maxX: maxX,
+      minY: niceScale.min,
+      maxY: niceScale.max,
       gridData: FlGridData(
         show: true,
         drawVerticalLine: false,
-        horizontalInterval: horizontalInterval,
+        horizontalInterval: niceScale.tickInterval,
         verticalInterval: verticalInterval,
         getDrawingHorizontalLine: (value) {
           return FlLine(
@@ -77,7 +92,7 @@ class AnalyticsDayChart extends StatelessWidget {
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
-            interval: horizontalInterval,
+            interval: niceScale.tickInterval,
             getTitlesWidget: (value, meta) =>
                 yAxisTitleWidgets(textTheme, value, meta),
             reservedSize: 42,
@@ -93,10 +108,6 @@ class AnalyticsDayChart extends StatelessWidget {
             getTooltipColor: (touchedSpot) => colorScheme.tooltip,
             tooltipBorder: BorderSide(color: colorScheme.border)),
       ),
-      minX: 0,
-      maxX: maxX,
-      minY: 0,
-      maxY: 500,
       lineBarsData: [
         LineChartBarData(
           show: viewModel.showProduction.value,

@@ -1,18 +1,28 @@
+import 'dart:math';
+
 import 'package:emma/application/analytics/analytics_day_data_dto.dart';
 import 'package:emma/application/analytics/power_data_point_dto.dart';
-import 'package:flutter/material.dart';
 
 abstract final class AnalyticsDemoData {
-  static AnalyticsDayDataDto day(DateTimeRange range) {
+  static AnalyticsDayDataDto day(DateTime start) {
+    final rnd = Random(start.millisecondsSinceEpoch);
+
     return AnalyticsDayDataDto(
-        start: range.start,
-        end: range.end,
+        start: start,
+        end: start.add(const Duration(days: 1)),
         home: _defaultHomePower
             .map((x) => PowerDataPointDto(
-                  range.start.add(x.time),
-                  (x.watts * _factor + range.start.day).roundToDouble(),
+                  start.add(x.time),
+                  (x.watts * _factor * _randomize(rnd)).roundToDouble(),
                 ))
             .toList());
+  }
+
+  // returns value in range of 0.9 - 1.1
+  static double _randomize(Random random) {
+    // 0 ... 0.2
+    final r = random.nextInt(21) / 100;
+    return 0.9 + r;
   }
 
   static const _factor = 2.7;

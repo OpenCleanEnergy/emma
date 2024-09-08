@@ -10,7 +10,10 @@ class AnalyticsViewModel {
   );
 
   final _range = signal(
-    DateTimeRange(start: _today(), end: _today()),
+    DateTimeRange(
+      start: _today(),
+      end: _today().add(const Duration(days: 1)),
+    ),
     debugLabel: "analytics.vm.range",
   );
 
@@ -29,7 +32,7 @@ class AnalyticsViewModel {
     debugLabel: "analytics.vm.canSetNextRange",
   );
 
-  late final day = computed(() => AnalyticsDemoData.day(_range.value));
+  late final day = computed(() => AnalyticsDemoData.day(_range.value.start));
 
   void setPeriod(AnalyticsPeriod period) {
     batch(() {
