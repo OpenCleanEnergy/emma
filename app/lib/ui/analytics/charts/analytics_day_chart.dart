@@ -8,9 +8,13 @@ import 'package:emma/ui/analytics/charts/analytics_chart_container.dart';
 import 'package:emma/ui/analytics/charts/nice_scale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:signals/signals_flutter.dart';
 
 class AnalyticsDayChart extends StatelessWidget {
+  static final _minutesFormat = NumberFormat('00');
+  static final _hoursFormat = NumberFormat('#0');
+
   const AnalyticsDayChart({super.key, required this.viewModel});
 
   final AnalyticsViewModel viewModel;
@@ -61,7 +65,7 @@ class AnalyticsDayChart extends StatelessWidget {
       max: maxValue,
     );
 
-    const verticalInterval = 120.0;
+    const timeAxisInterval = 120.0;
     return LineChartData(
       minX: 0,
       maxX: maxX,
@@ -71,7 +75,7 @@ class AnalyticsDayChart extends StatelessWidget {
         show: true,
         drawVerticalLine: false,
         horizontalInterval: niceScale.tickInterval,
-        verticalInterval: verticalInterval,
+        verticalInterval: timeAxisInterval,
         getDrawingHorizontalLine: (value) {
           return FlLine(
             color: colorScheme.mainGridLine,
@@ -92,9 +96,9 @@ class AnalyticsDayChart extends StatelessWidget {
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 30,
-            interval: verticalInterval,
+            interval: timeAxisInterval,
             getTitlesWidget: (value, meta) =>
-                _xAxisTitleWidgets(textTheme, value, meta),
+                _buildTimeAxisTitleWidget(textTheme, value, meta),
           ),
         ),
         leftTitles: AxisTitles(
@@ -102,7 +106,7 @@ class AnalyticsDayChart extends StatelessWidget {
             showTitles: true,
             interval: niceScale.tickInterval,
             getTitlesWidget: (value, meta) =>
-                _yAxisTitleWidgets(textTheme, value, meta),
+                _buildPowerAxisTitleWidget(textTheme, value, meta),
             reservedSize: 42,
           ),
         ),
@@ -137,7 +141,7 @@ class AnalyticsDayChart extends StatelessWidget {
     );
   }
 
-  static Widget _yAxisTitleWidgets(
+  static Widget _buildPowerAxisTitleWidget(
       TextTheme theme, double value, TitleMeta meta) {
     final text = '${value.toInt()}W';
 
@@ -147,14 +151,15 @@ class AnalyticsDayChart extends StatelessWidget {
     );
   }
 
-  static Widget _xAxisTitleWidgets(
+  static Widget _buildTimeAxisTitleWidget(
       TextTheme theme, double value, TitleMeta meta) {
-    final minutes = value.toInt();
-    final text = '${minutes ~/ 60}:${minutes % 60}';
+    final hours = _hoursFormat.format(value ~/ 60);
+    final minutes = _minutesFormat.format(value % 60);
+
     return SideTitleWidget(
       axisSide: meta.axisSide,
       angle: -45,
-      child: Text(text, style: theme.labelSmall),
+      child: Text('$hours:$minutes', style: theme.labelSmall),
     );
   }
 
