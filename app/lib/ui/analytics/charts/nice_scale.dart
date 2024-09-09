@@ -14,8 +14,8 @@ class NiceScale {
     required double min,
     required double max,
   }) {
-    final range = _niceNum(max - min, _niceNumMethod.ceil);
-    final tickInterval = _niceNum(range / (maxTicks - 1), _niceNumMethod.round);
+    final range = _niceNum(max - min, _NiceNumMethod.ceil);
+    final tickInterval = _niceNum(range / (maxTicks - 1), _NiceNumMethod.round);
     final niceMin = (min / tickInterval).floor() * tickInterval;
     final niceMax = (max / tickInterval).ceil() * tickInterval;
 
@@ -26,13 +26,13 @@ class NiceScale {
     );
   }
 
-  static double _niceNum(double range, _niceNumMethod method) {
+  static double _niceNum(double range, _NiceNumMethod method) {
     final exponent = _log10(range).floor();
     final fraction = range / math.pow(10, exponent);
 
     late final double niceFraction;
     switch (method) {
-      case _niceNumMethod.round:
+      case _NiceNumMethod.round:
         switch (fraction) {
           case < 1.5:
             niceFraction = 1;
@@ -44,7 +44,7 @@ class NiceScale {
             niceFraction = 10;
         }
         break;
-      case _niceNumMethod.ceil:
+      case _NiceNumMethod.ceil:
         switch (fraction) {
           case <= 1:
             niceFraction = 1;
@@ -64,7 +64,7 @@ class NiceScale {
   static double _log10(double x) => math.log(x) / math.ln10;
 }
 
-enum _niceNumMethod {
+enum _NiceNumMethod {
   round,
   ceil,
 }
