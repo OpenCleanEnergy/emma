@@ -19,7 +19,11 @@ class AnalyticsMetricCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card.outlined(
       child: ListTile(
-        title: Text(title),
+        title: Text(
+          title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
         subtitle: subtitle,
         leading: leading,
         trailing: IconButton(
