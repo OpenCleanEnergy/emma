@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0-alpha.22](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.21...app-v1.0.0-alpha.22) (2024-09-09)
+
+
+### 🚀 Features
+
+* Analytics demo ([#200](https://github.com/OpenCleanEnergy/emma/issues/200)) ([6bec53b](https://github.com/OpenCleanEnergy/emma/commit/6bec53b919807472be4f18db5d7b6ad286d17675))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump signals from 5.4.0 to 5.5.0 in /app in the dependencies group ([#194](https://github.com/OpenCleanEnergy/emma/issues/194)) ([004f61b](https://github.com/OpenCleanEnergy/emma/commit/004f61bccb1f69146a8781c8984e70fc98ce380b))
+* **deps:** bump the dependencies group in /app with 2 updates ([#201](https://github.com/OpenCleanEnergy/emma/issues/201)) ([d3a310f](https://github.com/OpenCleanEnergy/emma/commit/d3a310fc59cdb74cc8a1b1124a46abfee0e041c8))
+
 ## [1.0.0-alpha.21](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.20...app-v1.0.0-alpha.21) (2024-09-03)
 
 
