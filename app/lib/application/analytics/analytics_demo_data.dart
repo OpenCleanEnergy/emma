@@ -65,7 +65,7 @@ abstract final class AnalyticsDemoData {
   static const _sunset = Duration(hours: 20, minutes: 00);
   static final _production = [
     for (var time = Duration.zero;
-        time < const Duration(hours: 24);
+        time <= const Duration(hours: 24);
         time += const Duration(minutes: 15))
       (
         time: time,

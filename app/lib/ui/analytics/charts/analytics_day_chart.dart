@@ -4,6 +4,7 @@ import 'package:emma/application/analytics/power_data_point_dto.dart';
 import 'package:emma/ui/analytics/analytics_view_model.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_color_scheme.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_colors.dart';
+import 'package:emma/ui/analytics/charts/analytics_chart_container.dart';
 import 'package:emma/ui/analytics/charts/nice_scale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -21,16 +22,18 @@ class AnalyticsDayChart extends StatelessWidget {
       children: [
         Text("Leistungsverlauf", style: Theme.of(context).textTheme.bodyLarge),
         const SizedBox(height: 8),
-        AspectRatio(
-          aspectRatio: 1.333,
-          child: Watch(
-            (context) => LineChart(
-              mainData(
-                Theme.of(context).textTheme,
-                AnalyticsChartColorScheme.of(context),
+        AnalyticsChartContainer(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: Watch(
+              (context) => LineChart(
+                mainData(
+                  Theme.of(context).textTheme,
+                  AnalyticsChartColorScheme.of(context),
+                ),
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
               ),
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
             ),
           ),
         ),
@@ -115,25 +118,19 @@ class AnalyticsDayChart extends StatelessWidget {
       ),
       lineBarsData: [
         _getLineChartData(
-          show: viewModel.showProduction.value,
-          start: viewModel.day.value.start,
-          data: viewModel.day.value.production,
-          color: AnalyticsChartColors.production,
-        ),
+            show: viewModel.showProduction.value,
+            data: viewModel.day.value.production,
+            color: AnalyticsChartColors.production),
         _getLineChartData(
             show: viewModel.showHome.value,
-            start: viewModel.day.value.start,
             data: viewModel.day.value.home,
             color: AnalyticsChartColors.home),
         _getLineChartData(
-          show: viewModel.showGridConsume.value,
-          start: viewModel.day.value.start,
-          data: viewModel.day.value.gridConsume,
-          color: AnalyticsChartColors.gridConsumption,
-        ),
+            show: viewModel.showGridConsume.value,
+            data: viewModel.day.value.gridConsume,
+            color: AnalyticsChartColors.gridConsumption),
         _getLineChartData(
             show: viewModel.showGridFeedIn.value,
-            start: viewModel.day.value.start,
             data: viewModel.day.value.gridFeedIn,
             color: AnalyticsChartColors.gridFeedIn),
       ],
@@ -163,10 +160,10 @@ class AnalyticsDayChart extends StatelessWidget {
 
   static LineChartBarData _getLineChartData({
     required bool show,
-    required DateTime start,
     required Iterable<PowerDataPointDto> data,
     required Color color,
   }) {
+    final start = data.isNotEmpty ? data.first.time : DateTime.now();
     return LineChartBarData(
       show: show,
       spots: data
