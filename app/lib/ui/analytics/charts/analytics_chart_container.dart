@@ -44,6 +44,6 @@ class _AnalyticsChartContainerLayoutDelegate extends SingleChildLayoutDelegate {
   @override
   bool shouldRelayout(
       covariant _AnalyticsChartContainerLayoutDelegate oldDelegate) {
-    return _size != oldDelegate._size;
+    return false;
   }
 }
