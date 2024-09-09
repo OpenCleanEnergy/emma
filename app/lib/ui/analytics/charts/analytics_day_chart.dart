@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:emma/application/analytics/power_data_point_dto.dart';
 import 'package:emma/ui/analytics/analytics_view_model.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_color_scheme.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_colors.dart';
@@ -44,8 +45,12 @@ class AnalyticsDayChart extends StatelessWidget {
         .inMinutes
         .toDouble();
 
-    final maxValue =
-        viewModel.day.value.home.map((x) => x.power).reduce(math.max);
+    final maxValue = [
+      ...viewModel.day.value.home,
+      ...viewModel.day.value.production,
+      ...viewModel.day.value.gridConsume,
+      ...viewModel.day.value.gridFeedIn,
+    ].map((x) => x.power).reduce(math.max);
 
     final niceScale = NiceScale.calculate(
       maxTicks: 10,
@@ -86,7 +91,7 @@ class AnalyticsDayChart extends StatelessWidget {
             reservedSize: 30,
             interval: verticalInterval,
             getTitlesWidget: (value, meta) =>
-                xAxisTitleWidgets(textTheme, value, meta),
+                _xAxisTitleWidgets(textTheme, value, meta),
           ),
         ),
         leftTitles: AxisTitles(
@@ -94,7 +99,7 @@ class AnalyticsDayChart extends StatelessWidget {
             showTitles: true,
             interval: niceScale.tickInterval,
             getTitlesWidget: (value, meta) =>
-                yAxisTitleWidgets(textTheme, value, meta),
+                _yAxisTitleWidgets(textTheme, value, meta),
             reservedSize: 42,
           ),
         ),
@@ -109,61 +114,35 @@ class AnalyticsDayChart extends StatelessWidget {
             tooltipBorder: BorderSide(color: colorScheme.border)),
       ),
       lineBarsData: [
-        LineChartBarData(
+        _getLineChartData(
           show: viewModel.showProduction.value,
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
-          ],
-          isCurved: true,
+          start: viewModel.day.value.start,
+          data: viewModel.day.value.production,
           color: AnalyticsChartColors.production,
-          barWidth: 2,
-          isStrokeCapRound: true,
-          dotData: const FlDotData(show: false),
-          belowBarData: BarAreaData(
-            show: true,
-            color: AnalyticsChartColors.production.toBarAreaColor(),
-          ),
         ),
-        LineChartBarData(
-          show: viewModel.showHome.value,
-          spots: viewModel.day.value.home
-              .map(
-                (p) => FlSpot(
-                  p.time
-                      .difference(viewModel.day.value.start)
-                      .inMinutes
-                      .toDouble(),
-                  p.power,
-                ),
-              )
-              .toList(),
-          isCurved: true,
-          color: AnalyticsChartColors.home,
-          barWidth: 2,
-          isStrokeCapRound: true,
-          dotData: const FlDotData(show: false),
-          belowBarData: BarAreaData(
-            color: AnalyticsChartColors.home.toBarAreaColor(),
-          ),
+        _getLineChartData(
+            show: viewModel.showHome.value,
+            start: viewModel.day.value.start,
+            data: viewModel.day.value.home,
+            color: AnalyticsChartColors.home),
+        _getLineChartData(
+          show: viewModel.showGridConsume.value,
+          start: viewModel.day.value.start,
+          data: viewModel.day.value.gridConsume,
+          color: AnalyticsChartColors.gridConsumption,
         ),
+        _getLineChartData(
+            show: viewModel.showGridFeedIn.value,
+            start: viewModel.day.value.start,
+            data: viewModel.day.value.gridFeedIn,
+            color: AnalyticsChartColors.gridFeedIn),
       ],
     );
   }
 
-  Widget yAxisTitleWidgets(TextTheme theme, double value, TitleMeta meta) {
-    late final String text;
-    final power = value.toInt();
-    if (power % 50 == 0) {
-      text = '${power}W';
-    } else {
-      text = '';
-    }
+  static Widget _yAxisTitleWidgets(
+      TextTheme theme, double value, TitleMeta meta) {
+    final text = '${value.toInt()}W';
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
@@ -171,13 +150,42 @@ class AnalyticsDayChart extends StatelessWidget {
     );
   }
 
-  Widget xAxisTitleWidgets(TextTheme theme, double value, TitleMeta meta) {
+  static Widget _xAxisTitleWidgets(
+      TextTheme theme, double value, TitleMeta meta) {
     final minutes = value.toInt();
     final text = '${minutes ~/ 60}:${minutes % 60}';
     return SideTitleWidget(
       axisSide: meta.axisSide,
       angle: -45,
       child: Text(text, style: theme.labelSmall),
+    );
+  }
+
+  static LineChartBarData _getLineChartData({
+    required bool show,
+    required DateTime start,
+    required Iterable<PowerDataPointDto> data,
+    required Color color,
+  }) {
+    return LineChartBarData(
+      show: show,
+      spots: data
+          .map(
+            (p) => FlSpot(
+              p.time.difference(start).inMinutes.toDouble(),
+              p.power,
+            ),
+          )
+          .toList(),
+      isCurved: true,
+      color: color,
+      barWidth: 2,
+      isStrokeCapRound: true,
+      dotData: const FlDotData(show: false),
+      belowBarData: BarAreaData(
+        show: true,
+        color: color.toBarAreaColor(),
+      ),
     );
   }
 }
