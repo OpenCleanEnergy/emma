@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.23](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.22...app-v1.0.0-alpha.23) (2024-09-09)
+
+
+### 🐛 Bug Fixes
+
+* fixes analytics chart time axis number format. ([11b1d08](https://github.com/OpenCleanEnergy/emma/commit/11b1d081dcf9e956f21abaf73dca3c28be2f97d6))
+
 ## [1.0.0-alpha.22](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.21...app-v1.0.0-alpha.22) (2024-09-09)
 
 
