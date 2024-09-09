@@ -5,24 +5,36 @@ import 'package:emma/application/analytics/power_data_point_dto.dart';
 
 abstract final class AnalyticsDemoData {
   static AnalyticsDayDataDto day(DateTime start) {
-    final rnd = Random(start.millisecondsSinceEpoch);
-
     return AnalyticsDayDataDto(
-        start: start,
-        end: start.add(const Duration(days: 1)),
-        home: _defaultHomePower
+      start: start,
+      end: start.add(const Duration(days: 1)),
+      home: _randomize(
+        start,
+        _defaultHomePower
             .map((x) => PowerDataPointDto(
                   start.add(x.time),
-                  (x.watts * _factor * _randomize(rnd)).roundToDouble(),
+                  x.watts * _factor,
                 ))
-            .toList());
+            .toList(),
+      ),
+    );
   }
 
-  // returns value in range of 0.9 - 1.1
-  static double _randomize(Random random) {
-    // 0 ... 0.2
-    final r = random.nextInt(21) / 100;
-    return 0.9 + r;
+  static List<PowerDataPointDto> _randomize(
+      DateTime start, List<PowerDataPointDto> data) {
+    final rnd = Random(start.millisecondsSinceEpoch);
+    final scales = [for (var i = 0; i < 6; i++) _getRandomScale(rnd)];
+    return data.indexed.map((x) {
+      final scale = scales[x.$1 * scales.length ~/ data.length];
+      return PowerDataPointDto(x.$2.time, (x.$2.power * scale).roundToDouble());
+    }).toList();
+  }
+
+  // returns value in range of 0.95 - 1.05
+  static double _getRandomScale(Random random) {
+    // 0 ... 0.1
+    final r = random.nextInt(101) / 1000;
+    return 0.95 + r;
   }
 
   static const _factor = 2.7;
