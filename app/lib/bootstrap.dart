@@ -51,8 +51,12 @@ Future<void> bootstrap() async {
   // ui
   // - commands
   Command.onError.listen((_) => AppMessenger.error());
-  Command.onError.listen((error) => Logger("command.${error.debugLabel}")
-      .warning("Error executing command.", error.error));
+  Command.onError
+      .listen((error) => Logger("command.${error.debugLabel}").warning(
+            "Error executing command.",
+            error.error,
+            error.stackTrace,
+          ));
 
   // - user
   di.registerLazySingleton(() => UserViewModel(di<IUserRepository>()));

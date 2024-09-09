@@ -4,28 +4,35 @@ import 'package:signals/signals.dart';
 import 'package:signals/signals_flutter.dart';
 
 abstract class Command {
-  static final StreamController<({String debugLabel, Object error})>
-      _errorStreamController =
-      StreamController<({String debugLabel, Object error})>.broadcast();
+  static final StreamController<CommandError> _errorStreamController =
+      StreamController<CommandError>.broadcast();
 
   Command({String? debugLabel}) : _debugLabel = debugLabel ?? 'default' {
-    _isRunning = signal(false, debugLabel: "command.$_debugLabel.isRunning");
-    _error = signal<Object?>(null, debugLabel: "command.$_debugLabel.error");
+    _isRunning = signal(
+      false,
+      debugLabel: "command.$_debugLabel.isRunning",
+    );
+
+    _error = signal<CommandError?>(
+      null,
+      debugLabel: "command.$_debugLabel.error",
+    );
+
     _hasError = computed(
       () => _error.value != null,
       debugLabel: "command.$_debugLabel.hasError",
     );
   }
+
   final String _debugLabel;
   late final Signal<bool> _isRunning;
-  late final Signal<Object?> _error;
+  late final Signal<CommandError?> _error;
   late final Computed<bool> _hasError;
 
-  static Stream<({String debugLabel, Object error})> get onError =>
-      _errorStreamController.stream;
+  static Stream<CommandError> get onError => _errorStreamController.stream;
 
   ReadonlySignal<bool> get isRunning => _isRunning;
-  ReadonlySignal<Object?> get error => _error;
+  ReadonlySignal<CommandError?> get error => _error;
   ReadonlySignal<bool> get hasError => _hasError;
 
   void _onBeforeCall() {
@@ -39,14 +46,32 @@ abstract class Command {
     _isRunning.value = false;
   }
 
-  void _onError(Object error) {
+  void _onError(Object error, StackTrace stackTrace) {
+    final cmdError = CommandError(
+      debugLabel: _debugLabel,
+      error: error,
+      stackTrace: stackTrace,
+    );
+
     batch(() {
-      _error.value = error;
+      _error.value = cmdError;
       _isRunning.value = false;
     });
 
-    _errorStreamController.add((debugLabel: _debugLabel, error: error));
+    _errorStreamController.add(cmdError);
   }
+}
+
+class CommandError {
+  CommandError({
+    required this.debugLabel,
+    required this.error,
+    required this.stackTrace,
+  });
+
+  final String debugLabel;
+  final Object error;
+  final StackTrace stackTrace;
 }
 
 class ArgCommand<TArg> extends Command {
@@ -62,8 +87,8 @@ class ArgCommand<TArg> extends Command {
       await _action(arg);
       _onSuccess();
       return true;
-    } catch (error) {
-      _onError(error);
+    } catch (error, stackTrace) {
+      _onError(error, stackTrace);
       return false;
     }
   }
@@ -88,8 +113,8 @@ class NoArgCommand extends Command {
       await _action();
       _onSuccess();
       return true;
-    } catch (error) {
-      _onError(error);
+    } catch (error, stackTrace) {
+      _onError(error, stackTrace);
       return false;
     }
   }
