@@ -21,14 +21,20 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       message: "DEMO",
       location: BannerLocation.topEnd,
       child: Scaffold(
+        appBar: AppBar(
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(48),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: AnalyticsRangePicker(viewModel: _vm),
+            ),
+          ),
+        ),
         body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: AnalyticsRangePicker(viewModel: _vm),
-            ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 16),
             const AnalyticsMetricsContainer(),
             const SizedBox(height: 32),
             AnalyticsChart(viewModel: _vm),
