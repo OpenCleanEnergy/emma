@@ -6,8 +6,8 @@ class HomeViewModel {
   final BackendApi _api;
 
   HomeViewModel({required BackendApi api}) : _api = api {
-    init = _init.toCommand();
-    refresh = _refresh.toCommand();
+    init = _init.toCommand('home.init');
+    refresh = _refresh.toCommand('home.refresh');
   }
 
   late final NoArgCommand init;

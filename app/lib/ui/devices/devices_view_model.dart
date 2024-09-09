@@ -11,8 +11,8 @@ class DevicesViewModel {
   final BackendApi _api;
 
   DevicesViewModel({required BackendApi api}) : _api = api {
-    init = _init.toCommand();
-    refresh = _refresh.toCommand();
+    init = _init.toCommand('devices.init');
+    refresh = _refresh.toCommand('devices.refresh');
   }
 
   final switchConsumers = listSignal<SwitchConsumerViewModel>([]);

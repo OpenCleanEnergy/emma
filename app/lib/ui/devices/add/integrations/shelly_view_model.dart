@@ -8,8 +8,8 @@ class ShellyViewModel {
   DeviceCategory? _deviceCategory;
 
   ShellyViewModel({required BackendApi api}) : _api = api {
-    init = _init.toCommand();
-    poll = _poll.toCommand();
+    init = _init.toCommand('shelly.init');
+    poll = _poll.toCommand('shelly.poll');
   }
 
   final addableDevices = listSignal<AddableShellyDeviceDto>([]);
