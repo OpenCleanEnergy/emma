@@ -7,7 +7,7 @@ class VersionInfoViewModel {
   final BackendApi _api;
 
   VersionInfoViewModel({required BackendApi api}) : _api = api {
-    init = _init.toCommand();
+    init = _init.toCommand('version_info.init');
   }
   late final NoArgCommand init;
   final appVersion = signal('---');

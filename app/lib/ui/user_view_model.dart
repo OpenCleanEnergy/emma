@@ -7,9 +7,9 @@ class UserViewModel {
   final IUserRepository _userRepository;
   UserViewModel(IUserRepository userRepository)
       : _userRepository = userRepository,
-        register = userRepository.register.toCommand(),
-        login = userRepository.login.toCommand(),
-        logout = userRepository.logout.toCommand();
+        register = userRepository.register.toCommand('user.register'),
+        login = userRepository.login.toCommand('user.login'),
+        logout = userRepository.logout.toCommand('user.logout');
 
   ReadonlySignal<UserStatus> get status => _userRepository.status;
   ReadonlySignal<String> get name => _userRepository.name;

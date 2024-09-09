@@ -15,15 +15,18 @@ class GridStatusIndicator extends StatefulWidget {
 }
 
 class _GridStatusIndicatorState extends State<GridStatusIndicator> {
-  late final _maximumPower = computed(() {
-    return switch (widget.viewModel.currentPowerDirection.value) {
-      GridPowerDirection.swaggerGeneratedUnknown => 1.0,
-      GridPowerDirection.none => 1.0,
-      GridPowerDirection.consume =>
-        widget.viewModel.maximumPowerConsumption.value,
-      GridPowerDirection.feedin => widget.viewModel.maximumPowerFeedIn.value,
-    };
-  });
+  late final _maximumPower = computed(
+    () {
+      return switch (widget.viewModel.currentPowerDirection.value) {
+        GridPowerDirection.swaggerGeneratedUnknown => 1.0,
+        GridPowerDirection.none => 1.0,
+        GridPowerDirection.consume =>
+          widget.viewModel.maximumPowerConsumption.value,
+        GridPowerDirection.feedin => widget.viewModel.maximumPowerFeedIn.value,
+      };
+    },
+    debugLabel: "gridStatusIndicator.maximumPower",
+  );
 
   @override
   void dispose() {

@@ -21,27 +21,29 @@ class SwitchConsumerListItem extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
             child: Row(
               children: [
-                Watch((context) => Expanded(
-                      child: SegmentedButton<SwitchConsumerMode>(
-                        segments: const [
-                          ButtonSegment(
-                            value: SwitchConsumerMode.off,
-                            label: Text("Aus"),
-                          ),
-                          ButtonSegment(
-                            value: SwitchConsumerMode.on,
-                            label: Text("An"),
-                          ),
-                          ButtonSegment(
-                            value: SwitchConsumerMode.smart,
-                            label: Text("Smart"),
-                          )
-                        ],
-                        selected: {viewModel.mode.value},
-                        showSelectedIcon: false,
-                        onSelectionChanged: _onSelectionChanged,
-                      ),
-                    )),
+                Expanded(
+                  child: Watch(
+                    (context) => SegmentedButton<SwitchConsumerMode>(
+                      segments: const [
+                        ButtonSegment(
+                          value: SwitchConsumerMode.off,
+                          label: Text("Aus"),
+                        ),
+                        ButtonSegment(
+                          value: SwitchConsumerMode.on,
+                          label: Text("An"),
+                        ),
+                        ButtonSegment(
+                          value: SwitchConsumerMode.smart,
+                          label: Text("Smart"),
+                        )
+                      ],
+                      selected: {viewModel.mode.value},
+                      showSelectedIcon: false,
+                      onSelectionChanged: _onSelectionChanged,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

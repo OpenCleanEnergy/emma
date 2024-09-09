@@ -8,7 +8,7 @@ class DevelopmentViewModel {
   DeviceCategory? _deviceCategory;
 
   DevelopmentViewModel({required BackendApi api}) : _api = api {
-    init = _init.toCommand();
+    init = _init.toCommand('development.init');
   }
 
   final addableDevices = listSignal<AddableDevelopmentDeviceDto>([]);

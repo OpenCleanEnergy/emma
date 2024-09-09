@@ -10,7 +10,10 @@ class BatteryStatusIndicator extends StatelessWidget {
 
   final BatteryStatusViewModel viewModel;
 
-  late final _icon = computed(_getBatteryIcon);
+  late final _icon = computed(
+    _getBatteryIcon,
+    debugLabel: "batteryStatusIndicator.icon",
+  );
 
   @override
   Widget build(BuildContext context) {
