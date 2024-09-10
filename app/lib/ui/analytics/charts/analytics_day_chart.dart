@@ -4,7 +4,6 @@ import 'package:emma/application/analytics/power_data_point_dto.dart';
 import 'package:emma/ui/analytics/analytics_view_model.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_color_scheme.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_colors.dart';
-import 'package:emma/ui/analytics/charts/analytics_chart_container.dart';
 import 'package:emma/ui/analytics/charts/nice_scale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +21,10 @@ class AnalyticsDayChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: [
         Text("Leistungsverlauf", style: Theme.of(context).textTheme.bodyLarge),
         const SizedBox(height: 8),
-        AnalyticsChartContainer(
+        Expanded(
           child: Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Watch(

@@ -17,11 +17,13 @@ class AnalyticsChart extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Watch(
-          (context) => switch (viewModel.period.value) {
-            AnalyticsPeriod.day => AnalyticsDayChart(viewModel: viewModel),
-            _ => _ComingSoonChart(),
-          },
+        AnalyticsChartContainer(
+          child: Watch(
+            (context) => switch (viewModel.period.value) {
+              AnalyticsPeriod.day => AnalyticsDayChart(viewModel: viewModel),
+              _ => _ComingSoonChart(),
+            },
+          ),
         ),
         const SizedBox(height: 16),
         AnalyticsChartControl(viewModel: viewModel)
@@ -34,15 +36,13 @@ class _ComingSoonChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = AnalyticsChartColorScheme.of(context);
-    return AnalyticsChartContainer(
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: colorScheme.border)),
-        ),
-        margin: const EdgeInsets.only(bottom: 16),
-        child: const Center(
-          child: Text("Bald verfügbar."),
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: colorScheme.border)),
+      ),
+      margin: const EdgeInsets.only(bottom: 16),
+      child: const Center(
+        child: Text("Bald verfügbar."),
       ),
     );
   }

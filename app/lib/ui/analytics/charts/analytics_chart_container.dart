@@ -3,6 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class AnalyticsChartContainer extends StatelessWidget {
+  // Aspect ratio = width / height
+  static const _aspectRatio = 1.333;
+  static const _maxHeight = 360;
+
   const AnalyticsChartContainer({
     super.key,
     required this.child,
@@ -12,38 +16,21 @@ class AnalyticsChartContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomSingleChildLayout(
-        delegate: _AnalyticsChartContainerLayoutDelegate(), child: child);
+    return LayoutBuilder(builder: buildLayout);
   }
-}
 
-class _AnalyticsChartContainerLayoutDelegate extends SingleChildLayoutDelegate {
-  // Aspect ratio = width / height
-  static const aspectRatio = 1.333;
-  static const maxHeight = 360;
-
-  Size _size = Size.zero;
-
-  @override
-  Size getSize(BoxConstraints constraints) {
+  Widget buildLayout(BuildContext context, BoxConstraints constraints) {
     assert(
       constraints.maxWidth.isFinite,
       () => "Only works with finite width for $runtimeType.",
     );
 
     final width = constraints.maxWidth;
-    final height = min(maxHeight, width / aspectRatio).toDouble();
-    return _size = Size(width, height);
-  }
-
-  @override
-  BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    return BoxConstraints.tight(_size);
-  }
-
-  @override
-  bool shouldRelayout(
-      covariant _AnalyticsChartContainerLayoutDelegate oldDelegate) {
-    return false;
+    final height = min(_maxHeight, width / _aspectRatio).toDouble();
+    return SizedBox(
+      width: width,
+      height: height,
+      child: child,
+    );
   }
 }
