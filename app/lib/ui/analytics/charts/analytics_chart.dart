@@ -26,7 +26,7 @@ class AnalyticsChart extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        AnalyticsChartControl(viewModel: viewModel)
+        AnalyticsChartControl(viewModel: viewModel.chartControl),
       ],
     );
   }

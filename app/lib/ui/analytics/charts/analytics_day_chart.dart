@@ -51,10 +51,14 @@ class AnalyticsDayChart extends StatelessWidget {
         .toDouble();
 
     final maxValue = [
-      ...viewModel.day.value.home,
-      ...viewModel.day.value.production,
-      ...viewModel.day.value.gridConsume,
-      ...viewModel.day.value.gridFeedIn,
+      if (viewModel.chartControl.showHome.value) ...viewModel.day.value.home,
+      if (viewModel.chartControl.showProduction.value)
+        ...viewModel.day.value.production,
+      if (viewModel.chartControl.showGridConsume.value)
+        ...viewModel.day.value.gridConsume,
+      if (viewModel.chartControl.showGridFeedIn.value)
+        ...viewModel.day.value.gridFeedIn,
+      PowerDataPointDto(DateTime.now(), 100),
     ].map((x) => x.power).reduce(math.max);
 
     final niceScale = NiceScale.calculate(
@@ -120,19 +124,19 @@ class AnalyticsDayChart extends StatelessWidget {
       ),
       lineBarsData: [
         _getLineChartData(
-            show: viewModel.showProduction.value,
+            show: viewModel.chartControl.showProduction.value,
             data: viewModel.day.value.production,
             color: AnalyticsChartColors.production),
         _getLineChartData(
-            show: viewModel.showHome.value,
+            show: viewModel.chartControl.showHome.value,
             data: viewModel.day.value.home,
             color: AnalyticsChartColors.home),
         _getLineChartData(
-            show: viewModel.showGridConsume.value,
+            show: viewModel.chartControl.showGridConsume.value,
             data: viewModel.day.value.gridConsume,
             color: AnalyticsChartColors.gridConsumption),
         _getLineChartData(
-            show: viewModel.showGridFeedIn.value,
+            show: viewModel.chartControl.showGridFeedIn.value,
             data: viewModel.day.value.gridFeedIn,
             color: AnalyticsChartColors.gridFeedIn),
       ],

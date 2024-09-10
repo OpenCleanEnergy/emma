@@ -1,5 +1,6 @@
 import 'package:emma/application/analytics/analytics_demo_data.dart';
 import 'package:emma/ui/analytics/analytics_period.dart';
+import 'package:emma/ui/analytics/charts/analytics_chart_control_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals.dart';
 
@@ -17,10 +18,7 @@ class AnalyticsViewModel {
     debugLabel: "analytics.vm.range",
   );
 
-  final showProduction = signal(true);
-  final showHome = signal(true);
-  final showGridFeedIn = signal(true);
-  final showGridConsume = signal(true);
+  final chartControl = AnalyticsChartControlViewModel();
 
   ReadonlySignal<AnalyticsPeriod> get period => _period;
   ReadonlySignal<DateTimeRange> get range => _range;

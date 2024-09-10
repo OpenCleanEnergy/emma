@@ -1,5 +1,5 @@
-import 'package:emma/ui/analytics/analytics_view_model.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_colors.dart';
+import 'package:emma/ui/analytics/charts/analytics_chart_control_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -9,7 +9,7 @@ class AnalyticsChartControl extends StatelessWidget {
     required this.viewModel,
   });
 
-  final AnalyticsViewModel viewModel;
+  final AnalyticsChartControlViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +22,25 @@ class AnalyticsChartControl extends StatelessWidget {
           label: "Produktion",
           color: AnalyticsChartColors.production,
           state: viewModel.showProduction,
+          onPressed: viewModel.toggleProduction,
         ),
         _ToggleButton(
           label: "Hausverbrauch",
           color: AnalyticsChartColors.home,
           state: viewModel.showHome,
+          onPressed: viewModel.toggleHome,
         ),
         _ToggleButton(
           label: "Einspeisung",
           color: AnalyticsChartColors.gridFeedIn,
           state: viewModel.showGridFeedIn,
+          onPressed: viewModel.toggleGridFeedIn,
         ),
         _ToggleButton(
           label: "Netzbezug",
           color: AnalyticsChartColors.gridConsumption,
           state: viewModel.showGridConsume,
+          onPressed: viewModel.toggleGridConsume,
         ),
       ],
     );
@@ -48,17 +52,19 @@ class _ToggleButton extends StatelessWidget {
     required this.label,
     required this.color,
     required this.state,
+    required this.onPressed,
   });
 
   final String label;
   final Color color;
-  final Signal<bool> state;
+  final ReadonlySignal<bool> state;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Watch(
       (context) => OutlinedButton(
-        onPressed: () => state.value = !state.value,
+        onPressed: onPressed,
         style: state.value ? _enabled() : _disabled(context),
         child: Text(label),
       ),
