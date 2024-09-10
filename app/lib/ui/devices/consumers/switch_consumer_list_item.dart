@@ -14,6 +14,8 @@ class SwitchConsumerListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Card.outlined(
       child: Column(
         children: [
@@ -55,11 +57,15 @@ class SwitchConsumerListItem extends StatelessWidget {
                   viewModel.name.value,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      color: _getTextColor(context, viewModel.status.value)),
+                    color: _getTextColor(colorScheme, viewModel.status.value),
+                  ),
                 ),
                 subtitle: viewModel.hasReportedPowerConsumption.value
-                    ? UnitText.power(viewModel.currentPowerConsumption.value,
-                        color: _getTextColor(context, viewModel.status.value))
+                    ? UnitText.power(
+                        viewModel.currentPowerConsumption.value,
+                        color:
+                            _getTextColor(colorScheme, viewModel.status.value),
+                      )
                     : null,
                 trailing: IconButton(
                   icon: const Icon(AppIcons.arrow_next),
@@ -100,8 +106,7 @@ class SwitchConsumerListItem extends StatelessWidget {
   }
 
   static Color _getTextColor(
-      BuildContext context, SwitchConsumerStatus status) {
-    final colorScheme = Theme.of(context).colorScheme;
+      ColorScheme colorScheme, SwitchConsumerStatus status) {
     return switch (status) {
       SwitchConsumerStatus.off => colorScheme.secondary,
       SwitchConsumerStatus.on => colorScheme.primary,

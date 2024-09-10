@@ -14,6 +14,8 @@ class ProducerListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Card.outlined(
       child: ListTile(
         leading: Watch((context) =>
@@ -23,12 +25,12 @@ class ProducerListItem extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                   color: _getTextColor(
-                      context, viewModel.currentPowerProduction.value)),
+                      colorScheme, viewModel.currentPowerProduction.value)),
             )),
         subtitle: Watch((context) => UnitText.power(
             viewModel.currentPowerProduction.value,
             color: _getTextColor(
-                context, viewModel.currentPowerProduction.value))),
+                colorScheme, viewModel.currentPowerProduction.value))),
         trailing: IconButton(
           icon: const Icon(AppIcons.arrow_next),
           onPressed: _gotoEdit,
@@ -41,8 +43,7 @@ class ProducerListItem extends StatelessWidget {
     AppNavigator.push(EditProducerScreen(viewModel: viewModel));
   }
 
-  Color _getTextColor(BuildContext context, double power) {
-    final colorScheme = Theme.of(context).colorScheme;
+  Color _getTextColor(ColorScheme colorScheme, double power) {
     return switch (power) {
       0 => colorScheme.secondary,
       _ => colorScheme.primary,

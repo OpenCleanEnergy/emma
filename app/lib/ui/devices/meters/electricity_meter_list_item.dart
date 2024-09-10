@@ -15,6 +15,8 @@ class ElectricityMeterListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Card.outlined(
       child: ListTile(
         leading: Watch<Widget>(
@@ -26,13 +28,13 @@ class ElectricityMeterListItem extends StatelessWidget {
                 quarterTurns: 1,
                 child: Icon(
                   AppIcons.arrow_flow_right_double,
-                  color: Theme.of(context).colorScheme.error,
+                  color: colorScheme.error,
                 )),
             GridPowerDirection.feedin => RotatedBox(
                 quarterTurns: 3,
                 child: Icon(
                   AppIcons.arrow_flow_right_double,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: colorScheme.primary,
                 ))
           },
         ),
@@ -40,12 +42,13 @@ class ElectricityMeterListItem extends StatelessWidget {
               viewModel.name.value,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                  color: _getTextColor(context, viewModel.currentPower.value)),
+                color: _getTextColor(colorScheme, viewModel.currentPower.value),
+              ),
             )),
-        subtitle: Watch(
-          (context) => UnitText.power(viewModel.currentPower.value,
-              color: _getTextColor(context, viewModel.currentPower.value)),
-        ),
+        subtitle: Watch((context) => UnitText.power(
+              viewModel.currentPower.value,
+              color: _getTextColor(colorScheme, viewModel.currentPower.value),
+            )),
         trailing: IconButton(
           icon: const Icon(AppIcons.arrow_next),
           onPressed: _gotoEdit,
@@ -58,8 +61,7 @@ class ElectricityMeterListItem extends StatelessWidget {
     AppNavigator.push(EditElectricityMeterScreen(viewModel: viewModel));
   }
 
-  static Color _getTextColor(BuildContext context, double power) {
-    final colorScheme = Theme.of(context).colorScheme;
+  static Color _getTextColor(ColorScheme colorScheme, double power) {
     return switch (power) {
       0 => colorScheme.secondary,
       _ => colorScheme.primary,
