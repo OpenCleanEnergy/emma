@@ -7,23 +7,17 @@ import 'package:emma/ui/shared/unit_text.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
-class ProducerListItem extends StatefulWidget {
+class ProducerListItem extends StatelessWidget {
   const ProducerListItem({super.key, required this.viewModel});
+
   final ProducerViewModel viewModel;
-
-  @override
-  State<ProducerListItem> createState() => _ProducerListItemState();
-}
-
-class _ProducerListItemState extends State<ProducerListItem> {
-  ProducerViewModel get viewModel => widget.viewModel;
 
   @override
   Widget build(BuildContext context) {
     return Card.outlined(
       child: ListTile(
-        leading: Watch((context) => OnOffIndicator(
-            status: widget.viewModel.currentPowerProduction.value > 0)),
+        leading: Watch((context) =>
+            OnOffIndicator(status: viewModel.currentPowerProduction.value > 0)),
         title: Watch((context) => Text(
               viewModel.name.value,
               overflow: TextOverflow.ellipsis,
