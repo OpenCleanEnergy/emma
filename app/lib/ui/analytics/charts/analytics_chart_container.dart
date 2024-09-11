@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class AnalyticsChartContainer extends StatelessWidget {
   // Aspect ratio = width / height
   static const _aspectRatio = 1.333;
-  static const _maxHeight = 360;
+  static const _maxHeight = 256;
 
   const AnalyticsChartContainer({
     super.key,
