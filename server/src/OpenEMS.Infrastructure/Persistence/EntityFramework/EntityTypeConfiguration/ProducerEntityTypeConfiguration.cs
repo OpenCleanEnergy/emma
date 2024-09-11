@@ -18,5 +18,7 @@ public class ProducerEntityTypeConfiguration : IEntityTypeConfiguration<Producer
                     .IsUnique();
             }
         );
+
+        builder.OwnsOne(electricityMeter => electricityMeter.TotalEnergyProduction).WithOwner();
     }
 }

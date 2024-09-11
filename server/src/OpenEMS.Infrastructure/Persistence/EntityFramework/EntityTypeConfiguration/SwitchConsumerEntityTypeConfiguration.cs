@@ -20,5 +20,6 @@ public class SwitchConsumerEntityTypeConfiguration : IEntityTypeConfiguration<Sw
         );
 
         builder.OwnsOne(switchConsumer => switchConsumer.SmartModeConfiguration).WithOwner();
+        builder.OwnsOne(electricityMeter => electricityMeter.TotalEnergyConsumption).WithOwner();
     }
 }

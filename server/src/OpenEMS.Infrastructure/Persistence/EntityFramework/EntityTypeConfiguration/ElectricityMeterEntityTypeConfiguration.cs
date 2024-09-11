@@ -18,5 +18,8 @@ public class ElectricityMeterEntityTypeConfiguration : IEntityTypeConfiguration<
                     .IsUnique();
             }
         );
+
+        builder.OwnsOne(electricityMeter => electricityMeter.TotalEnergyConsumption).WithOwner();
+        builder.OwnsOne(electricityMeter => electricityMeter.TotalEnergyFeedIn).WithOwner();
     }
 }

@@ -17,6 +17,9 @@ public readonly partial record struct WattHours
     public static WattHours operator +(WattHours left, WattHours right) =>
         From(left.Value + right.Value);
 
+    public static WattHours operator -(WattHours left, WattHours right) =>
+        From(left.Value - right.Value);
+
     private static Validation Validate(double input)
     {
         _ = input;

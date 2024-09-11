@@ -295,7 +295,7 @@ public class ShellyStatusOnChangeEventHandler
             {
                 var x when x > Watt.Zero => GridPowerDirection.Consume,
                 var x when x < Watt.Zero => GridPowerDirection.FeedIn,
-                _ => GridPowerDirection.None
+                _ => GridPowerDirection.None,
             };
 
             electricityMeter.ReportCurrentPower(currentPower.Value, direction);
@@ -303,12 +303,12 @@ public class ShellyStatusOnChangeEventHandler
 
         if (totalEnergyConsumption.HasValue)
         {
-            electricityMeter.TotalEnergyConsumption = totalEnergyConsumption.Value;
+            electricityMeter.ReportTotalEnergyConsumption(totalEnergyConsumption.Value);
         }
 
         if (totalEnergyFeedIn.HasValue)
         {
-            electricityMeter.TotalEnergyFeedIn = totalEnergyFeedIn.Value;
+            electricityMeter.ReportTotalEnergyFeedIn(totalEnergyFeedIn.Value);
         }
     }
 }

@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integrations", "integration
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Integrations.Shelly.Test", "test\integrations\OpenEMS.Integrations.Shelly.Test\OpenEMS.Integrations.Shelly.Test.csproj", "{2DFA9324-C666-4D50-9EA2-F0197AFE24CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Domain.Test", "test\OpenEMS.Domain.Test\OpenEMS.Domain.Test.csproj", "{CD454A6C-7EE6-44B4-B00E-39498126C1B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{2DFA9324-C666-4D50-9EA2-F0197AFE24CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DFA9324-C666-4D50-9EA2-F0197AFE24CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DFA9324-C666-4D50-9EA2-F0197AFE24CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD454A6C-7EE6-44B4-B00E-39498126C1B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD454A6C-7EE6-44B4-B00E-39498126C1B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD454A6C-7EE6-44B4-B00E-39498126C1B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD454A6C-7EE6-44B4-B00E-39498126C1B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,5 +93,6 @@ Global
 		{BAD76F68-E1AD-41C6-8BBE-06D9FAD00C26} = {857EBC2A-8A73-4C09-8DED-D35E8C45B007}
 		{0114E6CC-84EB-47FD-91F5-30CD4896F903} = {79A93847-64ED-4E4D-B365-D4C3C2729058}
 		{2DFA9324-C666-4D50-9EA2-F0197AFE24CC} = {0114E6CC-84EB-47FD-91F5-30CD4896F903}
+		{CD454A6C-7EE6-44B4-B00E-39498126C1B4} = {79A93847-64ED-4E4D-B365-D4C3C2729058}
 	EndGlobalSection
 EndGlobal

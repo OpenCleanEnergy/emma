@@ -30,7 +30,7 @@ public class SwitchConsumer : IHasOwner, IHasEvents
     public Watt MaximumPowerConsumption { get; private set; } = Watt.Zero;
 
     public bool HasReportedTotalEnergyConsumption { get; private set; }
-    public WattHours TotalEnergyConsumption { get; private set; } = WattHours.Zero;
+    public TotalEnergy TotalEnergyConsumption { get; private set; } = TotalEnergy.Zero;
     public required UserId OwnedBy { get; init; }
 
     public void ActivateSmartMode()
@@ -67,7 +67,7 @@ public class SwitchConsumer : IHasOwner, IHasEvents
 
     public void ReportTotalEnergyConsumption(WattHours value)
     {
-        TotalEnergyConsumption = value;
+        TotalEnergyConsumption = TotalEnergyConsumption.WithReported(value);
         HasReportedTotalEnergyConsumption = true;
     }
 

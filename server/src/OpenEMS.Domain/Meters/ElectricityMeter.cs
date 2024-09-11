@@ -19,8 +19,8 @@ public class ElectricityMeter : IHasOwner, IHasEvents
     public Watt CurrentPower { get; private set; } = Watt.Zero;
     public Watt MaximumPowerConsumption { get; private set; } = Watt.Zero;
     public Watt MaximumPowerFeedIn { get; private set; } = Watt.Zero;
-    public WattHours TotalEnergyConsumption { get; set; } = WattHours.Zero;
-    public WattHours TotalEnergyFeedIn { get; set; } = WattHours.Zero;
+    public TotalEnergy TotalEnergyConsumption { get; private set; } = TotalEnergy.Zero;
+    public TotalEnergy TotalEnergyFeedIn { get; private set; } = TotalEnergy.Zero;
     public required UserId OwnedBy { get; init; }
 
     public void ReportCurrentPower(Watt currentPower, GridPowerDirection currentPowerDirection)
@@ -64,6 +64,12 @@ public class ElectricityMeter : IHasOwner, IHasEvents
                 throw Exceptions.NotImplemented(CurrentPowerDirection);
         }
     }
+
+    public void ReportTotalEnergyConsumption(WattHours value) =>
+        TotalEnergyConsumption = TotalEnergyConsumption.WithReported(value);
+
+    public void ReportTotalEnergyFeedIn(WattHours value) =>
+        TotalEnergyFeedIn = TotalEnergyFeedIn.WithReported(value);
 
     public bool HasEvents() => _events.Count > 0;
 
