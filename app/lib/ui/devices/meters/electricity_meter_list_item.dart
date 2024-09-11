@@ -24,18 +24,14 @@ class ElectricityMeterListItem extends StatelessWidget {
             GridPowerDirection.swaggerGeneratedUnknown ||
             GridPowerDirection.none =>
               const OnOffIndicator(status: false),
-            GridPowerDirection.consume => RotatedBox(
-                quarterTurns: 1,
-                child: Icon(
-                  AppIcons.arrow_flow_right_double,
-                  color: colorScheme.error,
-                )),
-            GridPowerDirection.feedin => RotatedBox(
-                quarterTurns: 3,
-                child: Icon(
-                  AppIcons.arrow_flow_right_double,
-                  color: colorScheme.primary,
-                ))
+            GridPowerDirection.consume => Icon(
+                AppIcons.arrow_flow_down_double,
+                color: colorScheme.error,
+              ),
+            GridPowerDirection.feedin => Icon(
+                AppIcons.arrow_flow_up_double,
+                color: colorScheme.primary,
+              )
           },
         ),
         title: Watch((context) => Text(
