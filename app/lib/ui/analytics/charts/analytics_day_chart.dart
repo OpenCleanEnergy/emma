@@ -4,7 +4,6 @@ import 'package:emma/application/analytics/power_data_point_dto.dart';
 import 'package:emma/ui/analytics/analytics_view_model.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_color_scheme.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_colors.dart';
-import 'package:emma/ui/analytics/charts/nice_scale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -45,12 +44,7 @@ class AnalyticsDayChart extends StatelessWidget {
 
   LineChartData mainData(
       TextTheme textTheme, AnalyticsChartColorScheme colorScheme) {
-    final maxX = viewModel.day.value.end
-        .difference(viewModel.day.value.start)
-        .inMinutes
-        .toDouble();
-
-    final maxValue = [
+    final maxPower = [
       if (viewModel.chartControl.showHome.value) ...viewModel.day.value.home,
       if (viewModel.chartControl.showProduction.value)
         ...viewModel.day.value.production,
@@ -58,26 +52,14 @@ class AnalyticsDayChart extends StatelessWidget {
         ...viewModel.day.value.gridConsume,
       if (viewModel.chartControl.showGridFeedIn.value)
         ...viewModel.day.value.gridFeedIn,
-      PowerDataPointDto(DateTime.now(), 100),
-    ].map((x) => x.power).reduce(math.max);
-
-    final niceScale = NiceScale.calculate(
-      maxTicks: 10,
-      min: 0,
-      max: maxValue,
-    );
+    ].map((x) => x.power).fold(100.0, math.max);
 
     const timeAxisInterval = 120.0;
     return LineChartData(
-      minX: 0,
-      maxX: maxX,
-      minY: niceScale.min,
-      maxY: niceScale.max,
+      maxY: maxPower,
       gridData: FlGridData(
         show: true,
         drawVerticalLine: false,
-        horizontalInterval: niceScale.tickInterval,
-        verticalInterval: timeAxisInterval,
         getDrawingHorizontalLine: (value) {
           return FlLine(
             color: colorScheme.mainGridLine,
@@ -87,7 +69,6 @@ class AnalyticsDayChart extends StatelessWidget {
         },
       ),
       titlesData: FlTitlesData(
-        show: true,
         rightTitles: const AxisTitles(
           sideTitles: SideTitles(showTitles: false),
         ),
@@ -97,7 +78,7 @@ class AnalyticsDayChart extends StatelessWidget {
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
-            reservedSize: 30,
+            reservedSize: 48,
             interval: timeAxisInterval,
             getTitlesWidget: (value, meta) =>
                 _buildTimeAxisTitleWidget(textTheme, value, meta),
@@ -106,10 +87,9 @@ class AnalyticsDayChart extends StatelessWidget {
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
-            interval: niceScale.tickInterval,
             getTitlesWidget: (value, meta) =>
                 _buildPowerAxisTitleWidget(textTheme, value, meta),
-            reservedSize: 42,
+            reservedSize: 48,
           ),
         ),
       ),
@@ -171,16 +151,18 @@ class AnalyticsDayChart extends StatelessWidget {
     required Color color,
   }) {
     final start = data.isNotEmpty ? data.first.time : DateTime.now();
+    var spots = data
+        .map(
+          (p) => FlSpot(
+            p.time.difference(start).inMinutes.toDouble(),
+            p.power,
+          ),
+        )
+        .toList();
+
     return LineChartBarData(
       show: show,
-      spots: data
-          .map(
-            (p) => FlSpot(
-              p.time.difference(start).inMinutes.toDouble(),
-              p.power,
-            ),
-          )
-          .toList(),
+      spots: spots,
       isCurved: true,
       color: color,
       barWidth: 2,
