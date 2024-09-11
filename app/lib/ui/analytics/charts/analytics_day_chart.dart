@@ -4,6 +4,7 @@ import 'package:emma/application/analytics/power_data_point_dto.dart';
 import 'package:emma/ui/analytics/analytics_view_model.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_color_scheme.dart';
 import 'package:emma/ui/analytics/charts/analytics_chart_colors.dart';
+import 'package:emma/ui/analytics/charts/nice_scale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -44,7 +45,7 @@ class AnalyticsDayChart extends StatelessWidget {
 
   LineChartData mainData(
       TextTheme textTheme, AnalyticsChartColorScheme colorScheme) {
-    final maxPower = [
+    final maxValue = [
       if (viewModel.chartControl.showHome.value) ...viewModel.day.value.home,
       if (viewModel.chartControl.showProduction.value)
         ...viewModel.day.value.production,
@@ -54,12 +55,21 @@ class AnalyticsDayChart extends StatelessWidget {
         ...viewModel.day.value.gridFeedIn,
     ].map((x) => x.power).fold(100.0, math.max);
 
+    final niceScale = NiceScale.calculate(
+      maxTicks: 10,
+      min: 0,
+      max: maxValue,
+    );
+
     const timeAxisInterval = 120.0;
     return LineChartData(
-      maxY: maxPower,
+      minY: niceScale.min,
+      maxY: niceScale.max,
       gridData: FlGridData(
         show: true,
         drawVerticalLine: false,
+        horizontalInterval: niceScale.tickInterval,
+        verticalInterval: timeAxisInterval,
         getDrawingHorizontalLine: (value) {
           return FlLine(
             color: colorScheme.mainGridLine,
@@ -87,6 +97,7 @@ class AnalyticsDayChart extends StatelessWidget {
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
+            interval: niceScale.tickInterval,
             getTitlesWidget: (value, meta) =>
                 _buildPowerAxisTitleWidget(textTheme, value, meta),
             reservedSize: 48,
