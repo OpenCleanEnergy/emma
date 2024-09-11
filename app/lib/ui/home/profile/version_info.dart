@@ -1,5 +1,5 @@
-import 'package:emma/ui/home/profile/version_info_view_model.dart';
-import 'package:emma/ui/locator.dart';
+import 'package:openems/ui/home/profile/version_info_view_model.dart';
+import 'package:openems/ui/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 

@@ -1,4 +1,4 @@
-import 'package:emma/infrastructure/window_size_writer.dart';
+import 'package:openems/infrastructure/window_size_writer.dart';
 import 'package:flutter/material.dart';
 
 class ScreenSizeSelector extends StatefulWidget {

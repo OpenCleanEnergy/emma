@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:emma/application/analytics/analytics_day_data_dto.dart';
-import 'package:emma/application/analytics/power_data_point_dto.dart';
+import 'package:openems/application/analytics/analytics_day_data_dto.dart';
+import 'package:openems/application/analytics/power_data_point_dto.dart';
 
 abstract final class AnalyticsDemoData {
   static AnalyticsDayDataDto day(DateTime start) {

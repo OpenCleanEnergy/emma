@@ -1,4 +1,4 @@
-# emma
+# EMMA
 
 Open source energy management
 

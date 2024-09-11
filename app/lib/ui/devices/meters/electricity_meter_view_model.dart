@@ -1,5 +1,5 @@
-import 'package:emma/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
-import 'package:emma/ui/commands/command.dart';
+import 'package:openems/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
+import 'package:openems/ui/commands/command.dart';
 import 'package:signals/signals_flutter.dart';
 
 class ElectricityMeterViewModel {

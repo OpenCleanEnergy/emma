@@ -1,10 +1,10 @@
-import 'package:emma/ui/devices/consumers/switch_consumer_list_item.dart';
-import 'package:emma/ui/devices/consumers/switch_consumer_view_model.dart';
-import 'package:emma/ui/devices/devices_view_model.dart';
-import 'package:emma/ui/devices/meters/electricity_meter_list_item.dart';
-import 'package:emma/ui/devices/meters/electricity_meter_view_model.dart';
-import 'package:emma/ui/devices/producers/producer_list_item.dart';
-import 'package:emma/ui/devices/producers/producer_view_model.dart';
+import 'package:openems/ui/devices/consumers/switch_consumer_list_item.dart';
+import 'package:openems/ui/devices/consumers/switch_consumer_view_model.dart';
+import 'package:openems/ui/devices/devices_view_model.dart';
+import 'package:openems/ui/devices/meters/electricity_meter_list_item.dart';
+import 'package:openems/ui/devices/meters/electricity_meter_view_model.dart';
+import 'package:openems/ui/devices/producers/producer_list_item.dart';
+import 'package:openems/ui/devices/producers/producer_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 

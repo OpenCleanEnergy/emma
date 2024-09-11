@@ -1,12 +1,12 @@
-import 'package:emma/infrastructure/window_size_writer.dart';
-import 'package:emma/ui/app_icons.dart';
-import 'package:emma/ui/app_navigator.dart';
-import 'package:emma/ui/home/profile/information_screen.dart';
-import 'package:emma/ui/home/profile/version_info.dart';
-import 'package:emma/ui/home/profile/development/screen_size_selector.dart';
-import 'package:emma/ui/locator.dart';
-import 'package:emma/ui/logs/logs_screen.dart';
-import 'package:emma/ui/user_view_model.dart';
+import 'package:openems/infrastructure/window_size_writer.dart';
+import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/app_navigator.dart';
+import 'package:openems/ui/home/profile/information_screen.dart';
+import 'package:openems/ui/home/profile/version_info.dart';
+import 'package:openems/ui/home/profile/development/screen_size_selector.dart';
+import 'package:openems/ui/locator.dart';
+import 'package:openems/ui/logs/logs_screen.dart';
+import 'package:openems/ui/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 

@@ -1,4 +1,4 @@
-import 'package:emma/domain/user_status.dart';
+import 'package:openems/domain/user_status.dart';
 import 'package:signals/signals.dart';
 
 abstract interface class IUserRepository {

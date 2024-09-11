@@ -1,6 +1,6 @@
-import 'package:emma/ui/app_icons.dart';
-import 'package:emma/ui/locator.dart';
-import 'package:emma/ui/user_view_model.dart';
+import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/locator.dart';
+import 'package:openems/ui/user_view_model.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {

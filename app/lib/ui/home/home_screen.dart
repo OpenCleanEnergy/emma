@@ -1,12 +1,12 @@
-import 'package:emma/ui/app_icons.dart';
-import 'package:emma/ui/app_navigator.dart';
-import 'package:emma/ui/home/home_view_model.dart';
-import 'package:emma/ui/home/profile/profile_screen.dart';
-import 'package:emma/ui/home/status/home_status_view.dart';
-import 'package:emma/ui/locator.dart';
-import 'package:emma/ui/shared/app_bar_action_button.dart';
-import 'package:emma/ui/shared/app_bar_command_progress_indicator.dart';
-import 'package:emma/ui/utils/polling/long_polling_handler.dart';
+import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/app_navigator.dart';
+import 'package:openems/ui/home/home_view_model.dart';
+import 'package:openems/ui/home/profile/profile_screen.dart';
+import 'package:openems/ui/home/status/home_status_view.dart';
+import 'package:openems/ui/locator.dart';
+import 'package:openems/ui/shared/app_bar_action_button.dart';
+import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
+import 'package:openems/ui/utils/polling/long_polling_handler.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

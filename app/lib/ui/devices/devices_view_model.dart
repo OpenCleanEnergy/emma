@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:emma/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
-import 'package:emma/ui/commands/command.dart';
-import 'package:emma/ui/devices/consumers/switch_consumer_view_model.dart';
-import 'package:emma/ui/devices/meters/electricity_meter_view_model.dart';
-import 'package:emma/ui/devices/producers/producer_view_model.dart';
+import 'package:openems/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
+import 'package:openems/ui/commands/command.dart';
+import 'package:openems/ui/devices/consumers/switch_consumer_view_model.dart';
+import 'package:openems/ui/devices/meters/electricity_meter_view_model.dart';
+import 'package:openems/ui/devices/producers/producer_view_model.dart';
 import 'package:signals/signals_flutter.dart';
 
 class DevicesViewModel {

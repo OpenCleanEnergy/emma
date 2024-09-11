@@ -1,4 +1,4 @@
-import 'package:emma/ui/app_messenger.dart';
+import 'package:openems/ui/app_messenger.dart';
 
 void noop() {
   AppMessenger.info("Bald verfügbar.");

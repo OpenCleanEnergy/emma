@@ -1,7 +1,7 @@
-import 'package:emma/ui/analytics/analytics_range_picker.dart';
-import 'package:emma/ui/analytics/analytics_view_model.dart';
-import 'package:emma/ui/analytics/charts/analytics_chart.dart';
-import 'package:emma/ui/analytics/metrics/analytics_metrics_container.dart';
+import 'package:openems/ui/analytics/analytics_range_picker.dart';
+import 'package:openems/ui/analytics/analytics_view_model.dart';
+import 'package:openems/ui/analytics/charts/analytics_chart.dart';
+import 'package:openems/ui/analytics/metrics/analytics_metrics_container.dart';
 import 'package:flutter/material.dart';
 
 // AutomaticKeepAliveClientMixin to keep alive

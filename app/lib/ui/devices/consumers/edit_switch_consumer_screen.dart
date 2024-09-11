@@ -1,10 +1,10 @@
 import 'package:confirm_dialog/confirm_dialog.dart';
-import 'package:emma/ui/app_messenger.dart';
-import 'package:emma/ui/app_navigator.dart';
-import 'package:emma/ui/devices/consumers/switch_consumer_view_model.dart';
-import 'package:emma/ui/devices/widgets/device_name_form_field.dart';
-import 'package:emma/ui/shared/app_bar_command_progress_indicator.dart';
-import 'package:emma/ui/shared/debounce.dart';
+import 'package:openems/ui/app_messenger.dart';
+import 'package:openems/ui/app_navigator.dart';
+import 'package:openems/ui/devices/consumers/switch_consumer_view_model.dart';
+import 'package:openems/ui/devices/widgets/device_name_form_field.dart';
+import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
+import 'package:openems/ui/shared/debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 

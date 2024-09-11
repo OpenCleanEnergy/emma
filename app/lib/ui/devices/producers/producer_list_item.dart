@@ -1,9 +1,9 @@
-import 'package:emma/ui/app_icons.dart';
-import 'package:emma/ui/app_navigator.dart';
-import 'package:emma/ui/devices/producers/edit_producer_screen.dart';
-import 'package:emma/ui/devices/producers/producer_view_model.dart';
-import 'package:emma/ui/devices/widgets/on_off_indicator.dart';
-import 'package:emma/ui/shared/unit_text.dart';
+import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/app_navigator.dart';
+import 'package:openems/ui/devices/producers/edit_producer_screen.dart';
+import 'package:openems/ui/devices/producers/producer_view_model.dart';
+import 'package:openems/ui/devices/widgets/on_off_indicator.dart';
+import 'package:openems/ui/shared/unit_text.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 

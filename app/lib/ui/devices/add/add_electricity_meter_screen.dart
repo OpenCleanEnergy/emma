@@ -1,13 +1,13 @@
-import 'package:emma/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
-import 'package:emma/ui/app_messenger.dart';
-import 'package:emma/ui/app_navigator.dart';
-import 'package:emma/ui/devices/add/add_electricity_meter_view_model.dart';
-import 'package:emma/ui/devices/add/translate.dart';
-import 'package:emma/ui/devices/add/widgets/abort_add_button.dart';
-import 'package:emma/ui/devices/add/widgets/add_device_step_explanation.dart';
-import 'package:emma/ui/devices/widgets/device_name_form_field.dart';
-import 'package:emma/ui/locator.dart';
-import 'package:emma/ui/shared/app_bar_command_progress_indicator.dart';
+import 'package:openems/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
+import 'package:openems/ui/app_messenger.dart';
+import 'package:openems/ui/app_navigator.dart';
+import 'package:openems/ui/devices/add/add_electricity_meter_view_model.dart';
+import 'package:openems/ui/devices/add/translate.dart';
+import 'package:openems/ui/devices/add/widgets/abort_add_button.dart';
+import 'package:openems/ui/devices/add/widgets/add_device_step_explanation.dart';
+import 'package:openems/ui/devices/widgets/device_name_form_field.dart';
+import 'package:openems/ui/locator.dart';
+import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 

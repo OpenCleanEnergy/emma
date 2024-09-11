@@ -1,13 +1,13 @@
-import 'package:emma/ui/app_icons.dart';
-import 'package:emma/ui/app_navigator.dart';
-import 'package:emma/ui/devices/add/select_device_category_screen.dart';
-import 'package:emma/ui/devices/devices_view_model.dart';
-import 'package:emma/ui/devices/widgets/devices_list.dart';
-import 'package:emma/ui/locator.dart';
-import 'package:emma/ui/shared/app_bar_action_button.dart';
-import 'package:emma/ui/shared/noop.dart';
-import 'package:emma/ui/shared/app_bar_command_progress_indicator.dart';
-import 'package:emma/ui/utils/polling/long_polling_handler.dart';
+import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/app_navigator.dart';
+import 'package:openems/ui/devices/add/select_device_category_screen.dart';
+import 'package:openems/ui/devices/devices_view_model.dart';
+import 'package:openems/ui/devices/widgets/devices_list.dart';
+import 'package:openems/ui/locator.dart';
+import 'package:openems/ui/shared/app_bar_action_button.dart';
+import 'package:openems/ui/shared/noop.dart';
+import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
+import 'package:openems/ui/utils/polling/long_polling_handler.dart';
 import 'package:flutter/material.dart';
 
 class DevicesScreen extends StatefulWidget {

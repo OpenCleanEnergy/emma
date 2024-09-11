@@ -1,7 +1,7 @@
-import 'package:emma/ui/analytics/analytics_screen.dart';
-import 'package:emma/ui/app_icons.dart';
-import 'package:emma/ui/devices/devices_screen.dart';
-import 'package:emma/ui/home/home_screen.dart';
+import 'package:openems/ui/analytics/analytics_screen.dart';
+import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/devices/devices_screen.dart';
+import 'package:openems/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 // from

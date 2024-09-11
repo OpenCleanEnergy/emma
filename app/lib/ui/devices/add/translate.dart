@@ -1,4 +1,4 @@
-import 'package:emma/application/backend_api/swagger_generated_code/backend_api.enums.swagger.dart';
+import 'package:openems/application/backend_api/swagger_generated_code/backend_api.enums.swagger.dart';
 
 abstract class Translate {
   static String deviceCategory(DeviceCategory input) {

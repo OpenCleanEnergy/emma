@@ -1,6 +1,6 @@
-import 'package:emma/domain/i_user_repository.dart';
-import 'package:emma/domain/user_status.dart';
-import 'package:emma/ui/commands/command.dart';
+import 'package:openems/domain/i_user_repository.dart';
+import 'package:openems/domain/user_status.dart';
+import 'package:openems/ui/commands/command.dart';
 import 'package:signals/signals.dart';
 
 class UserViewModel {

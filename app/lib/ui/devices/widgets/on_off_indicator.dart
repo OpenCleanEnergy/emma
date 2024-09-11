@@ -1,4 +1,4 @@
-import 'package:emma/ui/shared/circular_value_indicator.dart';
+import 'package:openems/ui/shared/circular_value_indicator.dart';
 import 'package:flutter/material.dart';
 
 class OnOffIndicator extends StatelessWidget {

@@ -1,6 +1,6 @@
-import 'package:emma/ui/app_icons.dart';
-import 'package:emma/ui/home/home_view_model.dart';
-import 'package:emma/ui/home/status/status_indicator.dart';
+import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/home/home_view_model.dart';
+import 'package:openems/ui/home/status/status_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 

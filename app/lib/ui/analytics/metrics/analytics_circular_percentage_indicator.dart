@@ -1,5 +1,5 @@
-import 'package:emma/ui/shared/circular_value_indicator.dart';
-import 'package:emma/ui/shared/unit_text.dart';
+import 'package:openems/ui/shared/circular_value_indicator.dart';
+import 'package:openems/ui/shared/unit_text.dart';
 import 'package:flutter/material.dart';
 
 class AnalyticsCircularPercentageIndicator extends StatelessWidget {

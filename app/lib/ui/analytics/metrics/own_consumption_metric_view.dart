@@ -1,6 +1,6 @@
-import 'package:emma/ui/analytics/metrics/analytics_circular_percentage_indicator.dart';
-import 'package:emma/ui/analytics/metrics/analytics_metric_card.dart';
-import 'package:emma/ui/shared/unit_text.dart';
+import 'package:openems/ui/analytics/metrics/analytics_circular_percentage_indicator.dart';
+import 'package:openems/ui/analytics/metrics/analytics_metric_card.dart';
+import 'package:openems/ui/shared/unit_text.dart';
 import 'package:flutter/material.dart';
 
 class OwnConsumptionMetricView extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:emma/application/logs/logs_store.dart';
+import 'package:openems/application/logs/logs_store.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 

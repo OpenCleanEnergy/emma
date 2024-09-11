@@ -1,9 +1,9 @@
-import 'package:emma/ui/analytics/analytics_period.dart';
-import 'package:emma/ui/analytics/analytics_view_model.dart';
-import 'package:emma/ui/analytics/charts/analytics_chart_color_scheme.dart';
-import 'package:emma/ui/analytics/charts/analytics_chart_container.dart';
-import 'package:emma/ui/analytics/charts/analytics_chart_control.dart';
-import 'package:emma/ui/analytics/charts/analytics_day_chart.dart';
+import 'package:openems/ui/analytics/analytics_period.dart';
+import 'package:openems/ui/analytics/analytics_view_model.dart';
+import 'package:openems/ui/analytics/charts/analytics_chart_color_scheme.dart';
+import 'package:openems/ui/analytics/charts/analytics_chart_container.dart';
+import 'package:openems/ui/analytics/charts/analytics_chart_control.dart';
+import 'package:openems/ui/analytics/charts/analytics_day_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 

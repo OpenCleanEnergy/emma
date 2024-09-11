@@ -1,10 +1,10 @@
-import 'package:emma/application/backend_api/swagger_generated_code/backend_api.enums.swagger.dart';
-import 'package:emma/ui/app_icons.dart';
-import 'package:emma/ui/app_navigator.dart';
-import 'package:emma/ui/devices/add/widgets/abort_add_button.dart';
-import 'package:emma/ui/devices/add/widgets/add_device_step_explanation.dart';
-import 'package:emma/ui/devices/add/select_integration_screen.dart';
-import 'package:emma/ui/devices/add/translate.dart';
+import 'package:openems/application/backend_api/swagger_generated_code/backend_api.enums.swagger.dart';
+import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/app_navigator.dart';
+import 'package:openems/ui/devices/add/widgets/abort_add_button.dart';
+import 'package:openems/ui/devices/add/widgets/add_device_step_explanation.dart';
+import 'package:openems/ui/devices/add/select_integration_screen.dart';
+import 'package:openems/ui/devices/add/translate.dart';
 import 'package:flutter/material.dart';
 
 class SelectDeviceCategoryScreen extends StatelessWidget {

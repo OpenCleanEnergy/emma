@@ -1,10 +1,10 @@
 import 'dart:math' as math;
 
-import 'package:emma/application/analytics/power_data_point_dto.dart';
-import 'package:emma/ui/analytics/analytics_view_model.dart';
-import 'package:emma/ui/analytics/charts/analytics_chart_color_scheme.dart';
-import 'package:emma/ui/analytics/charts/analytics_chart_colors.dart';
-import 'package:emma/ui/analytics/charts/nice_scale.dart';
+import 'package:openems/application/analytics/power_data_point_dto.dart';
+import 'package:openems/ui/analytics/analytics_view_model.dart';
+import 'package:openems/ui/analytics/charts/analytics_chart_color_scheme.dart';
+import 'package:openems/ui/analytics/charts/analytics_chart_colors.dart';
+import 'package:openems/ui/analytics/charts/nice_scale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

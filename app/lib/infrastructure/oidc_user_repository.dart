@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:emma/domain/i_user_repository.dart';
-import 'package:emma/domain/user_status.dart';
-import 'package:emma/infrastructure/oidc_configuration.dart';
+import 'package:openems/domain/i_user_repository.dart';
+import 'package:openems/domain/user_status.dart';
+import 'package:openems/infrastructure/oidc_configuration.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:oidc/oidc.dart';

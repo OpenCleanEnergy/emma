@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:chopper/chopper.dart';
-import 'package:emma/domain/i_user_repository.dart';
+import 'package:openems/domain/i_user_repository.dart';
 import 'package:mutex/mutex.dart';
 
 /// See https://bdaya-dev.github.io/oidc/oidc-usage-accesstoken/

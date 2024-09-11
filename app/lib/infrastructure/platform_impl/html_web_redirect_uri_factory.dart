@@ -1,4 +1,4 @@
-import 'package:emma/infrastructure/web_redirect_uri_factory.dart';
+import 'package:openems/infrastructure/web_redirect_uri_factory.dart';
 import 'package:web/web.dart';
 
 class WebRedirectUriFactoryImpl extends WebRedirectUriFactory {

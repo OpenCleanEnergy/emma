@@ -1,5 +1,5 @@
-import 'package:emma/ui/analytics/metrics/own_consumption_metric_view.dart';
-import 'package:emma/ui/analytics/metrics/self_sufficiency_metric_view.dart';
+import 'package:openems/ui/analytics/metrics/own_consumption_metric_view.dart';
+import 'package:openems/ui/analytics/metrics/self_sufficiency_metric_view.dart';
 import 'package:flutter/material.dart';
 
 class AnalyticsMetricsContainer extends StatelessWidget {

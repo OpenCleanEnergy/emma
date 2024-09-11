@@ -1,6 +1,6 @@
-import 'package:emma/application/analytics/analytics_demo_data.dart';
-import 'package:emma/ui/analytics/analytics_period.dart';
-import 'package:emma/ui/analytics/charts/analytics_chart_control_view_model.dart';
+import 'package:openems/application/analytics/analytics_demo_data.dart';
+import 'package:openems/ui/analytics/analytics_period.dart';
+import 'package:openems/ui/analytics/charts/analytics_chart_control_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals.dart';
 

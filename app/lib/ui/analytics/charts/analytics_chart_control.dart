@@ -1,5 +1,5 @@
-import 'package:emma/ui/analytics/charts/analytics_chart_colors.dart';
-import 'package:emma/ui/analytics/charts/analytics_chart_control_view_model.dart';
+import 'package:openems/ui/analytics/charts/analytics_chart_colors.dart';
+import 'package:openems/ui/analytics/charts/analytics_chart_control_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
