@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.24](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.23...app-v1.0.0-alpha.24) (2024-09-11)
+
+
+### 🚀 Features
+
+* Decrease max chart hight for better layout. ([49e0653](https://github.com/OpenCleanEnergy/emma/commit/49e0653f02e1516cb555d75e2ee7979341f5223a))
+
+
+### 🐛 Bug Fixes
+
+* Auto scale y-axis to fit selected data. ([597cae4](https://github.com/OpenCleanEnergy/emma/commit/597cae41cf00f5ad3017e0eb72765207d5f261c8))
+
 ## [1.0.0-alpha.23](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.22...app-v1.0.0-alpha.23) (2024-09-09)
 
 
