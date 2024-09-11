@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.25](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.24...app-v1.0.0-alpha.25) (2024-09-11)
+
+
+### 🐛 Bug Fixes
+
+* Fixes overlapping power axis titles if max value is close to last horizontal line. ([1d0b3ba](https://github.com/OpenCleanEnergy/emma/commit/1d0b3ba74e41e8fec5f50550547555f2c368d3fe))
+
 ## [1.0.0-alpha.24](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.23...app-v1.0.0-alpha.24) (2024-09-11)
 
 
