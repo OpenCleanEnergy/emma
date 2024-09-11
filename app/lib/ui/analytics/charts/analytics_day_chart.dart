@@ -69,7 +69,6 @@ class AnalyticsDayChart extends StatelessWidget {
         show: true,
         drawVerticalLine: false,
         horizontalInterval: niceScale.tickInterval,
-        verticalInterval: timeAxisInterval,
         getDrawingHorizontalLine: (value) {
           return FlLine(
             color: colorScheme.mainGridLine,
