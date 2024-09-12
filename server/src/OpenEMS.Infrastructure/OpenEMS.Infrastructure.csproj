@@ -2,8 +2,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenEMS.Application\OpenEMS.Application.csproj" />
-    <ProjectReference
-      Include="..\integrations\OpenEMS.Integrations.Shelly\OpenEMS.Integrations.Shelly.csproj" />
+    <ProjectReference Include="..\integrations\OpenEMS.Integrations.Shelly\OpenEMS.Integrations.Shelly.csproj" />
+    <ProjectReference Include="..\OpenEMS.Analytics\OpenEMS.Analytics.csproj" />
   </ItemGroup>
 
   <ItemGroup>

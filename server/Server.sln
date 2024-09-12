@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Integrations.Shelly
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Domain.Test", "test\OpenEMS.Domain.Test\OpenEMS.Domain.Test.csproj", "{CD454A6C-7EE6-44B4-B00E-39498126C1B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Analytics", "src\OpenEMS.Analytics\OpenEMS.Analytics.csproj", "{08FB4F08-E8A4-4C80-BF6C-142590D52137}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Analytics", "src\OpenEMS.Analytics\OpenEMS.Analytics.csproj", "{08FB4F08-E8A4-4C80-BF6C-142590D52137}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Infrastructure.Test", "test\OpenEMS.Infrastructure.Test\OpenEMS.Infrastructure.Test.csproj", "{0208849E-EA48-4914-ADD0-647C93F1CAD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,10 @@ Global
 		{08FB4F08-E8A4-4C80-BF6C-142590D52137}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08FB4F08-E8A4-4C80-BF6C-142590D52137}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08FB4F08-E8A4-4C80-BF6C-142590D52137}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0208849E-EA48-4914-ADD0-647C93F1CAD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0208849E-EA48-4914-ADD0-647C93F1CAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0208849E-EA48-4914-ADD0-647C93F1CAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0208849E-EA48-4914-ADD0-647C93F1CAD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{2DFA9324-C666-4D50-9EA2-F0197AFE24CC} = {0114E6CC-84EB-47FD-91F5-30CD4896F903}
 		{CD454A6C-7EE6-44B4-B00E-39498126C1B4} = {79A93847-64ED-4E4D-B365-D4C3C2729058}
 		{08FB4F08-E8A4-4C80-BF6C-142590D52137} = {7D9321BA-7B6F-4FFE-80E8-041A962C0C76}
+		{0208849E-EA48-4914-ADD0-647C93F1CAD2} = {79A93847-64ED-4E4D-B365-D4C3C2729058}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1696C24-DED4-43B6-8861-093A491A9B66}
