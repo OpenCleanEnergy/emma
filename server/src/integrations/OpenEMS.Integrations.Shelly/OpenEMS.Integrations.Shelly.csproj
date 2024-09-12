@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
@@ -13,11 +13,5 @@
     <PackageReference Include="JWT" Version="10.1.1" />
     <PackageReference Include="Websocket.Client" Version="5.1.2" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Events/Handler/" />
-    <Folder Include="ValueObjects/" />
-  </ItemGroup>
-
 
 </Project>

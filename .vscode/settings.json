@@ -1,8 +1,15 @@
 {
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[markdown]": {
     "editor.rulers": [100],
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 100
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml",
+    "files.insertFinalNewline": true
   },
   "cSpell.words": [
     "ansible",

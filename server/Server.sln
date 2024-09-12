@@ -5,31 +5,33 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7D9321BA-7B6F-4FFE-80E8-041A962C0C76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Server", "src\OpenEMS.Server\OpenEMS.Server.csproj", "{BBD511AD-FC85-4023-A3E3-8E1E4E598934}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Server", "src\OpenEMS.Server\OpenEMS.Server.csproj", "{BBD511AD-FC85-4023-A3E3-8E1E4E598934}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Domain", "src\OpenEMS.Domain\OpenEMS.Domain.csproj", "{72F51364-4D13-4FDB-ACE4-900569BEC030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Domain", "src\OpenEMS.Domain\OpenEMS.Domain.csproj", "{72F51364-4D13-4FDB-ACE4-900569BEC030}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Application", "src\OpenEMS.Application\OpenEMS.Application.csproj", "{0B906400-41E0-4737-AACF-36808C35FCEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Application", "src\OpenEMS.Application\OpenEMS.Application.csproj", "{0B906400-41E0-4737-AACF-36808C35FCEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Infrastructure", "src\OpenEMS.Infrastructure\OpenEMS.Infrastructure.csproj", "{65436D00-190A-4E63-A308-50805F295E4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Infrastructure", "src\OpenEMS.Infrastructure\OpenEMS.Infrastructure.csproj", "{65436D00-190A-4E63-A308-50805F295E4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Integrations.Shared", "src\OpenEMS.Integrations.Shared\OpenEMS.Integrations.Shared.csproj", "{28654443-EAB2-4EAB-8625-F0A473F35600}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Integrations.Shared", "src\OpenEMS.Integrations.Shared\OpenEMS.Integrations.Shared.csproj", "{28654443-EAB2-4EAB-8625-F0A473F35600}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integrations", "integrations", "{857EBC2A-8A73-4C09-8DED-D35E8C45B007}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Integrations.Shelly", "src\integrations\OpenEMS.Integrations.Shelly\OpenEMS.Integrations.Shelly.csproj", "{4CA29FC3-D5E0-450B-9501-2938FA4038BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Integrations.Shelly", "src\integrations\OpenEMS.Integrations.Shelly\OpenEMS.Integrations.Shelly.csproj", "{4CA29FC3-D5E0-450B-9501-2938FA4038BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Application.Shared", "src\OpenEMS.Application.Shared\OpenEMS.Application.Shared.csproj", "{67D9A4F1-69C0-47B5-A167-B8715D659F62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Application.Shared", "src\OpenEMS.Application.Shared\OpenEMS.Application.Shared.csproj", "{67D9A4F1-69C0-47B5-A167-B8715D659F62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Integrations.Development", "src\integrations\OpenEMS.Integrations.Development\OpenEMS.Integrations.Development.csproj", "{BAD76F68-E1AD-41C6-8BBE-06D9FAD00C26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Integrations.Development", "src\integrations\OpenEMS.Integrations.Development\OpenEMS.Integrations.Development.csproj", "{BAD76F68-E1AD-41C6-8BBE-06D9FAD00C26}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{79A93847-64ED-4E4D-B365-D4C3C2729058}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integrations", "integrations", "{0114E6CC-84EB-47FD-91F5-30CD4896F903}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Integrations.Shelly.Test", "test\integrations\OpenEMS.Integrations.Shelly.Test\OpenEMS.Integrations.Shelly.Test.csproj", "{2DFA9324-C666-4D50-9EA2-F0197AFE24CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Integrations.Shelly.Test", "test\integrations\OpenEMS.Integrations.Shelly.Test\OpenEMS.Integrations.Shelly.Test.csproj", "{2DFA9324-C666-4D50-9EA2-F0197AFE24CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Domain.Test", "test\OpenEMS.Domain.Test\OpenEMS.Domain.Test.csproj", "{CD454A6C-7EE6-44B4-B00E-39498126C1B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEMS.Domain.Test", "test\OpenEMS.Domain.Test\OpenEMS.Domain.Test.csproj", "{CD454A6C-7EE6-44B4-B00E-39498126C1B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenEMS.Analytics", "src\OpenEMS.Analytics\OpenEMS.Analytics.csproj", "{08FB4F08-E8A4-4C80-BF6C-142590D52137}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{CD454A6C-7EE6-44B4-B00E-39498126C1B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD454A6C-7EE6-44B4-B00E-39498126C1B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD454A6C-7EE6-44B4-B00E-39498126C1B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08FB4F08-E8A4-4C80-BF6C-142590D52137}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08FB4F08-E8A4-4C80-BF6C-142590D52137}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08FB4F08-E8A4-4C80-BF6C-142590D52137}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08FB4F08-E8A4-4C80-BF6C-142590D52137}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,5 +100,9 @@ Global
 		{0114E6CC-84EB-47FD-91F5-30CD4896F903} = {79A93847-64ED-4E4D-B365-D4C3C2729058}
 		{2DFA9324-C666-4D50-9EA2-F0197AFE24CC} = {0114E6CC-84EB-47FD-91F5-30CD4896F903}
 		{CD454A6C-7EE6-44B4-B00E-39498126C1B4} = {79A93847-64ED-4E4D-B365-D4C3C2729058}
+		{08FB4F08-E8A4-4C80-BF6C-142590D52137} = {7D9321BA-7B6F-4FFE-80E8-041A962C0C76}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1696C24-DED4-43B6-8861-093A491A9B66}
 	EndGlobalSection
 EndGlobal
