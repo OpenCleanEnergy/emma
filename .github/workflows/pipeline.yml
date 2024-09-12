@@ -120,6 +120,7 @@ jobs:
         uses: ./.github/actions/setup-environment
         with:
           dotnet: true
+          docker: true
 
       - name: 🧪 Test
         run: just target build:test
