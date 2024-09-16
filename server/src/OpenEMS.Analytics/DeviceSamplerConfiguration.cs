@@ -1,6 +1,6 @@
 namespace OpenEMS.Analytics;
 
-public class HistoryCollectorConfiguration
+public class DeviceSamplerConfiguration
 {
     public required TimeSpan SamplingInterval { get; init; } = TimeSpan.FromMinutes(1);
 }

@@ -2,5 +2,5 @@ namespace OpenEMS.Analytics;
 
 public interface IDeviceSampler
 {
-    Task<NumberOfSamples> TakeSample(DateTimeOffset timestamp);
+    Task<NumberOfSamples> TakeSamples(DateTimeOffset timestamp);
 }

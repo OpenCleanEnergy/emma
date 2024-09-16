@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenEMS.Domain\OpenEMS.Domain.csproj" />
+    <ProjectReference Include="..\OpenEMS.Application.Shared\OpenEMS.Application.Shared.csproj" />
   </ItemGroup>
 
 </Project>

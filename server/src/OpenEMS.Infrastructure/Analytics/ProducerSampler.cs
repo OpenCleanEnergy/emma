@@ -9,16 +9,16 @@ public class ProducerSampler(AppDbContext dbContext) : IDeviceSampler
 {
     private readonly AppDbContext _dbContext = dbContext;
 
-    public async Task<NumberOfSamples> TakeSample(DateTimeOffset timestamp)
+    public async Task<NumberOfSamples> TakeSamples(DateTimeOffset timestamp)
     {
         var sql = $"""
-            INSERT INTO "{nameof(_dbContext.ProducerHistory)}" (
-                "{nameof(ProducerHistoryEntry.ProducerId)}",
-                "{nameof(ProducerHistoryEntry.Timestamp)}",
-                "{nameof(ProducerHistoryEntry.CurrentPowerProduction)}",
-                "{nameof(ProducerHistoryEntry.MaximumPowerProduction)}",
-                "{nameof(ProducerHistoryEntry.TotalEnergyProduction)}",
-                "{nameof(ProducerHistoryEntry.OwnedBy)}"
+            INSERT INTO "{nameof(_dbContext.ProducerSamples)}" (
+                "{nameof(ProducerSample.ProducerId)}",
+                "{nameof(ProducerSample.Timestamp)}",
+                "{nameof(ProducerSample.CurrentPowerProduction)}",
+                "{nameof(ProducerSample.MaximumPowerProduction)}",
+                "{nameof(ProducerSample.TotalEnergyProduction)}",
+                "{nameof(ProducerSample.OwnedBy)}"
             )
             SELECT
                 "{nameof(Producer.Id)}",

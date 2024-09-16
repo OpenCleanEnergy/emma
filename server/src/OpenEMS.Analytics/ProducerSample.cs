@@ -4,7 +4,7 @@ using OpenEMS.Domain.Units;
 
 namespace OpenEMS.Analytics;
 
-public class ProducerHistoryEntry : IHasOwner
+public class ProducerSample : IHasOwner
 {
     public required ProducerId ProducerId { get; init; }
     public required DateTimeOffset Timestamp { get; init; }

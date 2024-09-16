@@ -33,7 +33,7 @@ public class ProducerSamplerTest
         producer.ReportTotalEnergyProduction(WattHours.From(789));
 
         var utcNow = new DateTimeOffset(2024, 08, 31, 13, 34, 59, TimeSpan.Zero);
-        var expected = new ProducerHistoryEntry
+        var expected = new ProducerSample
         {
             Timestamp = utcNow,
             ProducerId = producer.Id,
@@ -52,13 +52,13 @@ public class ProducerSamplerTest
         var sampler = new ProducerSampler(samplerContext);
 
         // Act
-        var numberOfSamples = await sampler.TakeSample(utcNow);
+        var numberOfSamples = await sampler.TakeSamples(utcNow);
 
         // Assert
         currentUserReader.GetUserIdOrThrow().Returns(userId);
         await using var assertContext = TestDbContext.FromExisting(initial);
         numberOfSamples.Should().Be(NumberOfSamples.From(1));
-        var history = await assertContext.ProducerHistory.ToArrayAsync();
+        var history = await assertContext.ProducerSamples.ToArrayAsync();
         history.Should().BeEquivalentTo(new[] { expected });
     }
 }

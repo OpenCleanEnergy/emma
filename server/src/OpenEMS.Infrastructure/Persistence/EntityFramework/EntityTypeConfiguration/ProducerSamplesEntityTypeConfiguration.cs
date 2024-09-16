@@ -4,10 +4,9 @@ using OpenEMS.Analytics;
 
 namespace OpenEMS.Infrastructure.Persistence.EntityFramework.EntityTypeConfiguration;
 
-public class ProducerHistoryEntryEntityTypeConfiguration
-    : IEntityTypeConfiguration<ProducerHistoryEntry>
+public class ProducerSamplesEntityTypeConfiguration : IEntityTypeConfiguration<ProducerSample>
 {
-    public void Configure(EntityTypeBuilder<ProducerHistoryEntry> builder)
+    public void Configure(EntityTypeBuilder<ProducerSample> builder)
     {
         builder.Property<long>("_PK");
         builder.HasKey("_PK");
