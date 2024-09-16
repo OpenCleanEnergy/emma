@@ -44,7 +44,7 @@ public class ProducerSamplerTest
         };
 
         var currentUserReader = Substitute.For<ICurrentUserReader>();
-        await using var initial = await TestDbContext.Start(currentUserReader);
+        await using var initial = await TestDbContext.CreateNew(currentUserReader);
         initial.Producers.Add(producer);
         await initial.SaveChangesAsync();
 
