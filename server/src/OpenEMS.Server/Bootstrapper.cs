@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OpenEMS.Application.Integrations;
 using OpenEMS.Application.Shared;
+using OpenEMS.Application.Shared.DependencyInjection;
 using OpenEMS.Application.Shared.Events;
 using OpenEMS.Application.Shared.Identity;
 using OpenEMS.Domain.Consumers;
@@ -37,6 +38,7 @@ using OpenEMS.Integrations.Shelly.Domain;
 using OpenEMS.Integrations.Shelly.Events;
 using OpenEMS.Integrations.Shelly.Infrastructure;
 using OpenEMS.Server.Configuration;
+using OpenEMS.Server.DependencyInjection;
 using OpenEMS.Server.Events;
 using OpenEMS.Server.Identity;
 using OpenEMS.Server.Integrations;
@@ -68,6 +70,7 @@ public static class Bootstrapper
         AddIdentity(services);
         AddLongPolling(services);
         AddLogging(services, configuration, env);
+        AddDependencyInjection(services);
         AddDomain(services);
         AddRequestHandler(services, configuration);
         AddPersistence(services, configuration);
@@ -258,6 +261,14 @@ public static class Bootstrapper
         );
     }
 
+    private static void AddDependencyInjection(IServiceCollection container)
+    {
+        container.AddSingleton(
+            typeof(IScopedServiceFactory<>),
+            typeof(MicrosoftScopedServiceFactory<>)
+        );
+    }
+
     private static void AddDomain(IServiceCollection container)
     {
         container.AddScoped<ISwitchConsumerRepository, SwitchConsumerRepository>();
@@ -339,10 +350,6 @@ public static class Bootstrapper
     {
         container.AddTransient<IExistingDevicesReader, ExistingDevicesReader>();
         container.AddTransient<IDevicesRepository, DevicesRepository>();
-        container.AddSingleton(
-            typeof(IScopedServiceFactory<>),
-            typeof(MicrosoftScopedServiceFactory<>)
-        );
 
         container.Scan(x =>
             x.FromAssemblies(_assemblies)

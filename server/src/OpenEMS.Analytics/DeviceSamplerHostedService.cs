@@ -1,19 +1,21 @@
 using System.Diagnostics;
 using Microsoft.Extensions.Hosting;
+using OpenEMS.Application.Shared.DependencyInjection;
 using OpenEMS.Application.Shared.Logging;
 
 namespace OpenEMS.Analytics;
 
 public sealed class DeviceSamplerHostedService(
     DeviceSamplerConfiguration configuration,
-    IDeviceSampler deviceSampler,
+    IScopedServiceFactory<IDeviceSampler> deviceSamplerFactory,
     TimeProvider timeProvider,
     ILogger logger
 ) : IHostedService, IDisposable
 {
     private readonly DeviceSamplerConfiguration _configuration = configuration;
     private readonly CancellationTokenSource _cts = new();
-    private readonly IDeviceSampler _deviceSampler = deviceSampler;
+    private readonly IScopedServiceFactory<IDeviceSampler> _deviceSamplerFactory =
+        deviceSamplerFactory;
     private readonly TimeProvider _timeProvider = timeProvider;
     private readonly ILogger _logger = logger;
     private ITimer? _timer;
@@ -45,17 +47,18 @@ public sealed class DeviceSamplerHostedService(
     {
         _ = state;
 
-        var timestamp = _timeProvider.GetUtcNow();
         try
         {
+            using var scope = _deviceSamplerFactory.GetScopedInstance();
+
+            var timestamp = _timeProvider.GetUtcNow();
             var sw = Stopwatch.StartNew();
-            var numberOfSamples = await _deviceSampler.TakeSamples(timestamp);
-            var elapsedMilliseconds = sw.ElapsedMilliseconds;
+            var numberOfSamples = await scope.Service.TakeSamples(timestamp);
 
             _logger.Info(
                 "Took {NumberOfSamples} in {ElapsedMs}",
                 numberOfSamples,
-                elapsedMilliseconds
+                sw.ElapsedMilliseconds
             );
         }
         catch (Exception exception)

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Hosting;
+using OpenEMS.Application.Shared.DependencyInjection;
 using OpenEMS.Application.Shared.Logging;
 using OpenEMS.Domain;
-using OpenEMS.Integrations.Shared;
 using OpenEMS.Integrations.Shelly.Domain.ValueObjects;
 
 namespace OpenEMS.Integrations.Shelly.Infrastructure;
