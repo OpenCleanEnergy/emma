@@ -52,7 +52,7 @@ Open Clean Energy Team
 
 ---
 
-## Discover the project right away.
+## Discover the project right away
 
 If you are eager to discover the project follow the instructions below.
 The instructions describe how to get the different parts of the project running
@@ -77,6 +77,12 @@ just launch-dev-environment
 Available services ([by compose.yaml](../compose/openems-dev/compose.yaml)):
 
 - [Keycloak](http://localhost:5001)
+  - Admin:
+    - Username: `admin`
+    - Password: `admin`
+  - App user:
+    - Email: `dev@openems.dev`
+    - Password: `dev`
 - [Adminer](http://localhost:5002)
 - [Message queue](http://localhost:5003)
   - Username: `guest`
