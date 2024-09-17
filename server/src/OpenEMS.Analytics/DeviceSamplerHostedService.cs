@@ -56,7 +56,7 @@ public sealed class DeviceSamplerHostedService(
             var numberOfSamples = await scope.Service.TakeSamples(timestamp);
 
             _logger.Info(
-                "Took {NumberOfSamples} in {ElapsedMs}",
+                "Took {NumberOfSamples} samples in {ElapsedMs} ms",
                 numberOfSamples,
                 sw.ElapsedMilliseconds
             );
