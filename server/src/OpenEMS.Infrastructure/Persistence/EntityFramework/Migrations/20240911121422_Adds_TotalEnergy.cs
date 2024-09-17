@@ -13,50 +13,58 @@ namespace OpenEMS.Infrastructure.Persistence.EntityFramework.Migrations
             migrationBuilder.RenameColumn(
                 name: "TotalEnergyConsumption",
                 table: "SwitchConsumers",
-                newName: "TotalEnergyConsumption_Value");
+                newName: "TotalEnergyConsumption_Value"
+            );
 
             migrationBuilder.RenameColumn(
                 name: "TotalEnergyProduction",
                 table: "Producers",
-                newName: "TotalEnergyProduction_Value");
+                newName: "TotalEnergyProduction_Value"
+            );
 
             migrationBuilder.RenameColumn(
                 name: "TotalEnergyFeedIn",
                 table: "ElectricityMeters",
-                newName: "TotalEnergyFeedIn_Value");
+                newName: "TotalEnergyFeedIn_Value"
+            );
 
             migrationBuilder.RenameColumn(
                 name: "TotalEnergyConsumption",
                 table: "ElectricityMeters",
-                newName: "TotalEnergyFeedIn_Value");
+                newName: "TotalEnergyConsumption_Value"
+            );
 
             migrationBuilder.AddColumn<double>(
                 name: "TotalEnergyConsumption_LastReported",
                 table: "SwitchConsumers",
                 type: "double precision",
                 nullable: false,
-                defaultValue: 0.0);
+                defaultValue: 0.0
+            );
 
             migrationBuilder.AddColumn<double>(
                 name: "TotalEnergyProduction_LastReported",
                 table: "Producers",
                 type: "double precision",
                 nullable: false,
-                defaultValue: 0.0);
+                defaultValue: 0.0
+            );
 
             migrationBuilder.AddColumn<double>(
                 name: "TotalEnergyConsumption_LastReported",
                 table: "ElectricityMeters",
                 type: "double precision",
                 nullable: false,
-                defaultValue: 0.0);
+                defaultValue: 0.0
+            );
 
             migrationBuilder.AddColumn<double>(
-                name: "TotalEnergyConsumption_LastReported",
+                name: "TotalEnergyFeedIn_LastReported",
                 table: "ElectricityMeters",
                 type: "double precision",
                 nullable: false,
-                defaultValue: 0.0);
+                defaultValue: 0.0
+            );
         }
 
         /// <inheritdoc />
@@ -64,39 +72,47 @@ namespace OpenEMS.Infrastructure.Persistence.EntityFramework.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "TotalEnergyConsumption_LastReported",
-                table: "SwitchConsumers");
+                table: "SwitchConsumers"
+            );
 
             migrationBuilder.DropColumn(
                 name: "TotalEnergyProduction_LastReported",
-                table: "Producers");
+                table: "Producers"
+            );
 
             migrationBuilder.DropColumn(
                 name: "TotalEnergyConsumption_LastReported",
-                table: "ElectricityMeters");
+                table: "ElectricityMeters"
+            );
 
             migrationBuilder.DropColumn(
-                name: "TotalEnergyConsumption_LastReported",
-                table: "ElectricityMeters");
+                name: "TotalEnergyFeedIn_LastReported",
+                table: "ElectricityMeters"
+            );
 
             migrationBuilder.RenameColumn(
                 name: "TotalEnergyConsumption_Value",
                 table: "SwitchConsumers",
-                newName: "TotalEnergyConsumption");
+                newName: "TotalEnergyConsumption"
+            );
 
             migrationBuilder.RenameColumn(
                 name: "TotalEnergyProduction_Value",
                 table: "Producers",
-                newName: "TotalEnergyProduction");
+                newName: "TotalEnergyProduction"
+            );
 
             migrationBuilder.RenameColumn(
                 name: "TotalEnergyFeedIn_Value",
                 table: "ElectricityMeters",
-                newName: "TotalEnergyFeedIn");
+                newName: "TotalEnergyFeedIn"
+            );
 
             migrationBuilder.RenameColumn(
-                name: "TotalEnergyFeedIn_Value",
+                name: "TotalEnergyConsumption_Value",
                 table: "ElectricityMeters",
-                newName: "TotalEnergyConsumption");
+                newName: "TotalEnergyConsumption"
+            );
         }
     }
 }
