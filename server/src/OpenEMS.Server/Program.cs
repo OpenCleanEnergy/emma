@@ -64,6 +64,7 @@ finally
 {
     await cts.CancelAsync();
     cts.Dispose();
+    logger.Information("🌕️ Bye!");
     await Log.CloseAndFlushAsync();
 }
 
