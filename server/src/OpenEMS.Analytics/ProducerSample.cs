@@ -15,11 +15,6 @@ public class ProducerSample : IHasOwner
     public required Watt CurrentPowerProduction { get; init; }
 
     /// <summary>
-    /// Gets the <see cref="Producer.MaximumPowerProduction"/>.
-    /// </summary>
-    public required Watt MaximumPowerProduction { get; init; }
-
-    /// <summary>
     /// Gets the <see cref="Producer.TotalEnergyProduction"/>.
     /// </summary>
     public required WattHours TotalEnergyProduction { get; init; }

@@ -1,5 +1,3 @@
-using System.Text;
-using Microsoft.EntityFrameworkCore;
 using OpenEMS.Analytics;
 using OpenEMS.Domain.Producers;
 using OpenEMS.Infrastructure.Persistence;
@@ -15,7 +13,6 @@ public class ProducerSamplingSqlFactory : IDbContextDeviceSamplingSqlFactory
                 "{nameof(ProducerSample.ProducerId)}",
                 "{nameof(ProducerSample.Timestamp)}",
                 "{nameof(ProducerSample.CurrentPowerProduction)}",
-                "{nameof(ProducerSample.MaximumPowerProduction)}",
                 "{nameof(ProducerSample.TotalEnergyProduction)}",
                 "{nameof(ProducerSample.OwnedBy)}"
             )
@@ -23,7 +20,6 @@ public class ProducerSamplingSqlFactory : IDbContextDeviceSamplingSqlFactory
                 "{nameof(Producer.Id)}",
                 '{timestamp.UtcDateTime:O}',
                 "{nameof(Producer.CurrentPowerProduction)}",
-                "{nameof(Producer.MaximumPowerProduction)}",
                 "{nameof(Producer.TotalEnergyProduction)}_{nameof(
                 Producer.TotalEnergyProduction.Value
             )}",

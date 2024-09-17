@@ -4,9 +4,8 @@
     {
       ProducerId: producer-id,
       Timestamp: 2024-08-31 13:34:59 +0,
-      CurrentPowerProduction: 12,
-      MaximumPowerProduction: 123,
-      TotalEnergyProduction: 789,
+      CurrentPowerProduction: 123,
+      TotalEnergyProduction: 150,
       OwnedBy: test-user
     }
   ]

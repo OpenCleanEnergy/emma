@@ -46,10 +46,13 @@ public class DbContextDeviceSamplerTest : IClassFixture<TestDbContextFixture>
             OwnedBy = userId,
         };
 
+        // Maximum power: 9000W and current power: 123W
+        producer.ReportCurrentPowerProduction(Watt.From(9000));
         producer.ReportCurrentPowerProduction(Watt.From(123));
-        producer.ReportCurrentPowerProduction(Watt.From(12));
-        producer.ReportTotalEnergyProduction(WattHours.From(456));
-        producer.ReportTotalEnergyProduction(WattHours.From(789));
+
+        // TotalEnergy.Value: 150Wh and TotalEnergy.LastReported: 50Wh
+        producer.ReportTotalEnergyProduction(WattHours.From(100));
+        producer.ReportTotalEnergyProduction(WattHours.From(50));
 
         await AddToDatabase(producer);
 
