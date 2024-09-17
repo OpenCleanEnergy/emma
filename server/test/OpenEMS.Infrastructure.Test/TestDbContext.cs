@@ -30,8 +30,14 @@ public sealed class TestDbContext : AppDbContext
         return dbContext;
     }
 
-    public static TestDbContext FromExisting(TestDbContext existing)
+    public static TestDbContext FromExisting(
+        TestDbContext existing,
+        ICurrentUserReader? currentUserReader = null
+    )
     {
-        return new TestDbContext(existing._connectionString, existing._currentUserReader);
+        return new TestDbContext(
+            existing._connectionString,
+            currentUserReader ?? existing._currentUserReader
+        );
     }
 }
