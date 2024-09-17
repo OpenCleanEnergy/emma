@@ -84,6 +84,11 @@ Available services ([by compose.yaml](../compose/openems-dev/compose.yaml)):
     - Email: `dev@openems.dev`
     - Password: `dev`
 - [Adminer](http://localhost:5002)
+  - System: `PostgreSQL`
+  - Server: `backend-database`
+  - Username: `dev`
+  - Password: `dev`
+  - Database: `dev`
 - [Message queue](http://localhost:5003)
   - Username: `guest`
   - Password: `guest`

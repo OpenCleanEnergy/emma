@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OpenEMS.Analytics;
 using OpenEMS.Application.Integrations;
 using OpenEMS.Application.Shared;
 using OpenEMS.Application.Shared.DependencyInjection;
@@ -19,6 +20,7 @@ using OpenEMS.Domain.Consumers;
 using OpenEMS.Domain.Meters;
 using OpenEMS.Domain.Producers;
 using OpenEMS.Infrastructure;
+using OpenEMS.Infrastructure.Analytics;
 using OpenEMS.Infrastructure.Devices.Consumers;
 using OpenEMS.Infrastructure.Devices.Meters;
 using OpenEMS.Infrastructure.Devices.Producers;
@@ -74,6 +76,7 @@ public static class Bootstrapper
         AddDomain(services);
         AddRequestHandler(services, configuration);
         AddPersistence(services, configuration);
+        AddAnalytics(services, configuration);
         AddIntegrations(services, configuration);
     }
 
@@ -343,6 +346,29 @@ public static class Bootstrapper
                 .AddClasses(x => x.AssignableTo<IUnitOfWorkInterceptor>())
                 .As<IUnitOfWorkInterceptor>()
                 .WithScopedLifetime()
+        );
+    }
+
+    private static void AddAnalytics(IServiceCollection container, IConfiguration configuration)
+    {
+        var config =
+            configuration
+                .GetRequiredSection("Analytics")
+                .GetRequiredSection("Sampling")
+                .Get<DeviceSamplerConfiguration>()
+            ?? throw new ArgumentException("Failed to read 'Analytics.Sampling' configuration");
+
+        // Analytics
+        container.AddSingleton(config);
+        container.AddHostedService<DeviceSamplerHostedService>();
+
+        // Infrastructure
+        container.AddTransient<IDeviceSampler, DbContextDeviceSampler>();
+        container.Scan(scan =>
+            scan.FromAssemblyOf<IDbContextDeviceSamplingSqlFactory>()
+                .AddClasses(classes => classes.AssignableTo<IDbContextDeviceSamplingSqlFactory>())
+                .As<IDbContextDeviceSamplingSqlFactory>()
+                .WithTransientLifetime()
         );
     }
 
