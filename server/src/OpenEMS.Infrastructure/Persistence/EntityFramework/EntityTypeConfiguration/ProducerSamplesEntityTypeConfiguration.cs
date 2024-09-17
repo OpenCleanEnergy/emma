@@ -10,5 +10,7 @@ public class ProducerSamplesEntityTypeConfiguration : IEntityTypeConfiguration<P
     {
         builder.Property<long>("_PK");
         builder.HasKey("_PK");
+
+        builder.HasIndex(x => x.Timestamp);
     }
 }
