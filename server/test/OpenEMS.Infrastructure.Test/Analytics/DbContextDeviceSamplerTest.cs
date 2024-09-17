@@ -1,7 +1,6 @@
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using NSubstitute;
-using OpenEMS.Analytics;
 using OpenEMS.Application.Shared.Identity;
 using OpenEMS.Domain;
 using OpenEMS.Domain.Producers;
@@ -33,7 +32,7 @@ public class DbContextDeviceSamplerTest : IClassFixture<TestDbContextFixture>
     }
 
     [Fact]
-    public async Task Creates_Producer_Samples()
+    public async Task Creates_Samples()
     {
         // Arrange
         var userId = UserId.From("test-user");
@@ -52,19 +51,9 @@ public class DbContextDeviceSamplerTest : IClassFixture<TestDbContextFixture>
         producer.ReportTotalEnergyProduction(WattHours.From(456));
         producer.ReportTotalEnergyProduction(WattHours.From(789));
 
-        var utcNow = new DateTimeOffset(2024, 08, 31, 13, 34, 59, TimeSpan.Zero);
-        var expected = new ProducerSample
-        {
-            Timestamp = utcNow,
-            ProducerId = producer.Id,
-            OwnedBy = userId,
-            CurrentPowerProduction = Watt.From(12),
-            MaximumPowerProduction = Watt.From(123),
-            TotalEnergyProduction = WattHours.From(789),
-        };
-
         await AddToDatabase(producer);
 
+        var utcNow = new DateTimeOffset(2024, 08, 31, 13, 34, 59, TimeSpan.Zero);
         // Act
         var numberOfSamples = await _deviceSampler.TakeSamples(utcNow);
 
@@ -73,9 +62,13 @@ public class DbContextDeviceSamplerTest : IClassFixture<TestDbContextFixture>
         currentUserReader.GetUserIdOrThrow().Returns(userId);
         await using var assertContext = _testDbContextFixture.CreateNewContext(currentUserReader);
 
-        numberOfSamples.Should().Be(NumberOfSamples.From(1));
-        var history = await assertContext.ProducerSamples.ToArrayAsync();
-        history.Should().BeEquivalentTo(new[] { expected });
+        var result = new
+        {
+            numberOfSamples,
+            producerSamples = await assertContext.ProducerSamples.ToArrayAsync(),
+        };
+
+        await Verify(result).DontScrubDateTimes().AddNamedGuid(producer.Id.Value, "producer-id");
     }
 
     private async Task AddToDatabase(params object[] devices)
