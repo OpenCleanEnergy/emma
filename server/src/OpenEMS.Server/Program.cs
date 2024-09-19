@@ -16,6 +16,13 @@ if (entryAssembly != EntryAssembly.Default)
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddDockerSecretsJson();
+builder.Host.UseDefaultServiceProvider(
+    (context, options) =>
+    {
+        options.ValidateScopes = true;
+        options.ValidateOnBuild = true;
+    }
+);
 
 var logger = SerilogLoggerFactory.GetBootstrapLogger(builder).ForContext<Program>();
 logger.Information("🚀 Started with {EntryAssembly}", entryAssembly);
