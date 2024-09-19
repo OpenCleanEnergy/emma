@@ -20,21 +20,21 @@ builder.Configuration.AddDockerSecretsJson();
 var logger = SerilogLoggerFactory.GetBootstrapLogger(builder).ForContext<Program>();
 logger.Information("🚀 Started with {EntryAssembly}", entryAssembly);
 
-Bootstrapper.ConfigureServices(builder.Services, builder.Configuration, builder.Environment);
-
-if (entryAssembly != EntryAssembly.Default)
-{
-    // Do not start hosted services if not running
-    // as the default entry assembly to avoid errors
-    builder.Services.RemoveAll<IHostedService>();
-}
-
-var app = builder.Build();
-Bootstrapper.ConfigureApp(app, app.Environment);
-
 var cts = new CancellationTokenSource();
 try
 {
+    Bootstrapper.ConfigureServices(builder.Services, builder.Configuration, builder.Environment);
+
+    if (entryAssembly != EntryAssembly.Default)
+    {
+        // Do not start hosted services if not running
+        // as the default entry assembly to avoid errors
+        builder.Services.RemoveAll<IHostedService>();
+    }
+
+    var app = builder.Build();
+    Bootstrapper.ConfigureApp(app, app.Environment);
+
     if (entryAssembly == EntryAssembly.Default)
     {
         await MigrateDbContext(app.Services);
@@ -42,6 +42,16 @@ try
     }
 
     await app.RunAsync();
+}
+catch (HostAbortedException)
+{
+#pragma warning disable S6667 // Logging in a catch clause should pass the caught exception as a parameter.
+    logger.Information("🛑 The Host was aborted.");
+#pragma warning restore S6667 // Logging in a catch clause should pass the caught exception as a parameter.
+}
+catch (Exception exception)
+{
+    logger.Fatal(exception, "Application terminated unexpectedly");
 }
 finally
 {
