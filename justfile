@@ -1,4 +1,6 @@
 
+_sudo := if os_family() == "unix" { "sudo " } else { "" }
+
 # Lists all available recipes
 @default:
   just --list
@@ -21,12 +23,17 @@ launch-dyndns-environment: (_compose-up 'compose/openems-dyndns')
 stop-dyndns-environment: (_compose-down 'compose/openems-dyndns')
 
 reset-database: stop-dev-environment
-  sudo docker volume rm openems-dev_backend_database_data || echo "volume already removed"
-  sudo docker volume rm openems-dev_keycloak_database_data || echo "volume already removed"
-  sudo docker volume rm openems-dev_lavinmq_data || echo "volume already removed"
+  {{_sudo}} docker volume rm openems-dev_backend_database_data || echo "volume already removed"
+  {{_sudo}} docker volume rm openems-dev_keycloak_database_data || echo "volume already removed"
+  {{_sudo}} docker volume rm openems-dev_lavinmq_data || echo "volume already removed"
 
+[unix]
 start-docker:
-  sudo systemctl start docker
+  {{_sudo}} systemctl start docker
+
+[windows]
+start-docker:
+  echo "Please ensure Docker Desktop is running"
 
 # Executes build pipeline for given target.
 target *args="--help":
@@ -41,11 +48,11 @@ target *args="--help":
   cd 'server' && just {{ args }}
 
 _compose-up project_dir: start-docker
-  sudo docker compose \
+  {{_sudo}} docker compose \
     --project-directory {{project_dir}} \
     up --build --detach --remove-orphans
 
 _compose-down project_dir: start-docker
-  sudo docker compose \
+  {{_sudo}} docker compose \
     --project-directory {{project_dir}} \
     down --remove-orphans

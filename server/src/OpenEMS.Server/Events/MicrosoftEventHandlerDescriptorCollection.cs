@@ -2,18 +2,13 @@ using System.Collections;
 using OpenEMS.Application.Shared.Events;
 using OpenEMS.Domain.Events;
 using OpenEMS.Infrastructure.Events;
-using SimpleInjector;
 
 namespace OpenEMS.Server.Events;
 
-public class SimpleInjectorEventHandlerDescriptorCollection : IEnumerable<EventHandlerDescriptor>
+public class MicrosoftEventHandlerDescriptorCollection(IServiceCollection services)
+    : IEnumerable<EventHandlerDescriptor>
 {
-    private readonly Container _container;
-
-    public SimpleInjectorEventHandlerDescriptorCollection(Container container)
-    {
-        _container = container;
-    }
+    private readonly IServiceCollection _services = services;
 
     public IEnumerator<EventHandlerDescriptor> GetEnumerator()
     {
@@ -84,9 +79,8 @@ public class SimpleInjectorEventHandlerDescriptorCollection : IEnumerable<EventH
 
     private IEnumerable<EventHandlerDescriptor> EnumerateEventHandlerDescriptors()
     {
-        var eventHandlerServiceTypes = _container
-            .GetCurrentRegistrations()
-            .Select(registration => registration.ServiceType)
+        var eventHandlerServiceTypes = _services
+            .Select(serviceDescriptor => serviceDescriptor.ServiceType)
             .Where(IsEventHandlerInterfaceType);
 
         return eventHandlerServiceTypes.Select(ToEventHandlerDescriptor);
