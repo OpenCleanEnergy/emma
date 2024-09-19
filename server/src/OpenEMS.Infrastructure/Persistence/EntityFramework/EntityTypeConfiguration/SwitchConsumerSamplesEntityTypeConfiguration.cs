@@ -4,11 +4,13 @@ using OpenEMS.Analytics;
 
 namespace OpenEMS.Infrastructure.Persistence.EntityFramework.EntityTypeConfiguration;
 
-public class ProducerSamplesEntityTypeConfiguration : IEntityTypeConfiguration<ProducerSample>
+public class SwitchConsumerSamplesEntityTypeConfiguration
+    : IEntityTypeConfiguration<SwitchConsumerSample>
 {
-    public void Configure(EntityTypeBuilder<ProducerSample> builder)
+    public void Configure(EntityTypeBuilder<SwitchConsumerSample> builder)
     {
         builder.HasShadowPrimaryKey().OfType<long>();
+
         builder.HasIndex(x => x.Timestamp);
     }
 }

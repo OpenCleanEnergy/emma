@@ -19,5 +19,8 @@ public class ProducerSample : IHasOwner
     /// </summary>
     public required WattHours TotalEnergyProduction { get; init; }
 
+    /// <summary>
+    /// Gets the <see cref="Producer.OwnedBy"/>.
+    /// </summary>
     public required UserId OwnedBy { get; init; }
 }

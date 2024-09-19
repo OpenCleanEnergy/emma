@@ -4,9 +4,9 @@ using OpenEMS.Infrastructure.Persistence;
 
 namespace OpenEMS.Infrastructure.Analytics;
 
-public class ProducerSamplingSqlFactory : IDbContextDeviceSamplingSqlFactory
+public class ProducerSamplingSqlFactory : PostgreSqlDeviceSamplingSqlFactory
 {
-    public string GetSamplingSql(AppDbContext context, DateTimeOffset timestamp)
+    protected override string GetSamplingSql(AppDbContext context, string timestampSqlValue)
     {
         var sql = $"""
             INSERT INTO "{nameof(context.ProducerSamples)}" (
@@ -18,7 +18,7 @@ public class ProducerSamplingSqlFactory : IDbContextDeviceSamplingSqlFactory
             )
             SELECT
                 "{nameof(Producer.Id)}",
-                '{timestamp.UtcDateTime:O}',
+                {timestampSqlValue},
                 "{nameof(Producer.CurrentPowerProduction)}",
                 "{nameof(Producer.TotalEnergyProduction)}_{nameof(
                 Producer.TotalEnergyProduction.Value

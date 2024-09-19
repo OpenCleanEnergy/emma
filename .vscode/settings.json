@@ -30,6 +30,7 @@
     "Oidc",
     "opencleanenergy",
     "openems",
+    "Postgre",
     "Pulumi",
     "Relayout",
     "Riok",

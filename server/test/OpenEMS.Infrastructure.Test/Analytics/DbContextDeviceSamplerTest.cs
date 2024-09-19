@@ -22,7 +22,8 @@ public class DbContextDeviceSamplerTest : IClassFixture<TestDbContextFixture>
         var sqlFactories = typeof(IDbContextDeviceSamplingSqlFactory)
             .Assembly.GetTypes()
             .Where(type =>
-                type != typeof(IDbContextDeviceSamplingSqlFactory)
+                !type.IsAbstract
+                && type != typeof(IDbContextDeviceSamplingSqlFactory)
                 && type.IsAssignableTo(typeof(IDbContextDeviceSamplingSqlFactory))
             )
             .Select(type => (IDbContextDeviceSamplingSqlFactory)Activator.CreateInstance(type)!)
