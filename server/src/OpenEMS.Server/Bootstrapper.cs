@@ -49,13 +49,13 @@ namespace OpenEMS.Server;
 
 public static class Bootstrapper
 {
-    public static IEnumerable<Assembly> Assemblies =>
-        [
-            typeof(IntegrationsQuery).Assembly,
-            // Integrations
-            typeof(ShellyIntegrationDescriptor).Assembly,
-            typeof(DevelopmentIntegrationDescriptor).Assembly,
-        ];
+    private static readonly Assembly[] _assemblies =
+    [
+        typeof(IntegrationsQuery).Assembly,
+        // Integrations
+        typeof(ShellyIntegrationDescriptor).Assembly,
+        typeof(DevelopmentIntegrationDescriptor).Assembly,
+    ];
 
     public static void ConfigureServices(
         IServiceCollection services,
@@ -120,7 +120,7 @@ public static class Bootstrapper
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
 
-        foreach (var part in Bootstrapper.Assemblies)
+        foreach (var part in _assemblies)
         {
             mvcBuilder.AddApplicationPart(part);
         }
@@ -268,7 +268,7 @@ public static class Bootstrapper
     {
         services.AddMediatR(config =>
             config
-                .RegisterServicesFromAssemblies([.. Assemblies])
+                .RegisterServicesFromAssemblies(_assemblies)
                 .AddOpenBehavior(typeof(LoggingBehavior<,>))
                 .AddOpenBehavior(typeof(TransactionBehavior<,>))
         );
@@ -337,14 +337,14 @@ public static class Bootstrapper
         );
 
         container.Scan(x =>
-            x.FromAssemblies(Assemblies)
+            x.FromAssemblies(_assemblies)
                 .AddClasses(x => x.AssignableTo<IIntegrationDescriptor>())
                 .As<IIntegrationDescriptor>()
                 .WithTransientLifetime()
         );
 
         container.Scan(x =>
-            x.FromAssemblies(Assemblies)
+            x.FromAssemblies(_assemblies)
                 .AddClasses(x => x.AssignableTo<ISwitchConsumerIntegration>())
                 .As<ISwitchConsumerIntegration>()
                 .WithTransientLifetime()
