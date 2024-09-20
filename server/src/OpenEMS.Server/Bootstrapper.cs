@@ -30,7 +30,7 @@ using OpenEMS.Infrastructure.Shelly;
 using OpenEMS.Integrations.Development;
 using OpenEMS.Integrations.Shared;
 using OpenEMS.Integrations.Shelly;
-using OpenEMS.Integrations.Shelly.Callback.Trust;
+using OpenEMS.Integrations.Shelly.Application.Callback;
 using OpenEMS.Integrations.Shelly.Commands;
 using OpenEMS.Integrations.Shelly.Domain;
 using OpenEMS.Integrations.Shelly.Events;
@@ -250,11 +250,6 @@ public static class Bootstrapper
         );
 
         services.AddSingleton<Serilog.ILogger>(Serilog.Log.Logger);
-
-        services.AddSingleton(
-            typeof(Application.Shared.Logging.ILogger),
-            typeof(SerilogLoggerAdapter)
-        );
 
         services.AddSingleton(
             typeof(Application.Shared.Logging.ILogger<>),

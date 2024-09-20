@@ -8,7 +8,7 @@ public class ShellyCommandResponseEventHandler
 {
     private readonly ILogger _logger;
 
-    public ShellyCommandResponseEventHandler(ILogger logger)
+    public ShellyCommandResponseEventHandler(ILogger<ShellyCommandResponseEventHandler> logger)
     {
         _logger = logger;
     }

@@ -17,7 +17,7 @@ public class ShellyWebsocketConfigurationFactory
     public ShellyWebsocketConfigurationFactory(
         ShellyIntegrationConfiguration configuration,
         TimeProvider timeProvider,
-        ILogger logger
+        ILogger<ShellyWebsocketConfigurationFactory> logger
     )
     {
         _configuration = configuration;
