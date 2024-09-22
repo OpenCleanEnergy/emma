@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text.Json.Serialization;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -272,9 +271,6 @@ public static class Bootstrapper
                 .AddOpenBehavior(typeof(LoggingBehavior<,>))
                 .AddOpenBehavior(typeof(TransactionBehavior<,>))
         );
-
-        services.RemoveAll<IMediator>();
-        services.RemoveAll<IPublisher>();
 
         // Events
         services.AddCap(
