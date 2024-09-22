@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.35](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.34...server-v1.0.0-alpha.35) (2024-09-22)
+
+
+### 🐛 Bug Fixes
+
+* fixes shelly hosted service registration. ([8ebd9da](https://github.com/OpenCleanEnergy/emma/commit/8ebd9dad42e89586c2d37a69bd4f82193daf1b50))
+
 ## [1.0.0-alpha.34](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.33...server-v1.0.0-alpha.34) (2024-09-22)
 
 
