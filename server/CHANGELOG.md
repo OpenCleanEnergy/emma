@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.34](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.33...server-v1.0.0-alpha.34) (2024-09-22)
+
+
+### 🐛 Bug Fixes
+
+* fixes dependency injection issue. ([388bdee](https://github.com/OpenCleanEnergy/emma/commit/388bdeea8f19614e273a3f45293bb9df89be0258))
+
 ## [1.0.0-alpha.33](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.32...server-v1.0.0-alpha.33) (2024-09-22)
 
 
