@@ -9,29 +9,8 @@ using OpenEMS.Infrastructure.Analytics;
 
 namespace OpenEMS.Infrastructure.Test.Analytics;
 
-public class DbContextDeviceSamplerTest : IClassFixture<TestDbContextFixture>
+public class DbContextDeviceSamplerTest
 {
-    private readonly TestDbContextFixture _testDbContextFixture;
-    private readonly DbContextDeviceSampler _deviceSampler;
-
-    public DbContextDeviceSamplerTest(TestDbContextFixture testDbContextFixture)
-    {
-        _testDbContextFixture = testDbContextFixture;
-
-        var context = _testDbContextFixture.CreateNewContext();
-        var sqlFactories = typeof(IDbContextDeviceSamplingSqlFactory)
-            .Assembly.GetTypes()
-            .Where(type =>
-                !type.IsAbstract
-                && type != typeof(IDbContextDeviceSamplingSqlFactory)
-                && type.IsAssignableTo(typeof(IDbContextDeviceSamplingSqlFactory))
-            )
-            .Select(type => (IDbContextDeviceSamplingSqlFactory)Activator.CreateInstance(type)!)
-            .ToArray();
-
-        _deviceSampler = new DbContextDeviceSampler(context, sqlFactories);
-    }
-
     [Fact]
     public async Task Creates_Samples()
     {
@@ -55,16 +34,23 @@ public class DbContextDeviceSamplerTest : IClassFixture<TestDbContextFixture>
         producer.ReportTotalEnergyProduction(WattHours.From(100));
         producer.ReportTotalEnergyProduction(WattHours.From(50));
 
-        await AddToDatabase(producer);
+        using var arrangeContext = await TestDbContext.CreateNew();
+        await AddAndSave(arrangeContext, producer);
 
         var utcNow = new DateTimeOffset(2024, 08, 31, 13, 34, 59, TimeSpan.Zero);
+
         // Act
-        var numberOfSamples = await _deviceSampler.TakeSamples(utcNow);
+        using var actContext = TestDbContext.FromExisting(arrangeContext);
+        var sampler = CreateSampler(actContext);
+        var numberOfSamples = await sampler.TakeSamples(utcNow);
 
         // Assert
         var currentUserReader = Substitute.For<ICurrentUserReader>();
         currentUserReader.GetUserIdOrThrow().Returns(userId);
-        await using var assertContext = _testDbContextFixture.CreateNewContext(currentUserReader);
+        await using var assertContext = TestDbContext.FromExisting(
+            arrangeContext,
+            currentUserReader
+        );
 
         var result = new
         {
@@ -75,10 +61,24 @@ public class DbContextDeviceSamplerTest : IClassFixture<TestDbContextFixture>
         await Verify(result).DontScrubDateTimes().AddNamedGuid(producer.Id.Value, "producer-id");
     }
 
-    private async Task AddToDatabase(params object[] devices)
+    private static async Task AddAndSave(TestDbContext context, params object[] devices)
     {
-        await using var initial = _testDbContextFixture.CreateNewContext();
-        initial.AddRange(devices);
-        await initial.SaveChangesAsync();
+        context.AddRange(devices);
+        await context.SaveChangesAsync();
+    }
+
+    private static DbContextDeviceSampler CreateSampler(TestDbContext context)
+    {
+        var sqlFactories = typeof(IDbContextDeviceSamplingSqlFactory)
+            .Assembly.GetTypes()
+            .Where(type =>
+                !type.IsAbstract
+                && type != typeof(IDbContextDeviceSamplingSqlFactory)
+                && type.IsAssignableTo(typeof(IDbContextDeviceSamplingSqlFactory))
+            )
+            .Select(type => (IDbContextDeviceSamplingSqlFactory)Activator.CreateInstance(type)!)
+            .ToArray();
+
+        return new DbContextDeviceSampler(context, sqlFactories);
     }
 }
