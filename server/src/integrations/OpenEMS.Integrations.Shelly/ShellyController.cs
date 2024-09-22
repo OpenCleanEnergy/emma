@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenEMS.Domain;
 using OpenEMS.Integrations.Shelly.Application;
-using OpenEMS.Integrations.Shelly.Callback;
-using OpenEMS.Integrations.Shelly.Callback.Trust;
+using OpenEMS.Integrations.Shelly.Application.Callback;
 using OpenEMS.Integrations.Shelly.PermissionsGrant;
 
 namespace OpenEMS.Integrations.Shelly;

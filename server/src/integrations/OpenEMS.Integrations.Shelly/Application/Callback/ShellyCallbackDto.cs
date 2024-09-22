@@ -1,6 +1,6 @@
 using OpenEMS.Integrations.Shelly.Domain.ValueObjects;
 
-namespace OpenEMS.Integrations.Shelly.Callback;
+namespace OpenEMS.Integrations.Shelly.Application.Callback;
 
 public class ShellyCallbackDto
 {

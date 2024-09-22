@@ -14,7 +14,7 @@ public sealed class InMemoryEventChannels : IInMemoryEventChannels, IDisposable
     private readonly Dictionary<Type, HashSet<EventKey>> _eventKeysByEventChannelType = [];
 
     public InMemoryEventChannels(
-        ILogger logger,
+        ILogger<InMemoryEventChannels> logger,
         IEventMediator domainEventMediator,
         IEnumerable<EventHandlerDescriptor> eventHandlerDescriptors
     )

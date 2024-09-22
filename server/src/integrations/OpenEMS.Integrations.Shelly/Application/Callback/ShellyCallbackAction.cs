@@ -1,4 +1,4 @@
-namespace OpenEMS.Integrations.Shelly.Callback;
+namespace OpenEMS.Integrations.Shelly.Application.Callback;
 
 public enum ShellyCallbackAction
 {

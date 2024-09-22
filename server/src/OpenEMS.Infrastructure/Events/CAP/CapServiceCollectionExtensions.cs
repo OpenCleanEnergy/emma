@@ -7,7 +7,7 @@ namespace OpenEMS.Infrastructure.Events.CAP;
 
 public static class CapServiceCollectionExtensions
 {
-    public static void AddEvents(this IServiceCollection services, CapConfiguration configuration)
+    public static void AddCap(this IServiceCollection services, CapConfiguration configuration)
     {
         services.AddSingleton(typeof(CapEventMediatorAdapter<>));
         services.AddSingleton<IConsumerServiceSelector, CustomConsumerServiceSelector>();

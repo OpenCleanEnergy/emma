@@ -14,7 +14,7 @@ public class ShellyWebsocketMessageHandler
     public ShellyWebsocketMessageHandler(
         ShellyEventSerializer serializer,
         IEventPublisher eventPublisher,
-        ILogger logger
+        ILogger<ShellyWebsocketMessageHandler> logger
     )
     {
         _serializer = serializer;

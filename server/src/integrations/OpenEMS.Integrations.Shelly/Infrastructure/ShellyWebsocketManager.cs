@@ -11,7 +11,7 @@ public sealed class ShellyWebsocketManager : IShellyWebsocketManager, IDisposabl
     private readonly ShellyWebsocketConfigurationFactory _configurationFactory;
 
     private readonly ShellyWebsocketMessageHandler _messageHandler;
-    private readonly ILogger _logger;
+    private readonly ILogger<ShellyWebsocket> _logger;
     private readonly ILoggerFactory _loggerFactory;
 
     public ShellyWebsocketManager(

@@ -13,20 +13,20 @@ public static class SerilogLoggerFactory
     public static ReloadableLogger GetBootstrapLogger(WebApplicationBuilder builder)
     {
         return ConfigureLogger(
-                builder.Configuration,
-                builder.Environment,
                 new LoggerConfiguration().MinimumLevel.Override(
                     "Microsoft",
                     LogEventLevel.Information
-                )
+                ),
+                builder.Configuration,
+                builder.Environment
             )
             .CreateBootstrapLogger();
     }
 
     public static LoggerConfiguration ConfigureLogger(
+        LoggerConfiguration loggerConfiguration,
         IConfiguration configuration,
-        IWebHostEnvironment environment,
-        LoggerConfiguration loggerConfiguration
+        IWebHostEnvironment environment
     )
     {
         loggerConfiguration

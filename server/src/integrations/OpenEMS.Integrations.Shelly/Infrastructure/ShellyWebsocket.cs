@@ -2,7 +2,6 @@ using Microsoft.Extensions.Logging;
 using OpenEMS.Domain;
 using OpenEMS.Integrations.Shelly.Domain.ValueObjects;
 using Websocket.Client;
-using ILogger = OpenEMS.Application.Shared.Logging.ILogger;
 
 namespace OpenEMS.Integrations.Shelly.Infrastructure;
 
@@ -11,7 +10,7 @@ public sealed class ShellyWebsocket : IDisposable
     private readonly FullyQualifiedDomainName _host;
     private readonly ShellyWebsocketConfigurationFactory _configurationFactory;
     private readonly ShellyWebsocketMessageHandler _messageHandler;
-    private readonly ILogger _logger;
+    private readonly OpenEMS.Application.Shared.Logging.ILogger _logger;
     private readonly ILoggerFactory _loggerFactory;
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
@@ -23,7 +22,7 @@ public sealed class ShellyWebsocket : IDisposable
         FullyQualifiedDomainName host,
         ShellyWebsocketConfigurationFactory configurationFactory,
         ShellyWebsocketMessageHandler messageHandler,
-        ILogger logger,
+        OpenEMS.Application.Shared.Logging.ILogger<ShellyWebsocket> logger,
         ILoggerFactory loggerFactory
     )
     {

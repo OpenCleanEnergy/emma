@@ -3,7 +3,7 @@ using OpenEMS.Domain;
 using OpenEMS.Integrations.Shelly.Domain;
 using OpenEMS.Integrations.Shelly.Domain.ValueObjects;
 
-namespace OpenEMS.Integrations.Shelly.Callback;
+namespace OpenEMS.Integrations.Shelly.Application.Callback;
 
 public class ShellyCallbackCommand : ICommand
 {

@@ -4,7 +4,7 @@ using JWT.Builder;
 using JWT.Exceptions;
 using OpenEMS.Application.Shared.Logging;
 
-namespace OpenEMS.Integrations.Shelly.Callback.Trust;
+namespace OpenEMS.Integrations.Shelly.Application.Callback;
 
 /// <summary>
 /// See https://shelly-api-docs.shelly.cloud/integrator-api/users#callback-url-security.
@@ -22,7 +22,7 @@ public class ShellyTrustTokenValidator
     private readonly ILogger _logger;
     private JwtBuilder? _cachedJwtBuilder;
 
-    public ShellyTrustTokenValidator(ILogger logger)
+    public ShellyTrustTokenValidator(ILogger<ShellyTrustTokenValidator> logger)
     {
         _logger = logger;
     }

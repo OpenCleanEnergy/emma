@@ -23,7 +23,7 @@ public sealed class ShellyHostedService : IHostedService, IDisposable
         ShellyIntegrationConfiguration configuration,
         IScopedServiceFactory<IShellyHostsReader> hostsReaderFactory,
         IShellyWebsocketManager websocketManager,
-        ILogger logger
+        ILogger<ShellyHostedService> logger
     )
     {
         _configuration = configuration;
