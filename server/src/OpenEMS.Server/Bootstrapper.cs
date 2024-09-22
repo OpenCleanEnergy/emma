@@ -355,7 +355,7 @@ public static class Bootstrapper
         container.AddSingleton<ShellyTrustTokenValidator>();
         container.AddScoped<IGrantedShellyDeviceRepository, GrantedShellyDeviceRepository>();
         container.AddTransient<IShellyHostsReader, ShellyHostsReader>();
-        container.AddSingleton<ShellyHostedService>();
+        container.AddHostedService<ShellyHostedService>();
         container.AddSingleton<ShellyWebsocketConfigurationFactory>();
         container.AddSingleton<IShellyWebsocketManager, ShellyWebsocketManager>();
         container.AddSingleton<ShellyWebsocketMessageHandler>();
