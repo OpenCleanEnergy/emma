@@ -1,5 +1,5 @@
 
-_sudo := if os_family() == "unix" { "sudo " } else { "" }
+_sudo := if os_family() == "unix" { "sudo" } else { "" }
 
 # Lists all available recipes
 @default:
