@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.0.0-alpha.33](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.32...server-v1.0.0-alpha.33) (2024-09-22)
+
+
+### 🚀 Features
+
+* Handle hardware reset of total energy reportings. ([07aa1ae](https://github.com/OpenCleanEnergy/emma/commit/07aa1aea432d98ebe966514c6a822bc1ed829295))
+
+
+### 🐛 Bug Fixes
+
+* Fixes database migration `Adds_TotalEnergy` ([421b26a](https://github.com/OpenCleanEnergy/emma/commit/421b26a21bba256a0b62e9a11f80b6332ffb02e3))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group across 1 directory with 8 updates ([#209](https://github.com/OpenCleanEnergy/emma/issues/209)) ([5cddc1a](https://github.com/OpenCleanEnergy/emma/commit/5cddc1a2cee6211da8dd40215ffca019b6693c98))
+* Remove `SimpleInjector` to simplify dependency injection ([#210](https://github.com/OpenCleanEnergy/emma/issues/210)) ([765f568](https://github.com/OpenCleanEnergy/emma/commit/765f568925ce7e6e6836c527862eb76887303a68))
+
 ## [1.0.0-alpha.32](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.31...server-v1.0.0-alpha.32) (2024-09-03)
 
 
