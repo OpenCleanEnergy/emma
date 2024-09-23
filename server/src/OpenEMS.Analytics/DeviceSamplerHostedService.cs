@@ -9,7 +9,7 @@ public sealed class DeviceSamplerHostedService(
     DeviceSamplerConfiguration configuration,
     IScopedServiceFactory<IDeviceSampler> deviceSamplerFactory,
     TimeProvider timeProvider,
-    ILogger logger
+    ILogger<DeviceSamplerHostedService> logger
 ) : IHostedService, IDisposable
 {
     private readonly DeviceSamplerConfiguration _configuration = configuration;
