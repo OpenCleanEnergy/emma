@@ -3,12 +3,9 @@ using OpenEMS.Domain.Producers;
 
 namespace OpenEMS.Infrastructure.Analytics;
 
-public class ProducerSamplingSqlFactory : PostgreSqlDeviceSamplingSqlFactory
+public class PostgreSqlProducerSamplingSqlFactory : IDbContextDeviceSamplingSqlFactory
 {
-    protected override string GetSamplingSql(
-        string timestampSqlValue,
-        Func<Type, string> tableNameProvider
-    )
+    public string GetSamplingSql(Func<Type, string> tableNameProvider, string timestampParam)
     {
         var sql = $"""
             INSERT INTO "{tableNameProvider(typeof(ProducerSample))}" (
@@ -20,7 +17,7 @@ public class ProducerSamplingSqlFactory : PostgreSqlDeviceSamplingSqlFactory
             )
             SELECT
                 "{nameof(Producer.Id)}",
-                {timestampSqlValue},
+                {timestampParam},
                 "{nameof(Producer.CurrentPowerProduction)}",
                 "{nameof(Producer.TotalEnergyProduction)}_{nameof(
                 Producer.TotalEnergyProduction.Value

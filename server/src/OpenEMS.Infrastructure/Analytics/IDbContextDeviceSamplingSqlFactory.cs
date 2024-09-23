@@ -2,5 +2,5 @@ namespace OpenEMS.Infrastructure.Analytics;
 
 public interface IDbContextDeviceSamplingSqlFactory
 {
-    string GetSamplingSql(DateTimeOffset timestamp, Func<Type, string> tableNameProvider);
+    string GetSamplingSql(Func<Type, string> tableNameProvider, string timestampParam);
 }

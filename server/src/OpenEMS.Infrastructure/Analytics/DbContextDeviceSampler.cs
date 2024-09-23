@@ -18,10 +18,10 @@ public class DbContextDeviceSampler(
         var sb = new StringBuilder();
         foreach (var factory in _sqlFactories)
         {
-            sb.AppendLine(factory.GetSamplingSql(timestamp, GetTableName));
+            sb.AppendLine(factory.GetSamplingSql(GetTableName, "{0}"));
         }
 
-        var count = await _context.Database.ExecuteSqlRawAsync(sb.ToString());
+        var count = await _context.Database.ExecuteSqlRawAsync(sb.ToString(), timestamp);
 
         return NumberOfSamples.From(count);
     }
