@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using MediatR;
+using MediatR.Registration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -265,11 +267,21 @@ public static class Bootstrapper
 
     private static void AddRequestHandler(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddMediatR(config =>
-            config
-                .RegisterServicesFromAssemblies(_assemblies)
-                .AddOpenBehavior(typeof(LoggingBehavior<,>))
-                .AddOpenBehavior(typeof(TransactionBehavior<,>))
+        // MediatR - ISender only
+        var mediatorConfig = new MediatRServiceConfiguration()
+            .RegisterServicesFromAssemblies(_assemblies)
+            .AddOpenBehavior(typeof(LoggingBehavior<,>))
+            .AddOpenBehavior(typeof(TransactionBehavior<,>));
+
+        ServiceRegistrar.SetGenericRequestHandlerRegistrationLimitations(mediatorConfig);
+        ServiceRegistrar.AddMediatRClassesWithTimeout(services, mediatorConfig);
+
+        services.Add(
+            new ServiceDescriptor(
+                typeof(ISender),
+                mediatorConfig.MediatorImplementationType,
+                mediatorConfig.Lifetime
+            )
         );
 
         // Events
