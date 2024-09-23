@@ -1,7 +1,6 @@
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using OpenEMS.Analytics;
-using OpenEMS.Domain.Producers;
 using OpenEMS.Infrastructure.Persistence;
 
 namespace OpenEMS.Infrastructure.Analytics;
@@ -19,11 +18,21 @@ public class DbContextDeviceSampler(
         var sb = new StringBuilder();
         foreach (var factory in _sqlFactories)
         {
-            sb.AppendLine(factory.GetSamplingSql(_context, timestamp));
+            sb.AppendLine(factory.GetSamplingSql(timestamp, GetTableName));
         }
 
         var count = await _context.Database.ExecuteSqlRawAsync(sb.ToString());
 
         return NumberOfSamples.From(count);
+    }
+
+    private string GetTableName(Type entityType)
+    {
+        var entityTypeModel =
+            _context.Model.FindEntityType(entityType)
+            ?? throw new InvalidOperationException($"Entity type {entityType} not found in model.");
+
+        return entityTypeModel.GetTableName()
+            ?? throw new InvalidOperationException($"Entity type {entityType} has no table name.");
     }
 }

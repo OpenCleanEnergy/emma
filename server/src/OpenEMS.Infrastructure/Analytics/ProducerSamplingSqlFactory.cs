@@ -1,15 +1,17 @@
 using OpenEMS.Analytics;
 using OpenEMS.Domain.Producers;
-using OpenEMS.Infrastructure.Persistence;
 
 namespace OpenEMS.Infrastructure.Analytics;
 
 public class ProducerSamplingSqlFactory : PostgreSqlDeviceSamplingSqlFactory
 {
-    protected override string GetSamplingSql(AppDbContext context, string timestampSqlValue)
+    protected override string GetSamplingSql(
+        string timestampSqlValue,
+        Func<Type, string> tableNameProvider
+    )
     {
         var sql = $"""
-            INSERT INTO "{nameof(context.ProducerSamples)}" (
+            INSERT INTO "{tableNameProvider(typeof(ProducerSample))}" (
                 "{nameof(ProducerSample.ProducerId)}",
                 "{nameof(ProducerSample.Timestamp)}",
                 "{nameof(ProducerSample.CurrentPowerProduction)}",
@@ -24,7 +26,7 @@ public class ProducerSamplingSqlFactory : PostgreSqlDeviceSamplingSqlFactory
                 Producer.TotalEnergyProduction.Value
             )}",
                 "{nameof(Producer.OwnedBy)}"
-            FROM "{nameof(context.Producers)}"
+            FROM "{tableNameProvider(typeof(Producer))}"
             """;
 
         return sql;
