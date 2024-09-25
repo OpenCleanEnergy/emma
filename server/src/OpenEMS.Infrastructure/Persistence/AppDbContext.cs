@@ -28,8 +28,9 @@ public class AppDbContext : DbContext
     public DbSet<Producer> Producers => Set<Producer>();
     public DbSet<ElectricityMeter> ElectricityMeters => Set<ElectricityMeter>();
 
-    public DbSet<ProducerSample> ProducerSamples => Set<ProducerSample>();
     public DbSet<SwitchConsumerSample> SwitchConsumerSamples => Set<SwitchConsumerSample>();
+    public DbSet<ProducerSample> ProducerSamples => Set<ProducerSample>();
+    public DbSet<ElectricityMeterSample> ElectricityMeterSamples => Set<ElectricityMeterSample>();
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
