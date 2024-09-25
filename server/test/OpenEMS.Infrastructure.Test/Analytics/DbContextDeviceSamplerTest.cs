@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NSubstitute;
 using OpenEMS.Application.Shared.Identity;
 using OpenEMS.Domain;
+using OpenEMS.Domain.Consumers;
 using OpenEMS.Domain.Producers;
 using OpenEMS.Domain.Units;
 using OpenEMS.Infrastructure.Analytics;
@@ -12,7 +13,7 @@ namespace OpenEMS.Infrastructure.Test.Analytics;
 public class DbContextDeviceSamplerTest
 {
     [Fact]
-    public async Task Creates_Samples()
+    public async Task Creates_Producer_Samples()
     {
         // Arrange
         var userId = UserId.From("test-user");
@@ -59,6 +60,58 @@ public class DbContextDeviceSamplerTest
         };
 
         await Verify(result).DontScrubDateTimes().AddNamedGuid(producer.Id.Value, "producer-id");
+    }
+
+    [Fact]
+    public async Task Creates_Switch_Consumer_Samples()
+    {
+        // Arrange
+        var userId = UserId.From("test-user");
+        var switchConsumer = new SwitchConsumer
+        {
+            Name = DeviceName.From("switch-consumer-1"),
+            Integration = new IntegrationIdentifier(
+                IntegrationId.From("switch-consumer"),
+                IntegrationDeviceId.From("1")
+            ),
+            OwnedBy = userId,
+        };
+
+        // Maximum power: 5000W and current power: 200W
+        switchConsumer.ReportCurrentPowerConsumption(Watt.From(5000));
+        switchConsumer.ReportCurrentPowerConsumption(Watt.From(200));
+
+        // TotalEnergy.Value: 400Wh and TotalEnergy.LastReported: 100Wh
+        switchConsumer.ReportTotalEnergyConsumption(WattHours.From(300));
+        switchConsumer.ReportTotalEnergyConsumption(WattHours.From(100));
+
+        using var arrangeContext = await TestDbContext.CreateNew();
+        await AddAndSave(arrangeContext, switchConsumer);
+
+        var utcNow = new DateTimeOffset(2024, 08, 31, 13, 34, 59, TimeSpan.Zero);
+
+        // Act
+        using var actContext = TestDbContext.FromExisting(arrangeContext);
+        var sampler = CreateSampler(actContext);
+        var numberOfSamples = await sampler.TakeSamples(utcNow);
+
+        // Assert
+        var currentUserReader = Substitute.For<ICurrentUserReader>();
+        currentUserReader.GetUserIdOrThrow().Returns(userId);
+        await using var assertContext = TestDbContext.FromExisting(
+            arrangeContext,
+            currentUserReader
+        );
+
+        var result = new
+        {
+            numberOfSamples,
+            switchConsumerSamples = await assertContext.SwitchConsumerSamples.ToArrayAsync(),
+        };
+
+        await Verify(result)
+            .DontScrubDateTimes()
+            .AddNamedGuid(switchConsumer.Id.Value, "switch-consumer-id");
     }
 
     private static async Task AddAndSave(TestDbContext context, params object[] devices)

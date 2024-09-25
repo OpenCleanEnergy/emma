@@ -1,0 +1,12 @@
+﻿{
+  numberOfSamples: 1,
+  switchConsumerSamples: [
+    {
+      SwitchConsumerId: switch-consumer-id,
+      Timestamp: 2024-08-31 13:34:59 +0,
+      CurrentPowerConsumption: 200,
+      TotalEnergyConsumption: 400,
+      OwnedBy: test-user
+    }
+  ]
+}

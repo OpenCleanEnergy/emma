@@ -23,7 +23,7 @@ public class PostgreSqlProducerSamplingSqlFactory : IDbContextDeviceSamplingSqlF
                 Producer.TotalEnergyProduction.Value
             )}",
                 "{nameof(Producer.OwnedBy)}"
-            FROM "{tableNameProvider(typeof(Producer))}"
+            FROM "{tableNameProvider(typeof(Producer))}";
             """;
 
         return sql;
