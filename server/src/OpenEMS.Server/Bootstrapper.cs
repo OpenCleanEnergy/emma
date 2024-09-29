@@ -39,11 +39,9 @@ using OpenEMS.Integrations.Shelly.Commands;
 using OpenEMS.Integrations.Shelly.Domain;
 using OpenEMS.Integrations.Shelly.Events;
 using OpenEMS.Integrations.Shelly.Infrastructure;
-using OpenEMS.Server.Configuration;
 using OpenEMS.Server.DependencyInjection;
 using OpenEMS.Server.Events;
 using OpenEMS.Server.Identity;
-using OpenEMS.Server.Integrations;
 using OpenEMS.Server.Logging;
 using OpenEMS.Server.LongPolling;
 using OpenEMS.Server.ModelBinding;
@@ -68,16 +66,22 @@ public static class Bootstrapper
         IWebHostEnvironment env
     )
     {
-        AddWeb(services, configuration);
+        var appSettings =
+            configuration.Get<AppSettings>()
+            ?? throw new ValidationException($"Unable to get {nameof(AppSettings)}.");
+
+        appSettings.Validate();
+
+        AddWeb(services, appSettings);
         AddIdentity(services);
         AddLongPolling(services);
         AddLogging(services, configuration, env);
         AddDependencyInjection(services);
         AddDomain(services);
-        AddRequestHandler(services, configuration);
-        AddPersistence(services, configuration);
-        AddAnalytics(services, configuration);
-        AddIntegrations(services, configuration);
+        AddRequestHandler(services, appSettings);
+        AddPersistence(services, appSettings);
+        AddAnalytics(services, appSettings);
+        AddIntegrations(services, appSettings);
     }
 
     public static void ConfigureApp(IApplicationBuilder app, IWebHostEnvironment env)
@@ -113,7 +117,7 @@ public static class Bootstrapper
         });
     }
 
-    private static void AddWeb(IServiceCollection services, IConfiguration configuration)
+    private static void AddWeb(IServiceCollection services, AppSettings appSettings)
     {
         // Controllers
         var mvcBuilder = services
@@ -139,9 +143,7 @@ public static class Bootstrapper
         });
 
         // Authentication
-        var keycloakConfiguration =
-            configuration.GetSection("Keycloak").Get<KeycloakConfiguration>()
-            ?? throw new InvalidOperationException("'Keycloak' is not configured.");
+        var keycloakConfiguration = appSettings.Keycloak;
 
         services
             .AddAuthentication(options =>
@@ -279,7 +281,7 @@ public static class Bootstrapper
         container.AddScoped<IProducerRepository, ProducerRepository>();
     }
 
-    private static void AddRequestHandler(IServiceCollection services, IConfiguration configuration)
+    private static void AddRequestHandler(IServiceCollection services, AppSettings appSettings)
     {
         // MediatR - ISender only
         var mediatorConfig = new MediatRServiceConfiguration()
@@ -299,10 +301,7 @@ public static class Bootstrapper
         );
 
         // Events
-        services.AddCap(
-            configuration.GetSection("Events").Get<CapConfiguration>()
-                ?? throw new InvalidOperationException("'Events' is not configured.")
-        );
+        services.AddCap(appSettings.Events);
 
         services.AddSingleton<IEventPublisher, CapEventPublisher>();
 
@@ -314,13 +313,9 @@ public static class Bootstrapper
         );
     }
 
-    private static void AddPersistence(IServiceCollection services, IConfiguration configuration)
+    private static void AddPersistence(IServiceCollection services, AppSettings appSettings)
     {
-        var databaseConfig =
-            configuration.GetRequiredSection("Database").Get<DatabaseConfiguration>()
-            ?? throw new ValidationException("Database configuration is required.");
-
-        var connectionString = databaseConfig.GetConnectionString();
+        var connectionString = appSettings.Database.GetConnectionString();
 
         if (EntryAssembly.GetEntryAssembly() == EntryAssembly.EF)
         {
@@ -349,17 +344,10 @@ public static class Bootstrapper
         );
     }
 
-    private static void AddAnalytics(IServiceCollection container, IConfiguration configuration)
+    private static void AddAnalytics(IServiceCollection container, AppSettings appSettings)
     {
-        var config =
-            configuration
-                .GetRequiredSection("Analytics")
-                .GetRequiredSection("Sampling")
-                .Get<DeviceSamplerConfiguration>()
-            ?? throw new ArgumentException("Failed to read 'Analytics.Sampling' configuration");
-
         // Analytics
-        container.AddSingleton(config);
+        container.AddSingleton(appSettings.Analytics.Sampling);
         container.AddHostedService<DeviceSamplerHostedService>();
 
         // Infrastructure
@@ -372,7 +360,7 @@ public static class Bootstrapper
         );
     }
 
-    private static void AddIntegrations(IServiceCollection container, IConfiguration configuration)
+    private static void AddIntegrations(IServiceCollection container, AppSettings appSettings)
     {
         container.AddTransient<IExistingDevicesReader, ExistingDevicesReader>();
         container.AddTransient<IDevicesRepository, DevicesRepository>();
@@ -391,12 +379,8 @@ public static class Bootstrapper
                 .WithTransientLifetime()
         );
 
-        var config =
-            configuration.GetRequiredSection("Integrations").Get<IntegrationsConfiguration>()
-            ?? throw new ArgumentException("Failed to read integrations configuration");
-
         // Shelly
-        container.AddSingleton(config.Shelly);
+        container.AddSingleton(appSettings.Integrations.Shelly);
         container.AddSingleton<ShellyTrustTokenValidator>();
         container.AddScoped<IGrantedShellyDeviceRepository, GrantedShellyDeviceRepository>();
         container.AddTransient<IShellyHostsReader, ShellyHostsReader>();

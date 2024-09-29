@@ -43,16 +43,6 @@ public sealed class ShellyHostedService : IHostedService, IDisposable
             return Task.CompletedTask;
         }
 
-        if (!_configuration.Validate(out var invalidProperties))
-        {
-            _logger.Warning(
-                "Configuration is invalid because of {@invalidProperties}. Service is shutting down.",
-                invalidProperties
-            );
-
-            return Task.CompletedTask;
-        }
-
         _backgroundTask = Background(_cancellationTokenSource.Token);
         return Task.CompletedTask;
     }
