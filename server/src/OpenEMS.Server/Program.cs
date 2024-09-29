@@ -46,9 +46,8 @@ try
     {
         await MigrateDbContext(app.Services);
         await BootstrapCAP(app.Services, cts.Token);
+        await app.RunAsync();
     }
-
-    await app.RunAsync();
 }
 catch (HostAbortedException)
 {
