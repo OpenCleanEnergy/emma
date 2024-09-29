@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenEMS.Domain\OpenEMS.Domain.csproj" />
+    <ProjectReference Include="..\OpenEMS.Application.Shared\OpenEMS.Application.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

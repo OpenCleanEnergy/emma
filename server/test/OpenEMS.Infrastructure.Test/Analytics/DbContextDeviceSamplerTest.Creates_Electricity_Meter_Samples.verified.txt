@@ -1,0 +1,23 @@
+﻿{
+  numberOfSamples: 2,
+  samples: [
+    {
+      ElectricityMeterId: meter-1-id,
+      Timestamp: 2024-08-31 13:34:59 +0,
+      CurrentPower: 1200,
+      CurrentPowerDirection: Consume,
+      TotalEnergyConsumption: 400,
+      TotalEnergyFeedIn: 0,
+      OwnedBy: test-user
+    },
+    {
+      ElectricityMeterId: meter-2-id,
+      Timestamp: 2024-08-31 13:34:59 +0,
+      CurrentPower: 200,
+      CurrentPowerDirection: FeedIn,
+      TotalEnergyConsumption: 0,
+      TotalEnergyFeedIn: 150,
+      OwnedBy: test-user
+    }
+  ]
+}

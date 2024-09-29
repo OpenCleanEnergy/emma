@@ -14,7 +14,7 @@ public class ShellyIntegrationDescriptor : IIntegrationDescriptor
 
     public static IntegrationId Id { get; } = IntegrationId.From("shelly");
     public string Name { get; } = "Shelly";
-    public bool IsEnabled => _configuration.IsEnabled && _configuration.Validate(out _);
+    public bool IsEnabled => _configuration.IsEnabled && _configuration.IsValid();
 
     IntegrationId IIntegrationDescriptor.Id => Id;
 

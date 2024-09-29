@@ -2,19 +2,30 @@ using System.Reflection;
 
 namespace OpenEMS.Server;
 
-public static class EntryAssembly
+public readonly record struct EntryAssembly
 {
-    public const string Swagger = "dotnet-swagger";
-    public const string EF = "ef";
-    public const string Default = "default";
+    private EntryAssembly(string name) => Name = name;
 
-    public static string GetEntryAssembly()
+    public string Name { get; }
+
+    public static EntryAssembly Swagger { get; } = new("dotnet-swagger");
+    public static EntryAssembly EF { get; } = new("ef");
+    public static EntryAssembly Default { get; } = new("default");
+
+    public static EntryAssembly GetEntryAssembly()
     {
-        return Assembly.GetEntryAssembly()?.GetName().Name switch
+        var name = Assembly.GetEntryAssembly()?.GetName().Name;
+        if (name == Swagger.Name)
         {
-            Swagger => Swagger,
-            EF => EF,
-            _ => Default
-        };
+            return Swagger;
+        }
+        else if (name == EF.Name)
+        {
+            return EF;
+        }
+        else
+        {
+            return Default;
+        }
     }
 }

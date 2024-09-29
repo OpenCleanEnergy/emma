@@ -36,7 +36,7 @@ services:
       - IMPORT_VALIDATE=true
 
   keycloak-database:
-    image: postgres:16
+    image: postgres:15-alpine
     volumes:
       - keycloak_database_data:/var/lib/postgresql/data
     environment:
@@ -45,7 +45,7 @@ services:
       POSTGRES_PASSWORD: dev
 
   backend-database:
-    image: postgres:16
+    image: postgres:15-alpine
     ports:
       - 5432:5432
     volumes:

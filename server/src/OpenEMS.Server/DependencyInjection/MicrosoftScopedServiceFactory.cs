@@ -1,6 +1,6 @@
-﻿using OpenEMS.Integrations.Shared;
+﻿using OpenEMS.Application.Shared.DependencyInjection;
 
-namespace OpenEMS.Server.Integrations;
+namespace OpenEMS.Server.DependencyInjection;
 
 public class MicrosoftScopedServiceFactory<TService> : IScopedServiceFactory<TService>
     where TService : class
@@ -16,7 +16,7 @@ public class MicrosoftScopedServiceFactory<TService> : IScopedServiceFactory<TSe
         _ = scope.ServiceProvider.GetRequiredService<TService>();
     }
 
-    public IScopedService<TService> GetScopedInstance()
+    public ScopedService<TService> GetScopedInstance()
     {
         var scope = _serviceScopeFactory.CreateScope();
         var service = scope.ServiceProvider.GetRequiredService<TService>();

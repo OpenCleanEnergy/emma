@@ -1,8 +1,9 @@
+using System.ComponentModel.DataAnnotations;
 using Npgsql;
 
 namespace OpenEMS.Infrastructure.Persistence;
 
-public class DatabaseConfiguration
+public class DatabaseConfiguration : IValidatableObject
 {
     public required string Host { get; init; }
     public required string Database { get; init; }
@@ -26,5 +27,30 @@ public class DatabaseConfiguration
         }
 
         return builder.ConnectionString;
+    }
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        const string isRequired = "is required";
+
+        if (string.IsNullOrEmpty(Host))
+        {
+            yield return new ValidationResult(isRequired, [nameof(Host)]);
+        }
+
+        if (string.IsNullOrEmpty(Database))
+        {
+            yield return new ValidationResult(isRequired, [nameof(Database)]);
+        }
+
+        if (string.IsNullOrEmpty(Username))
+        {
+            yield return new ValidationResult(isRequired, [nameof(Username)]);
+        }
+
+        if (string.IsNullOrEmpty(Password))
+        {
+            yield return new ValidationResult(isRequired, [nameof(Password)]);
+        }
     }
 }

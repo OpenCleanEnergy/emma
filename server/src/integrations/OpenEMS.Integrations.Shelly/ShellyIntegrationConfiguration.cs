@@ -1,37 +1,38 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OpenEMS.Integrations.Shelly;
 
-public class ShellyIntegrationConfiguration
+public class ShellyIntegrationConfiguration : IValidatableObject
 {
     public bool IsEnabled { get; init; } = true;
-    public string? IntegratorTag { get; init; }
-    public string? IntegratorToken { get; init; }
-    public Uri? CallbackBaseUrl { get; init; }
+    public required string IntegratorTag { get; init; }
+    public required string IntegratorToken { get; init; }
+    public required Uri CallbackBaseUrl { get; init; }
 
-    [MemberNotNullWhen(true, nameof(IntegratorTag))]
-    [MemberNotNullWhen(true, nameof(IntegratorToken))]
-    [MemberNotNullWhen(true, nameof(CallbackBaseUrl))]
-    public bool Validate(out IReadOnlyCollection<string> invalidProperties)
+    public bool IsValid() => !Validate(new(this)).Any();
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        var invalid = new List<string>();
+        if (!IsEnabled)
+        {
+            yield break;
+        }
+
+        const string isRequired = "is required";
 
         if (string.IsNullOrEmpty(IntegratorTag))
         {
-            invalid.Add(nameof(IntegratorTag));
+            yield return new ValidationResult(isRequired, [nameof(IntegratorTag)]);
         }
 
         if (string.IsNullOrEmpty(IntegratorToken))
         {
-            invalid.Add(nameof(IntegratorToken));
+            yield return new ValidationResult(isRequired, [nameof(IntegratorToken)]);
         }
 
         if (CallbackBaseUrl is null)
         {
-            invalid.Add(nameof(CallbackBaseUrl));
+            yield return new ValidationResult(isRequired, [nameof(CallbackBaseUrl)]);
         }
-
-        invalidProperties = invalid;
-        return invalid.Count == 0;
     }
 }

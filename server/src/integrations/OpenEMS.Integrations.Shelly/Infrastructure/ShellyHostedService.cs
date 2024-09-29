@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Hosting;
+using OpenEMS.Application.Shared.DependencyInjection;
 using OpenEMS.Application.Shared.Logging;
 using OpenEMS.Domain;
-using OpenEMS.Integrations.Shared;
 using OpenEMS.Integrations.Shelly.Domain.ValueObjects;
 
 namespace OpenEMS.Integrations.Shelly.Infrastructure;
@@ -40,16 +40,6 @@ public sealed class ShellyHostedService : IHostedService, IDisposable
                 "Integration {Integration} is disabled. Service is shutting down.",
                 ShellyIntegrationDescriptor.Id
             );
-            return Task.CompletedTask;
-        }
-
-        if (!_configuration.Validate(out var invalidProperties))
-        {
-            _logger.Warning(
-                "Configuration is invalid because of {@invalidProperties}. Service is shutting down.",
-                invalidProperties
-            );
-
             return Task.CompletedTask;
         }
 

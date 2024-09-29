@@ -1,0 +1,8 @@
+###############################################################################
+# Set default behavior to automatically normalize line endings.
+###############################################################################
+* text=auto
+
+# Force Unix-style on the following file types, so that git on Windows doesn't break them.
+*.sh text eol=lf
+*.env text eol=lf

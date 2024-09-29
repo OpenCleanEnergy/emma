@@ -9,9 +9,7 @@ public class GrantedShellyDeviceEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<GrantedShellyDevice> builder)
     {
-        builder.Property<int>("_PK");
-        builder.HasKey("_PK");
-
+        builder.HasShadowPrimaryKey();
         builder.HasIndex(x => new { x.DeviceId, x.Index }).IsUnique();
     }
 }

@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using OpenEMS.Analytics;
 using OpenEMS.Application.Shared.Identity;
 using OpenEMS.Domain;
 using OpenEMS.Domain.Consumers;
@@ -26,6 +27,10 @@ public class AppDbContext : DbContext
     public DbSet<SwitchConsumer> SwitchConsumers => Set<SwitchConsumer>();
     public DbSet<Producer> Producers => Set<Producer>();
     public DbSet<ElectricityMeter> ElectricityMeters => Set<ElectricityMeter>();
+
+    public DbSet<SwitchConsumerSample> SwitchConsumerSamples => Set<SwitchConsumerSample>();
+    public DbSet<ProducerSample> ProducerSamples => Set<ProducerSample>();
+    public DbSet<ElectricityMeterSample> ElectricityMeterSamples => Set<ElectricityMeterSample>();
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {

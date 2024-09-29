@@ -25,7 +25,7 @@ builder.Host.UseDefaultServiceProvider(
 );
 
 var logger = SerilogLoggerFactory.GetBootstrapLogger(builder).ForContext<Program>();
-logger.Information("🚀 Started with {EntryAssembly}", entryAssembly);
+logger.Information("🚀 Started with {EntryAssembly}", entryAssembly.Name);
 
 var cts = new CancellationTokenSource();
 try
@@ -46,9 +46,8 @@ try
     {
         await MigrateDbContext(app.Services);
         await BootstrapCAP(app.Services, cts.Token);
+        await app.RunAsync();
     }
-
-    await app.RunAsync();
 }
 catch (HostAbortedException)
 {

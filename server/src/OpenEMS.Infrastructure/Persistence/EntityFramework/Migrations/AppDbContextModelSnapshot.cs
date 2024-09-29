@@ -22,6 +22,112 @@ namespace OpenEMS.Infrastructure.Persistence.EntityFramework.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("OpenEMS.Analytics.ElectricityMeterSample", b =>
+                {
+                    b.Property<long>("_PK")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("_PK"));
+
+                    b.Property<double>("CurrentPower")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("CurrentPowerDirection")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ElectricityMeterId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("OwnedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<double>("TotalEnergyConsumption")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("TotalEnergyFeedIn")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("_PK");
+
+                    b.HasIndex("OwnedBy");
+
+                    b.HasIndex("Timestamp");
+
+                    b.ToTable("ElectricityMeterSamples");
+                });
+
+            modelBuilder.Entity("OpenEMS.Analytics.ProducerSample", b =>
+                {
+                    b.Property<long>("_PK")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("_PK"));
+
+                    b.Property<double>("CurrentPowerProduction")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("OwnedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ProducerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<double>("TotalEnergyProduction")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("_PK");
+
+                    b.HasIndex("OwnedBy");
+
+                    b.HasIndex("Timestamp");
+
+                    b.ToTable("ProducerSamples");
+                });
+
+            modelBuilder.Entity("OpenEMS.Analytics.SwitchConsumerSample", b =>
+                {
+                    b.Property<long>("_PK")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("_PK"));
+
+                    b.Property<double>("CurrentPowerConsumption")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("OwnedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("SwitchConsumerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<double>("TotalEnergyConsumption")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("_PK");
+
+                    b.HasIndex("OwnedBy");
+
+                    b.HasIndex("Timestamp");
+
+                    b.ToTable("SwitchConsumerSamples");
+                });
+
             modelBuilder.Entity("OpenEMS.Domain.Consumers.SwitchConsumer", b =>
                 {
                     b.Property<Guid>("Id")

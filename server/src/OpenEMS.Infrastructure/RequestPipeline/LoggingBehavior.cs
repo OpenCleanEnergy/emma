@@ -30,7 +30,7 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         {
             KeyValuePair.Create<string, object?>("RequestType", typeof(TRequest)),
             KeyValuePair.Create<string, object?>("RequestId", requestId),
-            KeyValuePair.Create<string, object?>("UserId", userId)
+            KeyValuePair.Create<string, object?>("UserId", userId),
         };
 
         using (_logger.BeginContext(context))
