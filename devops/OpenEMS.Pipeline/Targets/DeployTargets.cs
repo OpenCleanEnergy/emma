@@ -82,7 +82,7 @@ public static class DeployTargets
             () =>
                 RunAsync(
                     "pulumi",
-                    $"up --yes --config emma:ssh-enabled=true --config output-dir={tempDir.FullName}",
+                    $"up --yes --config OpenEMS:ssh-enabled=true --config output-dir={tempDir.FullName}",
                     workingDirectory: pulumiWorkingDir
                 )
         );
@@ -94,7 +94,7 @@ public static class DeployTargets
             () =>
                 RunAsync(
                     "pulumi",
-                    $"up --yes --config emma:ssh-enabled=false --config output-dir={tempDir.FullName}",
+                    $"up --yes --config OpenEMS:ssh-enabled=false --config output-dir={tempDir.FullName}",
                     workingDirectory: pulumiWorkingDir
                 )
         );

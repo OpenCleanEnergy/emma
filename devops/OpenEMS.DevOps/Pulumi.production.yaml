@@ -1,5 +1,5 @@
 config:
-  emma:output-dir: /tmp/openems
-  emma:ssh-enabled: "false"
+  OpenEMS:output-dir: /tmp/openems
+  OpenEMS:ssh-enabled: "false"
 environment:
-  - emma-production
+  - OpenEMS/production

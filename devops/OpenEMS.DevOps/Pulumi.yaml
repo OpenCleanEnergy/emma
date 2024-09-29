@@ -1,6 +1,6 @@
-name: emma
+name: OpenEMS
 runtime: dotnet
-description: Deploys EMMA using Pulumi and Ansible
+description: Deploys OpenEMS using Pulumi and Ansible
 config:
   data-center:
     type: string
