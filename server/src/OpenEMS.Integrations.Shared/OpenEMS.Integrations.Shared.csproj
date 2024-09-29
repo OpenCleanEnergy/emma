@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.4.1" />
-    <PackageReference Include="Vogen" Version="4.0.19" />
+    <PackageReference Include="Vogen" Version="5.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenEMS.Domain\OpenEMS.Domain.csproj" />

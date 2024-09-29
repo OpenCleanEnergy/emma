@@ -51,6 +51,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NSubstitute" Version="5.1.0" />
-    <PackageReference Include="Verify.Xunit" Version="26.4.5" />
+    <PackageReference Include="Verify.Xunit" Version="26.6.0" />
   </ItemGroup>
 </Project>
