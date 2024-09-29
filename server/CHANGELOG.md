@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.36](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.35...server-v1.0.0-alpha.36) (2024-09-29)
+
+
+### 🚀 Features
+
+* Sample devices for analytics ([#216](https://github.com/OpenCleanEnergy/emma/issues/216)) ([e87fe28](https://github.com/OpenCleanEnergy/emma/commit/e87fe28ac04fa0695c966a2d94ab8d2bc7cd4459))
+
 ## [1.0.0-alpha.35](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.34...server-v1.0.0-alpha.35) (2024-09-22)
 
 
