@@ -1,10 +1,18 @@
 flutter_launcher_icons:
-  image_path: "assets/icon-kitchen/play_store_512.png"
+  # Android
+  android: true
+  image_path_android: "assets/icon-kitchen/play_store_512.png"
   adaptive_icon_background: "assets/icon-kitchen/ic_launcher_background.png"
   adaptive_icon_foreground: "assets/icon-kitchen/ic_launcher_foreground.png"
   adaptive_icon_monochrome: "assets/icon-kitchen/ic_launcher_monochrome.png"
-  android: true
+  # iOS
   ios: true
   remove_alpha_ios: true
+  image_path_ios: "assets/icon-kitchen/play_store_512.png"
+  image_path_ios_dark_transparent: "assets/icon-kitchen/ic_launcher_foreground.png"
+  image_path_ios_tinted_grayscale: "assets/icon-kitchen/ic_launcher_foreground.png"
+  desaturate_tinted_to_grayscale_ios: true
+  # Web
   web:
     generate: true
+    image_path: "assets/icon-kitchen/play_store_512.png"
