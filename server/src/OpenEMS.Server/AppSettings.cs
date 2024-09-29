@@ -19,34 +19,25 @@ public class AppSettings
     {
         var validationResults = new List<ValidationResult>();
 
-        var properties = GetType().GetProperties();
+        var properties = GetType().GetProperties().Select(p => (p.Name, Value: p.GetValue(this)));
 
-        var nullProperties = properties
-            .Where(p => p.GetValue(this) is null)
-            .Select(p => p.Name)
-            .ToArray();
-
-        if (nullProperties.Length > 0)
+        foreach (var (name, value) in properties)
         {
-            validationResults.Add(new ValidationResult("is required", nullProperties));
-        }
-
-        var validatableProperties = properties
-            .Where(p => p.PropertyType.IsAssignableTo(typeof(IValidatableObject)))
-            .Select(p => (Name: p.Name, Value: p.GetValue(this) as IValidatableObject))
-            .Where(x => x.Value is not null)
-            .ToArray();
-
-        foreach (var (name, value) in validatableProperties)
-        {
-            var context = new ValidationContext(value!);
-            var results = value!.Validate(context);
-            validationResults.AddRange(
-                results.Select(result => new ValidationResult(
-                    result.ErrorMessage,
-                    result.MemberNames.Select(member => $"{name}.{member}")
-                ))
-            );
+            if (value is null)
+            {
+                validationResults.Add(new ValidationResult("is required", [name]));
+            }
+            else if (value is IValidatableObject validatable)
+            {
+                var context = new ValidationContext(validatable);
+                var results = validatable.Validate(context);
+                validationResults.AddRange(
+                    results.Select(result => new ValidationResult(
+                        result.ErrorMessage,
+                        result.MemberNames.Select(member => $"{name}.{member}")
+                    ))
+                );
+            }
         }
 
         if (validationResults.Count > 0)
