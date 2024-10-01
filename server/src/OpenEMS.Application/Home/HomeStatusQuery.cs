@@ -49,11 +49,11 @@ public class HomeStatusQuery : IQuery<HomeStatusDto>
 
             var currentPowerConsumption = electricityMeters
                 .Where(meter => meter.CurrentPowerDirection == GridPowerDirection.Consume)
-                .Sum(meter => meter.CurrentPower);
+                .Sum(meter => meter.CurrentPower ?? Watt.Zero);
 
             var currentPowerFeedIn = electricityMeters
                 .Where(meter => meter.CurrentPowerDirection == GridPowerDirection.FeedIn)
-                .Sum(meter => meter.CurrentPower);
+                .Sum(meter => meter.CurrentPower ?? Watt.Zero);
 
             var currentPower = currentPowerConsumption - currentPowerFeedIn;
 
@@ -69,9 +69,11 @@ public class HomeStatusQuery : IQuery<HomeStatusDto>
                 CurrentPowerDirection = currentPowerDirection,
                 CurrentPower = currentPower.Abs(),
                 MaximumPowerConsumption = electricityMeters.Sum(meter =>
-                    meter.MaximumPowerConsumption
+                    meter.MaximumPowerConsumption ?? Watt.Zero
                 ),
-                MaximumPowerFeedIn = electricityMeters.Sum((meter) => meter.MaximumPowerFeedIn),
+                MaximumPowerFeedIn = electricityMeters.Sum(
+                    (meter) => meter.MaximumPowerFeedIn ?? Watt.Zero
+                ),
             };
         }
 
@@ -88,12 +90,12 @@ public class HomeStatusQuery : IQuery<HomeStatusDto>
             {
                 CurrentPowerConsumption = switchConsumers.Aggregate(
                     Watt.Zero,
-                    (result, consumer) => result + consumer.CurrentPowerConsumption
+                    (result, consumer) => result + (consumer.CurrentPowerConsumption ?? Watt.Zero)
                 ),
                 MaximumPowerConsumption = switchConsumers.Aggregate(
                     Watt.Zero,
-                    (result, consumer) => result + consumer.MaximumPowerConsumption
-                )
+                    (result, consumer) => result + (consumer.MaximumPowerConsumption ?? Watt.Zero)
+                ),
             };
         }
 
@@ -110,11 +112,11 @@ public class HomeStatusQuery : IQuery<HomeStatusDto>
             {
                 CurrentPowerProduction = producers.Aggregate(
                     Watt.Zero,
-                    (result, producer) => result + producer.CurrentPowerProduction
+                    (result, producer) => result + (producer.CurrentPowerProduction ?? Watt.Zero)
                 ),
                 MaximumPowerProduction = producers.Aggregate(
                     Watt.Zero,
-                    (result, producer) => result + producer.MaximumPowerProduction
+                    (result, producer) => result + (producer.MaximumPowerProduction ?? Watt.Zero)
                 ),
             };
         }

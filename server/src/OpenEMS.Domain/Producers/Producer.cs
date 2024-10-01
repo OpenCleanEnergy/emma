@@ -16,14 +16,15 @@ public class Producer : IHasOwner, IHasEvents
 
     public required IntegrationIdentifier Integration { get; init; }
 
-    public Watt CurrentPowerProduction { get; private set; } = Watt.Zero;
-    public Watt MaximumPowerProduction { get; private set; } = Watt.Zero;
-    public TotalEnergy TotalEnergyProduction { get; private set; } = TotalEnergy.Zero;
+    public Watt? CurrentPowerProduction { get; private set; }
+    public Watt? MaximumPowerProduction { get; private set; }
+    public TotalEnergy? TotalEnergyProduction { get; private set; } = TotalEnergy.Zero;
     public required UserId OwnedBy { get; init; }
 
     public void ReportCurrentPowerProduction(Watt value)
     {
         CurrentPowerProduction = value;
+        MaximumPowerProduction ??= Watt.Zero;
         if (MaximumPowerProduction < value)
         {
             MaximumPowerProduction = value;
@@ -32,7 +33,7 @@ public class Producer : IHasOwner, IHasEvents
 
     public void ReportTotalEnergyProduction(WattHours value)
     {
-        TotalEnergyProduction = TotalEnergyProduction.WithReported(value);
+        TotalEnergyProduction = (TotalEnergyProduction ?? TotalEnergy.Zero).WithReported(value);
     }
 
     public bool HasEvents() => _events.Count > 0;

@@ -1,3 +1,4 @@
+import 'package:openems/application/backend_api/models.dart';
 import 'package:openems/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
 import 'package:openems/ui/commands/command.dart';
 import 'package:signals/signals_flutter.dart';
@@ -11,7 +12,7 @@ class ElectricityMeterViewModel {
         id = signal(dto.id),
         name = signal(dto.name),
         currentPowerDirection = signal(dto.currentPowerDirection),
-        currentPower = signal(dto.currentPower.toDouble()) {
+        currentPower = signal(dto.currentPower) {
     delete = _delete.toCommand();
     edit = _edit.toCommand();
   }
@@ -19,7 +20,7 @@ class ElectricityMeterViewModel {
   final Signal<String> id;
   final Signal<String> name;
   final Signal<GridPowerDirection> currentPowerDirection;
-  final Signal<double> currentPower;
+  final Signal<Watt?> currentPower;
 
   late final NoArgCommand delete;
   late final ArgCommand<({String name})> edit;
@@ -28,7 +29,7 @@ class ElectricityMeterViewModel {
         id.value = dto.id;
         name.value = dto.name;
         currentPowerDirection.value = dto.currentPowerDirection;
-        currentPower.value = dto.currentPower.toDouble();
+        currentPower.value = dto.currentPower;
       });
 
   Future<void> _delete() async {
