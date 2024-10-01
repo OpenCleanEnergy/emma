@@ -20,8 +20,9 @@ class ProducerListItem extends StatelessWidget {
     return Card.outlined(
       child: Watch((context) => ListTile(
             leading: OnOffIndicator(
-                status: (viewModel.currentPowerProduction.value ?? Watt.zero) >
-                    Watt.zero),
+              status: (viewModel.currentPowerProduction.value ?? Watt.zero) >
+                  Watt.zero,
+            ),
             title: Text(
               viewModel.name.value,
               overflow: TextOverflow.ellipsis,
