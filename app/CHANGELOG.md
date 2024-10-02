@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.27](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.26...app-v1.0.0-alpha.27) (2024-10-02)
+
+
+### 🐛 Bug Fixes
+
+* Fix issue with generated client. ([12d0edd](https://github.com/OpenCleanEnergy/emma/commit/12d0edd24da79bd25ad6f46e0f4432724fc3fc6b))
+
 ## [1.0.0-alpha.26](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.25...app-v1.0.0-alpha.26) (2024-10-02)
 
 
