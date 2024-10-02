@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0-alpha.37](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.36...server-v1.0.0-alpha.37) (2024-10-02)
+
+
+### 🚀 Features
+
+* Power and energy readings of devices are `null` until first report. ([#224](https://github.com/OpenCleanEnergy/emma/issues/224)) ([f115517](https://github.com/OpenCleanEnergy/emma/commit/f115517e327146f9700eb50e18af6a3bb8e40d0c))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group across 1 directory with 10 updates ([#218](https://github.com/OpenCleanEnergy/emma/issues/218)) ([a9b3e45](https://github.com/OpenCleanEnergy/emma/commit/a9b3e452d6abedd5c3dbc413df10a3a7c12a4bdf))
+* **deps:** bump the dependencies group in /server with 2 updates ([#222](https://github.com/OpenCleanEnergy/emma/issues/222)) ([3988318](https://github.com/OpenCleanEnergy/emma/commit/398831895ec0d590d343f8b7c30f903705a88d90))
+
 ## [1.0.0-alpha.36](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.35...server-v1.0.0-alpha.36) (2024-09-29)
 
 
