@@ -60,13 +60,13 @@ class SwitchConsumerListItem extends StatelessWidget {
                     color: _getTextColor(colorScheme, viewModel.status.value),
                   ),
                 ),
-                subtitle: viewModel.hasReportedPowerConsumption.value
-                    ? UnitText.power(
-                        viewModel.currentPowerConsumption.value,
+                subtitle: viewModel.currentPowerConsumption.value == null
+                    ? null
+                    : UnitText.power(
+                        viewModel.currentPowerConsumption.value!,
                         color:
                             _getTextColor(colorScheme, viewModel.status.value),
-                      )
-                    : null,
+                      ),
                 trailing: IconButton(
                   icon: const Icon(AppIcons.arrow_next),
                   onPressed: _gotoEdit,

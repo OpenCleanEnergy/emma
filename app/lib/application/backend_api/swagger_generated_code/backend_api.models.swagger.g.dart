@@ -81,7 +81,7 @@ BatteryStatusDto _$BatteryStatusDtoFromJson(Map<String, dynamic> json) =>
     BatteryStatusDto(
       isAvailable: json['isAvailable'] as bool?,
       chargeStatus: batteryChargeStatusFromJson(json['chargeStatus']),
-      charge: json['charge'] as num,
+      charge: (json['charge'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$BatteryStatusDtoToJson(BatteryStatusDto instance) =>
@@ -94,8 +94,10 @@ Map<String, dynamic> _$BatteryStatusDtoToJson(BatteryStatusDto instance) =>
 ConsumerStatusDto _$ConsumerStatusDtoFromJson(Map<String, dynamic> json) =>
     ConsumerStatusDto(
       isAvailable: json['isAvailable'] as bool?,
-      currentPowerConsumption: json['currentPowerConsumption'] as num,
-      maximumPowerConsumption: json['maximumPowerConsumption'] as num,
+      currentPowerConsumption:
+          (json['currentPowerConsumption'] as num).toDouble(),
+      maximumPowerConsumption:
+          (json['maximumPowerConsumption'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$ConsumerStatusDtoToJson(ConsumerStatusDto instance) =>
@@ -178,7 +180,9 @@ ElectricityMeterDto _$ElectricityMeterDtoFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       currentPowerDirection:
           gridPowerDirectionFromJson(json['currentPowerDirection']),
-      currentPower: json['currentPower'] as num,
+      currentPower: json['currentPower'] == null
+          ? null
+          : Watt.fromJson(json['currentPower'] as num),
     );
 
 Map<String, dynamic> _$ElectricityMeterDtoToJson(
@@ -188,7 +192,7 @@ Map<String, dynamic> _$ElectricityMeterDtoToJson(
       'name': instance.name,
       'currentPowerDirection':
           gridPowerDirectionToJson(instance.currentPowerDirection),
-      'currentPower': instance.currentPower,
+      'currentPower': instance.currentPower?.toJson(),
     };
 
 GridStatusDto _$GridStatusDtoFromJson(Map<String, dynamic> json) =>
@@ -196,9 +200,10 @@ GridStatusDto _$GridStatusDtoFromJson(Map<String, dynamic> json) =>
       isAvailable: json['isAvailable'] as bool?,
       currentPowerDirection:
           gridPowerDirectionFromJson(json['currentPowerDirection']),
-      currentPower: json['currentPower'] as num,
-      maximumPowerConsumption: json['maximumPowerConsumption'] as num,
-      maximumPowerFeedIn: json['maximumPowerFeedIn'] as num,
+      currentPower: (json['currentPower'] as num).toDouble(),
+      maximumPowerConsumption:
+          (json['maximumPowerConsumption'] as num).toDouble(),
+      maximumPowerFeedIn: (json['maximumPowerFeedIn'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$GridStatusDtoToJson(GridStatusDto instance) =>
@@ -304,21 +309,25 @@ Map<String, dynamic> _$MeDtoToJson(MeDto instance) => <String, dynamic>{
 ProducerDto _$ProducerDtoFromJson(Map<String, dynamic> json) => ProducerDto(
       id: json['id'] as String,
       name: json['name'] as String,
-      currentPowerProduction: json['currentPowerProduction'] as num,
+      currentPowerProduction: json['currentPowerProduction'] == null
+          ? null
+          : Watt.fromJson(json['currentPowerProduction'] as num),
     );
 
 Map<String, dynamic> _$ProducerDtoToJson(ProducerDto instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'currentPowerProduction': instance.currentPowerProduction,
+      'currentPowerProduction': instance.currentPowerProduction?.toJson(),
     };
 
 ProducerStatusDto _$ProducerStatusDtoFromJson(Map<String, dynamic> json) =>
     ProducerStatusDto(
       isAvailable: json['isAvailable'] as bool?,
-      currentPowerProduction: json['currentPowerProduction'] as num,
-      maximumPowerProduction: json['maximumPowerProduction'] as num,
+      currentPowerProduction:
+          (json['currentPowerProduction'] as num).toDouble(),
+      maximumPowerProduction:
+          (json['maximumPowerProduction'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$ProducerStatusDtoToJson(ProducerStatusDto instance) =>
@@ -346,8 +355,9 @@ SwitchConsumerDto _$SwitchConsumerDtoFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       mode: controlModeFromJson(json['mode']),
       switchStatus: switchStatusFromJson(json['switchStatus']),
-      hasReportedPowerConsumption: json['hasReportedPowerConsumption'] as bool,
-      currentPowerConsumption: json['currentPowerConsumption'] as num,
+      currentPowerConsumption: json['currentPowerConsumption'] == null
+          ? null
+          : Watt.fromJson(json['currentPowerConsumption'] as num),
     );
 
 Map<String, dynamic> _$SwitchConsumerDtoToJson(SwitchConsumerDto instance) =>
@@ -356,6 +366,5 @@ Map<String, dynamic> _$SwitchConsumerDtoToJson(SwitchConsumerDto instance) =>
       'name': instance.name,
       'mode': controlModeToJson(instance.mode),
       'switchStatus': switchStatusToJson(instance.switchStatus),
-      'hasReportedPowerConsumption': instance.hasReportedPowerConsumption,
-      'currentPowerConsumption': instance.currentPowerConsumption,
+      'currentPowerConsumption': instance.currentPowerConsumption?.toJson(),
     };

@@ -14,3 +14,8 @@ targets:
           output_folder: "lib/application/backend_api/swagger_generated_code/"
           separate_models: true
           use_path_for_request_names: false
+          overriden_models:
+            - file_name: "backend_api.models"
+              import_url: "../value_types.dart"
+              overriden_models:
+                - "Watt"

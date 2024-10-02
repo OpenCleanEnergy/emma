@@ -16,11 +16,11 @@ public class ElectricityMeter : IHasOwner, IHasEvents
     public required IntegrationIdentifier Integration { get; init; }
 
     public GridPowerDirection CurrentPowerDirection { get; private set; } = GridPowerDirection.None;
-    public Watt CurrentPower { get; private set; } = Watt.Zero;
-    public Watt MaximumPowerConsumption { get; private set; } = Watt.Zero;
-    public Watt MaximumPowerFeedIn { get; private set; } = Watt.Zero;
-    public TotalEnergy TotalEnergyConsumption { get; private set; } = TotalEnergy.Zero;
-    public TotalEnergy TotalEnergyFeedIn { get; private set; } = TotalEnergy.Zero;
+    public Watt? CurrentPower { get; private set; }
+    public Watt? MaximumPowerConsumption { get; private set; }
+    public Watt? MaximumPowerFeedIn { get; private set; }
+    public TotalEnergy? TotalEnergyConsumption { get; private set; }
+    public TotalEnergy? TotalEnergyFeedIn { get; private set; }
     public required UserId OwnedBy { get; init; }
 
     public void ReportCurrentPower(Watt currentPower, GridPowerDirection currentPowerDirection)
@@ -41,6 +41,8 @@ public class ElectricityMeter : IHasOwner, IHasEvents
 
         CurrentPower = currentPower.Abs();
         CurrentPowerDirection = currentPowerDirection;
+        MaximumPowerConsumption ??= Watt.Zero;
+        MaximumPowerFeedIn ??= Watt.Zero;
 
         switch (CurrentPowerDirection)
         {
@@ -66,10 +68,10 @@ public class ElectricityMeter : IHasOwner, IHasEvents
     }
 
     public void ReportTotalEnergyConsumption(WattHours value) =>
-        TotalEnergyConsumption = TotalEnergyConsumption.WithReported(value);
+        TotalEnergyConsumption = (TotalEnergyConsumption ?? TotalEnergy.Zero).WithReported(value);
 
     public void ReportTotalEnergyFeedIn(WattHours value) =>
-        TotalEnergyFeedIn = TotalEnergyFeedIn.WithReported(value);
+        TotalEnergyFeedIn = (TotalEnergyFeedIn ?? TotalEnergy.Zero).WithReported(value);
 
     public bool HasEvents() => _events.Count > 0;
 

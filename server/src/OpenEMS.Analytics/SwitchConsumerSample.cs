@@ -12,12 +12,12 @@ public class SwitchConsumerSample : IHasOwner
     /// <summary>
     /// Gets the <see cref="SwitchConsumer.CurrentPowerConsumption"/>.
     /// </summary>
-    public required Watt CurrentPowerConsumption { get; init; }
+    public required Watt? CurrentPowerConsumption { get; init; }
 
     /// <summary>
     /// Gets the <see cref="SwitchConsumer.TotalEnergyConsumption"/>.
     /// </summary>
-    public required WattHours TotalEnergyConsumption { get; init; }
+    public required WattHours? TotalEnergyConsumption { get; init; }
 
     /// <summary>
     /// Gets the <see cref="SwitchConsumer.OwnedBy"/>.

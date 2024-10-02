@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:openems/application/backend_api/value_types.dart';
 import 'package:openems/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
 import 'package:openems/ui/commands/command.dart';
 import 'package:openems/ui/shared/noop.dart';
@@ -15,9 +16,7 @@ class SwitchConsumerViewModel {
         name = signal(dto.name),
         mode = signal(_convertMode(dto.mode, dto.switchStatus)),
         status = signal(_convertStatus(dto.switchStatus)),
-        hasReportedPowerConsumption = signal(dto.hasReportedPowerConsumption),
-        currentPowerConsumption =
-            signal(dto.currentPowerConsumption.toDouble()) {
+        currentPowerConsumption = signal(dto.currentPowerConsumption) {
     delete = _delete.toCommand();
     edit = _edit.toCommand();
     switchOn = _switchOn.toCommand();
@@ -28,8 +27,7 @@ class SwitchConsumerViewModel {
   final Signal<String> name;
   final Signal<SwitchConsumerMode> mode;
   final Signal<SwitchConsumerStatus> status;
-  final Signal<bool> hasReportedPowerConsumption;
-  final Signal<double> currentPowerConsumption;
+  final Signal<Watt?> currentPowerConsumption;
 
   late final NoArgCommand delete;
   late final ArgCommand<({String name})> edit;
@@ -41,8 +39,7 @@ class SwitchConsumerViewModel {
         name.value = dto.name;
         mode.value = _convertMode(dto.mode, dto.switchStatus);
         status.value = _convertStatus(dto.switchStatus);
-        hasReportedPowerConsumption.value = dto.hasReportedPowerConsumption;
-        currentPowerConsumption.value = dto.currentPowerConsumption.toDouble();
+        currentPowerConsumption.value = dto.currentPowerConsumption;
       });
 
   void activateSmartMode() {

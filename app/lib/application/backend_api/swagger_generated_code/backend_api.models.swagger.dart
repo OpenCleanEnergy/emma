@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import 'dart:convert';
 
 import 'backend_api.enums.swagger.dart' as enums;
+import '../value_types.dart';
 
 part 'backend_api.models.swagger.g.dart';
 
@@ -320,7 +321,7 @@ class BatteryStatusDto {
   )
   final enums.BatteryChargeStatus chargeStatus;
   @JsonKey(name: 'charge')
-  final num charge;
+  final double charge;
   static const fromJsonFactory = _$BatteryStatusDtoFromJson;
 
   @override
@@ -352,7 +353,7 @@ extension $BatteryStatusDtoExtension on BatteryStatusDto {
   BatteryStatusDto copyWith(
       {bool? isAvailable,
       enums.BatteryChargeStatus? chargeStatus,
-      num? charge}) {
+      double? charge}) {
     return BatteryStatusDto(
         isAvailable: isAvailable ?? this.isAvailable,
         chargeStatus: chargeStatus ?? this.chargeStatus,
@@ -362,7 +363,7 @@ extension $BatteryStatusDtoExtension on BatteryStatusDto {
   BatteryStatusDto copyWithWrapped(
       {Wrapped<bool?>? isAvailable,
       Wrapped<enums.BatteryChargeStatus>? chargeStatus,
-      Wrapped<num>? charge}) {
+      Wrapped<double>? charge}) {
     return BatteryStatusDto(
         isAvailable:
             (isAvailable != null ? isAvailable.value : this.isAvailable),
@@ -389,9 +390,9 @@ class ConsumerStatusDto {
   @JsonKey(name: 'isAvailable')
   final bool? isAvailable;
   @JsonKey(name: 'currentPowerConsumption')
-  final num currentPowerConsumption;
+  final double currentPowerConsumption;
   @JsonKey(name: 'maximumPowerConsumption')
-  final num maximumPowerConsumption;
+  final double maximumPowerConsumption;
   static const fromJsonFactory = _$ConsumerStatusDtoFromJson;
 
   @override
@@ -425,8 +426,8 @@ class ConsumerStatusDto {
 extension $ConsumerStatusDtoExtension on ConsumerStatusDto {
   ConsumerStatusDto copyWith(
       {bool? isAvailable,
-      num? currentPowerConsumption,
-      num? maximumPowerConsumption}) {
+      double? currentPowerConsumption,
+      double? maximumPowerConsumption}) {
     return ConsumerStatusDto(
         isAvailable: isAvailable ?? this.isAvailable,
         currentPowerConsumption:
@@ -437,8 +438,8 @@ extension $ConsumerStatusDtoExtension on ConsumerStatusDto {
 
   ConsumerStatusDto copyWithWrapped(
       {Wrapped<bool?>? isAvailable,
-      Wrapped<num>? currentPowerConsumption,
-      Wrapped<num>? maximumPowerConsumption}) {
+      Wrapped<double>? currentPowerConsumption,
+      Wrapped<double>? maximumPowerConsumption}) {
     return ConsumerStatusDto(
         isAvailable:
             (isAvailable != null ? isAvailable.value : this.isAvailable),
@@ -700,7 +701,7 @@ class ElectricityMeterDto {
     required this.id,
     required this.name,
     required this.currentPowerDirection,
-    required this.currentPower,
+    this.currentPower,
   });
 
   factory ElectricityMeterDto.fromJson(Map<String, dynamic> json) =>
@@ -720,7 +721,7 @@ class ElectricityMeterDto {
   )
   final enums.GridPowerDirection currentPowerDirection;
   @JsonKey(name: 'currentPower')
-  final num currentPower;
+  final Watt? currentPower;
   static const fromJsonFactory = _$ElectricityMeterDtoFromJson;
 
   @override
@@ -756,7 +757,7 @@ extension $ElectricityMeterDtoExtension on ElectricityMeterDto {
       {String? id,
       String? name,
       enums.GridPowerDirection? currentPowerDirection,
-      num? currentPower}) {
+      Watt? currentPower}) {
     return ElectricityMeterDto(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -769,7 +770,7 @@ extension $ElectricityMeterDtoExtension on ElectricityMeterDto {
       {Wrapped<String>? id,
       Wrapped<String>? name,
       Wrapped<enums.GridPowerDirection>? currentPowerDirection,
-      Wrapped<num>? currentPower}) {
+      Wrapped<Watt?>? currentPower}) {
     return ElectricityMeterDto(
         id: (id != null ? id.value : this.id),
         name: (name != null ? name.value : this.name),
@@ -806,11 +807,11 @@ class GridStatusDto {
   )
   final enums.GridPowerDirection currentPowerDirection;
   @JsonKey(name: 'currentPower')
-  final num currentPower;
+  final double currentPower;
   @JsonKey(name: 'maximumPowerConsumption')
-  final num maximumPowerConsumption;
+  final double maximumPowerConsumption;
   @JsonKey(name: 'maximumPowerFeedIn')
-  final num maximumPowerFeedIn;
+  final double maximumPowerFeedIn;
   static const fromJsonFactory = _$GridStatusDtoFromJson;
 
   @override
@@ -852,9 +853,9 @@ extension $GridStatusDtoExtension on GridStatusDto {
   GridStatusDto copyWith(
       {bool? isAvailable,
       enums.GridPowerDirection? currentPowerDirection,
-      num? currentPower,
-      num? maximumPowerConsumption,
-      num? maximumPowerFeedIn}) {
+      double? currentPower,
+      double? maximumPowerConsumption,
+      double? maximumPowerFeedIn}) {
     return GridStatusDto(
         isAvailable: isAvailable ?? this.isAvailable,
         currentPowerDirection:
@@ -868,9 +869,9 @@ extension $GridStatusDtoExtension on GridStatusDto {
   GridStatusDto copyWithWrapped(
       {Wrapped<bool?>? isAvailable,
       Wrapped<enums.GridPowerDirection>? currentPowerDirection,
-      Wrapped<num>? currentPower,
-      Wrapped<num>? maximumPowerConsumption,
-      Wrapped<num>? maximumPowerFeedIn}) {
+      Wrapped<double>? currentPower,
+      Wrapped<double>? maximumPowerConsumption,
+      Wrapped<double>? maximumPowerFeedIn}) {
     return GridStatusDto(
         isAvailable:
             (isAvailable != null ? isAvailable.value : this.isAvailable),
@@ -1307,7 +1308,7 @@ class ProducerDto {
   const ProducerDto({
     required this.id,
     required this.name,
-    required this.currentPowerProduction,
+    this.currentPowerProduction,
   });
 
   factory ProducerDto.fromJson(Map<String, dynamic> json) =>
@@ -1321,7 +1322,7 @@ class ProducerDto {
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'currentPowerProduction')
-  final num currentPowerProduction;
+  final Watt? currentPowerProduction;
   static const fromJsonFactory = _$ProducerDtoFromJson;
 
   @override
@@ -1350,7 +1351,7 @@ class ProducerDto {
 
 extension $ProducerDtoExtension on ProducerDto {
   ProducerDto copyWith(
-      {String? id, String? name, num? currentPowerProduction}) {
+      {String? id, String? name, Watt? currentPowerProduction}) {
     return ProducerDto(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -1361,7 +1362,7 @@ extension $ProducerDtoExtension on ProducerDto {
   ProducerDto copyWithWrapped(
       {Wrapped<String>? id,
       Wrapped<String>? name,
-      Wrapped<num>? currentPowerProduction}) {
+      Wrapped<Watt?>? currentPowerProduction}) {
     return ProducerDto(
         id: (id != null ? id.value : this.id),
         name: (name != null ? name.value : this.name),
@@ -1388,9 +1389,9 @@ class ProducerStatusDto {
   @JsonKey(name: 'isAvailable')
   final bool? isAvailable;
   @JsonKey(name: 'currentPowerProduction')
-  final num currentPowerProduction;
+  final double currentPowerProduction;
   @JsonKey(name: 'maximumPowerProduction')
-  final num maximumPowerProduction;
+  final double maximumPowerProduction;
   static const fromJsonFactory = _$ProducerStatusDtoFromJson;
 
   @override
@@ -1422,8 +1423,8 @@ class ProducerStatusDto {
 extension $ProducerStatusDtoExtension on ProducerStatusDto {
   ProducerStatusDto copyWith(
       {bool? isAvailable,
-      num? currentPowerProduction,
-      num? maximumPowerProduction}) {
+      double? currentPowerProduction,
+      double? maximumPowerProduction}) {
     return ProducerStatusDto(
         isAvailable: isAvailable ?? this.isAvailable,
         currentPowerProduction:
@@ -1434,8 +1435,8 @@ extension $ProducerStatusDtoExtension on ProducerStatusDto {
 
   ProducerStatusDto copyWithWrapped(
       {Wrapped<bool?>? isAvailable,
-      Wrapped<num>? currentPowerProduction,
-      Wrapped<num>? maximumPowerProduction}) {
+      Wrapped<double>? currentPowerProduction,
+      Wrapped<double>? maximumPowerProduction}) {
     return ProducerStatusDto(
         isAvailable:
             (isAvailable != null ? isAvailable.value : this.isAvailable),
@@ -1501,8 +1502,7 @@ class SwitchConsumerDto {
     required this.name,
     required this.mode,
     required this.switchStatus,
-    required this.hasReportedPowerConsumption,
-    required this.currentPowerConsumption,
+    this.currentPowerConsumption,
   });
 
   factory SwitchConsumerDto.fromJson(Map<String, dynamic> json) =>
@@ -1527,10 +1527,8 @@ class SwitchConsumerDto {
     fromJson: switchStatusFromJson,
   )
   final enums.SwitchStatus switchStatus;
-  @JsonKey(name: 'hasReportedPowerConsumption')
-  final bool hasReportedPowerConsumption;
   @JsonKey(name: 'currentPowerConsumption')
-  final num currentPowerConsumption;
+  final Watt? currentPowerConsumption;
   static const fromJsonFactory = _$SwitchConsumerDtoFromJson;
 
   @override
@@ -1546,11 +1544,6 @@ class SwitchConsumerDto {
             (identical(other.switchStatus, switchStatus) ||
                 const DeepCollectionEquality()
                     .equals(other.switchStatus, switchStatus)) &&
-            (identical(other.hasReportedPowerConsumption,
-                    hasReportedPowerConsumption) ||
-                const DeepCollectionEquality().equals(
-                    other.hasReportedPowerConsumption,
-                    hasReportedPowerConsumption)) &&
             (identical(
                     other.currentPowerConsumption, currentPowerConsumption) ||
                 const DeepCollectionEquality().equals(
@@ -1566,7 +1559,6 @@ class SwitchConsumerDto {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(mode) ^
       const DeepCollectionEquality().hash(switchStatus) ^
-      const DeepCollectionEquality().hash(hasReportedPowerConsumption) ^
       const DeepCollectionEquality().hash(currentPowerConsumption) ^
       runtimeType.hashCode;
 }
@@ -1577,15 +1569,12 @@ extension $SwitchConsumerDtoExtension on SwitchConsumerDto {
       String? name,
       enums.ControlMode? mode,
       enums.SwitchStatus? switchStatus,
-      bool? hasReportedPowerConsumption,
-      num? currentPowerConsumption}) {
+      Watt? currentPowerConsumption}) {
     return SwitchConsumerDto(
         id: id ?? this.id,
         name: name ?? this.name,
         mode: mode ?? this.mode,
         switchStatus: switchStatus ?? this.switchStatus,
-        hasReportedPowerConsumption:
-            hasReportedPowerConsumption ?? this.hasReportedPowerConsumption,
         currentPowerConsumption:
             currentPowerConsumption ?? this.currentPowerConsumption);
   }
@@ -1595,17 +1584,13 @@ extension $SwitchConsumerDtoExtension on SwitchConsumerDto {
       Wrapped<String>? name,
       Wrapped<enums.ControlMode>? mode,
       Wrapped<enums.SwitchStatus>? switchStatus,
-      Wrapped<bool>? hasReportedPowerConsumption,
-      Wrapped<num>? currentPowerConsumption}) {
+      Wrapped<Watt?>? currentPowerConsumption}) {
     return SwitchConsumerDto(
         id: (id != null ? id.value : this.id),
         name: (name != null ? name.value : this.name),
         mode: (mode != null ? mode.value : this.mode),
         switchStatus:
             (switchStatus != null ? switchStatus.value : this.switchStatus),
-        hasReportedPowerConsumption: (hasReportedPowerConsumption != null
-            ? hasReportedPowerConsumption.value
-            : this.hasReportedPowerConsumption),
         currentPowerConsumption: (currentPowerConsumption != null
             ? currentPowerConsumption.value
             : this.currentPowerConsumption));

@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:openems/application/backend_api/value_types.dart';
 
 class UnitText extends StatelessWidget {
   const UnitText(this.value, this.unit, {this.color, super.key});
 
-  const UnitText.energy(double wattHours, {this.color, super.key})
+  const UnitText.energy(num wattHours, {this.color, super.key})
       : value = wattHours,
         unit = "Wh";
 
-  const UnitText.power(double watts, {this.color, super.key})
-      : value = watts,
-        unit = "W";
+  const UnitText.power(Watt watt, {this.color, super.key})
+      : value = watt,
+        unit = Watt.unit;
 
-  UnitText.percentage(double percentage, {this.color, super.key})
+  UnitText.percentage(num percentage, {this.color, super.key})
       : value = (percentage * 100).roundToDouble(),
         unit = "%";
 
-  static TextSpan percentageSpan(BuildContext context, double percentage) =>
+  static TextSpan percentageSpan(BuildContext context, num percentage) =>
       span(context, (percentage * 100).roundToDouble(), "%");
 
-  static TextSpan span(BuildContext context, double value, String unit,
+  static TextSpan span(BuildContext context, num value, String unit,
       [Color? color]) {
     final theme = Theme.of(context);
     final converted = _kilo(value, unit);
@@ -36,7 +37,7 @@ class UnitText extends StatelessWidget {
     );
   }
 
-  final double value;
+  final num value;
   final String unit;
   final Color? color;
 
@@ -45,8 +46,8 @@ class UnitText extends StatelessWidget {
     return Text.rich(span(context, value, unit, color));
   }
 
-  static ({double value, String unit, int decimalPlaces}) _kilo(
-      double value, String unit) {
+  static ({num value, String unit, int decimalPlaces}) _kilo(
+      num value, String unit) {
     return value < 1000
         ? (value: value, unit: unit, decimalPlaces: 0)
         : (value: value / 1000.0, unit: "k$unit", decimalPlaces: 2);

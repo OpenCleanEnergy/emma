@@ -1,25 +1,23 @@
 using System.Reflection;
+using Vogen;
 
 namespace OpenEMS.Server;
 
-public readonly record struct EntryAssembly
+[ValueObject<string>]
+[Instance("Swagger", "dotnet-swagger")]
+[Instance("EF", "ef")]
+[Instance("Default", "default")]
+public readonly partial record struct EntryAssembly
 {
-    private EntryAssembly(string name) => Name = name;
-
-    public string Name { get; }
-
-    public static EntryAssembly Swagger { get; } = new("dotnet-swagger");
-    public static EntryAssembly EF { get; } = new("ef");
-    public static EntryAssembly Default { get; } = new("default");
-
     public static EntryAssembly GetEntryAssembly()
     {
         var name = Assembly.GetEntryAssembly()?.GetName().Name;
-        if (name == Swagger.Name)
+        Console.WriteLine(name);
+        if (name == Swagger.Value)
         {
             return Swagger;
         }
-        else if (name == EF.Name)
+        else if (name == EF.Value)
         {
             return EF;
         }
@@ -27,5 +25,11 @@ public readonly record struct EntryAssembly
         {
             return Default;
         }
+    }
+
+    private static Validation Validate(string input)
+    {
+        _ = input;
+        return Validation.Invalid("Only available instances are allowed.");
     }
 }

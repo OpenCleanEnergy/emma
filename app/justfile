@@ -11,7 +11,7 @@ upgrade-sdk:
 # dart fix and format
 format:
   dart fix --apply
-  dart format {{justfile_directory()}}
+  dart format .
 
 # flutter analyze
 analyze:
@@ -23,10 +23,9 @@ pub-get:
   flutter pub get
 
 # Generates code using build_runner
-generate-code:
+generate-code: && format
   dart run build_runner clean
   dart run build_runner build --delete-conflicting-outputs
-  just format
 
 generate-icons: pub-get
   dart run flutter_launcher_icons
