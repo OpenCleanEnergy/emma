@@ -12,7 +12,7 @@ public class ElectricityMeterSample : IHasOwner
     /// <summary>
     /// Gets the <see cref="ElectricityMeter.CurrentPower"/>.
     /// </summary>
-    public required Watt CurrentPower { get; init; }
+    public required Watt? CurrentPower { get; init; }
 
     /// <summary>
     /// Gets the <see cref="ElectricityMeter.CurrentPowerDirection"/>.
@@ -22,12 +22,12 @@ public class ElectricityMeterSample : IHasOwner
     /// <summary>
     /// Gets the <see cref="ElectricityMeter.TotalEnergyConsumption"/>.
     /// </summary>
-    public required WattHours TotalEnergyConsumption { get; init; }
+    public required WattHours? TotalEnergyConsumption { get; init; }
 
     /// <summary>
     /// Gets the <see cref="ElectricityMeter.TotalEnergyFeedIn"/>.
     /// </summary>
-    public required WattHours TotalEnergyFeedIn { get; init; }
+    public required WattHours? TotalEnergyFeedIn { get; init; }
 
     /// <summary>
     /// Gets the <see cref="ElectricityMeter.OwnedBy"/>.

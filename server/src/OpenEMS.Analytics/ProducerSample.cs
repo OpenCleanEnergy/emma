@@ -12,12 +12,12 @@ public class ProducerSample : IHasOwner
     /// <summary>
     /// Gets the <see cref="Producer.CurrentPowerProduction"/>.
     /// </summary>
-    public required Watt CurrentPowerProduction { get; init; }
+    public required Watt? CurrentPowerProduction { get; init; }
 
     /// <summary>
     /// Gets the <see cref="Producer.TotalEnergyProduction"/>.
     /// </summary>
-    public required WattHours TotalEnergyProduction { get; init; }
+    public required WattHours? TotalEnergyProduction { get; init; }
 
     /// <summary>
     /// Gets the <see cref="Producer.OwnedBy"/>.
