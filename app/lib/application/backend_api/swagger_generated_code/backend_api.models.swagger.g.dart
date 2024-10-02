@@ -81,7 +81,7 @@ BatteryStatusDto _$BatteryStatusDtoFromJson(Map<String, dynamic> json) =>
     BatteryStatusDto(
       isAvailable: json['isAvailable'] as bool?,
       chargeStatus: batteryChargeStatusFromJson(json['chargeStatus']),
-      charge: (json['charge'] as num).toDouble(),
+      charge: json['charge'] as num,
     );
 
 Map<String, dynamic> _$BatteryStatusDtoToJson(BatteryStatusDto instance) =>
@@ -94,10 +94,8 @@ Map<String, dynamic> _$BatteryStatusDtoToJson(BatteryStatusDto instance) =>
 ConsumerStatusDto _$ConsumerStatusDtoFromJson(Map<String, dynamic> json) =>
     ConsumerStatusDto(
       isAvailable: json['isAvailable'] as bool?,
-      currentPowerConsumption:
-          (json['currentPowerConsumption'] as num).toDouble(),
-      maximumPowerConsumption:
-          (json['maximumPowerConsumption'] as num).toDouble(),
+      currentPowerConsumption: json['currentPowerConsumption'] as num,
+      maximumPowerConsumption: json['maximumPowerConsumption'] as num,
     );
 
 Map<String, dynamic> _$ConsumerStatusDtoToJson(ConsumerStatusDto instance) =>
@@ -200,10 +198,9 @@ GridStatusDto _$GridStatusDtoFromJson(Map<String, dynamic> json) =>
       isAvailable: json['isAvailable'] as bool?,
       currentPowerDirection:
           gridPowerDirectionFromJson(json['currentPowerDirection']),
-      currentPower: (json['currentPower'] as num).toDouble(),
-      maximumPowerConsumption:
-          (json['maximumPowerConsumption'] as num).toDouble(),
-      maximumPowerFeedIn: (json['maximumPowerFeedIn'] as num).toDouble(),
+      currentPower: json['currentPower'] as num,
+      maximumPowerConsumption: json['maximumPowerConsumption'] as num,
+      maximumPowerFeedIn: json['maximumPowerFeedIn'] as num,
     );
 
 Map<String, dynamic> _$GridStatusDtoToJson(GridStatusDto instance) =>
@@ -324,10 +321,8 @@ Map<String, dynamic> _$ProducerDtoToJson(ProducerDto instance) =>
 ProducerStatusDto _$ProducerStatusDtoFromJson(Map<String, dynamic> json) =>
     ProducerStatusDto(
       isAvailable: json['isAvailable'] as bool?,
-      currentPowerProduction:
-          (json['currentPowerProduction'] as num).toDouble(),
-      maximumPowerProduction:
-          (json['maximumPowerProduction'] as num).toDouble(),
+      currentPowerProduction: json['currentPowerProduction'] as num,
+      maximumPowerProduction: json['maximumPowerProduction'] as num,
     );
 
 Map<String, dynamic> _$ProducerStatusDtoToJson(ProducerStatusDto instance) =>

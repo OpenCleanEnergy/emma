@@ -20,7 +20,7 @@ final class _$BackendApi extends BackendApi {
   @override
   Future<Response<List<AddableDevelopmentDeviceDto>>>
       _Development_AddableDevelopmentDevicesQuery(
-          {required Object? deviceCategory}) {
+          {required String? deviceCategory}) {
     final Uri $url = Uri.parse('/integrations/development/v1/addable-devices');
     final Map<String, dynamic> $params = <String, dynamic>{
       'DeviceCategory': deviceCategory
@@ -239,7 +239,7 @@ final class _$BackendApi extends BackendApi {
 
   @override
   Future<Response<List<IntegrationDescriptionDto>>>
-      _Integrations_IntegrationsQuery({required Object? deviceCategory}) {
+      _Integrations_IntegrationsQuery({required String? deviceCategory}) {
     final Uri $url = Uri.parse('/v1/integrations');
     final Map<String, dynamic> $params = <String, dynamic>{
       'DeviceCategory': deviceCategory
@@ -269,7 +269,7 @@ final class _$BackendApi extends BackendApi {
 
   @override
   Future<Response<List<AddableShellyDeviceDto>>>
-      _Shelly_AddableShellyDevicesQuery({required Object? deviceCategory}) {
+      _Shelly_AddableShellyDevicesQuery({required String? deviceCategory}) {
     final Uri $url = Uri.parse('/integrations/shelly/v1/addable-devices');
     final Map<String, dynamic> $params = <String, dynamic>{
       'DeviceCategory': deviceCategory

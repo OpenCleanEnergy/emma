@@ -14,8 +14,7 @@ paths:
           in: query
           required: true
           schema:
-            allOf:
-              - $ref: '#/components/schemas/DeviceCategory'
+            $ref: '#/components/schemas/DeviceCategory'
       responses:
         '200':
           description: OK
@@ -80,16 +79,13 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/AddSwitchConsumerCommand'
+              $ref: '#/components/schemas/AddSwitchConsumerCommand'
           text/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/AddSwitchConsumerCommand'
+              $ref: '#/components/schemas/AddSwitchConsumerCommand'
           application/*+json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/AddSwitchConsumerCommand'
+              $ref: '#/components/schemas/AddSwitchConsumerCommand'
       responses:
         '200':
           description: OK
@@ -101,16 +97,13 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/EditSwitchConsumerCommand'
+              $ref: '#/components/schemas/EditSwitchConsumerCommand'
           text/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/EditSwitchConsumerCommand'
+              $ref: '#/components/schemas/EditSwitchConsumerCommand'
           application/*+json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/EditSwitchConsumerCommand'
+              $ref: '#/components/schemas/EditSwitchConsumerCommand'
       responses:
         '200':
           description: OK
@@ -124,8 +117,7 @@ paths:
           in: path
           required: true
           schema:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/SwitchConsumerId'
       responses:
         '200':
           description: OK
@@ -138,16 +130,13 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/ManuallySwitchSwitchConsumerCommand'
+              $ref: '#/components/schemas/ManuallySwitchSwitchConsumerCommand'
           text/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/ManuallySwitchSwitchConsumerCommand'
+              $ref: '#/components/schemas/ManuallySwitchSwitchConsumerCommand'
           application/*+json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/ManuallySwitchSwitchConsumerCommand'
+              $ref: '#/components/schemas/ManuallySwitchSwitchConsumerCommand'
       responses:
         '200':
           description: OK
@@ -160,16 +149,13 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/AddProducerCommand'
+              $ref: '#/components/schemas/AddProducerCommand'
           text/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/AddProducerCommand'
+              $ref: '#/components/schemas/AddProducerCommand'
           application/*+json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/AddProducerCommand'
+              $ref: '#/components/schemas/AddProducerCommand'
       responses:
         '200':
           description: OK
@@ -181,16 +167,13 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/EditProducerCommand'
+              $ref: '#/components/schemas/EditProducerCommand'
           text/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/EditProducerCommand'
+              $ref: '#/components/schemas/EditProducerCommand'
           application/*+json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/EditProducerCommand'
+              $ref: '#/components/schemas/EditProducerCommand'
       responses:
         '200':
           description: OK
@@ -204,8 +187,7 @@ paths:
           in: path
           required: true
           schema:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/ProducerId'
       responses:
         '200':
           description: OK
@@ -218,16 +200,13 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/AddElectricityMeterCommand'
+              $ref: '#/components/schemas/AddElectricityMeterCommand'
           text/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/AddElectricityMeterCommand'
+              $ref: '#/components/schemas/AddElectricityMeterCommand'
           application/*+json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/AddElectricityMeterCommand'
+              $ref: '#/components/schemas/AddElectricityMeterCommand'
       responses:
         '200':
           description: OK
@@ -239,16 +218,13 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/EditElectricityMeterCommand'
+              $ref: '#/components/schemas/EditElectricityMeterCommand'
           text/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/EditElectricityMeterCommand'
+              $ref: '#/components/schemas/EditElectricityMeterCommand'
           application/*+json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/EditElectricityMeterCommand'
+              $ref: '#/components/schemas/EditElectricityMeterCommand'
       responses:
         '200':
           description: OK
@@ -262,8 +238,7 @@ paths:
           in: path
           required: true
           schema:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/ElectricityMeterId'
       responses:
         '200':
           description: OK
@@ -349,8 +324,7 @@ paths:
           in: query
           required: true
           schema:
-            allOf:
-              - $ref: '#/components/schemas/DeviceCategory'
+            $ref: '#/components/schemas/DeviceCategory'
       responses:
         '200':
           description: OK
@@ -398,8 +372,7 @@ paths:
           in: query
           required: true
           schema:
-            allOf:
-              - $ref: '#/components/schemas/DeviceCategory'
+            $ref: '#/components/schemas/DeviceCategory'
       responses:
         '200':
           description: OK
@@ -428,10 +401,9 @@ components:
       type: object
       properties:
         integration:
-          allOf:
-            - $ref: '#/components/schemas/IntegrationIdentifier'
+          $ref: '#/components/schemas/IntegrationIdentifier'
         deviceName:
-          type: string
+          $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     AddProducerCommand:
       required:
@@ -440,10 +412,9 @@ components:
       type: object
       properties:
         integration:
-          allOf:
-            - $ref: '#/components/schemas/IntegrationIdentifier'
+          $ref: '#/components/schemas/IntegrationIdentifier'
         deviceName:
-          type: string
+          $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     AddSwitchConsumerCommand:
       required:
@@ -452,10 +423,9 @@ components:
       type: object
       properties:
         integration:
-          allOf:
-            - $ref: '#/components/schemas/IntegrationIdentifier'
+          $ref: '#/components/schemas/IntegrationIdentifier'
         deviceName:
-          type: string
+          $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     AddableDevelopmentDeviceDto:
       required:
@@ -464,9 +434,9 @@ components:
       type: object
       properties:
         deviceId:
-          type: string
+          $ref: '#/components/schemas/IntegrationDeviceId'
         deviceName:
-          type: string
+          $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     AddableShellyDeviceDto:
       required:
@@ -475,9 +445,9 @@ components:
       type: object
       properties:
         deviceId:
-          type: string
+          $ref: '#/components/schemas/IntegrationDeviceId'
         deviceName:
-          type: string
+          $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     BatteryChargeStatus:
       enum:
@@ -496,11 +466,9 @@ components:
           type: boolean
           readOnly: true
         chargeStatus:
-          allOf:
-            - $ref: '#/components/schemas/BatteryChargeStatus'
+          $ref: '#/components/schemas/BatteryChargeStatus'
         charge:
-          type: number
-          format: double
+          $ref: '#/components/schemas/Percentage'
       additionalProperties: false
     ConsumerStatusDto:
       required:
@@ -513,11 +481,9 @@ components:
           type: boolean
           readOnly: true
         currentPowerConsumption:
-          type: number
-          format: double
+          $ref: '#/components/schemas/Watt'
         maximumPowerConsumption:
-          type: number
-          format: double
+          $ref: '#/components/schemas/Watt'
       additionalProperties: false
     ControlMode:
       enum:
@@ -559,10 +525,9 @@ components:
       type: object
       properties:
         electricityMeterId:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/ElectricityMeterId'
         name:
-          type: string
+          $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     EditProducerCommand:
       required:
@@ -571,10 +536,9 @@ components:
       type: object
       properties:
         producerId:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/ProducerId'
         name:
-          type: string
+          $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     EditSwitchConsumerCommand:
       required:
@@ -583,10 +547,9 @@ components:
       type: object
       properties:
         switchConsumerId:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/SwitchConsumerId'
         name:
-          type: string
+          $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     ElectricityMeterDto:
       required:
@@ -597,13 +560,11 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/ElectricityMeterId'
         name:
-          type: string
+          $ref: '#/components/schemas/DeviceName'
         currentPowerDirection:
-          allOf:
-            - $ref: '#/components/schemas/GridPowerDirection'
+          $ref: '#/components/schemas/GridPowerDirection'
         currentPower:
           allOf:
             - $ref: '#/components/schemas/Watt'
@@ -631,17 +592,13 @@ components:
           type: boolean
           readOnly: true
         currentPowerDirection:
-          allOf:
-            - $ref: '#/components/schemas/GridPowerDirection'
+          $ref: '#/components/schemas/GridPowerDirection'
         currentPower:
-          type: number
-          format: double
+          $ref: '#/components/schemas/Watt'
         maximumPowerConsumption:
-          type: number
-          format: double
+          $ref: '#/components/schemas/Watt'
         maximumPowerFeedIn:
-          type: number
-          format: double
+          $ref: '#/components/schemas/Watt'
       additionalProperties: false
     HealthReportDto:
       required:
@@ -656,8 +613,7 @@ components:
         version:
           type: string
         status:
-          allOf:
-            - $ref: '#/components/schemas/HealthStatus'
+          $ref: '#/components/schemas/HealthStatus'
         totalDuration:
           type: string
           format: date-span
@@ -677,17 +633,13 @@ components:
       type: object
       properties:
         batteryStatus:
-          allOf:
-            - $ref: '#/components/schemas/BatteryStatusDto'
+          $ref: '#/components/schemas/BatteryStatusDto'
         gridStatus:
-          allOf:
-            - $ref: '#/components/schemas/GridStatusDto'
+          $ref: '#/components/schemas/GridStatusDto'
         consumerStatus:
-          allOf:
-            - $ref: '#/components/schemas/ConsumerStatusDto'
+          $ref: '#/components/schemas/ConsumerStatusDto'
         producerStatus:
-          allOf:
-            - $ref: '#/components/schemas/ProducerStatusDto'
+          $ref: '#/components/schemas/ProducerStatusDto'
       additionalProperties: false
     IntegrationDescriptionDto:
       required:
@@ -696,7 +648,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          $ref: '#/components/schemas/IntegrationId'
         name:
           type: string
       additionalProperties: false
@@ -711,9 +663,9 @@ components:
       type: object
       properties:
         integration:
-          type: string
+          $ref: '#/components/schemas/IntegrationId'
         device:
-          type: string
+          $ref: '#/components/schemas/IntegrationDeviceId'
       additionalProperties: false
     ManuallySwitchSwitchConsumerCommand:
       required:
@@ -722,11 +674,9 @@ components:
       type: object
       properties:
         switchConsumerId:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/SwitchConsumerId'
         status:
-          allOf:
-            - $ref: '#/components/schemas/SwitchStatus'
+          $ref: '#/components/schemas/SwitchStatus'
       additionalProperties: false
     MeDto:
       required:
@@ -757,10 +707,9 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/ProducerId'
         name:
-          type: string
+          $ref: '#/components/schemas/DeviceName'
         currentPowerProduction:
           allOf:
             - $ref: '#/components/schemas/Watt'
@@ -780,11 +729,9 @@ components:
           type: boolean
           readOnly: true
         currentPowerProduction:
-          type: number
-          format: double
+          $ref: '#/components/schemas/Watt'
         maximumPowerProduction:
-          type: number
-          format: double
+          $ref: '#/components/schemas/Watt'
       additionalProperties: false
     ShellyPermissionGrantUriResponse:
       required:
@@ -805,16 +752,13 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/SwitchConsumerId'
         name:
-          type: string
+          $ref: '#/components/schemas/DeviceName'
         mode:
-          allOf:
-            - $ref: '#/components/schemas/ControlMode'
+          $ref: '#/components/schemas/ControlMode'
         switchStatus:
-          allOf:
-            - $ref: '#/components/schemas/SwitchStatus'
+          $ref: '#/components/schemas/SwitchStatus'
         currentPowerConsumption:
           allOf:
             - $ref: '#/components/schemas/Watt'

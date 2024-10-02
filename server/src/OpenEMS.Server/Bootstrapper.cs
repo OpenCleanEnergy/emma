@@ -182,9 +182,9 @@ public static class Bootstrapper
             );
 
             options.SupportNonNullableReferenceTypes();
-            options.UseAllOfToExtendReferenceSchemas();
             options.SchemaFilter<VogenSchemaFilter>();
             options.SchemaFilter<RequireNonNullablePropertiesSchemaFilter>();
+            options.SchemaFilter<NullablePropertiesSchemaFilter>();
             options.ParameterFilter<RequireNonNullableParameterFilter>();
 
             options.CustomOperationIds(api =>

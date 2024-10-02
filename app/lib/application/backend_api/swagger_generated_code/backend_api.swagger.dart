@@ -7,6 +7,7 @@ import 'client_mapping.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:chopper/chopper.dart' as chopper;
+import 'backend_api.enums.swagger.dart' as enums;
 export 'backend_api.enums.swagger.dart';
 export 'backend_api.models.swagger.dart';
 
@@ -46,12 +47,12 @@ abstract class BackendApi extends ChopperService {
   ///@param DeviceCategory
   Future<chopper.Response<List<AddableDevelopmentDeviceDto>>>
       Development_AddableDevelopmentDevicesQuery(
-          {required Object? deviceCategory}) {
+          {required enums.DeviceCategory? deviceCategory}) {
     generatedMapping.putIfAbsent(AddableDevelopmentDeviceDto,
         () => AddableDevelopmentDeviceDto.fromJsonFactory);
 
     return _Development_AddableDevelopmentDevicesQuery(
-        deviceCategory: deviceCategory);
+        deviceCategory: deviceCategory?.value?.toString());
   }
 
   ///
@@ -59,7 +60,7 @@ abstract class BackendApi extends ChopperService {
   @Get(path: '/integrations/development/v1/addable-devices')
   Future<chopper.Response<List<AddableDevelopmentDeviceDto>>>
       _Development_AddableDevelopmentDevicesQuery(
-          {@Query('DeviceCategory') required Object? deviceCategory});
+          {@Query('DeviceCategory') required String? deviceCategory});
 
   ///
   Future<chopper.Response<DevicesDto>> Devices_DevicesQuery() {
@@ -272,11 +273,13 @@ abstract class BackendApi extends ChopperService {
   ///
   ///@param DeviceCategory
   Future<chopper.Response<List<IntegrationDescriptionDto>>>
-      Integrations_IntegrationsQuery({required Object? deviceCategory}) {
+      Integrations_IntegrationsQuery(
+          {required enums.DeviceCategory? deviceCategory}) {
     generatedMapping.putIfAbsent(IntegrationDescriptionDto,
         () => IntegrationDescriptionDto.fromJsonFactory);
 
-    return _Integrations_IntegrationsQuery(deviceCategory: deviceCategory);
+    return _Integrations_IntegrationsQuery(
+        deviceCategory: deviceCategory?.value?.toString());
   }
 
   ///
@@ -284,7 +287,7 @@ abstract class BackendApi extends ChopperService {
   @Get(path: '/v1/integrations')
   Future<chopper.Response<List<IntegrationDescriptionDto>>>
       _Integrations_IntegrationsQuery(
-          {@Query('DeviceCategory') required Object? deviceCategory});
+          {@Query('DeviceCategory') required String? deviceCategory});
 
   ///
   Future<chopper.Response<ShellyPermissionGrantUriResponse>>
@@ -303,11 +306,13 @@ abstract class BackendApi extends ChopperService {
   ///
   ///@param DeviceCategory
   Future<chopper.Response<List<AddableShellyDeviceDto>>>
-      Shelly_AddableShellyDevicesQuery({required Object? deviceCategory}) {
+      Shelly_AddableShellyDevicesQuery(
+          {required enums.DeviceCategory? deviceCategory}) {
     generatedMapping.putIfAbsent(
         AddableShellyDeviceDto, () => AddableShellyDeviceDto.fromJsonFactory);
 
-    return _Shelly_AddableShellyDevicesQuery(deviceCategory: deviceCategory);
+    return _Shelly_AddableShellyDevicesQuery(
+        deviceCategory: deviceCategory?.value?.toString());
   }
 
   ///
@@ -315,7 +320,7 @@ abstract class BackendApi extends ChopperService {
   @Get(path: '/integrations/shelly/v1/addable-devices')
   Future<chopper.Response<List<AddableShellyDeviceDto>>>
       _Shelly_AddableShellyDevicesQuery(
-          {@Query('DeviceCategory') required Object? deviceCategory});
+          {@Query('DeviceCategory') required String? deviceCategory});
 }
 
 typedef $JsonFactory<T> = T Function(Map<String, dynamic> json);
