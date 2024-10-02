@@ -12,7 +12,6 @@ public readonly partial record struct EntryAssembly
     public static EntryAssembly GetEntryAssembly()
     {
         var name = Assembly.GetEntryAssembly()?.GetName().Name;
-        Console.WriteLine(name);
         if (name == Swagger.Value)
         {
             return Swagger;
