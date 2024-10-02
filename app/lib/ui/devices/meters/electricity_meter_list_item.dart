@@ -1,4 +1,4 @@
-import 'package:openems/application/backend_api/models.dart';
+import 'package:openems/application/backend_api/value_types.dart';
 import 'package:openems/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
 import 'package:openems/ui/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';

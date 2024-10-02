@@ -1,4 +1,4 @@
-import 'package:openems/application/backend_api/models.dart';
+import 'package:openems/application/backend_api/value_types.dart';
 import 'package:openems/ui/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/producers/edit_producer_screen.dart';
@@ -20,8 +20,8 @@ class ProducerListItem extends StatelessWidget {
     return Card.outlined(
       child: Watch((context) => ListTile(
             leading: OnOffIndicator(
-              status: (viewModel.currentPowerProduction.value ?? Watt.zero) >
-                  Watt.zero,
+              status: viewModel.currentPowerProduction.value != null &&
+                  (viewModel.currentPowerProduction.value! > Watt.zero),
             ),
             title: Text(
               viewModel.name.value,

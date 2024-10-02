@@ -16,6 +16,6 @@ targets:
           use_path_for_request_names: false
           overriden_models:
             - file_name: "backend_api.models"
-              import_url: "../models.dart"
+              import_url: "../value_types.dart"
               overriden_models:
                 - "Watt"

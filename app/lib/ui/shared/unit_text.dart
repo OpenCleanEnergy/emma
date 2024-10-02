@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:openems/application/backend_api/models.dart';
+import 'package:openems/application/backend_api/value_types.dart';
 
 class UnitText extends StatelessWidget {
   const UnitText(this.value, this.unit, {this.color, super.key});
@@ -8,8 +8,8 @@ class UnitText extends StatelessWidget {
       : value = wattHours,
         unit = "Wh";
 
-  const UnitText.power(Watt watts, {this.color, super.key})
-      : value = watts,
+  const UnitText.power(Watt watt, {this.color, super.key})
+      : value = watt,
         unit = Watt.unit;
 
   UnitText.percentage(num percentage, {this.color, super.key})

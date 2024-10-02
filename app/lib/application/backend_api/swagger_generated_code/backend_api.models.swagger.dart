@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 import 'dart:convert';
 
 import 'backend_api.enums.swagger.dart' as enums;
-import '../models.dart';
+import '../value_types.dart';
 
 part 'backend_api.models.swagger.g.dart';
 
