@@ -25,7 +25,7 @@ builder.Host.UseDefaultServiceProvider(
 );
 
 var logger = SerilogLoggerFactory.GetBootstrapLogger(builder).ForContext<Program>();
-logger.Information("🚀 Started with {EntryAssembly}", entryAssembly.Name);
+logger.Information("🚀 Started with {EntryAssembly}", entryAssembly);
 
 var cts = new CancellationTokenSource();
 try
