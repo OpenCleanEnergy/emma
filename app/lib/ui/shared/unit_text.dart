@@ -8,9 +8,9 @@ class UnitText extends StatelessWidget {
       : value = wattHours,
         unit = "Wh";
 
-  UnitText.power(Watt watts, {this.color, super.key})
-      : value = watts.value,
-        unit = "W";
+  const UnitText.power(Watt watts, {this.color, super.key})
+      : value = watts,
+        unit = Watt.unit;
 
   UnitText.percentage(num percentage, {this.color, super.key})
       : value = (percentage * 100).roundToDouble(),
