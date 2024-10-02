@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.28](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.27...app-v1.0.0-alpha.28) (2024-10-02)
+
+
+### 🐛 Bug Fixes
+
+* Fix inset of adaptive icon ([c052246](https://github.com/OpenCleanEnergy/emma/commit/c052246630f25a0a0448f556fd132f3a7ec04d1f))
+
 ## [1.0.0-alpha.27](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.26...app-v1.0.0-alpha.27) (2024-10-02)
 
 
