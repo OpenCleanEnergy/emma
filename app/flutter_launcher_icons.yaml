@@ -5,6 +5,7 @@ flutter_launcher_icons:
   adaptive_icon_background: "assets/icon-kitchen/ic_launcher_background.png"
   adaptive_icon_foreground: "assets/icon-kitchen/ic_launcher_foreground.png"
   adaptive_icon_monochrome: "assets/icon-kitchen/ic_launcher_monochrome.png"
+  adaptive_icon_foreground_inset: 0
   # iOS
   ios: true
   remove_alpha_ios: true
