@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.0-alpha.26](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.25...app-v1.0.0-alpha.26) (2024-10-02)
+
+
+### 🚀 Features
+
+* Power and energy readings of devices are `null` until first report. ([#224](https://github.com/OpenCleanEnergy/emma/issues/224)) ([f115517](https://github.com/OpenCleanEnergy/emma/commit/f115517e327146f9700eb50e18af6a3bb8e40d0c))
+* Regenerate icons to support Android monochrome icons and iOS dark and tinted icons ([ebf5d2a](https://github.com/OpenCleanEnergy/emma/commit/ebf5d2a8ac11b48432c45ab6e41976d8e05577fe))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group in /app with 2 updates ([#221](https://github.com/OpenCleanEnergy/emma/issues/221)) ([1a7b4ca](https://github.com/OpenCleanEnergy/emma/commit/1a7b4ca97cb3cb49b3aa93791534c383af19789e))
+* **deps:** bump the dependencies group in /app with 3 updates ([#213](https://github.com/OpenCleanEnergy/emma/issues/213)) ([0bfed88](https://github.com/OpenCleanEnergy/emma/commit/0bfed88800cc775c4f836519f18e66081d3970fb))
+
 ## [1.0.0-alpha.25](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.24...app-v1.0.0-alpha.25) (2024-09-11)
 
 
