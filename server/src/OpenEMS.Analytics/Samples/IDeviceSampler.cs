@@ -1,4 +1,4 @@
-namespace OpenEMS.Analytics;
+namespace OpenEMS.Analytics.Samples;
 
 public interface IDeviceSampler
 {

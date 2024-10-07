@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using OpenEMS.Analytics;
+using OpenEMS.Analytics.Samples;
 using OpenEMS.Application.Shared.Identity;
 using OpenEMS.Domain;
 using OpenEMS.Domain.Consumers;

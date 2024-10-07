@@ -1,7 +1,7 @@
-using OpenEMS.Analytics;
+using OpenEMS.Analytics.Samples;
 using OpenEMS.Domain.Meters;
 
-namespace OpenEMS.Infrastructure.Analytics;
+namespace OpenEMS.Infrastructure.Analytics.Samples;
 
 public class PostgreSqlElectricityMeterSamplingSqlFactory : IDbContextDeviceSamplingSqlFactory
 {

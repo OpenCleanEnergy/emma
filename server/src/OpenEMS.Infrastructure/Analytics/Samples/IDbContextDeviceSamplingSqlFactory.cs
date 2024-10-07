@@ -1,4 +1,4 @@
-namespace OpenEMS.Infrastructure.Analytics;
+namespace OpenEMS.Infrastructure.Analytics.Samples;
 
 public interface IDbContextDeviceSamplingSqlFactory
 {

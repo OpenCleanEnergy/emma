@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace OpenEMS.Analytics;
+namespace OpenEMS.Analytics.Samples;
 
 public class DeviceSamplerConfiguration : IValidatableObject
 {

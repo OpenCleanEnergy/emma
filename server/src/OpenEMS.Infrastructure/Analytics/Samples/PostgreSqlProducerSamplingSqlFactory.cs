@@ -1,7 +1,7 @@
-using OpenEMS.Analytics;
+using OpenEMS.Analytics.Samples;
 using OpenEMS.Domain.Producers;
 
-namespace OpenEMS.Infrastructure.Analytics;
+namespace OpenEMS.Infrastructure.Analytics.Samples;
 
 public class PostgreSqlProducerSamplingSqlFactory : IDbContextDeviceSamplingSqlFactory
 {

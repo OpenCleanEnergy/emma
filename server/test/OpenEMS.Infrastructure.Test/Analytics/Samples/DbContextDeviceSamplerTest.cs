@@ -7,9 +7,9 @@ using OpenEMS.Domain.Consumers;
 using OpenEMS.Domain.Meters;
 using OpenEMS.Domain.Producers;
 using OpenEMS.Domain.Units;
-using OpenEMS.Infrastructure.Analytics;
+using OpenEMS.Infrastructure.Analytics.Samples;
 
-namespace OpenEMS.Infrastructure.Test.Analytics;
+namespace OpenEMS.Infrastructure.Test.Analytics.Samples;
 
 public class DbContextDeviceSamplerTest
 {

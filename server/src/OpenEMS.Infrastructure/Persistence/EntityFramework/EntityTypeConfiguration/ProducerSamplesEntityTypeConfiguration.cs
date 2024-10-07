@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OpenEMS.Analytics;
+using OpenEMS.Analytics.Samples;
 
 namespace OpenEMS.Infrastructure.Persistence.EntityFramework.EntityTypeConfiguration;
 

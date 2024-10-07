@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using OpenEMS.Application.Shared.DependencyInjection;
 using OpenEMS.Application.Shared.Logging;
 
-namespace OpenEMS.Analytics;
+namespace OpenEMS.Analytics.Samples;
 
 public sealed class DeviceSamplerHostedService(
     DeviceSamplerConfiguration configuration,
