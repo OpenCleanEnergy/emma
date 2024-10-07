@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.29](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.28...app-v1.0.0-alpha.29) (2024-10-07)
+
+
+### 🐛 Bug Fixes
+
+* tap on entire card instead of trailing icon button ([deee845](https://github.com/OpenCleanEnergy/emma/commit/deee8451a492a06dc86b28c0e4feee57e3c00c4e))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group in /app with 4 updates ([#229](https://github.com/OpenCleanEnergy/emma/issues/229)) ([973ca68](https://github.com/OpenCleanEnergy/emma/commit/973ca684e40d11da81bb1be1f0861b0bd48c285d))
+
 ## [1.0.0-alpha.28](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.27...app-v1.0.0-alpha.28) (2024-10-02)
 
 
