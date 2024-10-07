@@ -35,10 +35,8 @@ class ProducerListItem extends StatelessWidget {
                 : UnitText.power(viewModel.currentPowerProduction.value!,
                     color: _getTextColor(
                         colorScheme, viewModel.currentPowerProduction.value)),
-            trailing: IconButton(
-              icon: const Icon(AppIcons.arrow_next),
-              onPressed: _gotoEdit,
-            ),
+            trailing: const Icon(AppIcons.arrow_next),
+            onTap: _gotoEdit,
           )),
     );
   }

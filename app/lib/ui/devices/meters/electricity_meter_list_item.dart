@@ -49,10 +49,8 @@ class ElectricityMeterListItem extends StatelessWidget {
                     color: _getTextColor(
                         colorScheme, viewModel.currentPower.value),
                   ),
-            trailing: IconButton(
-              icon: const Icon(AppIcons.arrow_next),
-              onPressed: _gotoEdit,
-            ),
+            trailing: const Icon(AppIcons.arrow_next),
+            onTap: _gotoEdit,
           )),
     );
   }

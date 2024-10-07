@@ -26,10 +26,8 @@ class AnalyticsMetricCard extends StatelessWidget {
         ),
         subtitle: subtitle,
         leading: leading,
-        trailing: IconButton(
-          icon: const Icon(AppIcons.arrow_next),
-          onPressed: () => _showDetails(context),
-        ),
+        trailing: const Icon(AppIcons.arrow_next),
+        onTap: () => _showDetails(context),
       ),
     );
   }
