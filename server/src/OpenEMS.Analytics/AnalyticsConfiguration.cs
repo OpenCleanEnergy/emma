@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using OpenEMS.Analytics.Samples;
 
 namespace OpenEMS.Analytics;
 

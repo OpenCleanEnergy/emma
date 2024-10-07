@@ -2,7 +2,7 @@ using OpenEMS.Domain;
 using OpenEMS.Domain.Consumers;
 using OpenEMS.Domain.Units;
 
-namespace OpenEMS.Analytics;
+namespace OpenEMS.Analytics.Samples;
 
 public class SwitchConsumerSample : IHasOwner
 {

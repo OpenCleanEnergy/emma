@@ -1,6 +1,6 @@
 using Vogen;
 
-namespace OpenEMS.Analytics;
+namespace OpenEMS.Analytics.Samples;
 
 [ValueObject<int>]
 public readonly partial record struct NumberOfSamples
