@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.30](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.29...app-v1.0.0-alpha.30) (2024-10-08)
+
+
+### 🐛 Bug Fixes
+
+* Clip ink in card ([2f0217a](https://github.com/OpenCleanEnergy/emma/commit/2f0217ab581a2f3a44cd14e306de98ff67f543de))
+
 ## [1.0.0-alpha.29](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.28...app-v1.0.0-alpha.29) (2024-10-07)
 
 
