@@ -18,6 +18,7 @@ class AnalyticsMetricCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card.outlined(
+      clipBehavior: Clip.hardEdge,
       child: ListTile(
         title: Text(
           title,

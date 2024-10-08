@@ -17,6 +17,7 @@ class SwitchConsumerListItem extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Card.outlined(
+      clipBehavior: Clip.hardEdge,
       child: Column(
         children: [
           Padding(
@@ -49,27 +50,28 @@ class SwitchConsumerListItem extends StatelessWidget {
               ],
             ),
           ),
-          Watch((context) => ListTile(
-                leading: OnOffIndicator(
-                  status: _getIndicatorStatus(viewModel.status.value),
+          Watch(
+            (context) => ListTile(
+              leading: OnOffIndicator(
+                status: _getIndicatorStatus(viewModel.status.value),
+              ),
+              title: Text(
+                viewModel.name.value,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: _getTextColor(colorScheme, viewModel.status.value),
                 ),
-                title: Text(
-                  viewModel.name.value,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: _getTextColor(colorScheme, viewModel.status.value),
-                  ),
-                ),
-                subtitle: viewModel.currentPowerConsumption.value == null
-                    ? null
-                    : UnitText.power(
-                        viewModel.currentPowerConsumption.value!,
-                        color:
-                            _getTextColor(colorScheme, viewModel.status.value),
-                      ),
-                trailing: const Icon(AppIcons.arrow_next),
-                onTap: _gotoEdit,
-              )),
+              ),
+              subtitle: viewModel.currentPowerConsumption.value == null
+                  ? null
+                  : UnitText.power(
+                      viewModel.currentPowerConsumption.value!,
+                      color: _getTextColor(colorScheme, viewModel.status.value),
+                    ),
+              trailing: const Icon(AppIcons.arrow_next),
+              onTap: _gotoEdit,
+            ),
+          ),
         ],
       ),
     );

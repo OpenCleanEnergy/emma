@@ -19,39 +19,42 @@ class ElectricityMeterListItem extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Card.outlined(
-      child: Watch((context) => ListTile(
-            leading: Watch<Widget>(
-              (context) => switch (viewModel.currentPowerDirection.value) {
-                GridPowerDirection.swaggerGeneratedUnknown ||
-                GridPowerDirection.none =>
-                  const OnOffIndicator(status: false),
-                GridPowerDirection.consume => Icon(
-                    AppIcons.arrow_flow_down_double,
-                    color: colorScheme.error,
-                  ),
-                GridPowerDirection.feedin => Icon(
-                    AppIcons.arrow_flow_up_double,
-                    color: colorScheme.primary,
-                  )
-              },
+      clipBehavior: Clip.hardEdge,
+      child: Watch(
+        (context) => ListTile(
+          leading: Watch<Widget>(
+            (context) => switch (viewModel.currentPowerDirection.value) {
+              GridPowerDirection.swaggerGeneratedUnknown ||
+              GridPowerDirection.none =>
+                const OnOffIndicator(status: false),
+              GridPowerDirection.consume => Icon(
+                  AppIcons.arrow_flow_down_double,
+                  color: colorScheme.error,
+                ),
+              GridPowerDirection.feedin => Icon(
+                  AppIcons.arrow_flow_up_double,
+                  color: colorScheme.primary,
+                )
+            },
+          ),
+          title: Text(
+            viewModel.name.value,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: _getTextColor(colorScheme, viewModel.currentPower.value),
             ),
-            title: Text(
-              viewModel.name.value,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: _getTextColor(colorScheme, viewModel.currentPower.value),
-              ),
-            ),
-            subtitle: viewModel.currentPower.value == null
-                ? null
-                : UnitText.power(
-                    viewModel.currentPower.value!,
-                    color: _getTextColor(
-                        colorScheme, viewModel.currentPower.value),
-                  ),
-            trailing: const Icon(AppIcons.arrow_next),
-            onTap: _gotoEdit,
-          )),
+          ),
+          subtitle: viewModel.currentPower.value == null
+              ? null
+              : UnitText.power(
+                  viewModel.currentPower.value!,
+                  color:
+                      _getTextColor(colorScheme, viewModel.currentPower.value),
+                ),
+          trailing: const Icon(AppIcons.arrow_next),
+          onTap: _gotoEdit,
+        ),
+      ),
     );
   }
 

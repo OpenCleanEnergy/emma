@@ -18,26 +18,29 @@ class ProducerListItem extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Card.outlined(
-      child: Watch((context) => ListTile(
-            leading: OnOffIndicator(
-              status: viewModel.currentPowerProduction.value != null &&
-                  (viewModel.currentPowerProduction.value! > Watt.zero),
-            ),
-            title: Text(
-              viewModel.name.value,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+      clipBehavior: Clip.hardEdge,
+      child: Watch(
+        (context) => ListTile(
+          leading: OnOffIndicator(
+            status: viewModel.currentPowerProduction.value != null &&
+                (viewModel.currentPowerProduction.value! > Watt.zero),
+          ),
+          title: Text(
+            viewModel.name.value,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                color: _getTextColor(
+                    colorScheme, viewModel.currentPowerProduction.value)),
+          ),
+          subtitle: viewModel.currentPowerProduction.value == null
+              ? null
+              : UnitText.power(viewModel.currentPowerProduction.value!,
                   color: _getTextColor(
                       colorScheme, viewModel.currentPowerProduction.value)),
-            ),
-            subtitle: viewModel.currentPowerProduction.value == null
-                ? null
-                : UnitText.power(viewModel.currentPowerProduction.value!,
-                    color: _getTextColor(
-                        colorScheme, viewModel.currentPowerProduction.value)),
-            trailing: const Icon(AppIcons.arrow_next),
-            onTap: _gotoEdit,
-          )),
+          trailing: const Icon(AppIcons.arrow_next),
+          onTap: _gotoEdit,
+        ),
+      ),
     );
   }
 
