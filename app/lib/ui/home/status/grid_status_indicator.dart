@@ -37,7 +37,7 @@ class _GridStatusIndicatorState extends State<GridStatusIndicator> {
   @override
   Widget build(BuildContext context) {
     return StatusIndicator(
-      icon: signal(AppIcons.transmission_tower),
+      icon: signal(AppIcons.power_grid),
       value: widget.viewModel.currentPower,
       maxValue: _maximumPower,
       unit: "W",

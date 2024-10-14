@@ -47,7 +47,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
           actions: [
             const AppBarActionButton(
               onPressed: noop,
-              icon: Icon(Icons.low_priority),
+              icon: Icon(AppIcons.priority),
             ),
             AppBarActionButton(
               onPressed: _startAddFlow,

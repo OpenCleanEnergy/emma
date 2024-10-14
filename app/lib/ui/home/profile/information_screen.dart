@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:openems/ui/app_icons.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -11,13 +12,13 @@ class AboutScreen extends StatelessWidget {
     final items = <Widget>[
       ListTile(
         title: const Text("Impressum"),
-        trailing: const Icon(Icons.open_in_new),
+        trailing: const Icon(AppIcons.open_in_new),
         onTap: () =>
             launchUrlString("https://opencleanenergy.org/legal-notice/"),
       ),
       ListTile(
         title: const Text("Datenschutz"),
-        trailing: const Icon(Icons.open_in_new),
+        trailing: const Icon(AppIcons.open_in_new),
         onTap: () =>
             launchUrlString("https://opencleanenergy.org/privacy-policy/"),
       ),
@@ -29,8 +30,16 @@ class AboutScreen extends StatelessWidget {
               padding: EdgeInsets.only(left: 16.0),
               child: Text("IconKitchen"),
             ),
-            trailing: const Icon(Icons.open_in_new),
+            trailing: const Icon(AppIcons.open_in_new),
             onTap: () => launchUrlString("https://icon.kitchen"),
+          ),
+          ListTile(
+            title: const Padding(
+              padding: EdgeInsets.only(left: 16.0),
+              child: Text("Uicons by Flaticon"),
+            ),
+            trailing: const Icon(AppIcons.open_in_new),
+            onTap: () => launchUrlString("https://www.flaticon.com/uicons"),
           )
         ],
       )

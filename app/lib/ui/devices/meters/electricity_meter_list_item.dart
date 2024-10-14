@@ -28,11 +28,11 @@ class ElectricityMeterListItem extends StatelessWidget {
               GridPowerDirection.none =>
                 const OnOffIndicator(status: false),
               GridPowerDirection.consume => Icon(
-                  AppIcons.arrow_flow_down_double,
+                  AppIcons.flow_down_double,
                   color: colorScheme.error,
                 ),
               GridPowerDirection.feedin => Icon(
-                  AppIcons.arrow_flow_up_double,
+                  AppIcons.flow_up_double,
                   color: colorScheme.primary,
                 )
             },

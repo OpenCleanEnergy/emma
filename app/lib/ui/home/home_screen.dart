@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         actions: [
           AppBarActionButton(
-            icon: const Icon(AppIcons.person_outlined),
+            icon: const Icon(AppIcons.person),
             onPressed: () => AppNavigator.push(const ProfileScreen()),
           ),
         ],

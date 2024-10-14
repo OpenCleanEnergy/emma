@@ -27,13 +27,10 @@ class BatteryStatusIndicator extends StatelessWidget {
 
   IconData _getBatteryIcon() {
     const icons = [
-      AppIcons.battery_0_bar,
+      AppIcons.battery_empty,
       AppIcons.battery_1_bar,
       AppIcons.battery_2_bar,
       AppIcons.battery_3_bar,
-      AppIcons.battery_4_bar,
-      AppIcons.battery_5_bar,
-      AppIcons.battery_6_bar,
       AppIcons.battery_full,
     ];
 
