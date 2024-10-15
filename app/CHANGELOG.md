@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.32](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.31...app-v1.0.0-alpha.32) (2024-10-15)
+
+
+### 🐛 Bug Fixes
+
+* Use `fi-rr-minus-small` for `flow_none` icon ([14e6074](https://github.com/OpenCleanEnergy/emma/commit/14e6074e7ffbff6c118b50f74d06cb704af4b7f0))
+
 ## [1.0.0-alpha.31](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.30...app-v1.0.0-alpha.31) (2024-10-15)
 
 
