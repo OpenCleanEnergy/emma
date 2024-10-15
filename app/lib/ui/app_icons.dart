@@ -27,7 +27,7 @@ abstract final class AppIcons {
   static const IconData login = uicons.fi_rr_sign_in_alt;
   static const IconData logout = uicons.fi_rr_sign_out_alt;
   static const IconData logs = uicons.fi_rr_terminal;
-  static const IconData open_in_new = uicons.fi_rr_arrow_up_right_from_square;
+  static const IconData open_in_new = uicons.fi_rr_up_right_from_square;
   static const IconData person = uicons.fi_rr_user;
   static const IconData power_grid = uicons.fi_rr_utility_pole_double;
   static const IconData priority = uicons.fi_rr_priority_arrow;
