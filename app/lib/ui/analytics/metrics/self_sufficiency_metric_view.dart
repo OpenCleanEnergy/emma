@@ -1,7 +1,7 @@
 import 'package:openems/ui/analytics/metrics/analytics_metric_card.dart';
 import 'package:flutter/material.dart';
 import 'package:openems/ui/analytics/metrics/analytics_circular_percentage_indicator.dart';
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/shared/unit_text.dart';
 
 class SelfSufficiencyMetricView extends StatelessWidget {

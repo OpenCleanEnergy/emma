@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:flutter/material.dart';
 
 class StatusPowerFlow extends StatelessWidget {

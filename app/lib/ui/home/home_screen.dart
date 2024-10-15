@@ -1,4 +1,4 @@
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/home/home_view_model.dart';
 import 'package:openems/ui/home/profile/profile_screen.dart';

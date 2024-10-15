@@ -1,5 +1,5 @@
 import 'package:openems/infrastructure/window_size_writer.dart';
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/home/profile/information_screen.dart';
 import 'package:openems/ui/home/profile/version_info.dart';

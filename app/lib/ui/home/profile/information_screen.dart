@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class AboutScreen extends StatelessWidget {

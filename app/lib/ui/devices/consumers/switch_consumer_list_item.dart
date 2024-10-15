@@ -1,4 +1,4 @@
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/consumers/edit_switch_consumer_screen.dart';
 import 'package:openems/ui/devices/consumers/switch_consumer_view_model.dart';

@@ -1,6 +1,6 @@
 import 'package:openems/infrastructure/window_size_writer.dart';
 import 'package:flutter/material.dart';
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 
 class ScreenSizeSelector extends StatefulWidget {
   const ScreenSizeSelector({super.key});

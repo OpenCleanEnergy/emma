@@ -1,4 +1,4 @@
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/home/home_view_model.dart';
 import 'package:openems/ui/home/status/status_indicator.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/add/select_device_category_screen.dart';
 import 'package:openems/ui/devices/devices_view_model.dart';
