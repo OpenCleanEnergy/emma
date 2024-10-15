@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.31](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.30...app-v1.0.0-alpha.31) (2024-10-15)
+
+
+### 🚀 Features
+
+* Uicons by Flaticon ([#234](https://github.com/OpenCleanEnergy/emma/issues/234)) ([dd4534d](https://github.com/OpenCleanEnergy/emma/commit/dd4534d0c0cc554f13fe3e845d3d5cb639cc4fc4))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group in /app with 2 updates ([#232](https://github.com/OpenCleanEnergy/emma/issues/232)) ([5341c4b](https://github.com/OpenCleanEnergy/emma/commit/5341c4bb1470c3ce143243d7316c58bfcc1d7c18))
+
 ## [1.0.0-alpha.30](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.29...app-v1.0.0-alpha.30) (2024-10-08)
 
 
