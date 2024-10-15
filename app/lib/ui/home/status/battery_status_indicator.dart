@@ -1,4 +1,4 @@
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/home/home_view_model.dart';
 import 'package:openems/ui/home/status/status_indicator.dart';
 import 'package:flutter/material.dart';
@@ -27,13 +27,10 @@ class BatteryStatusIndicator extends StatelessWidget {
 
   IconData _getBatteryIcon() {
     const icons = [
-      AppIcons.battery_0_bar,
+      AppIcons.battery_empty,
       AppIcons.battery_1_bar,
       AppIcons.battery_2_bar,
       AppIcons.battery_3_bar,
-      AppIcons.battery_4_bar,
-      AppIcons.battery_5_bar,
-      AppIcons.battery_6_bar,
       AppIcons.battery_full,
     ];
 

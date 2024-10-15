@@ -1,6 +1,6 @@
 import 'package:openems/application/backend_api/value_types.dart';
 import 'package:openems/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/meters/edit_electricity_meter_screen.dart';
 import 'package:openems/ui/devices/meters/electricity_meter_view_model.dart';
@@ -28,11 +28,11 @@ class ElectricityMeterListItem extends StatelessWidget {
               GridPowerDirection.none =>
                 const OnOffIndicator(status: false),
               GridPowerDirection.consume => Icon(
-                  AppIcons.arrow_flow_down_double,
+                  AppIcons.flow_down_double,
                   color: colorScheme.error,
                 ),
               GridPowerDirection.feedin => Icon(
-                  AppIcons.arrow_flow_up_double,
+                  AppIcons.flow_up_double,
                   color: colorScheme.primary,
                 )
             },

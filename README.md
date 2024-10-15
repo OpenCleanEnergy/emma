@@ -11,3 +11,9 @@
 ## Contributing
 
 See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md).
+
+---
+
+Attributions:
+
+- Uicons by [Flaticon](https://www.flaticon.com/uicons)

@@ -112,7 +112,7 @@ flutter:
     - family: FiraSans
       fonts:
         - asset: fonts/FiraSans-Regular.ttf
-    # https://github.com/Templarian/MaterialDesign-Webfont/blob/master/fonts/materialdesignicons-webfont.ttf
-    - family: materialdesignicons_webfont
+    # https://github.com/freepik-company/flaticon-uicons
+    - family: uicons-regular-rounded
       fonts:
-        - asset: fonts/materialdesignicons-webfont.ttf
+        - asset: fonts/uicons-regular-rounded.ttf

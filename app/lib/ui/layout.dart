@@ -1,5 +1,5 @@
 import 'package:openems/ui/analytics/analytics_screen.dart';
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/devices/devices_screen.dart';
 import 'package:openems/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -27,17 +27,17 @@ class _LayoutState extends State<Layout> {
 
     const destinations = [
       NavigationDestination(
-          icon: Icon(AppIcons.power_outlined),
-          selectedIcon: Icon(AppIcons.power),
-          label: "Geräte"),
+        icon: Icon(AppIcons.device),
+        label: "Geräte",
+      ),
       NavigationDestination(
-          icon: Icon(AppIcons.home_outlined),
-          selectedIcon: Icon(AppIcons.home),
-          label: "Zuhause"),
+        icon: Icon(AppIcons.home),
+        label: "Zuhause",
+      ),
       NavigationDestination(
-          icon: Icon(AppIcons.pie_chart_outlined),
-          selectedIcon: Icon(AppIcons.pie_chart),
-          label: "Analysen"),
+        icon: Icon(AppIcons.analytics),
+        label: "Analysen",
+      ),
     ];
 
     return Scaffold(

@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:flutter/material.dart';
 
 class StatusPowerFlow extends StatelessWidget {
@@ -62,7 +62,7 @@ class StatusPowerFlow extends StatelessWidget {
         Transform.rotate(
           angle: _radian,
           child: Icon(
-            Icons.remove,
+            AppIcons.flow_none,
             size: _iconSize,
             color: color,
           ),
@@ -73,7 +73,7 @@ class StatusPowerFlow extends StatelessWidget {
           child: Transform.rotate(
             angle: _radian,
             child: Icon(
-              AppIcons.arrow_flow_right,
+              AppIcons.flow_right,
               size: _iconSize,
               color: color,
             ),

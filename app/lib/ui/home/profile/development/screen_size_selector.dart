@@ -1,5 +1,6 @@
 import 'package:openems/infrastructure/window_size_writer.dart';
 import 'package:flutter/material.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 
 class ScreenSizeSelector extends StatefulWidget {
   const ScreenSizeSelector({super.key});
@@ -27,7 +28,7 @@ class _ScreenSizeSelectorState extends State<ScreenSizeSelector> {
         ),
         IconButton(
           onPressed: () => WindowSizeWriter.toggleOrientation(),
-          icon: const Icon(Icons.rotate_right),
+          icon: const Icon(AppIcons.rotate_right),
         )
       ],
     );

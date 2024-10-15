@@ -1,5 +1,6 @@
 import 'package:openems/ui/analytics/metrics/analytics_circular_percentage_indicator.dart';
 import 'package:openems/ui/analytics/metrics/analytics_metric_card.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/shared/unit_text.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,7 @@ class OwnConsumptionMetricView extends StatelessWidget {
             TableRow(
               children: [
                 Icon(
-                  Icons.circle,
+                  AppIcons.circle,
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 const Text("Eigenverbrauch:"),
@@ -51,7 +52,7 @@ class OwnConsumptionMetricView extends StatelessWidget {
             TableRow(
               children: [
                 Icon(
-                  Icons.circle,
+                  AppIcons.circle,
                   color: Theme.of(context).colorScheme.secondaryContainer,
                 ),
                 const Text("Einspeisung:"),

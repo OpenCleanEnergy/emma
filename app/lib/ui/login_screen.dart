@@ -1,4 +1,4 @@
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/locator.dart';
 import 'package:openems/ui/user_view_model.dart';
 import 'package:flutter/material.dart';

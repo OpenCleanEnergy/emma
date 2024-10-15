@@ -1,5 +1,5 @@
 import 'package:openems/application/backend_api/value_types.dart';
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/producers/edit_producer_screen.dart';
 import 'package:openems/ui/devices/producers/producer_view_model.dart';

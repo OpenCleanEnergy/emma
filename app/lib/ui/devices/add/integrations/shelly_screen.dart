@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:openems/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
 import 'package:openems/domain/integrations/known_integrations.dart';
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/add/add_consumer_screen.dart';
 import 'package:openems/ui/devices/add/add_electricity_meter_screen.dart';

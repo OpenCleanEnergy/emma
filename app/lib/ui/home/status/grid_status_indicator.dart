@@ -1,5 +1,5 @@
 import 'package:openems/application/backend_api/swagger_generated_code/backend_api.enums.swagger.dart';
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/home/home_view_model.dart';
 import 'package:openems/ui/home/status/status_indicator.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class _GridStatusIndicatorState extends State<GridStatusIndicator> {
   @override
   Widget build(BuildContext context) {
     return StatusIndicator(
-      icon: signal(AppIcons.transmission_tower),
+      icon: signal(AppIcons.power_grid),
       value: widget.viewModel.currentPower,
       maxValue: _maximumPower,
       unit: "W",

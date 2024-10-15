@@ -1,6 +1,6 @@
 import 'package:openems/ui/analytics/analytics_period.dart';
 import 'package:openems/ui/analytics/analytics_view_model.dart';
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:signals/signals_flutter.dart';

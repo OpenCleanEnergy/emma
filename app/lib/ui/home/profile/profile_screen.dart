@@ -1,5 +1,5 @@
 import 'package:openems/infrastructure/window_size_writer.dart';
-import 'package:openems/ui/app_icons.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/home/profile/information_screen.dart';
 import 'package:openems/ui/home/profile/version_info.dart';
@@ -36,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         onTap: () => AppNavigator.push(const AboutScreen()),
       ),
       ListTile(
-        leading: const Icon(Icons.bug_report),
+        leading: const Icon(AppIcons.logs),
         title: const Text(LogsScreen.title),
         trailing: const Icon(AppIcons.arrow_next),
         onTap: () => AppNavigator.push(const LogsScreen()),
@@ -54,8 +54,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (WindowSizeWriter.isSupported) {
       items.add(const ListTile(
-          leading: Icon(Icons.fit_screen_rounded),
-          title: ScreenSizeSelector()));
+        leading: Icon(AppIcons.screen),
+        title: ScreenSizeSelector(),
+      ));
     }
 
     items.add(
