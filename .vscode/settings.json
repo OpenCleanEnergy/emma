@@ -1,4 +1,10 @@
 {
+  "[dart]": {
+    // https://dartcode.org/docs/recommended-settings/
+    "editor.rulers": [80],
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -19,6 +25,7 @@
     "dtos",
     "Dtos",
     "emma",
+    "flaticon",
     "Flaticon",
     "Flurl",
     "hcloud",
@@ -37,6 +44,7 @@
     "Relayout",
     "Riok",
     "trid",
+    "uicons",
     "Uicons",
     "validatable",
     "Vogen"
