@@ -39,7 +39,7 @@ class OwnConsumptionMetricView extends StatelessWidget {
             TableRow(
               children: [
                 Icon(
-                  AppIcons.bullet,
+                  AppIcons.circle,
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 const Text("Eigenverbrauch:"),
@@ -52,7 +52,7 @@ class OwnConsumptionMetricView extends StatelessWidget {
             TableRow(
               children: [
                 Icon(
-                  AppIcons.bullet,
+                  AppIcons.circle,
                   color: Theme.of(context).colorScheme.secondaryContainer,
                 ),
                 const Text("Einspeisung:"),

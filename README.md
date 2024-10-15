@@ -14,4 +14,6 @@ See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 ---
 
-Uicons by [Flaticon](https://www.flaticon.com/uicons)
+Attributions:
+
+- Uicons by [Flaticon](https://www.flaticon.com/uicons)
