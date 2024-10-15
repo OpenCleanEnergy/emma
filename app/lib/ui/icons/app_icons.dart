@@ -21,7 +21,7 @@ abstract final class AppIcons {
   static const IconData error = _Uicons.fi_rr_exclamation;
   static const IconData flow_down_double =
       _Uicons.fi_rr_angle_double_small_down;
-  static const IconData flow_none = _Uicons.fi_rr_minus;
+  static const IconData flow_none = _Uicons.fi_rr_minus_small;
   static const IconData flow_right = _Uicons.fi_rr_angle_small_right;
   static const IconData flow_up_double = _Uicons.fi_rr_angle_double_small_up;
   static const IconData home = _Uicons.fi_rr_house_chimney;
