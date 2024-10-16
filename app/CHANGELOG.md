@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.0-alpha.33](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.32...app-v1.0.0-alpha.33) (2024-10-16)
+
+
+### 🚀 Features
+
+* New custom bottom navigation bar. ([e3fa6b2](https://github.com/OpenCleanEnergy/emma/commit/e3fa6b2439fd3580ebb992a3b57497d13311f1f4))
+
+
+### 🐛 Bug Fixes
+
+* Improve icon and text sizes ([0467a94](https://github.com/OpenCleanEnergy/emma/commit/0467a94706d407b9739b1aa9674ed288ecee4156))
+* Show drag handle of bottom sheet ([b85859e](https://github.com/OpenCleanEnergy/emma/commit/b85859e3fbcf457c294a2d65edd931ecaae2d1fb))
+* Use root navigator for modal bottom sheet to hide nav bar ([9762d64](https://github.com/OpenCleanEnergy/emma/commit/9762d647dabf602a29cffe9fcdf19bfe65c1fc02))
+
 ## [1.0.0-alpha.32](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.31...app-v1.0.0-alpha.32) (2024-10-15)
 
 
