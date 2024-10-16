@@ -36,13 +36,13 @@ class AnalyticsMetricCard extends StatelessWidget {
   void _showDetails(BuildContext context) {
     showModalBottomSheet<void>(
         context: context,
+        showDragHandle: true,
         builder: (context) {
           return SizedBox(
             height: 256,
             child: Center(
               child: Column(
                 children: [
-                  const SizedBox(height: 16),
                   Text(
                     title,
                     style: Theme.of(context).appBarTheme.titleTextStyle ??
