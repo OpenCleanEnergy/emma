@@ -3,6 +3,7 @@ import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/devices/devices_screen.dart';
 import 'package:openems/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 // from
 // - https://dev.to/nicks101/state-persistence-techniques-for-the-flutter-bottom-navigation-bar-3ikc
@@ -15,47 +16,67 @@ class Layout extends StatefulWidget {
 }
 
 class _LayoutState extends State<Layout> {
-  int _selectedIndex = 1;
+  late final PersistentTabController _controller;
+  @override
+  void initState() {
+    _controller = PersistentTabController(initialIndex: 1);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    const pages = [
-      DevicesScreen(),
-      HomeScreen(),
-      AnalyticsScreen(),
-    ];
+    final theme = Theme.of(context);
+    final activeForegroundColor = theme.colorScheme.primary;
+    final inactiveForegroundColor = theme.colorScheme.onSurface;
 
-    const destinations = [
-      NavigationDestination(
-        icon: Icon(AppIcons.device),
-        label: "Geräte",
-      ),
-      NavigationDestination(
-        icon: Icon(AppIcons.home),
-        label: "Zuhause",
-      ),
-      NavigationDestination(
-        icon: Icon(AppIcons.analytics),
-        label: "Analysen",
-      ),
-    ];
-
-    return Scaffold(
-        body: IndexedStack(
-          index: _selectedIndex,
-          children: pages,
+    final tabs = [
+      PersistentTabConfig(
+        screen: const DevicesScreen(),
+        item: ItemConfig(
+          icon: const Icon(AppIcons.device),
+          title: "Geräte",
+          activeForegroundColor: activeForegroundColor,
+          inactiveForegroundColor: inactiveForegroundColor,
         ),
-        bottomNavigationBar: NavigationBar(
-            selectedIndex: _selectedIndex,
-            onDestinationSelected: _onDestinationSelected,
-            destinations: destinations));
-  }
+      ),
+      PersistentTabConfig(
+        screen: const HomeScreen(),
+        item: ItemConfig(
+          icon: const Icon(AppIcons.home),
+          title: "Zuhause",
+          activeForegroundColor: activeForegroundColor,
+          inactiveForegroundColor: inactiveForegroundColor,
+        ),
+      ),
+      PersistentTabConfig(
+        screen: const AnalyticsScreen(),
+        item: ItemConfig(
+          icon: const Icon(AppIcons.analytics),
+          title: "Auswertung",
+          activeForegroundColor: activeForegroundColor,
+          inactiveForegroundColor: inactiveForegroundColor,
+        ),
+      ),
+    ];
 
-  void _onDestinationSelected(int selectedIndex) {
-    if (_selectedIndex != selectedIndex) {
-      setState(() {
-        _selectedIndex = selectedIndex;
-      });
-    }
+    return PersistentTabView(
+      tabs: tabs,
+      controller: _controller,
+      navBarHeight: kBottomNavigationBarHeight + 8,
+      navBarOverlap: const NavBarOverlap.none(),
+      navBarBuilder: (navBarConfig) => Style7BottomNavBar(
+        navBarConfig: navBarConfig,
+        navBarDecoration: NavBarDecoration(
+          color: theme.navigationBarTheme.backgroundColor ??
+              theme.colorScheme.surfaceContainer,
+        ),
+      ),
+    );
   }
 }
