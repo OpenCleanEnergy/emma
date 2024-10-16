@@ -1,6 +1,7 @@
 import 'package:openems/bootstrap.dart';
 import 'package:openems/domain/user_status.dart';
 import 'package:openems/ui/app_messenger.dart';
+import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/layout.dart';
 import 'package:openems/ui/login_screen.dart';
 import 'package:openems/ui/app_navigator.dart';
@@ -54,17 +55,25 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: const Color.fromARGB(0xff, 0x5b, 0xc5, 0x77),
+        brightness: Brightness.light,
+      ),
+      fontFamily: "FiraSans",
+      actionIconTheme: ActionIconThemeData(
+        backButtonIconBuilder: (_) => const Icon(AppIcons.arrow_prev),
+        closeButtonIconBuilder: (_) => const Icon(AppIcons.close),
+      ),
+    );
+
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'EMMA',
         navigatorKey: AppNavigator.key,
         scaffoldMessengerKey: AppMessenger.key,
-        theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color.fromARGB(0xff, 0x5b, 0xc5, 0x77),
-                brightness: Brightness.light),
-            useMaterial3: true,
-            fontFamily: "FiraSans"),
+        theme: theme,
         home: const SplashScreen());
   }
 }

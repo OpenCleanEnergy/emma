@@ -16,7 +16,7 @@ abstract final class AppIcons {
   static const IconData battery_empty = _Uicons.fi_rr_battery_empty;
   static const IconData battery_full = _Uicons.fi_rr_battery_full;
   static const IconData circle = Icons.circle;
-  static const IconData close = _Uicons.fi_rr_cross;
+  static const IconData close = _Uicons.fi_rr_cross_small;
   static const IconData device = _Uicons.fi_rr_plug_cable;
   static const IconData error = _Uicons.fi_rr_exclamation;
   static const IconData flow_down_double =

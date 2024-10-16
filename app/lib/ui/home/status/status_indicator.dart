@@ -66,8 +66,13 @@ class _StatusIndicatorState extends State<StatusIndicator> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Watch((context) => Icon(widget.icon.value, size: _iconSize)),
-            Watch((context) => UnitText(widget.value.value, widget.unit)),
+            const SizedBox(height: 2),
+            Icon(widget.icon.value, size: _iconSize),
+            const SizedBox(height: 4),
+            Transform.scale(
+              scale: 1.125,
+              child: UnitText(widget.value.value, widget.unit),
+            ),
           ],
         ),
       ),
