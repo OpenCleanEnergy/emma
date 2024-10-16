@@ -37,6 +37,7 @@ class AnalyticsMetricCard extends StatelessWidget {
     showModalBottomSheet<void>(
         context: context,
         showDragHandle: true,
+        useRootNavigator: true,
         builder: (context) {
           return SizedBox(
             height: 256,
