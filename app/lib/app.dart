@@ -63,17 +63,63 @@ class _AppState extends State<App> {
       ),
       fontFamily: "FiraSans",
       actionIconTheme: ActionIconThemeData(
-        backButtonIconBuilder: (_) => const Icon(AppIcons.arrow_prev),
+        backButtonIconBuilder: (_) => IconTheme(
+          data: const IconThemeData.fallback(),
+          child: Icon(
+            Icons.adaptive.arrow_back,
+          ),
+        ),
         closeButtonIconBuilder: (_) => const Icon(AppIcons.close),
       ),
     );
+
+    final adjustedIconSize = _adjustIconSize(theme);
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'EMMA',
         navigatorKey: AppNavigator.key,
         scaffoldMessengerKey: AppMessenger.key,
-        theme: theme,
+        theme: adjustedIconSize,
         home: const SplashScreen());
+  }
+
+  static ThemeData _adjustIconSize(ThemeData theme) {
+    return theme.copyWith(
+      iconTheme: theme.iconTheme.copyWith(
+        size: AppIcons.scale.size,
+        opticalSize: AppIcons.scale.opticalSize,
+      ),
+      primaryIconTheme: theme.primaryIconTheme.copyWith(
+        size: AppIcons.scale.size,
+        opticalSize: AppIcons.scale.opticalSize,
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: (theme.iconButtonTheme.style ?? IconButton.styleFrom()).copyWith(
+          iconSize: WidgetStateProperty.all(AppIcons.scale.size),
+        ),
+      ),
+      navigationBarTheme: _adjustNavBarIconSize(
+        theme,
+        theme.navigationBarTheme,
+        theme.iconTheme,
+      ),
+    );
+  }
+
+  static NavigationBarThemeData _adjustNavBarIconSize(
+    ThemeData theme,
+    NavigationBarThemeData navBarTheme,
+    IconThemeData defaultIconTheme,
+  ) {
+    assert(navBarTheme.iconTheme == null, "Expected icon theme to be null");
+    return navBarTheme.copyWith(
+      iconTheme: WidgetStatePropertyAll(
+        defaultIconTheme.copyWith(
+          size: AppIcons.scale.size,
+          opticalSize: AppIcons.scale.opticalSize,
+        ),
+      ),
+    );
   }
 }

@@ -53,7 +53,6 @@ dependencies:
   simple_animations: ^5.0.2
   fl_chart: ^0.69.0
   collection: ^1.18.0
-  persistent_bottom_nav_bar_v2: ^5.3.1
 
 dev_dependencies:
   flutter_test:
@@ -117,3 +116,6 @@ flutter:
     - family: uicons-regular-rounded
       fonts:
         - asset: fonts/uicons-regular-rounded.ttf
+    - family: uicons-solid-rounded
+      fonts:
+        - asset: fonts/uicons-solid-rounded.ttf

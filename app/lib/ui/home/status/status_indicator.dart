@@ -68,7 +68,7 @@ class _StatusIndicatorState extends State<StatusIndicator> {
           children: [
             const SizedBox(height: 2),
             Icon(widget.icon.value, size: _iconSize),
-            const SizedBox(height: 4),
+            const SizedBox(height: 6),
             Transform.scale(
               scale: 1.125,
               child: UnitText(widget.value.value, widget.unit),
