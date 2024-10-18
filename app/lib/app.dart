@@ -63,12 +63,7 @@ class _AppState extends State<App> {
       ),
       fontFamily: "FiraSans",
       actionIconTheme: ActionIconThemeData(
-        backButtonIconBuilder: (_) => IconTheme(
-          data: const IconThemeData.fallback(),
-          child: Icon(
-            Icons.adaptive.arrow_back,
-          ),
-        ),
+        backButtonIconBuilder: (_) => const Icon(AppIcons.arrow_prev),
         closeButtonIconBuilder: (_) => const Icon(AppIcons.close),
       ),
     );
