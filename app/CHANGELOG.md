@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.34](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.33...app-v1.0.0-alpha.34) (2024-10-18)
+
+
+### 🐛 Bug Fixes
+
+* Adjust icon size. Restore previous navigation bar. ([cc75639](https://github.com/OpenCleanEnergy/emma/commit/cc75639fa6f50d8d9962eccd715d1292a5741aa1))
+
 ## [1.0.0-alpha.33](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.32...app-v1.0.0-alpha.33) (2024-10-16)
 
 
