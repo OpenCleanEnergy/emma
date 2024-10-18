@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.35](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.34...app-v1.0.0-alpha.35) (2024-10-18)
+
+
+### 🐛 Bug Fixes
+
+* restore custom back button icon ([f803515](https://github.com/OpenCleanEnergy/emma/commit/f803515698aa92165faf59f851b126e01599e35a))
+
 ## [1.0.0-alpha.34](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.33...app-v1.0.0-alpha.34) (2024-10-18)
 
 
