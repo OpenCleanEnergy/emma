@@ -19,7 +19,7 @@ class DevicesList extends StatelessWidget {
       final isEmpty = viewModel.switchConsumers.isEmpty &&
           viewModel.producers.isEmpty &&
           viewModel.electricityMeters.isEmpty;
-      if (isEmpty) {
+      if (viewModel.isInitialized.value && isEmpty) {
         return Center(
             child: Text(
                 "Keine Geräte vorhanden.\nFüge jetzt neue Geräte hinzu.",

@@ -14,7 +14,7 @@ class DevicesViewModel {
     init = _init.toCommand('devices.init');
     refresh = _refresh.toCommand('devices.refresh');
   }
-
+  final isInitialized = signal(false);
   final switchConsumers = listSignal<SwitchConsumerViewModel>([]);
   final producers = listSignal<ProducerViewModel>([]);
   final electricityMeters = listSignal<ElectricityMeterViewModel>([]);
@@ -30,6 +30,8 @@ class DevicesViewModel {
       _refreshProducers(response.body?.producers);
       _refreshElectricityMeters(response.body?.electricityMeters);
     });
+
+    isInitialized.value = true;
   }
 
   Future<void> _refresh() async {
