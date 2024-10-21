@@ -50,7 +50,7 @@ adb-start:
 
 # Install the app on connected device
 install-app environment='production': (build 'apk' 'production')
-  flutter install
+  flutter install --debug
 
 # Convert screenshots for play store
 play-store-convert:
