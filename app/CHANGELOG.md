@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0-alpha.36](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.35...app-v1.0.0-alpha.36) (2024-10-21)
+
+
+### 🚀 Features
+
+* platform agnostic bottom navigation bar ([#244](https://github.com/OpenCleanEnergy/emma/issues/244)) ([6f33857](https://github.com/OpenCleanEnergy/emma/commit/6f338572491a6dcb6d6f852ae74ad383d03e770e))
+
+
+### 📦️ Build System, Dependencies
+
+* Bump gradle plugin `com.android.application` from 7.3.0 to 7.4.2 ([9699f5d](https://github.com/OpenCleanEnergy/emma/commit/9699f5d7238bd345e8345ec57b104bf03027a65c))
+* **deps:** bump the dependencies group in /app with 2 updates ([#241](https://github.com/OpenCleanEnergy/emma/issues/241)) ([6497205](https://github.com/OpenCleanEnergy/emma/commit/649720570081960d9f74e8077677ef4965660f0d))
+
 ## [1.0.0-alpha.35](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.34...app-v1.0.0-alpha.35) (2024-10-18)
 
 
