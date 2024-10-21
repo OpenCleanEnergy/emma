@@ -193,7 +193,7 @@ class _ModifiedStyle4BottomNavBar extends StatelessWidget {
                       child: InkWell(
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        radius: navBarConfig.navBarHeight,
+                        radius: navBarConfig.navBarHeight / 2 * 1.125,
                         onTap: () {
                           navBarConfig.onItemSelected(index);
                         },
