@@ -1,4 +1,4 @@
-import 'dart:math' as math;
+import 'dart:math';
 
 import 'package:openems/ui/analytics/analytics_screen.dart';
 import 'package:openems/ui/icons/app_icons.dart';
@@ -74,6 +74,7 @@ class _LayoutState extends State<Layout> {
         navBarConfig: navBarConfig,
         navBarDecoration: NavBarDecoration(
           color: theme.colorScheme.surfaceContainer,
+          padding: EdgeInsets.zero,
         ),
       ),
     );
@@ -117,19 +118,20 @@ class _ModifiedStyle4BottomNavBar extends StatelessWidget {
 
   Widget _buildItem(ItemConfig item, bool isSelected) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            child: IconTheme(
-              data: IconThemeData(
-                size: item.iconSize,
-                color: isSelected
-                    ? item.activeForegroundColor
-                    : item.inactiveForegroundColor,
-              ),
-              child: isSelected ? item.icon : item.inactiveIcon,
+        children: [
+          IconTheme(
+            data: IconThemeData(
+              size: item.iconSize,
+              color: isSelected
+                  ? item.activeForegroundColor
+                  : item.inactiveForegroundColor,
             ),
+            child: isSelected ? item.icon : item.inactiveIcon,
           ),
-          if (item.title != null)
+          if (item.title != null) ...[
+            const SizedBox(
+              height: 12,
+            ),
             FittedBox(
               child: Text(
                 item.title!,
@@ -139,7 +141,8 @@ class _ModifiedStyle4BottomNavBar extends StatelessWidget {
                       : item.inactiveForegroundColor,
                 ),
               ),
-            ),
+            )
+          ],
         ],
       );
 
@@ -148,60 +151,66 @@ class _ModifiedStyle4BottomNavBar extends StatelessWidget {
     final double itemWidth = (MediaQuery.of(context).size.width -
             navBarDecoration.padding.horizontal) /
         navBarConfig.items.length;
-    final indicatorWidth = math.min(itemWidth, 80.0);
-    final paddingLeft = (itemWidth * (navBarConfig.selectedIndex + 0.5)) -
-        (indicatorWidth / 2.0);
+    final indicatorWidth = min(itemWidth, 80.0);
+    final paddingLeft =
+        itemWidth * (navBarConfig.selectedIndex + 0.5) - (indicatorWidth / 2.0);
 
     return DecoratedNavBar(
       decoration: navBarDecoration,
       height: navBarConfig.navBarHeight,
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              AnimatedContainer(
-                duration: itemAnimationProperties.duration,
-                curve: itemAnimationProperties.curve,
-                width: paddingLeft,
-                height: 4,
-              ),
-              AnimatedContainer(
-                duration: itemAnimationProperties.duration,
-                curve: itemAnimationProperties.curve,
-                width: indicatorWidth,
-                height: 4,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: navBarConfig.selectedItem.activeForegroundColor,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: Material(
+        type: MaterialType.transparency,
+        child: Column(
+          children: [
+            Row(
               children: [
-                ...navBarConfig.items.map((item) {
-                  final int index = navBarConfig.items.indexOf(item);
-                  return Flexible(
-                    child: InkWell(
-                      onTap: () {
-                        navBarConfig.onItemSelected(index);
-                      },
-                      child: Center(
-                        child: _buildItem(
-                          item,
-                          navBarConfig.selectedIndex == index,
-                        ),
-                      ),
-                    ),
-                  );
-                })
+                AnimatedContainer(
+                  duration: itemAnimationProperties.duration,
+                  curve: itemAnimationProperties.curve,
+                  width: paddingLeft,
+                  height: 4,
+                ),
+                AnimatedContainer(
+                  duration: itemAnimationProperties.duration,
+                  curve: itemAnimationProperties.curve,
+                  width: indicatorWidth,
+                  height: 4,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: navBarConfig.selectedItem.activeForegroundColor,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ...navBarConfig.items.map((item) {
+                    final int index = navBarConfig.items.indexOf(item);
+                    return Flexible(
+                      child: InkWell(
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        radius: navBarConfig.navBarHeight,
+                        onTap: () {
+                          navBarConfig.onItemSelected(index);
+                        },
+                        child: Center(
+                          child: _buildItem(
+                            item,
+                            navBarConfig.selectedIndex == index,
+                          ),
+                        ),
+                      ),
+                    );
+                  })
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
