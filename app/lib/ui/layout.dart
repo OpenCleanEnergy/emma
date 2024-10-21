@@ -116,7 +116,8 @@ class _ModifiedStyle4BottomNavBar extends StatelessWidget {
   /// This controls the animation properties of the items of the NavBar.
   final ItemAnimation itemAnimationProperties = const ItemAnimation();
 
-  Widget _buildItem(ItemConfig item, bool isSelected) => Column(
+  Widget _buildItem({required ItemConfig item, required bool isSelected}) =>
+      Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconTheme(
@@ -158,59 +159,50 @@ class _ModifiedStyle4BottomNavBar extends StatelessWidget {
     return DecoratedNavBar(
       decoration: navBarDecoration,
       height: navBarConfig.navBarHeight,
-      child: Material(
-        type: MaterialType.transparency,
-        child: Column(
-          children: [
-            Row(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              AnimatedContainer(
+                duration: itemAnimationProperties.duration,
+                curve: itemAnimationProperties.curve,
+                width: paddingLeft,
+                height: 4,
+              ),
+              AnimatedContainer(
+                duration: itemAnimationProperties.duration,
+                curve: itemAnimationProperties.curve,
+                width: indicatorWidth,
+                height: 4,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: navBarConfig.selectedItem.activeForegroundColor,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                AnimatedContainer(
-                  duration: itemAnimationProperties.duration,
-                  curve: itemAnimationProperties.curve,
-                  width: paddingLeft,
-                  height: 4,
-                ),
-                AnimatedContainer(
-                  duration: itemAnimationProperties.duration,
-                  curve: itemAnimationProperties.curve,
-                  width: indicatorWidth,
-                  height: 4,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: navBarConfig.selectedItem.activeForegroundColor,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ...navBarConfig.items.map((item) {
-                    final int index = navBarConfig.items.indexOf(item);
-                    return Flexible(
-                      child: InkWell(
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        radius: navBarConfig.navBarHeight / 2 * 1.125,
-                        onTap: () {
-                          navBarConfig.onItemSelected(index);
-                        },
-                        child: Center(
-                          child: _buildItem(
-                            item,
-                            navBarConfig.selectedIndex == index,
-                          ),
+                ...navBarConfig.items.indexed.map((entry) {
+                  return Flexible(
+                    child: InkWell(
+                      onTap: () => navBarConfig.onItemSelected(entry.$1),
+                      child: Center(
+                        child: _buildItem(
+                          item: entry.$2,
+                          isSelected: navBarConfig.selectedIndex == entry.$1,
                         ),
                       ),
-                    );
-                  })
-                ],
-              ),
+                    ),
+                  );
+                })
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
