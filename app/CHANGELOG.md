@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.36](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.35...app-v1.0.0-alpha.36) (2024-10-21)
+
+
+### 📦️ Build System, Dependencies
+
+* Bump gradle plugin `com.android.application` from 7.3.0 to 7.4.2 ([9699f5d](https://github.com/OpenCleanEnergy/emma/commit/9699f5d7238bd345e8345ec57b104bf03027a65c))
+
 ## [1.0.0-alpha.35](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.34...app-v1.0.0-alpha.35) (2024-10-18)
 
 
