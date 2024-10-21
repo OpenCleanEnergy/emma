@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.38](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.37...server-v1.0.0-alpha.38) (2024-10-21)
+
+
+### 🐛 Bug Fixes
+
+* Fix issue with generated client. ([12d0edd](https://github.com/OpenCleanEnergy/emma/commit/12d0edd24da79bd25ad6f46e0f4432724fc3fc6b))
+
 ## [1.0.0-alpha.37](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.36...server-v1.0.0-alpha.37) (2024-10-02)
 
 
