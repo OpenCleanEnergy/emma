@@ -1,3 +1,11 @@
+[*.props]
+indent_style = space
+indent_size = 2
+
+[*.csproj]
+indent_style = space
+indent_size = 2
+
 [*.cs]
 # CS8019: Unnecessary using directive
 # IDE0005: Remove unnecessary using directives
@@ -11,6 +19,14 @@ dotnet_diagnostic.CS1573.severity = none
 # CA1716: Identifiers should not match keywords
 dotnet_diagnostic.CA1716.severity = suggestion
 
+# Riok.Mapperly
+# RMG012: Source member was not found for target member
+dotnet_diagnostic.RMG012.severity = error
+
+# RMG020: Source member is not mapped to any target member
+dotnet_diagnostic.RMG020.severity = silent
+
+# StyleCop
 # S3267: Loops should be simplified with "LINQ" expressions
 dotnet_diagnostic.S3267.severity = suggestion
 
@@ -125,12 +141,7 @@ dotnet_diagnostic.IDE0010.severity = warning
 # IDE0072: Populate switch expression
 dotnet_diagnostic.IDE0072.severity = warning
 
-# Riok.Mapperly
-# RMG012: Source member was not found for target member
-dotnet_diagnostic.RMG012.severity = error
 
-# RMG020: Source member is not mapped to any target member
-dotnet_diagnostic.RMG020.severity = silent
 
 [*{Request,Query,Command}.cs]
 # S2094: Classes should not be empty
