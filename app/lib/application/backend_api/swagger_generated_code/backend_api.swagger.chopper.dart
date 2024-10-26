@@ -18,6 +18,25 @@ final class _$BackendApi extends BackendApi {
   final Type definitionType = BackendApi;
 
   @override
+  Future<Response<DailyAnalysisDto>> _Analytics_DailyAnalysisQuery({
+    required String? day,
+    required String? timeZoneOffset,
+  }) {
+    final Uri $url = Uri.parse('/v1/analytics/daily');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'Day': day,
+      'TimeZoneOffset': timeZoneOffset,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+    );
+    return client.send<DailyAnalysisDto, DailyAnalysisDto>($request);
+  }
+
+  @override
   Future<Response<List<AddableDevelopmentDeviceDto>>>
       _Development_AddableDevelopmentDevicesQuery(
           {required String? deviceCategory}) {

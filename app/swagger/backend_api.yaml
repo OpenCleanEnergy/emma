@@ -4,6 +4,37 @@ info:
   description: You **MUST** authorize first!
   version: v1
 paths:
+  /v1/analytics/daily:
+    get:
+      tags:
+        - Analytics
+      operationId: Analytics_DailyAnalysisQuery
+      parameters:
+        - name: Day
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: TimeZoneOffset
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-span
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/DailyAnalysisDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyAnalysisDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/DailyAnalysisDto'
   /integrations/development/v1/addable-devices:
     get:
       tags:
@@ -500,6 +531,17 @@ components:
         - Manual
         - Smart
       type: string
+    DailyAnalysisDto:
+      required:
+        - powerHistory
+        - totalEnergy
+      type: object
+      properties:
+        powerHistory:
+          $ref: '#/components/schemas/PowerHistoryDto'
+        totalEnergy:
+          $ref: '#/components/schemas/TotalEnergyDataDto'
+      additionalProperties: false
     DeviceCategory:
       enum:
         - Consumer
@@ -724,6 +766,44 @@ components:
     Percentage:
       type: number
       format: double
+    PowerDataPointDto:
+      required:
+        - power
+        - timestamp
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        power:
+          allOf:
+            - $ref: '#/components/schemas/Watt'
+      additionalProperties: false
+    PowerHistoryDto:
+      required:
+        - consumers
+        - electricityMetersConsume
+        - electricityMetersFeedIn
+        - producers
+      type: object
+      properties:
+        consumers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PowerDataPointDto'
+        producers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PowerDataPointDto'
+        electricityMetersConsume:
+          type: array
+          items:
+            $ref: '#/components/schemas/PowerDataPointDto'
+        electricityMetersFeedIn:
+          type: array
+          items:
+            $ref: '#/components/schemas/PowerDataPointDto'
+      additionalProperties: false
     ProducerDto:
       required:
         - currentPowerProduction
@@ -803,7 +883,27 @@ components:
         - Off
         - On
       type: string
+    TotalEnergyDataDto:
+      required:
+        - totalEnergyProduction
+        - totalGridEnergyConsumption
+        - totalGridEnergyFeedIn
+      type: object
+      properties:
+        totalEnergyProduction:
+          allOf:
+            - $ref: '#/components/schemas/WattHours'
+        totalGridEnergyConsumption:
+          allOf:
+            - $ref: '#/components/schemas/WattHours'
+        totalGridEnergyFeedIn:
+          allOf:
+            - $ref: '#/components/schemas/WattHours'
+      additionalProperties: false
     Watt:
+      type: number
+      format: double
+    WattHours:
       type: number
       format: double
   securitySchemes:

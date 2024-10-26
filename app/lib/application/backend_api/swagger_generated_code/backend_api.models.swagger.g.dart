@@ -107,6 +107,20 @@ Map<String, dynamic> _$ConsumerStatusDtoToJson(ConsumerStatusDto instance) =>
       'maximumPowerConsumption': instance.maximumPowerConsumption.toJson(),
     };
 
+DailyAnalysisDto _$DailyAnalysisDtoFromJson(Map<String, dynamic> json) =>
+    DailyAnalysisDto(
+      powerHistory: PowerHistoryDto.fromJson(
+          json['powerHistory'] as Map<String, dynamic>),
+      totalEnergy: TotalEnergyDataDto.fromJson(
+          json['totalEnergy'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$DailyAnalysisDtoToJson(DailyAnalysisDto instance) =>
+    <String, dynamic>{
+      'powerHistory': instance.powerHistory.toJson(),
+      'totalEnergy': instance.totalEnergy.toJson(),
+    };
+
 DevicesDto _$DevicesDtoFromJson(Map<String, dynamic> json) => DevicesDto(
       switchConsumers: (json['switchConsumers'] as List<dynamic>?)
               ?.map(
@@ -306,6 +320,54 @@ Map<String, dynamic> _$MeDtoToJson(MeDto instance) => <String, dynamic>{
       'claims': instance.claims,
     };
 
+PowerDataPointDto _$PowerDataPointDtoFromJson(Map<String, dynamic> json) =>
+    PowerDataPointDto(
+      timestamp: DateTime.parse(json['timestamp'] as String),
+      power: Watt.fromJson(json['power'] as num),
+    );
+
+Map<String, dynamic> _$PowerDataPointDtoToJson(PowerDataPointDto instance) =>
+    <String, dynamic>{
+      'timestamp': instance.timestamp.toIso8601String(),
+      'power': instance.power.toJson(),
+    };
+
+PowerHistoryDto _$PowerHistoryDtoFromJson(Map<String, dynamic> json) =>
+    PowerHistoryDto(
+      consumers: (json['consumers'] as List<dynamic>?)
+              ?.map(
+                  (e) => PowerDataPointDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      producers: (json['producers'] as List<dynamic>?)
+              ?.map(
+                  (e) => PowerDataPointDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      electricityMetersConsume: (json['electricityMetersConsume']
+                  as List<dynamic>?)
+              ?.map(
+                  (e) => PowerDataPointDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      electricityMetersFeedIn: (json['electricityMetersFeedIn']
+                  as List<dynamic>?)
+              ?.map(
+                  (e) => PowerDataPointDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+
+Map<String, dynamic> _$PowerHistoryDtoToJson(PowerHistoryDto instance) =>
+    <String, dynamic>{
+      'consumers': instance.consumers.map((e) => e.toJson()).toList(),
+      'producers': instance.producers.map((e) => e.toJson()).toList(),
+      'electricityMetersConsume':
+          instance.electricityMetersConsume.map((e) => e.toJson()).toList(),
+      'electricityMetersFeedIn':
+          instance.electricityMetersFeedIn.map((e) => e.toJson()).toList(),
+    };
+
 ProducerDto _$ProducerDtoFromJson(Map<String, dynamic> json) => ProducerDto(
       id: json['id'] as String,
       name: json['name'] as String,
@@ -367,4 +429,22 @@ Map<String, dynamic> _$SwitchConsumerDtoToJson(SwitchConsumerDto instance) =>
       'mode': controlModeToJson(instance.mode),
       'switchStatus': switchStatusToJson(instance.switchStatus),
       'currentPowerConsumption': instance.currentPowerConsumption?.toJson(),
+    };
+
+TotalEnergyDataDto _$TotalEnergyDataDtoFromJson(Map<String, dynamic> json) =>
+    TotalEnergyDataDto(
+      totalEnergyProduction:
+          WattHours.fromJson(json['totalEnergyProduction'] as num),
+      totalGridEnergyConsumption:
+          WattHours.fromJson(json['totalGridEnergyConsumption'] as num),
+      totalGridEnergyFeedIn:
+          WattHours.fromJson(json['totalGridEnergyFeedIn'] as num),
+    );
+
+Map<String, dynamic> _$TotalEnergyDataDtoToJson(TotalEnergyDataDto instance) =>
+    <String, dynamic>{
+      'totalEnergyProduction': instance.totalEnergyProduction.toJson(),
+      'totalGridEnergyConsumption':
+          instance.totalGridEnergyConsumption.toJson(),
+      'totalGridEnergyFeedIn': instance.totalGridEnergyFeedIn.toJson(),
     };
