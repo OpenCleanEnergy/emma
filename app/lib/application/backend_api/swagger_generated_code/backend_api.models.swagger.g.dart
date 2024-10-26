@@ -81,28 +81,30 @@ BatteryStatusDto _$BatteryStatusDtoFromJson(Map<String, dynamic> json) =>
     BatteryStatusDto(
       isAvailable: json['isAvailable'] as bool?,
       chargeStatus: batteryChargeStatusFromJson(json['chargeStatus']),
-      charge: json['charge'] as num,
+      charge: Percentage.fromJson(json['charge'] as num),
     );
 
 Map<String, dynamic> _$BatteryStatusDtoToJson(BatteryStatusDto instance) =>
     <String, dynamic>{
       'isAvailable': instance.isAvailable,
       'chargeStatus': batteryChargeStatusToJson(instance.chargeStatus),
-      'charge': instance.charge,
+      'charge': instance.charge.toJson(),
     };
 
 ConsumerStatusDto _$ConsumerStatusDtoFromJson(Map<String, dynamic> json) =>
     ConsumerStatusDto(
       isAvailable: json['isAvailable'] as bool?,
-      currentPowerConsumption: json['currentPowerConsumption'] as num,
-      maximumPowerConsumption: json['maximumPowerConsumption'] as num,
+      currentPowerConsumption:
+          Watt.fromJson(json['currentPowerConsumption'] as num),
+      maximumPowerConsumption:
+          Watt.fromJson(json['maximumPowerConsumption'] as num),
     );
 
 Map<String, dynamic> _$ConsumerStatusDtoToJson(ConsumerStatusDto instance) =>
     <String, dynamic>{
       'isAvailable': instance.isAvailable,
-      'currentPowerConsumption': instance.currentPowerConsumption,
-      'maximumPowerConsumption': instance.maximumPowerConsumption,
+      'currentPowerConsumption': instance.currentPowerConsumption.toJson(),
+      'maximumPowerConsumption': instance.maximumPowerConsumption.toJson(),
     };
 
 DevicesDto _$DevicesDtoFromJson(Map<String, dynamic> json) => DevicesDto(
@@ -198,9 +200,10 @@ GridStatusDto _$GridStatusDtoFromJson(Map<String, dynamic> json) =>
       isAvailable: json['isAvailable'] as bool?,
       currentPowerDirection:
           gridPowerDirectionFromJson(json['currentPowerDirection']),
-      currentPower: json['currentPower'] as num,
-      maximumPowerConsumption: json['maximumPowerConsumption'] as num,
-      maximumPowerFeedIn: json['maximumPowerFeedIn'] as num,
+      currentPower: Watt.fromJson(json['currentPower'] as num),
+      maximumPowerConsumption:
+          Watt.fromJson(json['maximumPowerConsumption'] as num),
+      maximumPowerFeedIn: Watt.fromJson(json['maximumPowerFeedIn'] as num),
     );
 
 Map<String, dynamic> _$GridStatusDtoToJson(GridStatusDto instance) =>
@@ -208,9 +211,9 @@ Map<String, dynamic> _$GridStatusDtoToJson(GridStatusDto instance) =>
       'isAvailable': instance.isAvailable,
       'currentPowerDirection':
           gridPowerDirectionToJson(instance.currentPowerDirection),
-      'currentPower': instance.currentPower,
-      'maximumPowerConsumption': instance.maximumPowerConsumption,
-      'maximumPowerFeedIn': instance.maximumPowerFeedIn,
+      'currentPower': instance.currentPower.toJson(),
+      'maximumPowerConsumption': instance.maximumPowerConsumption.toJson(),
+      'maximumPowerFeedIn': instance.maximumPowerFeedIn.toJson(),
     };
 
 HealthReportDto _$HealthReportDtoFromJson(Map<String, dynamic> json) =>
@@ -321,15 +324,17 @@ Map<String, dynamic> _$ProducerDtoToJson(ProducerDto instance) =>
 ProducerStatusDto _$ProducerStatusDtoFromJson(Map<String, dynamic> json) =>
     ProducerStatusDto(
       isAvailable: json['isAvailable'] as bool?,
-      currentPowerProduction: json['currentPowerProduction'] as num,
-      maximumPowerProduction: json['maximumPowerProduction'] as num,
+      currentPowerProduction:
+          Watt.fromJson(json['currentPowerProduction'] as num),
+      maximumPowerProduction:
+          Watt.fromJson(json['maximumPowerProduction'] as num),
     );
 
 Map<String, dynamic> _$ProducerStatusDtoToJson(ProducerStatusDto instance) =>
     <String, dynamic>{
       'isAvailable': instance.isAvailable,
-      'currentPowerProduction': instance.currentPowerProduction,
-      'maximumPowerProduction': instance.maximumPowerProduction,
+      'currentPowerProduction': instance.currentPowerProduction.toJson(),
+      'maximumPowerProduction': instance.maximumPowerProduction.toJson(),
     };
 
 ShellyPermissionGrantUriResponse _$ShellyPermissionGrantUriResponseFromJson(

@@ -1,4 +1,4 @@
-import 'package:openems/application/backend_api/value_types.dart';
+import 'package:openems/application/backend_api/value_objects.dart';
 import 'package:openems/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
 import 'package:openems/ui/commands/command.dart';
 import 'package:signals/signals_flutter.dart';

@@ -1,3 +1,4 @@
+import 'package:openems/application/backend_api/value_objects.dart';
 import 'package:openems/ui/analytics/metrics/analytics_circular_percentage_indicator.dart';
 import 'package:openems/ui/analytics/metrics/analytics_metric_card.dart';
 import 'package:openems/ui/icons/app_icons.dart';
@@ -13,8 +14,9 @@ class OwnConsumptionMetricView extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnalyticsMetricCard(
       title: "Eigenverbrauch",
-      subtitle: UnitText.percentage(0.59),
-      leading: AnalyticsCircularPercentageIndicator.small(percentage: 0.59),
+      subtitle: UnitText.percentage(const Percentage(0.59)),
+      leading: AnalyticsCircularPercentageIndicator.small(
+          percentage: const Percentage(0.59)),
       detailsBuilder: _buildDetails,
     );
   }
@@ -25,7 +27,7 @@ class OwnConsumptionMetricView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         AnalyticsCircularPercentageIndicator.detailed(
-          percentage: 0.59,
+          percentage: const Percentage(0.59),
         ),
         Table(
           //border: TableBorder.all(),
@@ -45,7 +47,7 @@ class OwnConsumptionMetricView extends StatelessWidget {
                 const Text("Eigenverbrauch:"),
                 const Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [spacer, UnitText.energy(269400)])
+                    children: [spacer, UnitText.energy(WattHours(269400))])
               ],
             ),
             const TableRow(children: [spacer, spacer, spacer]),
@@ -58,7 +60,7 @@ class OwnConsumptionMetricView extends StatelessWidget {
                 const Text("Einspeisung:"),
                 const Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [spacer, UnitText.energy(180810)])
+                    children: [spacer, UnitText.energy(WattHours(180810))])
               ],
             ),
             const TableRow(children: [Divider(), Divider(), Divider()]),
@@ -67,7 +69,7 @@ class OwnConsumptionMetricView extends StatelessWidget {
               Text("Produktion:"),
               Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [spacer, UnitText.energy(450210)])
+                  children: [spacer, UnitText.energy(WattHours(450210))])
             ]),
           ],
         )

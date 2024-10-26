@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 import 'dart:convert';
 
 import 'backend_api.enums.swagger.dart' as enums;
-import '../value_types.dart';
+import '../value_objects.dart';
 
 part 'backend_api.models.swagger.g.dart';
 
@@ -321,7 +321,7 @@ class BatteryStatusDto {
   )
   final enums.BatteryChargeStatus chargeStatus;
   @JsonKey(name: 'charge')
-  final num charge;
+  final Percentage charge;
   static const fromJsonFactory = _$BatteryStatusDtoFromJson;
 
   @override
@@ -353,7 +353,7 @@ extension $BatteryStatusDtoExtension on BatteryStatusDto {
   BatteryStatusDto copyWith(
       {bool? isAvailable,
       enums.BatteryChargeStatus? chargeStatus,
-      num? charge}) {
+      Percentage? charge}) {
     return BatteryStatusDto(
         isAvailable: isAvailable ?? this.isAvailable,
         chargeStatus: chargeStatus ?? this.chargeStatus,
@@ -363,7 +363,7 @@ extension $BatteryStatusDtoExtension on BatteryStatusDto {
   BatteryStatusDto copyWithWrapped(
       {Wrapped<bool?>? isAvailable,
       Wrapped<enums.BatteryChargeStatus>? chargeStatus,
-      Wrapped<num>? charge}) {
+      Wrapped<Percentage>? charge}) {
     return BatteryStatusDto(
         isAvailable:
             (isAvailable != null ? isAvailable.value : this.isAvailable),
@@ -390,9 +390,9 @@ class ConsumerStatusDto {
   @JsonKey(name: 'isAvailable')
   final bool? isAvailable;
   @JsonKey(name: 'currentPowerConsumption')
-  final num currentPowerConsumption;
+  final Watt currentPowerConsumption;
   @JsonKey(name: 'maximumPowerConsumption')
-  final num maximumPowerConsumption;
+  final Watt maximumPowerConsumption;
   static const fromJsonFactory = _$ConsumerStatusDtoFromJson;
 
   @override
@@ -426,8 +426,8 @@ class ConsumerStatusDto {
 extension $ConsumerStatusDtoExtension on ConsumerStatusDto {
   ConsumerStatusDto copyWith(
       {bool? isAvailable,
-      num? currentPowerConsumption,
-      num? maximumPowerConsumption}) {
+      Watt? currentPowerConsumption,
+      Watt? maximumPowerConsumption}) {
     return ConsumerStatusDto(
         isAvailable: isAvailable ?? this.isAvailable,
         currentPowerConsumption:
@@ -438,8 +438,8 @@ extension $ConsumerStatusDtoExtension on ConsumerStatusDto {
 
   ConsumerStatusDto copyWithWrapped(
       {Wrapped<bool?>? isAvailable,
-      Wrapped<num>? currentPowerConsumption,
-      Wrapped<num>? maximumPowerConsumption}) {
+      Wrapped<Watt>? currentPowerConsumption,
+      Wrapped<Watt>? maximumPowerConsumption}) {
     return ConsumerStatusDto(
         isAvailable:
             (isAvailable != null ? isAvailable.value : this.isAvailable),
@@ -807,11 +807,11 @@ class GridStatusDto {
   )
   final enums.GridPowerDirection currentPowerDirection;
   @JsonKey(name: 'currentPower')
-  final num currentPower;
+  final Watt currentPower;
   @JsonKey(name: 'maximumPowerConsumption')
-  final num maximumPowerConsumption;
+  final Watt maximumPowerConsumption;
   @JsonKey(name: 'maximumPowerFeedIn')
-  final num maximumPowerFeedIn;
+  final Watt maximumPowerFeedIn;
   static const fromJsonFactory = _$GridStatusDtoFromJson;
 
   @override
@@ -853,9 +853,9 @@ extension $GridStatusDtoExtension on GridStatusDto {
   GridStatusDto copyWith(
       {bool? isAvailable,
       enums.GridPowerDirection? currentPowerDirection,
-      num? currentPower,
-      num? maximumPowerConsumption,
-      num? maximumPowerFeedIn}) {
+      Watt? currentPower,
+      Watt? maximumPowerConsumption,
+      Watt? maximumPowerFeedIn}) {
     return GridStatusDto(
         isAvailable: isAvailable ?? this.isAvailable,
         currentPowerDirection:
@@ -869,9 +869,9 @@ extension $GridStatusDtoExtension on GridStatusDto {
   GridStatusDto copyWithWrapped(
       {Wrapped<bool?>? isAvailable,
       Wrapped<enums.GridPowerDirection>? currentPowerDirection,
-      Wrapped<num>? currentPower,
-      Wrapped<num>? maximumPowerConsumption,
-      Wrapped<num>? maximumPowerFeedIn}) {
+      Wrapped<Watt>? currentPower,
+      Wrapped<Watt>? maximumPowerConsumption,
+      Wrapped<Watt>? maximumPowerFeedIn}) {
     return GridStatusDto(
         isAvailable:
             (isAvailable != null ? isAvailable.value : this.isAvailable),
@@ -1389,9 +1389,9 @@ class ProducerStatusDto {
   @JsonKey(name: 'isAvailable')
   final bool? isAvailable;
   @JsonKey(name: 'currentPowerProduction')
-  final num currentPowerProduction;
+  final Watt currentPowerProduction;
   @JsonKey(name: 'maximumPowerProduction')
-  final num maximumPowerProduction;
+  final Watt maximumPowerProduction;
   static const fromJsonFactory = _$ProducerStatusDtoFromJson;
 
   @override
@@ -1423,8 +1423,8 @@ class ProducerStatusDto {
 extension $ProducerStatusDtoExtension on ProducerStatusDto {
   ProducerStatusDto copyWith(
       {bool? isAvailable,
-      num? currentPowerProduction,
-      num? maximumPowerProduction}) {
+      Watt? currentPowerProduction,
+      Watt? maximumPowerProduction}) {
     return ProducerStatusDto(
         isAvailable: isAvailable ?? this.isAvailable,
         currentPowerProduction:
@@ -1435,8 +1435,8 @@ extension $ProducerStatusDtoExtension on ProducerStatusDto {
 
   ProducerStatusDto copyWithWrapped(
       {Wrapped<bool?>? isAvailable,
-      Wrapped<num>? currentPowerProduction,
-      Wrapped<num>? maximumPowerProduction}) {
+      Wrapped<Watt>? currentPowerProduction,
+      Wrapped<Watt>? maximumPowerProduction}) {
     return ProducerStatusDto(
         isAvailable:
             (isAvailable != null ? isAvailable.value : this.isAvailable),

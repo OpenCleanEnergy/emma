@@ -6,8 +6,8 @@ class CircularValueIndicator extends StatelessWidget {
 
   CircularValueIndicator({
     super.key,
-    required double value,
-    double previousValue = 0,
+    required num value,
+    num previousValue = 0,
     double size = _defaultSize,
     double? strokeWidth,
     Widget? child,
@@ -17,15 +17,15 @@ class CircularValueIndicator extends StatelessWidget {
         _strokeWidth = strokeWidth ?? _defaultStrokeWidth / _defaultSize * size,
         _child = child;
 
-  final double _value;
-  final double _previousValue;
+  final num _value;
+  final num _previousValue;
   final double _size;
   final double _strokeWidth;
   final Widget? _child;
 
   late final _tween = Tween<double>(
-    begin: _previousValue,
-    end: _value,
+    begin: _previousValue.toDouble(),
+    end: _value.toDouble(),
   );
 
   @override
