@@ -403,7 +403,8 @@ components:
         integration:
           $ref: '#/components/schemas/IntegrationIdentifier'
         deviceName:
-          $ref: '#/components/schemas/DeviceName'
+          allOf:
+            - $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     AddProducerCommand:
       required:
@@ -414,7 +415,8 @@ components:
         integration:
           $ref: '#/components/schemas/IntegrationIdentifier'
         deviceName:
-          $ref: '#/components/schemas/DeviceName'
+          allOf:
+            - $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     AddSwitchConsumerCommand:
       required:
@@ -425,7 +427,8 @@ components:
         integration:
           $ref: '#/components/schemas/IntegrationIdentifier'
         deviceName:
-          $ref: '#/components/schemas/DeviceName'
+          allOf:
+            - $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     AddableDevelopmentDeviceDto:
       required:
@@ -434,9 +437,11 @@ components:
       type: object
       properties:
         deviceId:
-          $ref: '#/components/schemas/IntegrationDeviceId'
+          allOf:
+            - $ref: '#/components/schemas/IntegrationDeviceId'
         deviceName:
-          $ref: '#/components/schemas/DeviceName'
+          allOf:
+            - $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     AddableShellyDeviceDto:
       required:
@@ -445,9 +450,11 @@ components:
       type: object
       properties:
         deviceId:
-          $ref: '#/components/schemas/IntegrationDeviceId'
+          allOf:
+            - $ref: '#/components/schemas/IntegrationDeviceId'
         deviceName:
-          $ref: '#/components/schemas/DeviceName'
+          allOf:
+            - $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     BatteryChargeStatus:
       enum:
@@ -468,7 +475,8 @@ components:
         chargeStatus:
           $ref: '#/components/schemas/BatteryChargeStatus'
         charge:
-          $ref: '#/components/schemas/Percentage'
+          allOf:
+            - $ref: '#/components/schemas/Percentage'
       additionalProperties: false
     ConsumerStatusDto:
       required:
@@ -481,9 +489,11 @@ components:
           type: boolean
           readOnly: true
         currentPowerConsumption:
-          $ref: '#/components/schemas/Watt'
+          allOf:
+            - $ref: '#/components/schemas/Watt'
         maximumPowerConsumption:
-          $ref: '#/components/schemas/Watt'
+          allOf:
+            - $ref: '#/components/schemas/Watt'
       additionalProperties: false
     ControlMode:
       enum:
@@ -525,9 +535,11 @@ components:
       type: object
       properties:
         electricityMeterId:
-          $ref: '#/components/schemas/ElectricityMeterId'
+          allOf:
+            - $ref: '#/components/schemas/ElectricityMeterId'
         name:
-          $ref: '#/components/schemas/DeviceName'
+          allOf:
+            - $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     EditProducerCommand:
       required:
@@ -536,9 +548,11 @@ components:
       type: object
       properties:
         producerId:
-          $ref: '#/components/schemas/ProducerId'
+          allOf:
+            - $ref: '#/components/schemas/ProducerId'
         name:
-          $ref: '#/components/schemas/DeviceName'
+          allOf:
+            - $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     EditSwitchConsumerCommand:
       required:
@@ -547,9 +561,11 @@ components:
       type: object
       properties:
         switchConsumerId:
-          $ref: '#/components/schemas/SwitchConsumerId'
+          allOf:
+            - $ref: '#/components/schemas/SwitchConsumerId'
         name:
-          $ref: '#/components/schemas/DeviceName'
+          allOf:
+            - $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
     ElectricityMeterDto:
       required:
@@ -560,9 +576,11 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/ElectricityMeterId'
+          allOf:
+            - $ref: '#/components/schemas/ElectricityMeterId'
         name:
-          $ref: '#/components/schemas/DeviceName'
+          allOf:
+            - $ref: '#/components/schemas/DeviceName'
         currentPowerDirection:
           $ref: '#/components/schemas/GridPowerDirection'
         currentPower:
@@ -594,11 +612,14 @@ components:
         currentPowerDirection:
           $ref: '#/components/schemas/GridPowerDirection'
         currentPower:
-          $ref: '#/components/schemas/Watt'
+          allOf:
+            - $ref: '#/components/schemas/Watt'
         maximumPowerConsumption:
-          $ref: '#/components/schemas/Watt'
+          allOf:
+            - $ref: '#/components/schemas/Watt'
         maximumPowerFeedIn:
-          $ref: '#/components/schemas/Watt'
+          allOf:
+            - $ref: '#/components/schemas/Watt'
       additionalProperties: false
     HealthReportDto:
       required:
@@ -648,7 +669,8 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/IntegrationId'
+          allOf:
+            - $ref: '#/components/schemas/IntegrationId'
         name:
           type: string
       additionalProperties: false
@@ -663,9 +685,11 @@ components:
       type: object
       properties:
         integration:
-          $ref: '#/components/schemas/IntegrationId'
+          allOf:
+            - $ref: '#/components/schemas/IntegrationId'
         device:
-          $ref: '#/components/schemas/IntegrationDeviceId'
+          allOf:
+            - $ref: '#/components/schemas/IntegrationDeviceId'
       additionalProperties: false
     ManuallySwitchSwitchConsumerCommand:
       required:
@@ -674,7 +698,8 @@ components:
       type: object
       properties:
         switchConsumerId:
-          $ref: '#/components/schemas/SwitchConsumerId'
+          allOf:
+            - $ref: '#/components/schemas/SwitchConsumerId'
         status:
           $ref: '#/components/schemas/SwitchStatus'
       additionalProperties: false
@@ -707,9 +732,11 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/ProducerId'
+          allOf:
+            - $ref: '#/components/schemas/ProducerId'
         name:
-          $ref: '#/components/schemas/DeviceName'
+          allOf:
+            - $ref: '#/components/schemas/DeviceName'
         currentPowerProduction:
           allOf:
             - $ref: '#/components/schemas/Watt'
@@ -729,9 +756,11 @@ components:
           type: boolean
           readOnly: true
         currentPowerProduction:
-          $ref: '#/components/schemas/Watt'
+          allOf:
+            - $ref: '#/components/schemas/Watt'
         maximumPowerProduction:
-          $ref: '#/components/schemas/Watt'
+          allOf:
+            - $ref: '#/components/schemas/Watt'
       additionalProperties: false
     ShellyPermissionGrantUriResponse:
       required:
@@ -752,9 +781,11 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/SwitchConsumerId'
+          allOf:
+            - $ref: '#/components/schemas/SwitchConsumerId'
         name:
-          $ref: '#/components/schemas/DeviceName'
+          allOf:
+            - $ref: '#/components/schemas/DeviceName'
         mode:
           $ref: '#/components/schemas/ControlMode'
         switchStatus:

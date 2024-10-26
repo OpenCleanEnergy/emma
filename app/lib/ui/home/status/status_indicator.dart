@@ -13,8 +13,8 @@ class StatusIndicator extends StatefulWidget {
   });
 
   final ReadonlySignal<IconData> icon;
-  final ReadonlySignal<double> value;
-  final ReadonlySignal<double>? maxValue;
+  final ReadonlySignal<num> value;
+  final ReadonlySignal<num>? maxValue;
   final String unit;
 
   @override

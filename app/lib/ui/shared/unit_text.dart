@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:openems/application/backend_api/value_types.dart';
+import 'package:openems/application/backend_api/value_objects.dart';
 
 class UnitText extends StatelessWidget {
   const UnitText(this.value, this.unit, {this.color, super.key});
 
-  const UnitText.energy(num wattHours, {this.color, super.key})
+  const UnitText.energy(WattHours wattHours, {this.color, super.key})
       : value = wattHours,
-        unit = "Wh";
+        unit = WattHours.unit;
 
   const UnitText.power(Watt watt, {this.color, super.key})
       : value = watt,
         unit = Watt.unit;
 
-  UnitText.percentage(num percentage, {this.color, super.key})
+  UnitText.percentage(Percentage percentage, {this.color, super.key})
       : value = (percentage * 100).roundToDouble(),
-        unit = "%";
+        unit = Percentage.unit;
 
-  static TextSpan percentageSpan(BuildContext context, num percentage) =>
-      span(context, (percentage * 100).roundToDouble(), "%");
+  static TextSpan percentageSpan(BuildContext context, Percentage percentage) =>
+      span(context, (percentage * 100).roundToDouble(), Percentage.unit);
 
   static TextSpan span(BuildContext context, num value, String unit,
       [Color? color]) {

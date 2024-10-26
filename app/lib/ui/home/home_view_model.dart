@@ -1,4 +1,5 @@
 import 'package:openems/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
+import 'package:openems/application/backend_api/value_objects.dart';
 import 'package:openems/ui/commands/command.dart';
 import 'package:signals/signals.dart';
 
@@ -40,13 +41,13 @@ class HomeViewModel {
 
 class BatteryStatusViewModel {
   final Signal<bool> isAvailable = signal(false);
-  final Signal<double> charge = signal(0.0);
+  final Signal<Percentage> charge = signal(Percentage.zero);
   final Signal<BatteryChargeStatus> chargeStatus =
       signal(BatteryChargeStatus.idle);
 
   void update(BatteryStatusDto dto) {
     isAvailable.value = dto.isAvailable ?? false;
-    charge.value = dto.charge.toDouble();
+    charge.value = dto.charge;
     chargeStatus.value = _normalizeStatus(dto.chargeStatus);
   }
 
@@ -62,39 +63,39 @@ class BatteryStatusViewModel {
 class GridStatusViewModel {
   final isAvailable = signal(false);
   final currentPowerDirection = signal(GridPowerDirection.none);
-  final currentPower = signal(0.0);
-  final maximumPowerConsumption = signal(0.0);
-  final maximumPowerFeedIn = signal(0.0);
+  final currentPower = signal(Watt.zero);
+  final maximumPowerConsumption = signal(Watt.zero);
+  final maximumPowerFeedIn = signal(Watt.zero);
 
   void update(GridStatusDto dto) {
     isAvailable.value = dto.isAvailable ?? false;
     currentPowerDirection.value = dto.currentPowerDirection;
-    currentPower.value = dto.currentPower.toDouble();
-    maximumPowerConsumption.value = dto.maximumPowerConsumption.toDouble();
-    maximumPowerFeedIn.value = dto.maximumPowerFeedIn.toDouble();
+    currentPower.value = dto.currentPower;
+    maximumPowerConsumption.value = dto.maximumPowerConsumption;
+    maximumPowerFeedIn.value = dto.maximumPowerFeedIn;
   }
 }
 
 class ConsumerStatusViewModel {
-  final Signal<bool> isAvailable = signal(false);
-  final Signal<double> currentPowerConsumption = signal(0.0);
-  final Signal<double> maximumPowerConsumption = signal(0.0);
+  final isAvailable = signal(false);
+  final currentPowerConsumption = signal(Watt.zero);
+  final maximumPowerConsumption = signal(Watt.zero);
 
   void update(ConsumerStatusDto dto) {
     isAvailable.value = dto.isAvailable ?? false;
-    currentPowerConsumption.value = dto.currentPowerConsumption.toDouble();
-    maximumPowerConsumption.value = dto.maximumPowerConsumption.toDouble();
+    currentPowerConsumption.value = dto.currentPowerConsumption;
+    maximumPowerConsumption.value = dto.maximumPowerConsumption;
   }
 }
 
 class ProducerStatusViewModel {
-  final Signal<bool> isAvailable = signal(false);
-  final Signal<double> currentPowerProduction = signal(0.0);
-  final Signal<double> maximumPowerProduction = signal(0.0);
+  final isAvailable = signal(false);
+  final currentPowerProduction = signal(Watt.zero);
+  final maximumPowerProduction = signal(Watt.zero);
 
   void update(ProducerStatusDto dto) {
     isAvailable.value = dto.isAvailable ?? false;
-    currentPowerProduction.value = dto.currentPowerProduction.toDouble();
-    maximumPowerProduction.value = dto.maximumPowerProduction.toDouble();
+    currentPowerProduction.value = dto.currentPowerProduction;
+    maximumPowerProduction.value = dto.maximumPowerProduction;
   }
 }

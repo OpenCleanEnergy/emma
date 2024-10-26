@@ -16,6 +16,8 @@ targets:
           use_path_for_request_names: false
           overriden_models:
             - file_name: "backend_api.models"
-              import_url: "../value_types.dart"
+              import_url: "../value_objects.dart"
               overriden_models:
-                - "Watt"
+                - Percentage
+                - Watt
+                - WattHours

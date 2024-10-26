@@ -1,3 +1,4 @@
+import 'package:openems/application/backend_api/value_objects.dart';
 import 'package:openems/ui/shared/circular_value_indicator.dart';
 import 'package:openems/ui/shared/unit_text.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class AnalyticsCircularPercentageIndicator extends StatelessWidget {
   });
 
   factory AnalyticsCircularPercentageIndicator.small(
-      {required double percentage}) {
+      {required Percentage percentage}) {
     return AnalyticsCircularPercentageIndicator._(
       percentage: percentage,
       size: 32,
@@ -19,14 +20,14 @@ class AnalyticsCircularPercentageIndicator extends StatelessWidget {
   }
 
   factory AnalyticsCircularPercentageIndicator.detailed(
-      {required double percentage}) {
+      {required Percentage percentage}) {
     return AnalyticsCircularPercentageIndicator._(
         percentage: percentage,
         size: 64,
         child: UnitText.percentage(percentage));
   }
 
-  final double percentage;
+  final Percentage percentage;
   final double size;
   final Widget? child;
 
