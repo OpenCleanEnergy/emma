@@ -18,12 +18,11 @@ public class DbContextAnalyticsTotalEnergyDataQueryTest
     public async Task Queries_Total_Producer_Production()
     {
         // Arrange
-        var arrangeContext = await TestDbContext.CreateNew();
         var user = UserId.From("user");
         var otherUser = UserId.From("other-user");
 
         var start = DateTimeOffset.UtcNow;
-        var end = start.Add(TimeSpan.FromDays(1));
+        var end = start.AddDays(1);
 
         var samples = new ProducerSample[]
         {
@@ -32,112 +31,113 @@ public class DbContextAnalyticsTotalEnergyDataQueryTest
             new()
             {
                 ProducerId = GetProducerId("producer-1"),
-                CurrentPowerProduction = Watt.Zero,
+                Timestamp = start.AddSeconds(-1),
                 OwnedBy = user,
                 TotalEnergyProduction = WattHours.From(1),
-                Timestamp = start.Subtract(TimeSpan.FromSeconds(1)),
+                CurrentPowerProduction = Watt.Zero,
             },
             // Min value
             new()
             {
                 ProducerId = GetProducerId("producer-1"),
-                CurrentPowerProduction = Watt.Zero,
+                Timestamp = start,
                 OwnedBy = user,
                 TotalEnergyProduction = WattHours.From(2),
-                Timestamp = start,
+                CurrentPowerProduction = Watt.Zero,
             },
             // Max value
             new()
             {
                 ProducerId = GetProducerId("producer-1"),
-                CurrentPowerProduction = Watt.Zero,
+                Timestamp = end,
                 OwnedBy = user,
                 TotalEnergyProduction = WattHours.From(4),
-                Timestamp = end,
+                CurrentPowerProduction = Watt.Zero,
             },
             // After end
             new()
             {
                 ProducerId = GetProducerId("producer-1"),
-                CurrentPowerProduction = Watt.Zero,
+                Timestamp = end.AddSeconds(1),
                 OwnedBy = user,
                 TotalEnergyProduction = WattHours.From(6),
-                Timestamp = end.AddSeconds(1),
+                CurrentPowerProduction = Watt.Zero,
             },
             // Producer 2
             // No value
             new()
             {
                 ProducerId = GetProducerId("producer-2"),
-                CurrentPowerProduction = Watt.Zero,
+                Timestamp = start,
                 OwnedBy = user,
                 TotalEnergyProduction = null,
-                Timestamp = start,
+                CurrentPowerProduction = Watt.Zero,
             },
             // Min value
             new()
             {
                 ProducerId = GetProducerId("producer-2"),
-                CurrentPowerProduction = Watt.Zero,
+                Timestamp = start.AddSeconds(1),
                 OwnedBy = user,
                 TotalEnergyProduction = WattHours.From(3),
-                Timestamp = start.AddSeconds(1),
+                CurrentPowerProduction = Watt.Zero,
             },
             // Max value
             new()
             {
                 ProducerId = GetProducerId("producer-2"),
-                CurrentPowerProduction = Watt.Zero,
+                Timestamp = end.AddSeconds(-1),
                 OwnedBy = user,
                 TotalEnergyProduction = WattHours.From(6),
-                Timestamp = end.AddSeconds(-1),
+                CurrentPowerProduction = Watt.Zero,
             },
             // Producer 3 - no value
             new()
             {
                 ProducerId = GetProducerId("producer-3"),
-                CurrentPowerProduction = Watt.Zero,
+                Timestamp = start,
                 OwnedBy = user,
                 TotalEnergyProduction = null,
-                Timestamp = start,
+                CurrentPowerProduction = Watt.Zero,
             },
             new()
             {
                 ProducerId = GetProducerId("producer-3"),
-                CurrentPowerProduction = Watt.Zero,
+                Timestamp = end,
                 OwnedBy = user,
                 TotalEnergyProduction = null,
-                Timestamp = end,
+                CurrentPowerProduction = Watt.Zero,
             },
             // Producer 4 - other owner
             // Min value
             new()
             {
                 ProducerId = GetProducerId("producer-4"),
-                CurrentPowerProduction = Watt.Zero,
+                Timestamp = start.AddSeconds(1),
                 OwnedBy = otherUser,
                 TotalEnergyProduction = WattHours.From(4),
-                Timestamp = start.AddSeconds(1),
+                CurrentPowerProduction = Watt.Zero,
             },
             // Max value
             new()
             {
                 ProducerId = GetProducerId("producer-4"),
-                CurrentPowerProduction = Watt.Zero,
+                Timestamp = end.AddSeconds(-1),
                 OwnedBy = otherUser,
                 TotalEnergyProduction = WattHours.From(6),
-                Timestamp = end.AddSeconds(-1),
+                CurrentPowerProduction = Watt.Zero,
             },
         };
 
-        arrangeContext.AddRange(samples);
-        await arrangeContext.SaveChangesAsync();
+        using var context = await TestDbContext.CreateNew();
+        context.AddRange(samples);
+        await context.SaveChangesAsync();
 
         _currentUserReader.GetUserIdOrThrow().Returns(user);
 
         // Act
         var query = new DbContextAnalyticsTotalEnergyDataQuery(
-            TestDbContext.FromExisting(arrangeContext, _currentUserReader)
+            TestDbContext.FromExisting(context, _currentUserReader)
         );
 
         var result = await query.QueryTotalEnergyData(start, end);

@@ -4,7 +4,7 @@ using OpenEMS.Domain.Units;
 
 namespace OpenEMS.Analytics.Samples;
 
-public class SwitchConsumerSample : IHasOwner
+public class SwitchConsumerSample : ISample
 {
     public required SwitchConsumerId SwitchConsumerId { get; init; }
     public required DateTimeOffset Timestamp { get; init; }
