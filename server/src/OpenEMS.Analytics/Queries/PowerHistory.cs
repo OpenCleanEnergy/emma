@@ -1,6 +1,6 @@
 namespace OpenEMS.Analytics.Queries;
 
-public class DayData
+public class PowerHistory
 {
     public required IReadOnlyList<PowerDataPoint> Consumers { get; init; }
     public required IReadOnlyList<PowerDataPoint> Producers { get; init; }

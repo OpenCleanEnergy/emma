@@ -11,7 +11,7 @@ using OpenEMS.Infrastructure.Analytics.Queries;
 
 namespace OpenEMS.Infrastructure.Test.Analytics.Queries;
 
-public class DbContextAnalyticsDayDataQueryTest
+public class PostgreSqlAnalyticsPowerHistoryQueryTest
 {
     private const int StrideMinutes = 30;
     private readonly ICurrentUserReader _currentUserReader = Substitute.For<ICurrentUserReader>();
@@ -184,12 +184,12 @@ public class DbContextAnalyticsDayDataQueryTest
 
         _currentUserReader.GetUserIdOrThrow().Returns(_user);
         // Act
-        var query = new DbContextAnalyticsDayDataQuery(
+        var query = new PostgreSqlAnalyticsPowerHistoryQuery(
             TestDbContext.FromExisting(context, _currentUserReader),
             _currentUserReader
         );
 
-        var result = await query.QueryDayData(start, end, TimeSpan.FromMinutes(StrideMinutes));
+        var result = await query.GetPowerHistory(start, end, TimeSpan.FromMinutes(StrideMinutes));
 
         // Assert
         result

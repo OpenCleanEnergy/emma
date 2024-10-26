@@ -9,15 +9,15 @@ using OpenEMS.Infrastructure.Persistence;
 
 namespace OpenEMS.Infrastructure.Analytics.Queries;
 
-public class DbContextAnalyticsDayDataQuery(
+public class PostgreSqlAnalyticsPowerHistoryQuery(
     AppDbContext context,
     ICurrentUserReader currentUserReader
-) : IAnalyticsDayDataQuery
+) : IAnalyticsPowerHistoryQuery
 {
     private readonly AppDbContext _context = context;
     private readonly ICurrentUserReader _currentUserReader = currentUserReader;
 
-    public async Task<DayData> QueryDayData(
+    public async Task<PowerHistory> GetPowerHistory(
         DateTimeOffset start,
         DateTimeOffset end,
         TimeSpan stride
@@ -80,7 +80,7 @@ public class DbContextAnalyticsDayDataQuery(
             }
         );
 
-        return new DayData
+        return new PowerHistory
         {
             Consumers = ToPowerDataPoints(consumers),
             Producers = ToPowerDataPoints(producers),
