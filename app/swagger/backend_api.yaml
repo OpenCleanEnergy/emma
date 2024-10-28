@@ -533,10 +533,14 @@ components:
       type: string
     DailyAnalysisDto:
       required:
+        - day
         - powerHistory
         - totalEnergy
       type: object
       properties:
+        day:
+          type: string
+          format: date
         powerHistory:
           $ref: '#/components/schemas/PowerHistoryDto'
         totalEnergy:

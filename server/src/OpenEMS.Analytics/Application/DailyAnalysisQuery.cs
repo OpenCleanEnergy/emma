@@ -35,6 +35,7 @@ public class DailyAnalysisQuery : IQuery<DailyAnalysisDto>
 
             return new DailyAnalysisDto
             {
+                Day = request.Day,
                 PowerHistory = PowerHistoryDto.From(powerHistory, request.TimeZoneOffset),
                 TotalEnergy = TotalEnergyDataDto.From(totalEnergyData),
             };

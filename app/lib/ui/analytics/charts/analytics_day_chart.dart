@@ -1,9 +1,11 @@
 import 'dart:math' as math;
 
-import 'package:openems/application/analytics/power_data_point_dto.dart';
-import 'package:openems/ui/analytics/analytics_view_model.dart';
+import 'package:openems/application/backend_api/swagger_generated_code/backend_api.models.swagger.dart';
+import 'package:openems/application/backend_api/value_objects.dart';
+import 'package:openems/ui/analytics/analysis_view_model.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_color_scheme.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_colors.dart';
+import 'package:openems/ui/analytics/charts/analytics_chart_control_view_model.dart';
 import 'package:openems/ui/analytics/charts/nice_scale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +16,14 @@ class AnalyticsDayChart extends StatelessWidget {
   static final _minutesFormat = NumberFormat('00');
   static final _hoursFormat = NumberFormat('#0');
 
-  const AnalyticsDayChart({super.key, required this.viewModel});
+  const AnalyticsDayChart({
+    super.key,
+    required this.chartControlViewModel,
+    required this.dailyAnalysisViewModel,
+  });
 
-  final AnalyticsViewModel viewModel;
+  final AnalyticsChartControlViewModel chartControlViewModel;
+  final DailyAnalysisViewModel dailyAnalysisViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +53,15 @@ class AnalyticsDayChart extends StatelessWidget {
   LineChartData mainData(
       TextTheme textTheme, AnalyticsChartColorScheme colorScheme) {
     final maxValue = [
-      if (viewModel.chartControl.showHome.value) ...viewModel.day.value.home,
-      if (viewModel.chartControl.showProduction.value)
-        ...viewModel.day.value.production,
-      if (viewModel.chartControl.showGridConsume.value)
-        ...viewModel.day.value.gridConsume,
-      if (viewModel.chartControl.showGridFeedIn.value)
-        ...viewModel.day.value.gridFeedIn,
-    ].map((x) => x.power).fold(100.0, math.max);
+      if (chartControlViewModel.showHome.value)
+        ...dailyAnalysisViewModel.home.value,
+      if (chartControlViewModel.showProduction.value)
+        ...dailyAnalysisViewModel.production.value,
+      if (chartControlViewModel.showGridConsume.value)
+        ...dailyAnalysisViewModel.gridConsume.value,
+      if (chartControlViewModel.showGridFeedIn.value)
+        ...dailyAnalysisViewModel.gridFeedIn.value,
+    ].map((x) => x.power).fold(const Watt(100.0), math.max);
 
     final niceScale = NiceScale.calculate(
       maxTicks: 10,
@@ -114,20 +122,20 @@ class AnalyticsDayChart extends StatelessWidget {
       ),
       lineBarsData: [
         _getLineChartData(
-            show: viewModel.chartControl.showProduction.value,
-            data: viewModel.day.value.production,
+            show: chartControlViewModel.showProduction.value,
+            data: dailyAnalysisViewModel.production.value,
             color: AnalyticsChartColors.production),
         _getLineChartData(
-            show: viewModel.chartControl.showHome.value,
-            data: viewModel.day.value.home,
+            show: chartControlViewModel.showHome.value,
+            data: dailyAnalysisViewModel.home.value,
             color: AnalyticsChartColors.home),
         _getLineChartData(
-            show: viewModel.chartControl.showGridConsume.value,
-            data: viewModel.day.value.gridConsume,
+            show: chartControlViewModel.showGridConsume.value,
+            data: dailyAnalysisViewModel.gridConsume.value,
             color: AnalyticsChartColors.gridConsumption),
         _getLineChartData(
-            show: viewModel.chartControl.showGridFeedIn.value,
-            data: viewModel.day.value.gridFeedIn,
+            show: chartControlViewModel.showGridFeedIn.value,
+            data: dailyAnalysisViewModel.gridFeedIn.value,
             color: AnalyticsChartColors.gridFeedIn),
       ],
     );
@@ -160,12 +168,12 @@ class AnalyticsDayChart extends StatelessWidget {
     required Iterable<PowerDataPointDto> data,
     required Color color,
   }) {
-    final start = data.isNotEmpty ? data.first.time : DateTime.now();
+    final start = data.isNotEmpty ? data.first.timestamp : DateTime.now();
     var spots = data
         .map(
           (p) => FlSpot(
-            p.time.difference(start).inMinutes.toDouble(),
-            p.power,
+            p.timestamp.difference(start).inMinutes.toDouble(),
+            p.power.toDouble(),
           ),
         )
         .toList();

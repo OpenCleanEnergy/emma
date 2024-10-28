@@ -455,6 +455,7 @@ extension $ConsumerStatusDtoExtension on ConsumerStatusDto {
 @JsonSerializable(explicitToJson: true)
 class DailyAnalysisDto {
   const DailyAnalysisDto({
+    required this.day,
     required this.powerHistory,
     required this.totalEnergy,
   });
@@ -465,6 +466,8 @@ class DailyAnalysisDto {
   static const toJsonFactory = _$DailyAnalysisDtoToJson;
   Map<String, dynamic> toJson() => _$DailyAnalysisDtoToJson(this);
 
+  @JsonKey(name: 'day', toJson: _dateToJson)
+  final DateTime day;
   @JsonKey(name: 'powerHistory')
   final PowerHistoryDto powerHistory;
   @JsonKey(name: 'totalEnergy')
@@ -475,6 +478,8 @@ class DailyAnalysisDto {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other is DailyAnalysisDto &&
+            (identical(other.day, day) ||
+                const DeepCollectionEquality().equals(other.day, day)) &&
             (identical(other.powerHistory, powerHistory) ||
                 const DeepCollectionEquality()
                     .equals(other.powerHistory, powerHistory)) &&
@@ -488,6 +493,7 @@ class DailyAnalysisDto {
 
   @override
   int get hashCode =>
+      const DeepCollectionEquality().hash(day) ^
       const DeepCollectionEquality().hash(powerHistory) ^
       const DeepCollectionEquality().hash(totalEnergy) ^
       runtimeType.hashCode;
@@ -495,16 +501,21 @@ class DailyAnalysisDto {
 
 extension $DailyAnalysisDtoExtension on DailyAnalysisDto {
   DailyAnalysisDto copyWith(
-      {PowerHistoryDto? powerHistory, TotalEnergyDataDto? totalEnergy}) {
+      {DateTime? day,
+      PowerHistoryDto? powerHistory,
+      TotalEnergyDataDto? totalEnergy}) {
     return DailyAnalysisDto(
+        day: day ?? this.day,
         powerHistory: powerHistory ?? this.powerHistory,
         totalEnergy: totalEnergy ?? this.totalEnergy);
   }
 
   DailyAnalysisDto copyWithWrapped(
-      {Wrapped<PowerHistoryDto>? powerHistory,
+      {Wrapped<DateTime>? day,
+      Wrapped<PowerHistoryDto>? powerHistory,
       Wrapped<TotalEnergyDataDto>? totalEnergy}) {
     return DailyAnalysisDto(
+        day: (day != null ? day.value : this.day),
         powerHistory:
             (powerHistory != null ? powerHistory.value : this.powerHistory),
         totalEnergy:

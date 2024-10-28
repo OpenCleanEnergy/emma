@@ -1,10 +1,13 @@
-import 'package:openems/application/analytics/analytics_demo_data.dart';
+import 'package:openems/application/backend_api/backend_api.dart';
+import 'package:openems/ui/analytics/analysis_view_model.dart';
 import 'package:openems/ui/analytics/analytics_period.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_control_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals.dart';
 
 class AnalyticsViewModel {
+  final BackendApi _api;
+
   final _period = signal(
     AnalyticsPeriod.day,
     debugLabel: "analytics.vm.period",
@@ -18,10 +21,25 @@ class AnalyticsViewModel {
     debugLabel: "analytics.vm.range",
   );
 
+  final Signal<AnalysisViewModel> _analysis;
+
+  AnalyticsViewModel({required BackendApi api})
+      : _api = api,
+        _analysis = signal<AnalysisViewModel>(
+          DailyAnalysisViewModel.empty(
+            api: api,
+            start: _today(),
+            end: _today().add(const Duration(days: 1)),
+          ),
+          debugLabel: "analytics.vm.analysis",
+        );
+
   final chartControl = AnalyticsChartControlViewModel();
 
   ReadonlySignal<AnalyticsPeriod> get period => _period;
   ReadonlySignal<DateTimeRange> get range => _range;
+  ReadonlySignal<AnalysisViewModel> get analysis => _analysis;
+
   late final ReadonlySignal<bool> canSetNextRange = computed(
     () {
       final max = _computeDateRange(_period.value, _today());
@@ -30,16 +48,29 @@ class AnalyticsViewModel {
     debugLabel: "analytics.vm.canSetNextRange",
   );
 
-  late final day = computed(() => AnalyticsDemoData.day(_range.value.start));
-
-  void setPeriod(AnalyticsPeriod period) {
+  Future setPeriod(AnalyticsPeriod period) async {
     batch(() {
       _period.value = period;
       _range.value = _computeDateRange(period, _today());
     });
+
+    await Future.delayed(Duration.zero);
+
+    _analysis.value = switch (period) {
+      AnalyticsPeriod.day => DailyAnalysisViewModel.empty(
+          api: _api,
+          start: _range.value.start,
+          end: _range.value.end,
+        ),
+      AnalyticsPeriod.week => ComingSoonAnalysisViewModel(),
+      AnalyticsPeriod.month => ComingSoonAnalysisViewModel(),
+      AnalyticsPeriod.year => ComingSoonAnalysisViewModel(),
+    };
+
+    await _analysis.value.fetch(_range.value);
   }
 
-  void setNextRange() {
+  Future setNextRange() async {
     if (!canSetNextRange.value) {
       return;
     }
@@ -48,17 +79,23 @@ class AnalyticsViewModel {
       _period.value,
       _range.value.end.add(const Duration(days: 1)),
     );
+
+    await _analysis.value.fetch(_range.value);
   }
 
-  void setPreviousRange() {
+  Future setPreviousRange() async {
     _range.value = _computeDateRange(
       _period.value,
       _range.value.start.subtract(const Duration(days: 1)),
     );
+
+    await _analysis.value.fetch(_range.value);
   }
 
   static DateTimeRange _computeDateRange(
-      AnalyticsPeriod period, DateTime seed) {
+    AnalyticsPeriod period,
+    DateTime seed,
+  ) {
     switch (period) {
       case AnalyticsPeriod.day:
         return DateTimeRange(

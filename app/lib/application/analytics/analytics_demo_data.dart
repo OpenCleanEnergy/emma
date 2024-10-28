@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:openems/application/analytics/analytics_day_data_dto.dart';
-import 'package:openems/application/analytics/power_data_point_dto.dart';
+import 'package:openems/application/backend_api/models.dart';
 
 abstract final class AnalyticsDemoData {
   static AnalyticsDayDataDto day(DateTime start) {
@@ -17,15 +17,21 @@ abstract final class AnalyticsDemoData {
     );
 
     final grid = IterableZip([production, consumption])
-        .map((x) => (time: x[0].time, power: x[0].power - x[1].power))
+        .map((x) => (time: x[0].timestamp, power: x[0].power - x[1].power))
         .toList();
 
     final gridConsume = grid
-        .map((x) => PowerDataPointDto(x.time, min(0, x.power).abs().toDouble()))
+        .map((x) => PowerDataPointDto(
+              timestamp: x.time,
+              power: Watt(min(0, x.power).abs().toDouble()),
+            ))
         .toList();
 
     final gridFeedIn = grid
-        .map((x) => PowerDataPointDto(x.time, max(0, x.power).toDouble()))
+        .map((x) => PowerDataPointDto(
+              timestamp: x.time,
+              power: Watt(max(0, x.power).toDouble()),
+            ))
         .toList();
 
     return AnalyticsDayDataDto(
@@ -44,7 +50,10 @@ abstract final class AnalyticsDemoData {
     final scales = [for (var i = 0; i < 12; i++) _getRandomScale(rnd)];
     return data.indexed.map((x) {
       final scale = scales[x.$1 * scales.length ~/ data.length];
-      return PowerDataPointDto(x.$2.time, (x.$2.power * scale).roundToDouble());
+      return PowerDataPointDto(
+        timestamp: x.$2.timestamp,
+        power: Watt((x.$2.power * scale).roundToDouble()),
+      );
     }).toList();
   }
 
@@ -57,7 +66,10 @@ abstract final class AnalyticsDemoData {
 
   static PowerDataPointDto _toDto(
       DateTime start, ({Duration time, double power}) x) {
-    return PowerDataPointDto(start.add(x.time), x.power);
+    return PowerDataPointDto(
+      timestamp: start.add(x.time),
+      power: Watt(x.power),
+    );
   }
 
   static const _kwP = 0.75;

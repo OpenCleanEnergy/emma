@@ -3,6 +3,7 @@ import 'package:openems/ui/analytics/analytics_view_model.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart.dart';
 import 'package:openems/ui/analytics/metrics/analytics_metrics_container.dart';
 import 'package:flutter/material.dart';
+import 'package:openems/ui/locator.dart';
 
 // AutomaticKeepAliveClientMixin to keep alive
 class AnalyticsScreen extends StatefulWidget {
@@ -13,7 +14,13 @@ class AnalyticsScreen extends StatefulWidget {
 }
 
 class _AnalyticsScreenState extends State<AnalyticsScreen> {
-  final _vm = AnalyticsViewModel();
+  late final _vm;
+
+  @override
+  void initState() {
+    super.initState();
+    _vm = locator.get<AnalyticsViewModel>();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -13,6 +13,7 @@ public sealed class DeviceSamplerHostedService(
 ) : IHostedService, IDisposable
 {
     private readonly DeviceSamplerConfiguration _configuration = configuration;
+
     private readonly CancellationTokenSource _cts = new();
     private readonly IScopedServiceFactory<IDeviceSampler> _deviceSamplerFactory =
         deviceSamplerFactory;

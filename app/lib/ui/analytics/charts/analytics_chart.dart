@@ -1,4 +1,4 @@
-import 'package:openems/ui/analytics/analytics_period.dart';
+import 'package:openems/ui/analytics/analysis_view_model.dart';
 import 'package:openems/ui/analytics/analytics_view_model.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_color_scheme.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_container.dart';
@@ -19,9 +19,12 @@ class AnalyticsChart extends StatelessWidget {
       children: [
         AnalyticsChartContainer(
           child: Watch(
-            (context) => switch (viewModel.period.value) {
-              AnalyticsPeriod.day => AnalyticsDayChart(viewModel: viewModel),
-              _ => _ComingSoonChart(),
+            (context) => switch (viewModel.analysis.value) {
+              DailyAnalysisViewModel vm => AnalyticsDayChart(
+                  chartControlViewModel: viewModel.chartControl,
+                  dailyAnalysisViewModel: vm,
+                ),
+              ComingSoonAnalysisViewModel _ => _ComingSoonChart(),
             },
           ),
         ),

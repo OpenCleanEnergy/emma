@@ -27,8 +27,8 @@ public class PostgreSqlAnalyticsPowerHistoryQuery(
         var parameters = new QueryParameters
         {
             User = new NpgsqlParameter("user_id", userId.Value),
-            Start = new NpgsqlParameter("ts_start", start),
-            End = new NpgsqlParameter("ts_end", end + stride),
+            Start = new NpgsqlParameter("ts_start", start.UtcDateTime),
+            End = new NpgsqlParameter("ts_end", (end + stride).UtcDateTime),
             Stride = new NpgsqlParameter("date_bin_stride", stride),
         };
 

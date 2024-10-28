@@ -5,6 +5,7 @@ import 'package:openems/application/backend_api/backend_api_factory.dart';
 import 'package:openems/infrastructure/oidc_configuration.dart';
 import 'package:openems/infrastructure/oidc_user_repository.dart';
 import 'package:openems/infrastructure/window_size_writer.dart';
+import 'package:openems/ui/analytics/analytics_view_model.dart';
 import 'package:openems/ui/home/profile/version_info_view_model.dart';
 import 'package:openems/ui/app_messenger.dart';
 import 'package:openems/ui/commands/command.dart';
@@ -74,4 +75,7 @@ Future<void> bootstrap() async {
 
   // - home
   di.registerFactory(() => HomeViewModel(api: di<BackendApi>()));
+
+  // - analytics
+  di.registerFactory(() => AnalyticsViewModel(api: di<BackendApi>()));
 }

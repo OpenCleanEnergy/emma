@@ -109,6 +109,7 @@ Map<String, dynamic> _$ConsumerStatusDtoToJson(ConsumerStatusDto instance) =>
 
 DailyAnalysisDto _$DailyAnalysisDtoFromJson(Map<String, dynamic> json) =>
     DailyAnalysisDto(
+      day: DateTime.parse(json['day'] as String),
       powerHistory: PowerHistoryDto.fromJson(
           json['powerHistory'] as Map<String, dynamic>),
       totalEnergy: TotalEnergyDataDto.fromJson(
@@ -117,6 +118,7 @@ DailyAnalysisDto _$DailyAnalysisDtoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$DailyAnalysisDtoToJson(DailyAnalysisDto instance) =>
     <String, dynamic>{
+      'day': _dateToJson(instance.day),
       'powerHistory': instance.powerHistory.toJson(),
       'totalEnergy': instance.totalEnergy.toJson(),
     };
