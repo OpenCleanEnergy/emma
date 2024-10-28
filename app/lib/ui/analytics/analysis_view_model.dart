@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:openems/application/analytics/analytics_demo_data.dart';
 import 'package:openems/application/backend_api/backend_api.dart';
 import 'package:openems/application/backend_api/models.dart';
 import 'package:openems/ui/commands/command.dart';
@@ -36,20 +35,20 @@ class DailyAnalysisViewModel implements AnalysisViewModel {
   late final ArgCommand<DateTimeRange> fetch;
 
   Future _fetch(DateTimeRange period) async {
-    await _api.Analytics_DailyAnalysisQuery(
+    final response = await _api.Analytics_DailyAnalysisQuery(
       day: "${period.start.year}-${period.start.month}-${period.start.day}",
       timeZoneOffset: period.start.timeZoneOffset.toString(),
     );
 
-    final demo = AnalyticsDemoData.day(period.start);
+    final dto = response.bodyOrThrow;
 
     batch(() {
       start.value = period.start;
       end.value = period.end;
-      home.value = demo.home;
-      production.value = demo.production;
-      gridConsume.value = demo.gridConsume;
-      gridFeedIn.value = demo.gridFeedIn;
+      home.value = dto.powerHistory.consumers;
+      production.value = dto.powerHistory.producers;
+      gridConsume.value = dto.powerHistory.electricityMetersConsume;
+      gridFeedIn.value = dto.powerHistory.electricityMetersFeedIn;
     });
   }
 }

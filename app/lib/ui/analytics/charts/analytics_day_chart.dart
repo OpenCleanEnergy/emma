@@ -73,6 +73,8 @@ class AnalyticsDayChart extends StatelessWidget {
     return LineChartData(
       minY: niceScale.min,
       maxY: niceScale.max,
+      minX: 0,
+      maxX: 24 * 60,
       gridData: FlGridData(
         show: true,
         drawVerticalLine: false,
@@ -123,18 +125,22 @@ class AnalyticsDayChart extends StatelessWidget {
       lineBarsData: [
         _getLineChartData(
             show: chartControlViewModel.showProduction.value,
+            start: dailyAnalysisViewModel.start.value,
             data: dailyAnalysisViewModel.production.value,
             color: AnalyticsChartColors.production),
         _getLineChartData(
             show: chartControlViewModel.showHome.value,
+            start: dailyAnalysisViewModel.start.value,
             data: dailyAnalysisViewModel.home.value,
             color: AnalyticsChartColors.home),
         _getLineChartData(
             show: chartControlViewModel.showGridConsume.value,
+            start: dailyAnalysisViewModel.start.value,
             data: dailyAnalysisViewModel.gridConsume.value,
             color: AnalyticsChartColors.gridConsumption),
         _getLineChartData(
             show: chartControlViewModel.showGridFeedIn.value,
+            start: dailyAnalysisViewModel.start.value,
             data: dailyAnalysisViewModel.gridFeedIn.value,
             color: AnalyticsChartColors.gridFeedIn),
       ],
@@ -165,10 +171,10 @@ class AnalyticsDayChart extends StatelessWidget {
 
   static LineChartBarData _getLineChartData({
     required bool show,
+    required DateTime start,
     required Iterable<PowerDataPointDto> data,
     required Color color,
   }) {
-    final start = data.isNotEmpty ? data.first.timestamp : DateTime.now();
     var spots = data
         .map(
           (p) => FlSpot(
