@@ -55,14 +55,17 @@ public class PostgreSqlAnalyticsPowerHistoryQuery(
         var electricityMetersConsume = await ExecuteQuery(
             new()
             {
+                Parameters = parameters,
                 TableName = GetTableName<ElectricityMeterSample>(),
                 IdColumn = nameof(ElectricityMeterSample.ElectricityMeterId),
                 PowerColumn = nameof(ElectricityMeterSample.CurrentPower),
-                AdditionalFilter = $"""
-                "{nameof(ElectricityMeterSample.CurrentPowerDirection)}"
-                  IN ('{GridPowerDirection.None}', '{GridPowerDirection.Consume}')
+                PowerSelect = $"""
+                CASE WHEN "{nameof(
+                    ElectricityMeterSample.CurrentPowerDirection
+                )}" = '{GridPowerDirection.Consume}' THEN "{nameof(
+                    ElectricityMeterSample.CurrentPower
+                )}" ELSE 0 END
                 """,
-                Parameters = parameters,
             }
         );
 
@@ -73,9 +76,12 @@ public class PostgreSqlAnalyticsPowerHistoryQuery(
                 TableName = GetTableName<ElectricityMeterSample>(),
                 IdColumn = nameof(ElectricityMeterSample.ElectricityMeterId),
                 PowerColumn = nameof(ElectricityMeterSample.CurrentPower),
-                AdditionalFilter = $"""
-                "{nameof(ElectricityMeterSample.CurrentPowerDirection)}"
-                  IN ('{GridPowerDirection.None}', '{GridPowerDirection.FeedIn}')
+                PowerSelect = $"""
+                CASE WHEN "{nameof(
+                    ElectricityMeterSample.CurrentPowerDirection
+                )}" = '{GridPowerDirection.FeedIn}' THEN "{nameof(
+                    ElectricityMeterSample.CurrentPower
+                )}" ELSE 0 END
                 """,
             }
         );
@@ -116,9 +122,11 @@ public class PostgreSqlAnalyticsPowerHistoryQuery(
             Stride = "@" + args.Parameters.Stride.ParameterName,
         };
 
-        var additionalFilter = !string.IsNullOrWhiteSpace(args.AdditionalFilter)
-            ? $"AND {args.AdditionalFilter}"
-            : null;
+        var power = args.PowerSelect switch
+        {
+            null => $"\"{cols.Power}\"",
+            not null => $"({args.PowerSelect})",
+        };
 
         return $"""
             WITH
@@ -127,14 +135,13 @@ public class PostgreSqlAnalyticsPowerHistoryQuery(
               SELECT
                 "{cols.DeviceId}" AS bin_device_id,
                 date_bin({at.Stride}, "{cols.Timestamp}", {at.Start}) AS bin_timestamp,
-                "{cols.Power}" AS bin_current_power
+                {power} AS bin_current_power
               FROM "{args.TableName}"
               WHERE
                 "{cols.OwnedBy}" = {at.User}
                 AND "{cols.Timestamp}" >= {at.Start}
                 AND "{cols.Timestamp}" <= {at.End}
                 AND "{cols.Power}" IS NOT NULL
-                {additionalFilter}
             ),
             cte_avg AS (
               -- compute average per device and bin
@@ -181,7 +188,7 @@ public class PostgreSqlAnalyticsPowerHistoryQuery(
         public required string TableName { get; init; }
         public required string IdColumn { get; init; }
         public required string PowerColumn { get; init; }
-        public string? AdditionalFilter { get; init; }
+        public string? PowerSelect { get; init; }
         public required QueryParameters Parameters { get; init; }
     }
 
