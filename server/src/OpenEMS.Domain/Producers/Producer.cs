@@ -18,7 +18,7 @@ public class Producer : IHasOwner, IHasEvents
 
     public Watt? CurrentPowerProduction { get; private set; }
     public Watt? MaximumPowerProduction { get; private set; }
-    public TotalEnergy? TotalEnergyProduction { get; private set; } = TotalEnergy.Zero;
+    public TotalEnergy? TotalEnergyProduction { get; private set; }
     public required UserId OwnedBy { get; init; }
 
     public void ReportCurrentPowerProduction(Watt value)
