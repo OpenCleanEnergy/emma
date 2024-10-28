@@ -260,8 +260,6 @@ public static class Bootstrapper
             SerilogLoggerFactory.ConfigureLogger(loggerConfig, configuration, env)
         );
 
-        services.AddSingleton<Serilog.ILogger>(Serilog.Log.Logger);
-
         services.AddSingleton(
             typeof(Application.Shared.Logging.ILogger<>),
             typeof(SerilogLoggerAdapter<>)
