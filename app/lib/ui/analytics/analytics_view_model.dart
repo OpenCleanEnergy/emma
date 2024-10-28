@@ -77,7 +77,7 @@ class AnalyticsViewModel {
 
     _range.value = _computeDateRange(
       _period.value,
-      _range.value.end.add(const Duration(days: 1)),
+      _range.value.end.add(const Duration(hours: 1)),
     );
 
     await _analysis.value.fetch(_range.value);
@@ -86,7 +86,7 @@ class AnalyticsViewModel {
   Future setPreviousRange() async {
     _range.value = _computeDateRange(
       _period.value,
-      _range.value.start.subtract(const Duration(days: 1)),
+      _range.value.start.subtract(const Duration(hours: 1)),
     );
 
     await _analysis.value.fetch(_range.value);
@@ -96,25 +96,32 @@ class AnalyticsViewModel {
     AnalyticsPeriod period,
     DateTime seed,
   ) {
+    final dateOnlySeed = DateTime(seed.year, seed.month, seed.day);
+
     switch (period) {
       case AnalyticsPeriod.day:
         return DateTimeRange(
-          start: seed,
-          end: seed.add(const Duration(days: 1)),
+          start: dateOnlySeed,
+          end: dateOnlySeed.add(const Duration(days: 1)),
         );
       case AnalyticsPeriod.week:
         // Monday = 1
-        final dayOfWeek = seed.weekday;
-        final start = seed.subtract(Duration(days: dayOfWeek - 1));
-        final end = start.add(const Duration(days: 7));
+        final dayOfWeek = dateOnlySeed.weekday;
+        final start = dateOnlySeed.subtract(Duration(days: dayOfWeek - 1));
+        final end = start
+            .add(const Duration(days: 7))
+            .subtract(const Duration(milliseconds: 1));
         return DateTimeRange(start: start, end: end);
       case AnalyticsPeriod.month:
         return DateTimeRange(
-            start: DateTime(seed.year, seed.month),
-            end: DateTime(seed.year, seed.month + 1));
+          start: DateTime(seed.year, seed.month),
+          end: DateTime(seed.year, seed.month + 1),
+        );
       case AnalyticsPeriod.year:
         return DateTimeRange(
-            start: DateTime(seed.year), end: DateTime(seed.year + 1));
+          start: DateTime(seed.year),
+          end: DateTime(seed.year + 1),
+        );
     }
   }
 
