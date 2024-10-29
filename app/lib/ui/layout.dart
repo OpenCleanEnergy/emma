@@ -159,50 +159,54 @@ class _ModifiedStyle4BottomNavBar extends StatelessWidget {
     return DecoratedNavBar(
       decoration: navBarDecoration,
       height: navBarConfig.navBarHeight,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              AnimatedContainer(
-                duration: itemAnimationProperties.duration,
-                curve: itemAnimationProperties.curve,
-                width: paddingLeft,
-                height: 4,
-              ),
-              AnimatedContainer(
-                duration: itemAnimationProperties.duration,
-                curve: itemAnimationProperties.curve,
-                width: indicatorWidth,
-                height: 4,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: navBarConfig.selectedItem.activeForegroundColor,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: Material(
+        type: MaterialType.transparency,
+        child: Column(
+          children: [
+            Row(
               children: [
-                ...navBarConfig.items.indexed.map((entry) {
-                  return Flexible(
-                    child: InkWell(
-                      onTap: () => navBarConfig.onItemSelected(entry.$1),
-                      child: Center(
-                        child: _buildItem(
-                          item: entry.$2,
-                          isSelected: navBarConfig.selectedIndex == entry.$1,
-                        ),
-                      ),
-                    ),
-                  );
-                })
+                AnimatedContainer(
+                  duration: itemAnimationProperties.duration,
+                  curve: itemAnimationProperties.curve,
+                  width: paddingLeft,
+                  height: 4,
+                ),
+                AnimatedContainer(
+                  duration: itemAnimationProperties.duration,
+                  curve: itemAnimationProperties.curve,
+                  width: indicatorWidth,
+                  height: 4,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: navBarConfig.selectedItem.activeForegroundColor,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ...navBarConfig.items.indexed.map((entry) {
+                    return Flexible(
+                      child: InkResponse(
+                        onTap: () => navBarConfig.onItemSelected(entry.$1),
+                        radius: navBarConfig.navBarHeight / 3 * 2,
+                        child: Center(
+                          child: _buildItem(
+                            item: entry.$2,
+                            isSelected: navBarConfig.selectedIndex == entry.$1,
+                          ),
+                        ),
+                      ),
+                    );
+                  })
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
