@@ -60,7 +60,6 @@ class _StatusIndicatorState extends State<StatusIndicator> {
     return Watch(
       (context) => CircularValueIndicator(
         value: _indicatorValue.value,
-        previousValue: _indicatorValue.previousValue ?? 0,
         size: _indicatorSize,
         strokeWidth: 8,
         child: Column(

@@ -13,7 +13,6 @@ class OnOffIndicator extends StatelessWidget {
       flipX: _flipX,
       child: CircularValueIndicator(
         value: status ? 1 : 0,
-        previousValue: status ? 0 : 1,
         size: 24,
         strokeWidth: 4,
       ),
