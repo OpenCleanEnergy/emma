@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.0.0-alpha.38](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.37...server-v1.0.0-alpha.38) (2024-10-30)
+
+
+### 🚀 Features
+
+* **Analytics:** Daily power history analysis and daily, weekly, monthly and annual metrics. ([#249](https://github.com/OpenCleanEnergy/emma/issues/249)) ([269f1c1](https://github.com/OpenCleanEnergy/emma/commit/269f1c1d42ab6779a2601d81bc020be637f9caf8))
+
+
+### 🐛 Bug Fixes
+
+* Do not initialize `Producer.TotalEnergyProduction` with zero but with `null`. ([010e5d3](https://github.com/OpenCleanEnergy/emma/commit/010e5d3cc45017f3113d2564941f58421f19350b))
+* Fix issue with generated client. ([12d0edd](https://github.com/OpenCleanEnergy/emma/commit/12d0edd24da79bd25ad6f46e0f4432724fc3fc6b))
+* Fix logger registration ([0d7a0ee](https://github.com/OpenCleanEnergy/emma/commit/0d7a0eea982810a7b04f2fdc3b780f004d619be3))
+* fix missing pipeline behavior registration ([204d559](https://github.com/OpenCleanEnergy/emma/commit/204d55982dd7690c78303296ab3698419e1e4345))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group across 1 directory with 16 updates ([#240](https://github.com/OpenCleanEnergy/emma/issues/240)) ([248676c](https://github.com/OpenCleanEnergy/emma/commit/248676cd4bc9e43511882382f9547d028919c0be))
+* **deps:** bump the dependencies group in /server with 3 updates ([#247](https://github.com/OpenCleanEnergy/emma/issues/247)) ([bb3d4b2](https://github.com/OpenCleanEnergy/emma/commit/bb3d4b208c513729fada2b787ed9377e516651d6))
+* Use `pwsh` as shell in just for windows ([1d52b1f](https://github.com/OpenCleanEnergy/emma/commit/1d52b1f76c91b877b3508d0068cfa16144f506dd))
+
 ## [1.0.0-alpha.37](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.36...server-v1.0.0-alpha.37) (2024-10-02)
 
 
