@@ -1,5 +1,4 @@
-import 'package:openems/application/backend_api/value_objects.dart';
-import 'package:openems/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
+import 'package:openems/application/backend_api/backend_api.dart';
 import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/meters/edit_electricity_meter_screen.dart';

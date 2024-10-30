@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:openems/application/backend_api/swagger_generated_code/backend_api.swagger.dart';
+import 'package:openems/application/backend_api/backend_api.dart';
 import 'package:openems/ui/commands/command.dart';
 import 'package:openems/ui/devices/consumers/switch_consumer_view_model.dart';
 import 'package:openems/ui/devices/meters/electricity_meter_view_model.dart';

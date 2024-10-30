@@ -1,4 +1,4 @@
-import 'package:openems/application/backend_api/models.dart';
+import 'package:openems/application/backend_api/backend_api.dart';
 import 'package:signals/signals.dart';
 
 sealed class AnalysisViewModel {}

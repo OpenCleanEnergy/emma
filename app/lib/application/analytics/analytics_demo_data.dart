@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:openems/application/analytics/analytics_day_data_dto.dart';
-import 'package:openems/application/backend_api/models.dart';
+import 'package:openems/application/backend_api/backend_api.dart';
 
 abstract final class AnalyticsDemoData {
   static AnalyticsDayDataDto day(DateTime start) {

@@ -1,4 +1,4 @@
-import 'package:openems/application/backend_api/models.dart';
+import 'package:openems/application/backend_api/backend_api.dart';
 import 'package:openems/ui/analytics/metrics/analytics_metric_card.dart';
 import 'package:flutter/material.dart';
 import 'package:openems/ui/analytics/metrics/analytics_circular_percentage_indicator.dart';
