@@ -4,6 +4,7 @@ import 'package:openems/ui/analytics/charts/analytics_chart.dart';
 import 'package:openems/ui/analytics/metrics/analytics_metrics_container.dart';
 import 'package:flutter/material.dart';
 import 'package:openems/ui/locator.dart';
+import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
 
 // AutomaticKeepAliveClientMixin to keep alive
 class AnalyticsScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class AnalyticsScreen extends StatefulWidget {
 }
 
 class _AnalyticsScreenState extends State<AnalyticsScreen> {
-  late final _vm;
+  late final AnalyticsViewModel _vm;
 
   @override
   void initState() {
@@ -30,13 +31,19 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       child: Scaffold(
         appBar: AppBar(
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(56),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 8.0,
-              ),
-              child: AnalyticsRangePicker(viewModel: _vm),
+            preferredSize: const Size.fromHeight(60),
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: AnalyticsRangePicker(viewModel: _vm),
+                ),
+                AppBarCommandProgressIndicator(command: _vm.fetch),
+              ],
             ),
           ),
         ),
