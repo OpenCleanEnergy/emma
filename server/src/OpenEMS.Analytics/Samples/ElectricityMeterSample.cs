@@ -2,9 +2,9 @@ using OpenEMS.Domain;
 using OpenEMS.Domain.Meters;
 using OpenEMS.Domain.Units;
 
-namespace OpenEMS.Analytics;
+namespace OpenEMS.Analytics.Samples;
 
-public class ElectricityMeterSample : IHasOwner
+public class ElectricityMeterSample : ISample
 {
     public required ElectricityMeterId ElectricityMeterId { get; init; }
     public required DateTimeOffset Timestamp { get; init; }

@@ -3,6 +3,7 @@ import 'package:openems/ui/analytics/analytics_view_model.dart';
 import 'package:openems/ui/icons/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:openems/ui/shared/debounce.dart';
 import 'package:signals/signals_flutter.dart';
 
 class AnalyticsRangePicker extends StatefulWidget {
@@ -20,6 +21,7 @@ class AnalyticsRangePicker extends StatefulWidget {
 class _AnalyticsRangePickerState extends State<AnalyticsRangePicker> {
   late final TextEditingController _rangeTextController;
   late final void Function() _disposeRangeTextEffect;
+  late final Debounce _debounceFetch;
 
   AnalyticsViewModel get _vm => widget.viewModel;
 
@@ -32,6 +34,11 @@ class _AnalyticsRangePickerState extends State<AnalyticsRangePicker> {
       () => _rangeTextController.text =
           _getRangeText(_vm.period.value, _vm.range.value),
       debugLabel: "analytics.screen.rangeText",
+    );
+
+    _debounceFetch = Debounce(
+      action: () => _vm.fetch(),
+      delay: const Duration(milliseconds: 300),
     );
 
     super.initState();
@@ -74,8 +81,7 @@ class _AnalyticsRangePickerState extends State<AnalyticsRangePicker> {
                   ],
                   selected: {_vm.period.value},
                   showSelectedIcon: false,
-                  onSelectionChanged: (selection) =>
-                      _vm.setPeriod(selection.first),
+                  onSelectionChanged: _setPeriod,
                 ),
               ),
             ),
@@ -85,7 +91,7 @@ class _AnalyticsRangePickerState extends State<AnalyticsRangePicker> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             IconButton(
-                onPressed: _vm.setPreviousRange,
+                onPressed: _setPreviousRange,
                 icon: const Icon(AppIcons.arrow_prev)),
             Expanded(
               child: TextField(
@@ -96,14 +102,29 @@ class _AnalyticsRangePickerState extends State<AnalyticsRangePicker> {
             ),
             Watch(
               (context) => IconButton(
-                  onPressed:
-                      _vm.canSetNextRange.value ? _vm.setNextRange : null,
-                  icon: const Icon(AppIcons.arrow_next)),
+                onPressed: _vm.canSetNextRange.value ? _setNextRange : null,
+                icon: const Icon(AppIcons.arrow_next),
+              ),
             ),
           ],
         ),
       ],
     );
+  }
+
+  void _setPeriod(Set<AnalyticsPeriod> period) {
+    _vm.setPeriod(period.first);
+    _debounceFetch();
+  }
+
+  void _setPreviousRange() {
+    _vm.setPreviousRange();
+    _debounceFetch();
+  }
+
+  void _setNextRange() {
+    _vm.setNextRange();
+    _debounceFetch();
   }
 
   static String _getRangeText(AnalyticsPeriod period, DateTimeRange range) {

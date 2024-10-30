@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using NSubstitute;
@@ -57,6 +58,9 @@ public sealed class TestDbContext : AppDbContext
             currentUserReader ?? existing._currentUserReader
         );
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
+        optionsBuilder.LogTo(message => Debug.WriteLine(message));
 
     private static async Task<PostgreSqlContainer> CreateStartedContainer()
     {

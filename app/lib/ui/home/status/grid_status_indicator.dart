@@ -1,4 +1,5 @@
 import 'package:openems/application/backend_api/swagger_generated_code/backend_api.enums.swagger.dart';
+import 'package:openems/application/backend_api/value_objects.dart';
 import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/home/home_view_model.dart';
 import 'package:openems/ui/home/status/status_indicator.dart';
@@ -18,8 +19,8 @@ class _GridStatusIndicatorState extends State<GridStatusIndicator> {
   late final _maximumPower = computed(
     () {
       return switch (widget.viewModel.currentPowerDirection.value) {
-        GridPowerDirection.swaggerGeneratedUnknown => 1.0,
-        GridPowerDirection.none => 1.0,
+        GridPowerDirection.swaggerGeneratedUnknown => const Watt(1.0),
+        GridPowerDirection.none => const Watt(1.0),
         GridPowerDirection.consume =>
           widget.viewModel.maximumPowerConsumption.value,
         GridPowerDirection.feedin => widget.viewModel.maximumPowerFeedIn.value,
@@ -40,7 +41,7 @@ class _GridStatusIndicatorState extends State<GridStatusIndicator> {
       icon: signal(AppIcons.power_grid),
       value: widget.viewModel.currentPower,
       maxValue: _maximumPower,
-      unit: "W",
+      unit: Watt.unit,
     );
   }
 }

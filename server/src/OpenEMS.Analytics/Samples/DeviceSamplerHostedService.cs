@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using OpenEMS.Application.Shared.DependencyInjection;
 using OpenEMS.Application.Shared.Logging;
 
-namespace OpenEMS.Analytics;
+namespace OpenEMS.Analytics.Samples;
 
 public sealed class DeviceSamplerHostedService(
     DeviceSamplerConfiguration configuration,
@@ -13,6 +13,7 @@ public sealed class DeviceSamplerHostedService(
 ) : IHostedService, IDisposable
 {
     private readonly DeviceSamplerConfiguration _configuration = configuration;
+
     private readonly CancellationTokenSource _cts = new();
     private readonly IScopedServiceFactory<IDeviceSampler> _deviceSamplerFactory =
         deviceSamplerFactory;

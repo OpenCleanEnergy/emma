@@ -299,6 +299,112 @@ extension $AddableShellyDeviceDtoExtension on AddableShellyDeviceDto {
 }
 
 @JsonSerializable(explicitToJson: true)
+class AnalyticsMetricsDto {
+  const AnalyticsMetricsDto({
+    required this.ownConsumption,
+    required this.selfSufficiency,
+  });
+
+  factory AnalyticsMetricsDto.fromJson(Map<String, dynamic> json) =>
+      _$AnalyticsMetricsDtoFromJson(json);
+
+  static const toJsonFactory = _$AnalyticsMetricsDtoToJson;
+  Map<String, dynamic> toJson() => _$AnalyticsMetricsDtoToJson(this);
+
+  @JsonKey(name: 'ownConsumption')
+  final OwnConsumptionMetricDto ownConsumption;
+  @JsonKey(name: 'selfSufficiency')
+  final SelfSufficiencyMetricDto selfSufficiency;
+  static const fromJsonFactory = _$AnalyticsMetricsDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is AnalyticsMetricsDto &&
+            (identical(other.ownConsumption, ownConsumption) ||
+                const DeepCollectionEquality()
+                    .equals(other.ownConsumption, ownConsumption)) &&
+            (identical(other.selfSufficiency, selfSufficiency) ||
+                const DeepCollectionEquality()
+                    .equals(other.selfSufficiency, selfSufficiency)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(ownConsumption) ^
+      const DeepCollectionEquality().hash(selfSufficiency) ^
+      runtimeType.hashCode;
+}
+
+extension $AnalyticsMetricsDtoExtension on AnalyticsMetricsDto {
+  AnalyticsMetricsDto copyWith(
+      {OwnConsumptionMetricDto? ownConsumption,
+      SelfSufficiencyMetricDto? selfSufficiency}) {
+    return AnalyticsMetricsDto(
+        ownConsumption: ownConsumption ?? this.ownConsumption,
+        selfSufficiency: selfSufficiency ?? this.selfSufficiency);
+  }
+
+  AnalyticsMetricsDto copyWithWrapped(
+      {Wrapped<OwnConsumptionMetricDto>? ownConsumption,
+      Wrapped<SelfSufficiencyMetricDto>? selfSufficiency}) {
+    return AnalyticsMetricsDto(
+        ownConsumption: (ownConsumption != null
+            ? ownConsumption.value
+            : this.ownConsumption),
+        selfSufficiency: (selfSufficiency != null
+            ? selfSufficiency.value
+            : this.selfSufficiency));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class AnnualAnalysisDto {
+  const AnnualAnalysisDto({
+    required this.metrics,
+  });
+
+  factory AnnualAnalysisDto.fromJson(Map<String, dynamic> json) =>
+      _$AnnualAnalysisDtoFromJson(json);
+
+  static const toJsonFactory = _$AnnualAnalysisDtoToJson;
+  Map<String, dynamic> toJson() => _$AnnualAnalysisDtoToJson(this);
+
+  @JsonKey(name: 'metrics')
+  final AnalyticsMetricsDto metrics;
+  static const fromJsonFactory = _$AnnualAnalysisDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is AnnualAnalysisDto &&
+            (identical(other.metrics, metrics) ||
+                const DeepCollectionEquality().equals(other.metrics, metrics)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(metrics) ^ runtimeType.hashCode;
+}
+
+extension $AnnualAnalysisDtoExtension on AnnualAnalysisDto {
+  AnnualAnalysisDto copyWith({AnalyticsMetricsDto? metrics}) {
+    return AnnualAnalysisDto(metrics: metrics ?? this.metrics);
+  }
+
+  AnnualAnalysisDto copyWithWrapped({Wrapped<AnalyticsMetricsDto>? metrics}) {
+    return AnnualAnalysisDto(
+        metrics: (metrics != null ? metrics.value : this.metrics));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class BatteryStatusDto {
   const BatteryStatusDto({
     this.isAvailable,
@@ -449,6 +555,64 @@ extension $ConsumerStatusDtoExtension on ConsumerStatusDto {
         maximumPowerConsumption: (maximumPowerConsumption != null
             ? maximumPowerConsumption.value
             : this.maximumPowerConsumption));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class DailyAnalysisDto {
+  const DailyAnalysisDto({
+    required this.powerHistory,
+    required this.metrics,
+  });
+
+  factory DailyAnalysisDto.fromJson(Map<String, dynamic> json) =>
+      _$DailyAnalysisDtoFromJson(json);
+
+  static const toJsonFactory = _$DailyAnalysisDtoToJson;
+  Map<String, dynamic> toJson() => _$DailyAnalysisDtoToJson(this);
+
+  @JsonKey(name: 'powerHistory')
+  final PowerHistoryDto powerHistory;
+  @JsonKey(name: 'metrics')
+  final AnalyticsMetricsDto metrics;
+  static const fromJsonFactory = _$DailyAnalysisDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is DailyAnalysisDto &&
+            (identical(other.powerHistory, powerHistory) ||
+                const DeepCollectionEquality()
+                    .equals(other.powerHistory, powerHistory)) &&
+            (identical(other.metrics, metrics) ||
+                const DeepCollectionEquality().equals(other.metrics, metrics)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(powerHistory) ^
+      const DeepCollectionEquality().hash(metrics) ^
+      runtimeType.hashCode;
+}
+
+extension $DailyAnalysisDtoExtension on DailyAnalysisDto {
+  DailyAnalysisDto copyWith(
+      {PowerHistoryDto? powerHistory, AnalyticsMetricsDto? metrics}) {
+    return DailyAnalysisDto(
+        powerHistory: powerHistory ?? this.powerHistory,
+        metrics: metrics ?? this.metrics);
+  }
+
+  DailyAnalysisDto copyWithWrapped(
+      {Wrapped<PowerHistoryDto>? powerHistory,
+      Wrapped<AnalyticsMetricsDto>? metrics}) {
+    return DailyAnalysisDto(
+        powerHistory:
+            (powerHistory != null ? powerHistory.value : this.powerHistory),
+        metrics: (metrics != null ? metrics.value : this.metrics));
   }
 }
 
@@ -1304,6 +1468,277 @@ extension $MeDtoExtension on MeDto {
 }
 
 @JsonSerializable(explicitToJson: true)
+class MonthlyAnalysisDto {
+  const MonthlyAnalysisDto({
+    required this.metrics,
+  });
+
+  factory MonthlyAnalysisDto.fromJson(Map<String, dynamic> json) =>
+      _$MonthlyAnalysisDtoFromJson(json);
+
+  static const toJsonFactory = _$MonthlyAnalysisDtoToJson;
+  Map<String, dynamic> toJson() => _$MonthlyAnalysisDtoToJson(this);
+
+  @JsonKey(name: 'metrics')
+  final AnalyticsMetricsDto metrics;
+  static const fromJsonFactory = _$MonthlyAnalysisDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is MonthlyAnalysisDto &&
+            (identical(other.metrics, metrics) ||
+                const DeepCollectionEquality().equals(other.metrics, metrics)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(metrics) ^ runtimeType.hashCode;
+}
+
+extension $MonthlyAnalysisDtoExtension on MonthlyAnalysisDto {
+  MonthlyAnalysisDto copyWith({AnalyticsMetricsDto? metrics}) {
+    return MonthlyAnalysisDto(metrics: metrics ?? this.metrics);
+  }
+
+  MonthlyAnalysisDto copyWithWrapped({Wrapped<AnalyticsMetricsDto>? metrics}) {
+    return MonthlyAnalysisDto(
+        metrics: (metrics != null ? metrics.value : this.metrics));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class OwnConsumptionMetricDto {
+  const OwnConsumptionMetricDto({
+    required this.percentage,
+    required this.ownConsumption,
+    required this.gridFeedIn,
+    required this.production,
+  });
+
+  factory OwnConsumptionMetricDto.fromJson(Map<String, dynamic> json) =>
+      _$OwnConsumptionMetricDtoFromJson(json);
+
+  static const toJsonFactory = _$OwnConsumptionMetricDtoToJson;
+  Map<String, dynamic> toJson() => _$OwnConsumptionMetricDtoToJson(this);
+
+  @JsonKey(name: 'percentage')
+  final Percentage percentage;
+  @JsonKey(name: 'ownConsumption')
+  final WattHours ownConsumption;
+  @JsonKey(name: 'gridFeedIn')
+  final WattHours gridFeedIn;
+  @JsonKey(name: 'production')
+  final WattHours production;
+  static const fromJsonFactory = _$OwnConsumptionMetricDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is OwnConsumptionMetricDto &&
+            (identical(other.percentage, percentage) ||
+                const DeepCollectionEquality()
+                    .equals(other.percentage, percentage)) &&
+            (identical(other.ownConsumption, ownConsumption) ||
+                const DeepCollectionEquality()
+                    .equals(other.ownConsumption, ownConsumption)) &&
+            (identical(other.gridFeedIn, gridFeedIn) ||
+                const DeepCollectionEquality()
+                    .equals(other.gridFeedIn, gridFeedIn)) &&
+            (identical(other.production, production) ||
+                const DeepCollectionEquality()
+                    .equals(other.production, production)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(percentage) ^
+      const DeepCollectionEquality().hash(ownConsumption) ^
+      const DeepCollectionEquality().hash(gridFeedIn) ^
+      const DeepCollectionEquality().hash(production) ^
+      runtimeType.hashCode;
+}
+
+extension $OwnConsumptionMetricDtoExtension on OwnConsumptionMetricDto {
+  OwnConsumptionMetricDto copyWith(
+      {Percentage? percentage,
+      WattHours? ownConsumption,
+      WattHours? gridFeedIn,
+      WattHours? production}) {
+    return OwnConsumptionMetricDto(
+        percentage: percentage ?? this.percentage,
+        ownConsumption: ownConsumption ?? this.ownConsumption,
+        gridFeedIn: gridFeedIn ?? this.gridFeedIn,
+        production: production ?? this.production);
+  }
+
+  OwnConsumptionMetricDto copyWithWrapped(
+      {Wrapped<Percentage>? percentage,
+      Wrapped<WattHours>? ownConsumption,
+      Wrapped<WattHours>? gridFeedIn,
+      Wrapped<WattHours>? production}) {
+    return OwnConsumptionMetricDto(
+        percentage: (percentage != null ? percentage.value : this.percentage),
+        ownConsumption: (ownConsumption != null
+            ? ownConsumption.value
+            : this.ownConsumption),
+        gridFeedIn: (gridFeedIn != null ? gridFeedIn.value : this.gridFeedIn),
+        production: (production != null ? production.value : this.production));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class PowerDataPointDto {
+  const PowerDataPointDto({
+    required this.timestamp,
+    required this.power,
+  });
+
+  factory PowerDataPointDto.fromJson(Map<String, dynamic> json) =>
+      _$PowerDataPointDtoFromJson(json);
+
+  static const toJsonFactory = _$PowerDataPointDtoToJson;
+  Map<String, dynamic> toJson() => _$PowerDataPointDtoToJson(this);
+
+  @JsonKey(name: 'timestamp')
+  final DateTime timestamp;
+  @JsonKey(name: 'power')
+  final Watt power;
+  static const fromJsonFactory = _$PowerDataPointDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is PowerDataPointDto &&
+            (identical(other.timestamp, timestamp) ||
+                const DeepCollectionEquality()
+                    .equals(other.timestamp, timestamp)) &&
+            (identical(other.power, power) ||
+                const DeepCollectionEquality().equals(other.power, power)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(timestamp) ^
+      const DeepCollectionEquality().hash(power) ^
+      runtimeType.hashCode;
+}
+
+extension $PowerDataPointDtoExtension on PowerDataPointDto {
+  PowerDataPointDto copyWith({DateTime? timestamp, Watt? power}) {
+    return PowerDataPointDto(
+        timestamp: timestamp ?? this.timestamp, power: power ?? this.power);
+  }
+
+  PowerDataPointDto copyWithWrapped(
+      {Wrapped<DateTime>? timestamp, Wrapped<Watt>? power}) {
+    return PowerDataPointDto(
+        timestamp: (timestamp != null ? timestamp.value : this.timestamp),
+        power: (power != null ? power.value : this.power));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class PowerHistoryDto {
+  const PowerHistoryDto({
+    required this.consumers,
+    required this.producers,
+    required this.electricityMetersConsume,
+    required this.electricityMetersFeedIn,
+  });
+
+  factory PowerHistoryDto.fromJson(Map<String, dynamic> json) =>
+      _$PowerHistoryDtoFromJson(json);
+
+  static const toJsonFactory = _$PowerHistoryDtoToJson;
+  Map<String, dynamic> toJson() => _$PowerHistoryDtoToJson(this);
+
+  @JsonKey(name: 'consumers', defaultValue: <PowerDataPointDto>[])
+  final List<PowerDataPointDto> consumers;
+  @JsonKey(name: 'producers', defaultValue: <PowerDataPointDto>[])
+  final List<PowerDataPointDto> producers;
+  @JsonKey(
+      name: 'electricityMetersConsume', defaultValue: <PowerDataPointDto>[])
+  final List<PowerDataPointDto> electricityMetersConsume;
+  @JsonKey(name: 'electricityMetersFeedIn', defaultValue: <PowerDataPointDto>[])
+  final List<PowerDataPointDto> electricityMetersFeedIn;
+  static const fromJsonFactory = _$PowerHistoryDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is PowerHistoryDto &&
+            (identical(other.consumers, consumers) ||
+                const DeepCollectionEquality()
+                    .equals(other.consumers, consumers)) &&
+            (identical(other.producers, producers) ||
+                const DeepCollectionEquality()
+                    .equals(other.producers, producers)) &&
+            (identical(
+                    other.electricityMetersConsume, electricityMetersConsume) ||
+                const DeepCollectionEquality().equals(
+                    other.electricityMetersConsume,
+                    electricityMetersConsume)) &&
+            (identical(
+                    other.electricityMetersFeedIn, electricityMetersFeedIn) ||
+                const DeepCollectionEquality().equals(
+                    other.electricityMetersFeedIn, electricityMetersFeedIn)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(consumers) ^
+      const DeepCollectionEquality().hash(producers) ^
+      const DeepCollectionEquality().hash(electricityMetersConsume) ^
+      const DeepCollectionEquality().hash(electricityMetersFeedIn) ^
+      runtimeType.hashCode;
+}
+
+extension $PowerHistoryDtoExtension on PowerHistoryDto {
+  PowerHistoryDto copyWith(
+      {List<PowerDataPointDto>? consumers,
+      List<PowerDataPointDto>? producers,
+      List<PowerDataPointDto>? electricityMetersConsume,
+      List<PowerDataPointDto>? electricityMetersFeedIn}) {
+    return PowerHistoryDto(
+        consumers: consumers ?? this.consumers,
+        producers: producers ?? this.producers,
+        electricityMetersConsume:
+            electricityMetersConsume ?? this.electricityMetersConsume,
+        electricityMetersFeedIn:
+            electricityMetersFeedIn ?? this.electricityMetersFeedIn);
+  }
+
+  PowerHistoryDto copyWithWrapped(
+      {Wrapped<List<PowerDataPointDto>>? consumers,
+      Wrapped<List<PowerDataPointDto>>? producers,
+      Wrapped<List<PowerDataPointDto>>? electricityMetersConsume,
+      Wrapped<List<PowerDataPointDto>>? electricityMetersFeedIn}) {
+    return PowerHistoryDto(
+        consumers: (consumers != null ? consumers.value : this.consumers),
+        producers: (producers != null ? producers.value : this.producers),
+        electricityMetersConsume: (electricityMetersConsume != null
+            ? electricityMetersConsume.value
+            : this.electricityMetersConsume),
+        electricityMetersFeedIn: (electricityMetersFeedIn != null
+            ? electricityMetersFeedIn.value
+            : this.electricityMetersFeedIn));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class ProducerDto {
   const ProducerDto({
     required this.id,
@@ -1446,6 +1881,93 @@ extension $ProducerStatusDtoExtension on ProducerStatusDto {
         maximumPowerProduction: (maximumPowerProduction != null
             ? maximumPowerProduction.value
             : this.maximumPowerProduction));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class SelfSufficiencyMetricDto {
+  const SelfSufficiencyMetricDto({
+    required this.percentage,
+    required this.ownConsumption,
+    required this.gridConsumption,
+    required this.totalConsumption,
+  });
+
+  factory SelfSufficiencyMetricDto.fromJson(Map<String, dynamic> json) =>
+      _$SelfSufficiencyMetricDtoFromJson(json);
+
+  static const toJsonFactory = _$SelfSufficiencyMetricDtoToJson;
+  Map<String, dynamic> toJson() => _$SelfSufficiencyMetricDtoToJson(this);
+
+  @JsonKey(name: 'percentage')
+  final Percentage percentage;
+  @JsonKey(name: 'ownConsumption')
+  final WattHours ownConsumption;
+  @JsonKey(name: 'gridConsumption')
+  final WattHours gridConsumption;
+  @JsonKey(name: 'totalConsumption')
+  final WattHours totalConsumption;
+  static const fromJsonFactory = _$SelfSufficiencyMetricDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is SelfSufficiencyMetricDto &&
+            (identical(other.percentage, percentage) ||
+                const DeepCollectionEquality()
+                    .equals(other.percentage, percentage)) &&
+            (identical(other.ownConsumption, ownConsumption) ||
+                const DeepCollectionEquality()
+                    .equals(other.ownConsumption, ownConsumption)) &&
+            (identical(other.gridConsumption, gridConsumption) ||
+                const DeepCollectionEquality()
+                    .equals(other.gridConsumption, gridConsumption)) &&
+            (identical(other.totalConsumption, totalConsumption) ||
+                const DeepCollectionEquality()
+                    .equals(other.totalConsumption, totalConsumption)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(percentage) ^
+      const DeepCollectionEquality().hash(ownConsumption) ^
+      const DeepCollectionEquality().hash(gridConsumption) ^
+      const DeepCollectionEquality().hash(totalConsumption) ^
+      runtimeType.hashCode;
+}
+
+extension $SelfSufficiencyMetricDtoExtension on SelfSufficiencyMetricDto {
+  SelfSufficiencyMetricDto copyWith(
+      {Percentage? percentage,
+      WattHours? ownConsumption,
+      WattHours? gridConsumption,
+      WattHours? totalConsumption}) {
+    return SelfSufficiencyMetricDto(
+        percentage: percentage ?? this.percentage,
+        ownConsumption: ownConsumption ?? this.ownConsumption,
+        gridConsumption: gridConsumption ?? this.gridConsumption,
+        totalConsumption: totalConsumption ?? this.totalConsumption);
+  }
+
+  SelfSufficiencyMetricDto copyWithWrapped(
+      {Wrapped<Percentage>? percentage,
+      Wrapped<WattHours>? ownConsumption,
+      Wrapped<WattHours>? gridConsumption,
+      Wrapped<WattHours>? totalConsumption}) {
+    return SelfSufficiencyMetricDto(
+        percentage: (percentage != null ? percentage.value : this.percentage),
+        ownConsumption: (ownConsumption != null
+            ? ownConsumption.value
+            : this.ownConsumption),
+        gridConsumption: (gridConsumption != null
+            ? gridConsumption.value
+            : this.gridConsumption),
+        totalConsumption: (totalConsumption != null
+            ? totalConsumption.value
+            : this.totalConsumption));
   }
 }
 
@@ -1594,6 +2116,49 @@ extension $SwitchConsumerDtoExtension on SwitchConsumerDto {
         currentPowerConsumption: (currentPowerConsumption != null
             ? currentPowerConsumption.value
             : this.currentPowerConsumption));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class WeeklyAnalysisDto {
+  const WeeklyAnalysisDto({
+    required this.metrics,
+  });
+
+  factory WeeklyAnalysisDto.fromJson(Map<String, dynamic> json) =>
+      _$WeeklyAnalysisDtoFromJson(json);
+
+  static const toJsonFactory = _$WeeklyAnalysisDtoToJson;
+  Map<String, dynamic> toJson() => _$WeeklyAnalysisDtoToJson(this);
+
+  @JsonKey(name: 'metrics')
+  final AnalyticsMetricsDto metrics;
+  static const fromJsonFactory = _$WeeklyAnalysisDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is WeeklyAnalysisDto &&
+            (identical(other.metrics, metrics) ||
+                const DeepCollectionEquality().equals(other.metrics, metrics)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(metrics) ^ runtimeType.hashCode;
+}
+
+extension $WeeklyAnalysisDtoExtension on WeeklyAnalysisDto {
+  WeeklyAnalysisDto copyWith({AnalyticsMetricsDto? metrics}) {
+    return WeeklyAnalysisDto(metrics: metrics ?? this.metrics);
+  }
+
+  WeeklyAnalysisDto copyWithWrapped({Wrapped<AnalyticsMetricsDto>? metrics}) {
+    return WeeklyAnalysisDto(
+        metrics: (metrics != null ? metrics.value : this.metrics));
   }
 }
 

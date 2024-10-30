@@ -9,7 +9,9 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using OpenEMS.Analytics;
+using OpenEMS.Analytics.Application;
+using OpenEMS.Analytics.Queries;
+using OpenEMS.Analytics.Samples;
 using OpenEMS.Application.Integrations;
 using OpenEMS.Application.Shared;
 using OpenEMS.Application.Shared.DependencyInjection;
@@ -19,7 +21,8 @@ using OpenEMS.Domain.Consumers;
 using OpenEMS.Domain.Meters;
 using OpenEMS.Domain.Producers;
 using OpenEMS.Infrastructure;
-using OpenEMS.Infrastructure.Analytics;
+using OpenEMS.Infrastructure.Analytics.Queries;
+using OpenEMS.Infrastructure.Analytics.Samples;
 using OpenEMS.Infrastructure.Devices.Consumers;
 using OpenEMS.Infrastructure.Devices.Meters;
 using OpenEMS.Infrastructure.Devices.Producers;
@@ -54,6 +57,7 @@ public static class Bootstrapper
     private static readonly Assembly[] _assemblies =
     [
         typeof(IntegrationsQuery).Assembly,
+        typeof(DailyAnalysisQuery).Assembly,
         // Integrations
         typeof(ShellyIntegrationDescriptor).Assembly,
         typeof(DevelopmentIntegrationDescriptor).Assembly,
@@ -358,6 +362,12 @@ public static class Bootstrapper
                 .As<IDbContextDeviceSamplingSqlFactory>()
                 .WithTransientLifetime()
         );
+
+        container.AddTransient<IAnalyticsPowerHistoryQuery, PostgreSqlAnalyticsPowerHistoryQuery>();
+        container.AddTransient<
+            IAnalyticsTotalEnergyDataQuery,
+            DbContextAnalyticsTotalEnergyDataQuery
+        >();
     }
 
     private static void AddIntegrations(IServiceCollection container, AppSettings appSettings)

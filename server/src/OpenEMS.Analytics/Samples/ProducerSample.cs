@@ -2,9 +2,9 @@ using OpenEMS.Domain;
 using OpenEMS.Domain.Producers;
 using OpenEMS.Domain.Units;
 
-namespace OpenEMS.Analytics;
+namespace OpenEMS.Analytics.Samples;
 
-public class ProducerSample : IHasOwner
+public class ProducerSample : ISample
 {
     public required ProducerId ProducerId { get; init; }
     public required DateTimeOffset Timestamp { get; init; }

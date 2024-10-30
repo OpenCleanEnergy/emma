@@ -1,9 +1,9 @@
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using OpenEMS.Analytics;
+using OpenEMS.Analytics.Samples;
 using OpenEMS.Infrastructure.Persistence;
 
-namespace OpenEMS.Infrastructure.Analytics;
+namespace OpenEMS.Infrastructure.Analytics.Samples;
 
 public class DbContextDeviceSampler(
     AppDbContext context,

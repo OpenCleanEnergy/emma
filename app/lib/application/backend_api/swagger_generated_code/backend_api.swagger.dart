@@ -44,6 +44,121 @@ abstract class BackendApi extends ChopperService {
   }
 
   ///
+  ///@param Year
+  ///@param Month
+  ///@param Day
+  ///@param TimeZoneOffset
+  Future<chopper.Response<DailyAnalysisDto>> Analytics_DailyAnalysisQuery({
+    required int? year,
+    required int? month,
+    required int? day,
+    required String? timeZoneOffset,
+  }) {
+    generatedMapping.putIfAbsent(
+        DailyAnalysisDto, () => DailyAnalysisDto.fromJsonFactory);
+
+    return _Analytics_DailyAnalysisQuery(
+        year: year, month: month, day: day, timeZoneOffset: timeZoneOffset);
+  }
+
+  ///
+  ///@param Year
+  ///@param Month
+  ///@param Day
+  ///@param TimeZoneOffset
+  @Get(path: '/v1/analytics/daily')
+  Future<chopper.Response<DailyAnalysisDto>> _Analytics_DailyAnalysisQuery({
+    @Query('Year') required int? year,
+    @Query('Month') required int? month,
+    @Query('Day') required int? day,
+    @Query('TimeZoneOffset') required String? timeZoneOffset,
+  });
+
+  ///
+  ///@param Year
+  ///@param Month
+  ///@param FirstDayOfWeek
+  ///@param TimeZoneOffset
+  Future<chopper.Response<WeeklyAnalysisDto>> Analytics_WeeklyAnalysisQuery({
+    required int? year,
+    required int? month,
+    required int? firstDayOfWeek,
+    required String? timeZoneOffset,
+  }) {
+    generatedMapping.putIfAbsent(
+        WeeklyAnalysisDto, () => WeeklyAnalysisDto.fromJsonFactory);
+
+    return _Analytics_WeeklyAnalysisQuery(
+        year: year,
+        month: month,
+        firstDayOfWeek: firstDayOfWeek,
+        timeZoneOffset: timeZoneOffset);
+  }
+
+  ///
+  ///@param Year
+  ///@param Month
+  ///@param FirstDayOfWeek
+  ///@param TimeZoneOffset
+  @Get(path: '/v1/analytics/weekly')
+  Future<chopper.Response<WeeklyAnalysisDto>> _Analytics_WeeklyAnalysisQuery({
+    @Query('Year') required int? year,
+    @Query('Month') required int? month,
+    @Query('FirstDayOfWeek') required int? firstDayOfWeek,
+    @Query('TimeZoneOffset') required String? timeZoneOffset,
+  });
+
+  ///
+  ///@param Year
+  ///@param Month
+  ///@param TimeZoneOffset
+  Future<chopper.Response<MonthlyAnalysisDto>> Analytics_MonthlyAnalysisQuery({
+    required int? year,
+    required int? month,
+    required String? timeZoneOffset,
+  }) {
+    generatedMapping.putIfAbsent(
+        MonthlyAnalysisDto, () => MonthlyAnalysisDto.fromJsonFactory);
+
+    return _Analytics_MonthlyAnalysisQuery(
+        year: year, month: month, timeZoneOffset: timeZoneOffset);
+  }
+
+  ///
+  ///@param Year
+  ///@param Month
+  ///@param TimeZoneOffset
+  @Get(path: '/v1/analytics/monthly')
+  Future<chopper.Response<MonthlyAnalysisDto>> _Analytics_MonthlyAnalysisQuery({
+    @Query('Year') required int? year,
+    @Query('Month') required int? month,
+    @Query('TimeZoneOffset') required String? timeZoneOffset,
+  });
+
+  ///
+  ///@param Year
+  ///@param TimeZoneOffset
+  Future<chopper.Response<AnnualAnalysisDto>> Analytics_AnnualAnalysisQuery({
+    required int? year,
+    required String? timeZoneOffset,
+  }) {
+    generatedMapping.putIfAbsent(
+        AnnualAnalysisDto, () => AnnualAnalysisDto.fromJsonFactory);
+
+    return _Analytics_AnnualAnalysisQuery(
+        year: year, timeZoneOffset: timeZoneOffset);
+  }
+
+  ///
+  ///@param Year
+  ///@param TimeZoneOffset
+  @Get(path: '/v1/analytics/annual')
+  Future<chopper.Response<AnnualAnalysisDto>> _Analytics_AnnualAnalysisQuery({
+    @Query('Year') required int? year,
+    @Query('TimeZoneOffset') required String? timeZoneOffset,
+  });
+
+  ///
   ///@param DeviceCategory
   Future<chopper.Response<List<AddableDevelopmentDeviceDto>>>
       Development_AddableDevelopmentDevicesQuery(

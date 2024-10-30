@@ -11,8 +11,8 @@ class NiceScale {
 
   factory NiceScale.calculate({
     required int maxTicks,
-    required double min,
-    required double max,
+    required num min,
+    required num max,
   }) {
     final range = _niceNum(max - min, _NiceNumMethod.ceil);
     final tickInterval = _niceNum(range / (maxTicks - 1), _NiceNumMethod.round);
@@ -26,7 +26,7 @@ class NiceScale {
     );
   }
 
-  static double _niceNum(double range, _NiceNumMethod method) {
+  static double _niceNum(num range, _NiceNumMethod method) {
     final exponent = _log10(range).floor();
     final fraction = range / math.pow(10, exponent);
 
@@ -61,7 +61,7 @@ class NiceScale {
     return niceFraction * math.pow(10, exponent);
   }
 
-  static double _log10(double x) => math.log(x) / math.ln10;
+  static double _log10(num x) => math.log(x) / math.ln10;
 }
 
 enum _NiceNumMethod {

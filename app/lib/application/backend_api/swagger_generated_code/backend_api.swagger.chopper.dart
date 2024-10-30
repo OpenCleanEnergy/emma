@@ -18,6 +18,92 @@ final class _$BackendApi extends BackendApi {
   final Type definitionType = BackendApi;
 
   @override
+  Future<Response<DailyAnalysisDto>> _Analytics_DailyAnalysisQuery({
+    required int? year,
+    required int? month,
+    required int? day,
+    required String? timeZoneOffset,
+  }) {
+    final Uri $url = Uri.parse('/v1/analytics/daily');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'Year': year,
+      'Month': month,
+      'Day': day,
+      'TimeZoneOffset': timeZoneOffset,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+    );
+    return client.send<DailyAnalysisDto, DailyAnalysisDto>($request);
+  }
+
+  @override
+  Future<Response<WeeklyAnalysisDto>> _Analytics_WeeklyAnalysisQuery({
+    required int? year,
+    required int? month,
+    required int? firstDayOfWeek,
+    required String? timeZoneOffset,
+  }) {
+    final Uri $url = Uri.parse('/v1/analytics/weekly');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'Year': year,
+      'Month': month,
+      'FirstDayOfWeek': firstDayOfWeek,
+      'TimeZoneOffset': timeZoneOffset,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+    );
+    return client.send<WeeklyAnalysisDto, WeeklyAnalysisDto>($request);
+  }
+
+  @override
+  Future<Response<MonthlyAnalysisDto>> _Analytics_MonthlyAnalysisQuery({
+    required int? year,
+    required int? month,
+    required String? timeZoneOffset,
+  }) {
+    final Uri $url = Uri.parse('/v1/analytics/monthly');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'Year': year,
+      'Month': month,
+      'TimeZoneOffset': timeZoneOffset,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+    );
+    return client.send<MonthlyAnalysisDto, MonthlyAnalysisDto>($request);
+  }
+
+  @override
+  Future<Response<AnnualAnalysisDto>> _Analytics_AnnualAnalysisQuery({
+    required int? year,
+    required String? timeZoneOffset,
+  }) {
+    final Uri $url = Uri.parse('/v1/analytics/annual');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'Year': year,
+      'TimeZoneOffset': timeZoneOffset,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+    );
+    return client.send<AnnualAnalysisDto, AnnualAnalysisDto>($request);
+  }
+
+  @override
   Future<Response<List<AddableDevelopmentDeviceDto>>>
       _Development_AddableDevelopmentDevicesQuery(
           {required String? deviceCategory}) {

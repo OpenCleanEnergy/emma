@@ -1,4 +1,4 @@
-import 'package:openems/application/analytics/power_data_point_dto.dart';
+import 'package:openems/application/backend_api/backend_api.dart';
 
 class AnalyticsDayDataDto {
   final DateTime start;
