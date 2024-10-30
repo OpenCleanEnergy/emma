@@ -77,6 +77,21 @@ Map<String, dynamic> _$AddableShellyDeviceDtoToJson(
       'deviceName': instance.deviceName,
     };
 
+AnalyticsMetricsDto _$AnalyticsMetricsDtoFromJson(Map<String, dynamic> json) =>
+    AnalyticsMetricsDto(
+      ownConsumption: OwnConsumptionMetricDto.fromJson(
+          json['ownConsumption'] as Map<String, dynamic>),
+      selfSufficiency: SelfSufficiencyMetricDto.fromJson(
+          json['selfSufficiency'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$AnalyticsMetricsDtoToJson(
+        AnalyticsMetricsDto instance) =>
+    <String, dynamic>{
+      'ownConsumption': instance.ownConsumption.toJson(),
+      'selfSufficiency': instance.selfSufficiency.toJson(),
+    };
+
 BatteryStatusDto _$BatteryStatusDtoFromJson(Map<String, dynamic> json) =>
     BatteryStatusDto(
       isAvailable: json['isAvailable'] as bool?,
@@ -109,18 +124,16 @@ Map<String, dynamic> _$ConsumerStatusDtoToJson(ConsumerStatusDto instance) =>
 
 DailyAnalysisDto _$DailyAnalysisDtoFromJson(Map<String, dynamic> json) =>
     DailyAnalysisDto(
-      day: DateTime.parse(json['day'] as String),
       powerHistory: PowerHistoryDto.fromJson(
           json['powerHistory'] as Map<String, dynamic>),
-      totalEnergy: TotalEnergyDataDto.fromJson(
-          json['totalEnergy'] as Map<String, dynamic>),
+      metrics:
+          AnalyticsMetricsDto.fromJson(json['metrics'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DailyAnalysisDtoToJson(DailyAnalysisDto instance) =>
     <String, dynamic>{
-      'day': _dateToJson(instance.day),
       'powerHistory': instance.powerHistory.toJson(),
-      'totalEnergy': instance.totalEnergy.toJson(),
+      'metrics': instance.metrics.toJson(),
     };
 
 DevicesDto _$DevicesDtoFromJson(Map<String, dynamic> json) => DevicesDto(
@@ -322,6 +335,24 @@ Map<String, dynamic> _$MeDtoToJson(MeDto instance) => <String, dynamic>{
       'claims': instance.claims,
     };
 
+OwnConsumptionMetricDto _$OwnConsumptionMetricDtoFromJson(
+        Map<String, dynamic> json) =>
+    OwnConsumptionMetricDto(
+      percentage: Percentage.fromJson(json['percentage'] as num),
+      ownConsumption: WattHours.fromJson(json['ownConsumption'] as num),
+      gridFeedIn: WattHours.fromJson(json['gridFeedIn'] as num),
+      production: WattHours.fromJson(json['production'] as num),
+    );
+
+Map<String, dynamic> _$OwnConsumptionMetricDtoToJson(
+        OwnConsumptionMetricDto instance) =>
+    <String, dynamic>{
+      'percentage': instance.percentage.toJson(),
+      'ownConsumption': instance.ownConsumption.toJson(),
+      'gridFeedIn': instance.gridFeedIn.toJson(),
+      'production': instance.production.toJson(),
+    };
+
 PowerDataPointDto _$PowerDataPointDtoFromJson(Map<String, dynamic> json) =>
     PowerDataPointDto(
       timestamp: DateTime.parse(json['timestamp'] as String),
@@ -401,6 +432,24 @@ Map<String, dynamic> _$ProducerStatusDtoToJson(ProducerStatusDto instance) =>
       'maximumPowerProduction': instance.maximumPowerProduction.toJson(),
     };
 
+SelfSufficiencyMetricDto _$SelfSufficiencyMetricDtoFromJson(
+        Map<String, dynamic> json) =>
+    SelfSufficiencyMetricDto(
+      percentage: Percentage.fromJson(json['percentage'] as num),
+      ownConsumption: WattHours.fromJson(json['ownConsumption'] as num),
+      gridConsumption: WattHours.fromJson(json['gridConsumption'] as num),
+      totalConsumption: WattHours.fromJson(json['totalConsumption'] as num),
+    );
+
+Map<String, dynamic> _$SelfSufficiencyMetricDtoToJson(
+        SelfSufficiencyMetricDto instance) =>
+    <String, dynamic>{
+      'percentage': instance.percentage.toJson(),
+      'ownConsumption': instance.ownConsumption.toJson(),
+      'gridConsumption': instance.gridConsumption.toJson(),
+      'totalConsumption': instance.totalConsumption.toJson(),
+    };
+
 ShellyPermissionGrantUriResponse _$ShellyPermissionGrantUriResponseFromJson(
         Map<String, dynamic> json) =>
     ShellyPermissionGrantUriResponse(
@@ -431,22 +480,4 @@ Map<String, dynamic> _$SwitchConsumerDtoToJson(SwitchConsumerDto instance) =>
       'mode': controlModeToJson(instance.mode),
       'switchStatus': switchStatusToJson(instance.switchStatus),
       'currentPowerConsumption': instance.currentPowerConsumption?.toJson(),
-    };
-
-TotalEnergyDataDto _$TotalEnergyDataDtoFromJson(Map<String, dynamic> json) =>
-    TotalEnergyDataDto(
-      totalEnergyProduction:
-          WattHours.fromJson(json['totalEnergyProduction'] as num),
-      totalGridEnergyConsumption:
-          WattHours.fromJson(json['totalGridEnergyConsumption'] as num),
-      totalGridEnergyFeedIn:
-          WattHours.fromJson(json['totalGridEnergyFeedIn'] as num),
-    );
-
-Map<String, dynamic> _$TotalEnergyDataDtoToJson(TotalEnergyDataDto instance) =>
-    <String, dynamic>{
-      'totalEnergyProduction': instance.totalEnergyProduction.toJson(),
-      'totalGridEnergyConsumption':
-          instance.totalGridEnergyConsumption.toJson(),
-      'totalGridEnergyFeedIn': instance.totalGridEnergyFeedIn.toJson(),
     };

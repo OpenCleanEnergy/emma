@@ -19,11 +19,15 @@ final class _$BackendApi extends BackendApi {
 
   @override
   Future<Response<DailyAnalysisDto>> _Analytics_DailyAnalysisQuery({
-    required String? day,
+    required int? year,
+    required int? month,
+    required int? day,
     required String? timeZoneOffset,
   }) {
     final Uri $url = Uri.parse('/v1/analytics/daily');
     final Map<String, dynamic> $params = <String, dynamic>{
+      'Year': year,
+      'Month': month,
       'Day': day,
       'TimeZoneOffset': timeZoneOffset,
     };

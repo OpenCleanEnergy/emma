@@ -143,7 +143,7 @@ public class DbContextAnalyticsTotalEnergyDataQueryTest
         var result = await query.QueryTotalEnergyData(start, end);
 
         // Assert
-        result.TotalEnergyProduction.Should().Be(WattHours.From(5));
+        result.Production.Should().Be(WattHours.From(5));
     }
 
     private static ProducerId GetProducerId(string producerId) =>

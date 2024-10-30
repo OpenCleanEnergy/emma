@@ -4,7 +4,7 @@ namespace OpenEMS.Analytics.Queries;
 
 public class TotalEnergyData
 {
-    public required WattHours TotalEnergyProduction { get; init; }
-    public required WattHours TotalGridEnergyConsumption { get; init; }
-    public required WattHours TotalGridEnergyFeedIn { get; init; }
+    public required WattHours Production { get; init; }
+    public required WattHours GridConsumption { get; init; }
+    public required WattHours GridFeedIn { get; init; }
 }

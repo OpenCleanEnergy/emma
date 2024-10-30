@@ -44,25 +44,33 @@ abstract class BackendApi extends ChopperService {
   }
 
   ///
+  ///@param Year
+  ///@param Month
   ///@param Day
   ///@param TimeZoneOffset
   Future<chopper.Response<DailyAnalysisDto>> Analytics_DailyAnalysisQuery({
-    required String? day,
+    required int? year,
+    required int? month,
+    required int? day,
     required String? timeZoneOffset,
   }) {
     generatedMapping.putIfAbsent(
         DailyAnalysisDto, () => DailyAnalysisDto.fromJsonFactory);
 
     return _Analytics_DailyAnalysisQuery(
-        day: day, timeZoneOffset: timeZoneOffset);
+        year: year, month: month, day: day, timeZoneOffset: timeZoneOffset);
   }
 
   ///
+  ///@param Year
+  ///@param Month
   ///@param Day
   ///@param TimeZoneOffset
   @Get(path: '/v1/analytics/daily')
   Future<chopper.Response<DailyAnalysisDto>> _Analytics_DailyAnalysisQuery({
-    @Query('Day') required String? day,
+    @Query('Year') required int? year,
+    @Query('Month') required int? month,
+    @Query('Day') required int? day,
     @Query('TimeZoneOffset') required String? timeZoneOffset,
   });
 

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using OpenEMS.Analytics.Queries;
 using OpenEMS.Application.Shared;
 
@@ -5,7 +6,14 @@ namespace OpenEMS.Analytics.Application;
 
 public class DailyAnalysisQuery : IQuery<DailyAnalysisDto>
 {
-    public required DateOnly Day { get; init; }
+    [Range(1, int.MaxValue)]
+    public required int Year { get; init; }
+
+    [Range(1, 12)]
+    public required int Month { get; init; }
+
+    [Range(1, 31)]
+    public required int Day { get; init; }
     public required TimeSpan TimeZoneOffset { get; init; }
 
     public class Handler(
@@ -22,7 +30,16 @@ public class DailyAnalysisQuery : IQuery<DailyAnalysisDto>
             CancellationToken cancellationToken
         )
         {
-            var start = new DateTimeOffset(request.Day, TimeOnly.MinValue, request.TimeZoneOffset);
+            var start = new DateTimeOffset(
+                year: request.Year,
+                month: request.Month,
+                day: request.Day,
+                hour: 0,
+                minute: 0,
+                second: 0,
+                offset: request.TimeZoneOffset
+            );
+
             var end = start.AddDays(1);
 
             var powerHistory = await _powerHistoryQuery.GetPowerHistory(
@@ -35,9 +52,8 @@ public class DailyAnalysisQuery : IQuery<DailyAnalysisDto>
 
             return new DailyAnalysisDto
             {
-                Day = request.Day,
                 PowerHistory = PowerHistoryDto.From(powerHistory, request.TimeZoneOffset),
-                TotalEnergy = TotalEnergyDataDto.From(totalEnergyData),
+                Metrics = AnalyticsMetricsDto.From(totalEnergyData),
             };
         }
     }

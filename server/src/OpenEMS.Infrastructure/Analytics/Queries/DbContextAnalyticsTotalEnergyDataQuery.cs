@@ -60,9 +60,9 @@ public class DbContextAnalyticsTotalEnergyDataQuery(AppDbContext context)
 
         return new TotalEnergyData
         {
-            TotalEnergyProduction = productionPerProducer.Sum(),
-            TotalGridEnergyConsumption = gridConsumptionPerMeter.Sum(),
-            TotalGridEnergyFeedIn = gridFeedInPerMeter.Sum(),
+            Production = productionPerProducer.Sum(),
+            GridConsumption = gridConsumptionPerMeter.Sum(),
+            GridFeedIn = gridFeedInPerMeter.Sum(),
         };
     }
 }

@@ -94,7 +94,9 @@ class AnalyticsViewModel {
     switch (_analysis.value) {
       case DailyAnalysisViewModel daily:
         final response = await _api.Analytics_DailyAnalysisQuery(
-          day: "${start.year}-${start.month}-${start.day}",
+          year: start.year,
+          month: start.month,
+          day: start.day,
           timeZoneOffset: start.timeZoneOffset.toString(),
         );
 

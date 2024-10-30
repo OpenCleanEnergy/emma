@@ -10,12 +10,30 @@ paths:
         - Analytics
       operationId: Analytics_DailyAnalysisQuery
       parameters:
+        - name: Year
+          in: query
+          required: true
+          schema:
+            maximum: 2147483647
+            minimum: 1
+            type: integer
+            format: int32
+        - name: Month
+          in: query
+          required: true
+          schema:
+            maximum: 12
+            minimum: 1
+            type: integer
+            format: int32
         - name: Day
           in: query
           required: true
           schema:
-            type: string
-            format: date
+            maximum: 31
+            minimum: 1
+            type: integer
+            format: int32
         - name: TimeZoneOffset
           in: query
           required: true
@@ -487,6 +505,17 @@ components:
           allOf:
             - $ref: '#/components/schemas/DeviceName'
       additionalProperties: false
+    AnalyticsMetricsDto:
+      required:
+        - ownConsumption
+        - selfSufficiency
+      type: object
+      properties:
+        ownConsumption:
+          $ref: '#/components/schemas/OwnConsumptionMetricDto'
+        selfSufficiency:
+          $ref: '#/components/schemas/SelfSufficiencyMetricDto'
+      additionalProperties: false
     BatteryChargeStatus:
       enum:
         - Idle
@@ -533,18 +562,14 @@ components:
       type: string
     DailyAnalysisDto:
       required:
-        - day
+        - metrics
         - powerHistory
-        - totalEnergy
       type: object
       properties:
-        day:
-          type: string
-          format: date
         powerHistory:
           $ref: '#/components/schemas/PowerHistoryDto'
-        totalEnergy:
-          $ref: '#/components/schemas/TotalEnergyDataDto'
+        metrics:
+          $ref: '#/components/schemas/AnalyticsMetricsDto'
       additionalProperties: false
     DeviceCategory:
       enum:
@@ -767,6 +792,27 @@ components:
           additionalProperties:
             type: string
       additionalProperties: false
+    OwnConsumptionMetricDto:
+      required:
+        - gridFeedIn
+        - ownConsumption
+        - percentage
+        - production
+      type: object
+      properties:
+        percentage:
+          allOf:
+            - $ref: '#/components/schemas/Percentage'
+        ownConsumption:
+          allOf:
+            - $ref: '#/components/schemas/WattHours'
+        gridFeedIn:
+          allOf:
+            - $ref: '#/components/schemas/WattHours'
+        production:
+          allOf:
+            - $ref: '#/components/schemas/WattHours'
+      additionalProperties: false
     Percentage:
       type: number
       format: double
@@ -846,6 +892,27 @@ components:
           allOf:
             - $ref: '#/components/schemas/Watt'
       additionalProperties: false
+    SelfSufficiencyMetricDto:
+      required:
+        - gridConsumption
+        - ownConsumption
+        - percentage
+        - totalConsumption
+      type: object
+      properties:
+        percentage:
+          allOf:
+            - $ref: '#/components/schemas/Percentage'
+        ownConsumption:
+          allOf:
+            - $ref: '#/components/schemas/WattHours'
+        gridConsumption:
+          allOf:
+            - $ref: '#/components/schemas/WattHours'
+        totalConsumption:
+          allOf:
+            - $ref: '#/components/schemas/WattHours'
+      additionalProperties: false
     ShellyPermissionGrantUriResponse:
       required:
         - uri
@@ -887,23 +954,6 @@ components:
         - Off
         - On
       type: string
-    TotalEnergyDataDto:
-      required:
-        - totalEnergyProduction
-        - totalGridEnergyConsumption
-        - totalGridEnergyFeedIn
-      type: object
-      properties:
-        totalEnergyProduction:
-          allOf:
-            - $ref: '#/components/schemas/WattHours'
-        totalGridEnergyConsumption:
-          allOf:
-            - $ref: '#/components/schemas/WattHours'
-        totalGridEnergyFeedIn:
-          allOf:
-            - $ref: '#/components/schemas/WattHours'
-      additionalProperties: false
     Watt:
       type: number
       format: double
