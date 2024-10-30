@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.0-alpha.37](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.36...app-v1.0.0-alpha.37) (2024-10-30)
+
+
+### 🚀 Features
+
+* Add ink splash to bottom navigation bar. ([9b3d4bc](https://github.com/OpenCleanEnergy/emma/commit/9b3d4bc939d3ecf51d3ec47121d319dd121624c8))
+* **Analytics:** Daily power history analysis and daily, weekly, monthly and annual metrics. ([#249](https://github.com/OpenCleanEnergy/emma/issues/249)) ([269f1c1](https://github.com/OpenCleanEnergy/emma/commit/269f1c1d42ab6779a2601d81bc020be637f9caf8))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group across 1 directory with 3 updates ([#250](https://github.com/OpenCleanEnergy/emma/issues/250)) ([984d325](https://github.com/OpenCleanEnergy/emma/commit/984d3251c20d46b95bfc2a787720282fb1dc56c3))
+* Use `pwsh` as shell in just for windows ([1d52b1f](https://github.com/OpenCleanEnergy/emma/commit/1d52b1f76c91b877b3508d0068cfa16144f506dd))
+
 ## [1.0.0-alpha.36](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.35...app-v1.0.0-alpha.36) (2024-10-21)
 
 
