@@ -362,6 +362,49 @@ extension $AnalyticsMetricsDtoExtension on AnalyticsMetricsDto {
 }
 
 @JsonSerializable(explicitToJson: true)
+class AnnualAnalysisDto {
+  const AnnualAnalysisDto({
+    required this.metrics,
+  });
+
+  factory AnnualAnalysisDto.fromJson(Map<String, dynamic> json) =>
+      _$AnnualAnalysisDtoFromJson(json);
+
+  static const toJsonFactory = _$AnnualAnalysisDtoToJson;
+  Map<String, dynamic> toJson() => _$AnnualAnalysisDtoToJson(this);
+
+  @JsonKey(name: 'metrics')
+  final AnalyticsMetricsDto metrics;
+  static const fromJsonFactory = _$AnnualAnalysisDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is AnnualAnalysisDto &&
+            (identical(other.metrics, metrics) ||
+                const DeepCollectionEquality().equals(other.metrics, metrics)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(metrics) ^ runtimeType.hashCode;
+}
+
+extension $AnnualAnalysisDtoExtension on AnnualAnalysisDto {
+  AnnualAnalysisDto copyWith({AnalyticsMetricsDto? metrics}) {
+    return AnnualAnalysisDto(metrics: metrics ?? this.metrics);
+  }
+
+  AnnualAnalysisDto copyWithWrapped({Wrapped<AnalyticsMetricsDto>? metrics}) {
+    return AnnualAnalysisDto(
+        metrics: (metrics != null ? metrics.value : this.metrics));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class BatteryStatusDto {
   const BatteryStatusDto({
     this.isAvailable,
@@ -1425,6 +1468,49 @@ extension $MeDtoExtension on MeDto {
 }
 
 @JsonSerializable(explicitToJson: true)
+class MonthlyAnalysisDto {
+  const MonthlyAnalysisDto({
+    required this.metrics,
+  });
+
+  factory MonthlyAnalysisDto.fromJson(Map<String, dynamic> json) =>
+      _$MonthlyAnalysisDtoFromJson(json);
+
+  static const toJsonFactory = _$MonthlyAnalysisDtoToJson;
+  Map<String, dynamic> toJson() => _$MonthlyAnalysisDtoToJson(this);
+
+  @JsonKey(name: 'metrics')
+  final AnalyticsMetricsDto metrics;
+  static const fromJsonFactory = _$MonthlyAnalysisDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is MonthlyAnalysisDto &&
+            (identical(other.metrics, metrics) ||
+                const DeepCollectionEquality().equals(other.metrics, metrics)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(metrics) ^ runtimeType.hashCode;
+}
+
+extension $MonthlyAnalysisDtoExtension on MonthlyAnalysisDto {
+  MonthlyAnalysisDto copyWith({AnalyticsMetricsDto? metrics}) {
+    return MonthlyAnalysisDto(metrics: metrics ?? this.metrics);
+  }
+
+  MonthlyAnalysisDto copyWithWrapped({Wrapped<AnalyticsMetricsDto>? metrics}) {
+    return MonthlyAnalysisDto(
+        metrics: (metrics != null ? metrics.value : this.metrics));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class OwnConsumptionMetricDto {
   const OwnConsumptionMetricDto({
     required this.percentage,
@@ -2030,6 +2116,49 @@ extension $SwitchConsumerDtoExtension on SwitchConsumerDto {
         currentPowerConsumption: (currentPowerConsumption != null
             ? currentPowerConsumption.value
             : this.currentPowerConsumption));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class WeeklyAnalysisDto {
+  const WeeklyAnalysisDto({
+    required this.metrics,
+  });
+
+  factory WeeklyAnalysisDto.fromJson(Map<String, dynamic> json) =>
+      _$WeeklyAnalysisDtoFromJson(json);
+
+  static const toJsonFactory = _$WeeklyAnalysisDtoToJson;
+  Map<String, dynamic> toJson() => _$WeeklyAnalysisDtoToJson(this);
+
+  @JsonKey(name: 'metrics')
+  final AnalyticsMetricsDto metrics;
+  static const fromJsonFactory = _$WeeklyAnalysisDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is WeeklyAnalysisDto &&
+            (identical(other.metrics, metrics) ||
+                const DeepCollectionEquality().equals(other.metrics, metrics)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(metrics) ^ runtimeType.hashCode;
+}
+
+extension $WeeklyAnalysisDtoExtension on WeeklyAnalysisDto {
+  WeeklyAnalysisDto copyWith({AnalyticsMetricsDto? metrics}) {
+    return WeeklyAnalysisDto(metrics: metrics ?? this.metrics);
+  }
+
+  WeeklyAnalysisDto copyWithWrapped({Wrapped<AnalyticsMetricsDto>? metrics}) {
+    return WeeklyAnalysisDto(
+        metrics: (metrics != null ? metrics.value : this.metrics));
   }
 }
 

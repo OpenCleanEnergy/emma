@@ -59,15 +59,6 @@ class AnalyticsViewModel {
     batch(() {
       _period.value = period;
       _range.value = range;
-      _analysis.value = switch (period) {
-        AnalyticsPeriod.day => DailyAnalysisViewModel.empty(
-            start: range.start,
-            end: range.end,
-          ),
-        AnalyticsPeriod.week => ComingSoonAnalysisViewModel(),
-        AnalyticsPeriod.month => ComingSoonAnalysisViewModel(),
-        AnalyticsPeriod.year => ComingSoonAnalysisViewModel(),
-      };
     });
   }
 
@@ -93,8 +84,8 @@ class AnalyticsViewModel {
     final start = _range.value.start;
     final end = _range.value.end;
 
-    switch (_analysis.value) {
-      case DailyAnalysisViewModel daily:
+    switch (_period.value) {
+      case AnalyticsPeriod.day:
         final response = await _api.Analytics_DailyAnalysisQuery(
           year: start.year,
           month: start.month,
@@ -103,13 +94,67 @@ class AnalyticsViewModel {
         );
 
         final dto = response.bodyOrThrow;
+
         batch(() {
+          final daily = _getOrSetAnalysis(
+            () => DailyAnalysisViewModel.empty(
+              start: start,
+              end: end,
+            ),
+          );
           daily.update(start: start, end: end, dto: dto);
           metrics.update(dto.metrics);
         });
-      case ComingSoonAnalysisViewModel _:
-        break;
+        return;
+      case AnalyticsPeriod.week:
+        final response = await _api.Analytics_WeeklyAnalysisQuery(
+          year: start.year,
+          month: start.month,
+          firstDayOfWeek: start.day,
+          timeZoneOffset: start.timeZoneOffset.toString(),
+        );
+
+        final dto = response.bodyOrThrow;
+        batch(() {
+          _getOrSetAnalysis(() => ComingSoonAnalysisViewModel());
+          metrics.update(dto.metrics);
+        });
+      case AnalyticsPeriod.month:
+        final response = await _api.Analytics_MonthlyAnalysisQuery(
+          year: start.year,
+          month: start.month,
+          timeZoneOffset: start.timeZoneOffset.toString(),
+        );
+
+        final dto = response.bodyOrThrow;
+        batch(() {
+          _getOrSetAnalysis(() => ComingSoonAnalysisViewModel());
+          metrics.update(dto.metrics);
+        });
+      case AnalyticsPeriod.year:
+        final response = await _api.Analytics_AnnualAnalysisQuery(
+          year: start.year,
+          timeZoneOffset: start.timeZoneOffset.toString(),
+        );
+
+        final dto = response.bodyOrThrow;
+        batch(() {
+          _getOrSetAnalysis(() => ComingSoonAnalysisViewModel());
+          metrics.update(dto.metrics);
+        });
     }
+  }
+
+  T _getOrSetAnalysis<T extends AnalysisViewModel>(
+    T Function() analysisFactory,
+  ) {
+    if (_analysis.value is T) {
+      return _analysis.value as T;
+    }
+
+    final analysis = analysisFactory();
+    _analysis.value = analysis;
+    return analysis;
   }
 
   static DateTimeRange _computeDateRange(

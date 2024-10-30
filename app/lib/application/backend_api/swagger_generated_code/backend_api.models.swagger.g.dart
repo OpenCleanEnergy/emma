@@ -92,6 +92,17 @@ Map<String, dynamic> _$AnalyticsMetricsDtoToJson(
       'selfSufficiency': instance.selfSufficiency.toJson(),
     };
 
+AnnualAnalysisDto _$AnnualAnalysisDtoFromJson(Map<String, dynamic> json) =>
+    AnnualAnalysisDto(
+      metrics:
+          AnalyticsMetricsDto.fromJson(json['metrics'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$AnnualAnalysisDtoToJson(AnnualAnalysisDto instance) =>
+    <String, dynamic>{
+      'metrics': instance.metrics.toJson(),
+    };
+
 BatteryStatusDto _$BatteryStatusDtoFromJson(Map<String, dynamic> json) =>
     BatteryStatusDto(
       isAvailable: json['isAvailable'] as bool?,
@@ -335,6 +346,17 @@ Map<String, dynamic> _$MeDtoToJson(MeDto instance) => <String, dynamic>{
       'claims': instance.claims,
     };
 
+MonthlyAnalysisDto _$MonthlyAnalysisDtoFromJson(Map<String, dynamic> json) =>
+    MonthlyAnalysisDto(
+      metrics:
+          AnalyticsMetricsDto.fromJson(json['metrics'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$MonthlyAnalysisDtoToJson(MonthlyAnalysisDto instance) =>
+    <String, dynamic>{
+      'metrics': instance.metrics.toJson(),
+    };
+
 OwnConsumptionMetricDto _$OwnConsumptionMetricDtoFromJson(
         Map<String, dynamic> json) =>
     OwnConsumptionMetricDto(
@@ -480,4 +502,15 @@ Map<String, dynamic> _$SwitchConsumerDtoToJson(SwitchConsumerDto instance) =>
       'mode': controlModeToJson(instance.mode),
       'switchStatus': switchStatusToJson(instance.switchStatus),
       'currentPowerConsumption': instance.currentPowerConsumption?.toJson(),
+    };
+
+WeeklyAnalysisDto _$WeeklyAnalysisDtoFromJson(Map<String, dynamic> json) =>
+    WeeklyAnalysisDto(
+      metrics:
+          AnalyticsMetricsDto.fromJson(json['metrics'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$WeeklyAnalysisDtoToJson(WeeklyAnalysisDto instance) =>
+    <String, dynamic>{
+      'metrics': instance.metrics.toJson(),
     };

@@ -13,4 +13,17 @@ public class AnalyticsController(ISender sender) : ControllerBase
     [HttpGet("daily", Name = nameof(DailyAnalysisQuery))]
     public async Task<DailyAnalysisDto> GetDailyAnalysis([FromQuery] DailyAnalysisQuery query) =>
         await _sender.Send(query);
+
+    [HttpGet("weekly", Name = nameof(WeeklyAnalysisQuery))]
+    public async Task<WeeklyAnalysisDto> GetWeeklyAnalysis([FromQuery] WeeklyAnalysisQuery query) =>
+        await _sender.Send(query);
+
+    [HttpGet("monthly", Name = nameof(MonthlyAnalysisQuery))]
+    public async Task<MonthlyAnalysisDto> GetMonthlyAnalysis(
+        [FromQuery] MonthlyAnalysisQuery query
+    ) => await _sender.Send(query);
+
+    [HttpGet("annual", Name = nameof(AnnualAnalysisQuery))]
+    public async Task<AnnualAnalysisDto> GetAnnualAnalysis([FromQuery] AnnualAnalysisQuery query) =>
+        await _sender.Send(query);
 }

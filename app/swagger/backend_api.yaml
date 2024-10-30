@@ -53,6 +53,129 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/DailyAnalysisDto'
+  /v1/analytics/weekly:
+    get:
+      tags:
+        - Analytics
+      operationId: Analytics_WeeklyAnalysisQuery
+      parameters:
+        - name: Year
+          in: query
+          required: true
+          schema:
+            maximum: 2147483647
+            minimum: 1
+            type: integer
+            format: int32
+        - name: Month
+          in: query
+          required: true
+          schema:
+            maximum: 12
+            minimum: 1
+            type: integer
+            format: int32
+        - name: FirstDayOfWeek
+          in: query
+          required: true
+          schema:
+            maximum: 31
+            minimum: 1
+            type: integer
+            format: int32
+        - name: TimeZoneOffset
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-span
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/WeeklyAnalysisDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeeklyAnalysisDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/WeeklyAnalysisDto'
+  /v1/analytics/monthly:
+    get:
+      tags:
+        - Analytics
+      operationId: Analytics_MonthlyAnalysisQuery
+      parameters:
+        - name: Year
+          in: query
+          required: true
+          schema:
+            maximum: 2147483647
+            minimum: 1
+            type: integer
+            format: int32
+        - name: Month
+          in: query
+          required: true
+          schema:
+            maximum: 12
+            minimum: 1
+            type: integer
+            format: int32
+        - name: TimeZoneOffset
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-span
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MonthlyAnalysisDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonthlyAnalysisDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MonthlyAnalysisDto'
+  /v1/analytics/annual:
+    get:
+      tags:
+        - Analytics
+      operationId: Analytics_AnnualAnalysisQuery
+      parameters:
+        - name: Year
+          in: query
+          required: true
+          schema:
+            maximum: 2147483647
+            minimum: 1
+            type: integer
+            format: int32
+        - name: TimeZoneOffset
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-span
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AnnualAnalysisDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnnualAnalysisDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AnnualAnalysisDto'
   /integrations/development/v1/addable-devices:
     get:
       tags:
@@ -516,6 +639,14 @@ components:
         selfSufficiency:
           $ref: '#/components/schemas/SelfSufficiencyMetricDto'
       additionalProperties: false
+    AnnualAnalysisDto:
+      required:
+        - metrics
+      type: object
+      properties:
+        metrics:
+          $ref: '#/components/schemas/AnalyticsMetricsDto'
+      additionalProperties: false
     BatteryChargeStatus:
       enum:
         - Idle
@@ -792,6 +923,14 @@ components:
           additionalProperties:
             type: string
       additionalProperties: false
+    MonthlyAnalysisDto:
+      required:
+        - metrics
+      type: object
+      properties:
+        metrics:
+          $ref: '#/components/schemas/AnalyticsMetricsDto'
+      additionalProperties: false
     OwnConsumptionMetricDto:
       required:
         - gridFeedIn
@@ -960,6 +1099,14 @@ components:
     WattHours:
       type: number
       format: double
+    WeeklyAnalysisDto:
+      required:
+        - metrics
+      type: object
+      properties:
+        metrics:
+          $ref: '#/components/schemas/AnalyticsMetricsDto'
+      additionalProperties: false
   securitySchemes:
     oauth:
       type: oauth2
