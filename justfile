@@ -1,3 +1,4 @@
+set windows-shell := ["pwsh.exe", "-NoLogo", "-Command"]
 
 _sudo := if os_family() == "unix" { "sudo" } else { "" }
 
