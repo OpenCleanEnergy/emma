@@ -1,4 +1,4 @@
-import 'package:openems/application/backend_api/value_objects.dart';
+import 'package:openems/application/backend_api/models.dart';
 import 'package:openems/ui/analytics/metrics/analytics_circular_percentage_indicator.dart';
 import 'package:openems/ui/analytics/metrics/analytics_metric_card.dart';
 import 'package:openems/ui/icons/app_icons.dart';
@@ -8,15 +8,18 @@ import 'package:flutter/material.dart';
 class OwnConsumptionMetricView extends StatelessWidget {
   const OwnConsumptionMetricView({
     super.key,
+    required this.dto,
   });
+
+  final OwnConsumptionMetricDto dto;
 
   @override
   Widget build(BuildContext context) {
     return AnalyticsMetricCard(
       title: "Eigenverbrauch",
-      subtitle: UnitText.percentage(const Percentage(0.59)),
+      subtitle: UnitText.percentage(dto.percentage),
       leading: AnalyticsCircularPercentageIndicator.small(
-          percentage: const Percentage(0.59)),
+          percentage: dto.percentage),
       detailsBuilder: _buildDetails,
     );
   }
@@ -27,7 +30,7 @@ class OwnConsumptionMetricView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         AnalyticsCircularPercentageIndicator.detailed(
-          percentage: const Percentage(0.59),
+          percentage: dto.percentage,
         ),
         Table(
           //border: TableBorder.all(),
@@ -45,9 +48,10 @@ class OwnConsumptionMetricView extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 const Text("Eigenverbrauch:"),
-                const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [spacer, UnitText.energy(WattHours(269400))])
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [spacer, UnitText.energy(dto.ownConsumption)],
+                )
               ],
             ),
             const TableRow(children: [spacer, spacer, spacer]),
@@ -58,18 +62,20 @@ class OwnConsumptionMetricView extends StatelessWidget {
                   color: Theme.of(context).colorScheme.secondaryContainer,
                 ),
                 const Text("Einspeisung:"),
-                const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [spacer, UnitText.energy(WattHours(180810))])
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [spacer, UnitText.energy(dto.gridFeedIn)],
+                )
               ],
             ),
             const TableRow(children: [Divider(), Divider(), Divider()]),
-            const TableRow(children: [
+            TableRow(children: [
               spacer,
-              Text("Produktion:"),
+              const Text("Produktion:"),
               Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [spacer, UnitText.energy(WattHours(450210))])
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [spacer, UnitText.energy(dto.production)],
+              )
             ]),
           ],
         )

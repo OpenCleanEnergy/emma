@@ -3,6 +3,7 @@ import 'package:openems/ui/analytics/analysis_view_model.dart';
 import 'package:openems/ui/analytics/analytics_period.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_control_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:openems/ui/analytics/metrics/analytics_metrics_view_model.dart';
 import 'package:openems/ui/commands/command.dart';
 import 'package:signals/signals.dart';
 
@@ -37,6 +38,7 @@ class AnalyticsViewModel {
   }
 
   final chartControl = AnalyticsChartControlViewModel();
+  final AnalyticsMetricsViewModel metrics = AnalyticsMetricsViewModel();
 
   ReadonlySignal<AnalyticsPeriod> get period => _period;
   ReadonlySignal<DateTimeRange> get range => _range;
@@ -101,7 +103,10 @@ class AnalyticsViewModel {
         );
 
         final dto = response.bodyOrThrow;
-        daily.update(start: start, end: end, dto: dto);
+        batch(() {
+          daily.update(start: start, end: end, dto: dto);
+          metrics.update(dto.metrics);
+        });
       case ComingSoonAnalysisViewModel _:
         break;
     }

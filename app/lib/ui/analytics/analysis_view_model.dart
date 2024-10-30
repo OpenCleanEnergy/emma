@@ -19,12 +19,14 @@ class DailyAnalysisViewModel implements AnalysisViewModel {
     required DateTime end,
     required DailyAnalysisDto dto,
   }) {
-    this.start.value = start;
-    this.end.value = end;
-    home.value = dto.powerHistory.consumers;
-    production.value = dto.powerHistory.producers;
-    gridConsume.value = dto.powerHistory.electricityMetersConsume;
-    gridFeedIn.value = dto.powerHistory.electricityMetersFeedIn;
+    batch(() {
+      this.start.value = start;
+      this.end.value = end;
+      home.value = dto.powerHistory.consumers;
+      production.value = dto.powerHistory.producers;
+      gridConsume.value = dto.powerHistory.electricityMetersConsume;
+      gridFeedIn.value = dto.powerHistory.electricityMetersFeedIn;
+    });
   }
 
   final Signal<DateTime> start;

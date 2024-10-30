@@ -52,7 +52,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           children: [
             const SizedBox(height: 16),
-            const AnalyticsMetricsContainer(),
+            AnalyticsMetricsContainer(viewModel: _vm.metrics),
             const SizedBox(height: 32),
             AnalyticsChart(viewModel: _vm),
           ],

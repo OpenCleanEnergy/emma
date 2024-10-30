@@ -1,4 +1,4 @@
-import 'package:openems/application/backend_api/value_objects.dart';
+import 'package:openems/application/backend_api/models.dart';
 import 'package:openems/ui/analytics/metrics/analytics_metric_card.dart';
 import 'package:flutter/material.dart';
 import 'package:openems/ui/analytics/metrics/analytics_circular_percentage_indicator.dart';
@@ -8,15 +8,18 @@ import 'package:openems/ui/shared/unit_text.dart';
 class SelfSufficiencyMetricView extends StatelessWidget {
   const SelfSufficiencyMetricView({
     super.key,
+    required this.dto,
   });
+
+  final SelfSufficiencyMetricDto dto;
 
   @override
   Widget build(BuildContext context) {
     return AnalyticsMetricCard(
       title: "Autarkie",
-      subtitle: UnitText.percentage(const Percentage(0.31)),
+      subtitle: UnitText.percentage(dto.percentage),
       leading: AnalyticsCircularPercentageIndicator.small(
-          percentage: const Percentage(0.31)),
+          percentage: dto.percentage),
       detailsBuilder: _buildDetails,
     );
   }
@@ -27,7 +30,7 @@ class SelfSufficiencyMetricView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         AnalyticsCircularPercentageIndicator.detailed(
-            percentage: const Percentage(0.31)),
+            percentage: dto.percentage),
         Table(
           columnWidths: const <int, TableColumnWidth>{
             0: FixedColumnWidth(36),
@@ -43,9 +46,9 @@ class SelfSufficiencyMetricView extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 const Text("Eigenverbrauch:"),
-                const Row(
+                Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [spacer, UnitText.energy(WattHours(269400))])
+                    children: [spacer, UnitText.energy(dto.ownConsumption)])
               ],
             ),
             const TableRow(children: [spacer, spacer, spacer]),
@@ -55,19 +58,19 @@ class SelfSufficiencyMetricView extends StatelessWidget {
                   AppIcons.circle,
                   color: Theme.of(context).colorScheme.secondaryContainer,
                 ),
-                const Text("Zukauf:"),
-                const Row(
+                const Text("Netzbezug:"),
+                Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [spacer, UnitText.energy(WattHours(600210))])
+                    children: [spacer, UnitText.energy(dto.gridConsumption)])
               ],
             ),
             const TableRow(children: [Divider(), Divider(), Divider()]),
-            const TableRow(children: [
+            TableRow(children: [
               spacer,
-              Text("Verbrauch:"),
+              const Text("Verbrauch:"),
               Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [spacer, UnitText.energy(WattHours(869610))])
+                  children: [spacer, UnitText.energy(dto.totalConsumption)])
             ]),
           ],
         )
