@@ -14,7 +14,7 @@ class AnalyticsChartControlViewModel {
   ];
 
   ReadonlySignal<bool> get showProduction => _showProduction;
-  ReadonlySignal<bool> get showHome => _showHome;
+  ReadonlySignal<bool> get showConsumption => _showHome;
   ReadonlySignal<bool> get showGridFeedIn => _showGridFeedIn;
   ReadonlySignal<bool> get showGridConsume => _showGridConsume;
 

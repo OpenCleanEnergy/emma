@@ -53,14 +53,14 @@ class AnalyticsDayChart extends StatelessWidget {
   LineChartData mainData(
       TextTheme textTheme, AnalyticsChartColorScheme colorScheme) {
     final maxValue = [
-      if (chartControlViewModel.showHome.value)
-        ...dailyAnalysisViewModel.home.value,
+      if (chartControlViewModel.showConsumption.value)
+        ...dailyAnalysisViewModel.consumers.value,
       if (chartControlViewModel.showProduction.value)
-        ...dailyAnalysisViewModel.production.value,
+        ...dailyAnalysisViewModel.producers.value,
       if (chartControlViewModel.showGridConsume.value)
-        ...dailyAnalysisViewModel.gridConsume.value,
+        ...dailyAnalysisViewModel.electricityMetersConsume.value,
       if (chartControlViewModel.showGridFeedIn.value)
-        ...dailyAnalysisViewModel.gridFeedIn.value,
+        ...dailyAnalysisViewModel.electricityMetersFeedIn.value,
     ].map((x) => x.power).fold(const Watt(100.0), math.max);
 
     final niceScale = NiceScale.calculate(
@@ -126,22 +126,22 @@ class AnalyticsDayChart extends StatelessWidget {
         _getLineChartData(
             show: chartControlViewModel.showProduction.value,
             start: dailyAnalysisViewModel.start.value,
-            data: dailyAnalysisViewModel.production.value,
+            data: dailyAnalysisViewModel.producers.value,
             color: AnalyticsChartColors.production),
         _getLineChartData(
-            show: chartControlViewModel.showHome.value,
+            show: chartControlViewModel.showConsumption.value,
             start: dailyAnalysisViewModel.start.value,
-            data: dailyAnalysisViewModel.home.value,
-            color: AnalyticsChartColors.home),
+            data: dailyAnalysisViewModel.consumers.value,
+            color: AnalyticsChartColors.consumption),
         _getLineChartData(
             show: chartControlViewModel.showGridConsume.value,
             start: dailyAnalysisViewModel.start.value,
-            data: dailyAnalysisViewModel.gridConsume.value,
+            data: dailyAnalysisViewModel.electricityMetersConsume.value,
             color: AnalyticsChartColors.gridConsumption),
         _getLineChartData(
             show: chartControlViewModel.showGridFeedIn.value,
             start: dailyAnalysisViewModel.start.value,
-            data: dailyAnalysisViewModel.gridFeedIn.value,
+            data: dailyAnalysisViewModel.electricityMetersFeedIn.value,
             color: AnalyticsChartColors.gridFeedIn),
       ],
     );

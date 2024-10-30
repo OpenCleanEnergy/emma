@@ -1,4 +1,4 @@
-import 'package:openems/application/backend_api/swagger_generated_code/backend_api.models.swagger.dart';
+import 'package:openems/application/backend_api/models.dart';
 
 class AnalyticsDayDataDto {
   final DateTime start;

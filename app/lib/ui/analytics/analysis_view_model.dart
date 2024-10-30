@@ -9,10 +9,10 @@ class DailyAnalysisViewModel implements AnalysisViewModel {
     required DateTime end,
   })  : start = signal(start),
         end = signal(end),
-        home = signal([]),
-        production = signal([]),
-        gridConsume = signal([]),
-        gridFeedIn = signal([]);
+        consumers = signal([]),
+        producers = signal([]),
+        electricityMetersConsume = signal([]),
+        electricityMetersFeedIn = signal([]);
 
   void update({
     required DateTime start,
@@ -22,19 +22,20 @@ class DailyAnalysisViewModel implements AnalysisViewModel {
     batch(() {
       this.start.value = start;
       this.end.value = end;
-      home.value = dto.powerHistory.consumers;
-      production.value = dto.powerHistory.producers;
-      gridConsume.value = dto.powerHistory.electricityMetersConsume;
-      gridFeedIn.value = dto.powerHistory.electricityMetersFeedIn;
+      consumers.value = dto.powerHistory.consumers;
+      producers.value = dto.powerHistory.producers;
+      electricityMetersConsume.value =
+          dto.powerHistory.electricityMetersConsume;
+      electricityMetersFeedIn.value = dto.powerHistory.electricityMetersFeedIn;
     });
   }
 
   final Signal<DateTime> start;
   final Signal<DateTime> end;
-  final Signal<List<PowerDataPointDto>> home;
-  final Signal<List<PowerDataPointDto>> production;
-  final Signal<List<PowerDataPointDto>> gridConsume;
-  final Signal<List<PowerDataPointDto>> gridFeedIn;
+  final Signal<List<PowerDataPointDto>> consumers;
+  final Signal<List<PowerDataPointDto>> producers;
+  final Signal<List<PowerDataPointDto>> electricityMetersConsume;
+  final Signal<List<PowerDataPointDto>> electricityMetersFeedIn;
 }
 
 class ComingSoonAnalysisViewModel implements AnalysisViewModel {}

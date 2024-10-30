@@ -25,9 +25,9 @@ class AnalyticsChartControl extends StatelessWidget {
           onPressed: viewModel.toggleProduction,
         ),
         _ToggleButton(
-          label: "Hausverbrauch",
-          color: AnalyticsChartColors.home,
-          state: viewModel.showHome,
+          label: "Verbrauch",
+          color: AnalyticsChartColors.consumption,
+          state: viewModel.showConsumption,
           onPressed: viewModel.toggleHome,
         ),
         _ToggleButton(
