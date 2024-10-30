@@ -179,7 +179,7 @@ class AnalyticsDayChart extends StatelessWidget {
         .map(
           (p) => FlSpot(
             p.timestamp.difference(start).inMinutes.toDouble(),
-            p.power.toDouble(),
+            p.power.roundToDouble(),
           ),
         )
         .toList();
