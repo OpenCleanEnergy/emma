@@ -21,6 +21,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   void initState() {
     super.initState();
     _vm = locator.get<AnalyticsViewModel>();
+    _vm.fetch();
   }
 
   @override
