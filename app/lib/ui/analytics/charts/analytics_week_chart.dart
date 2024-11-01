@@ -9,21 +9,20 @@ import 'package:openems/ui/analytics/charts/factories/line_chart_data_factory.da
 import 'package:openems/ui/analytics/charts/nice_scale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:openems/ui/shared/translate.dart';
 import 'package:signals/signals_flutter.dart';
 
-class AnalyticsDayChart extends StatelessWidget {
-  static final _minutesFormat = NumberFormat('00');
-  static final _hoursFormat = NumberFormat('#0');
+class AnalyticsWeekChart extends StatelessWidget {
+  static const _daysAWeek = 7;
 
-  const AnalyticsDayChart({
+  const AnalyticsWeekChart({
     super.key,
     required this.chartControlViewModel,
     required this.analysisViewModel,
   });
 
   final AnalyticsChartControlViewModel chartControlViewModel;
-  final DailyAnalysisViewModel analysisViewModel;
+  final WeeklyAnalysisViewModel analysisViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +49,10 @@ class AnalyticsDayChart extends StatelessWidget {
       if (chartControlViewModel.showProduction.value)
         ...analysisViewModel.producers.value,
       if (chartControlViewModel.showGridConsume.value)
-        ...analysisViewModel.electricityMetersConsume.value,
+        ...analysisViewModel.electricityMetersConsumption.value,
       if (chartControlViewModel.showGridFeedIn.value)
         ...analysisViewModel.electricityMetersFeedIn.value,
-    ].map((x) => x.power).fold(const Watt(10.0), math.max);
+    ].map((x) => x.energy).fold(const WattHours(10.0), math.max);
 
     final niceScale = NiceScale.calculate(
       maxTicks: 10,
@@ -61,62 +60,64 @@ class AnalyticsDayChart extends StatelessWidget {
       max: maxValue,
     );
 
-    const timeAxisInterval = 120.0;
+    const timeAxisInterval = 1.0;
     return LineChartDataFactory.create(
       context: context,
       yScale: niceScale,
       minX: 0,
-      maxX: 24 * 60,
+      maxX: _daysAWeek - 1,
       intervalX: timeAxisInterval,
-      leftTitleBuilder: _buildPowerAxisTitle,
-      bottomTitleBuilder: _buildTimeAxisTitle,
+      leftTitleBuilder: _buildEnergyAxisTitle,
+      bottomTitleBuilder: (value) =>
+          _buildTimeAxisTitle(analysisViewModel.firstDayOfWeek.value, value),
       lineBarsData: [
         _getLineChartData(
             show: chartControlViewModel.showProduction.value,
-            start: analysisViewModel.start.value,
+            firstDayOfWeek: analysisViewModel.firstDayOfWeek.value,
             data: analysisViewModel.producers.value,
             color: AnalyticsChartColors.production),
         _getLineChartData(
             show: chartControlViewModel.showConsumption.value,
-            start: analysisViewModel.start.value,
+            firstDayOfWeek: analysisViewModel.firstDayOfWeek.value,
             data: analysisViewModel.consumers.value,
             color: AnalyticsChartColors.consumption),
         _getLineChartData(
             show: chartControlViewModel.showGridConsume.value,
-            start: analysisViewModel.start.value,
-            data: analysisViewModel.electricityMetersConsume.value,
+            firstDayOfWeek: analysisViewModel.firstDayOfWeek.value,
+            data: analysisViewModel.electricityMetersConsumption.value,
             color: AnalyticsChartColors.gridConsumption),
         _getLineChartData(
             show: chartControlViewModel.showGridFeedIn.value,
-            start: analysisViewModel.start.value,
+            firstDayOfWeek: analysisViewModel.firstDayOfWeek.value,
             data: analysisViewModel.electricityMetersFeedIn.value,
             color: AnalyticsChartColors.gridFeedIn),
       ],
     );
   }
 
-  static String _buildPowerAxisTitle(double value) {
-    return '${value.toInt()}${Watt.unit}';
+  static String _buildEnergyAxisTitle(double value) {
+    return '${value.toInt()}${WattHours.unit}';
   }
 
-  static String _buildTimeAxisTitle(double value) {
-    final hours = _hoursFormat.format(value ~/ 60);
-    final minutes = _minutesFormat.format(value % 60);
+  static String _buildTimeAxisTitle(DayOfWeek firstDayOfWeek, double value) {
+    final dayOfWeek =
+        DayOfWeek.values[((firstDayOfWeek.index - 1 + value.toInt()) % 7) + 1];
 
-    return '$hours:$minutes';
+    return Translate.dayOfWeek(dayOfWeek);
   }
 
   static LineChartBarData _getLineChartData({
     required bool show,
-    required DateTime start,
-    required Iterable<PowerDataPointDto> data,
+    required DayOfWeek firstDayOfWeek,
+    required Iterable<WeeklyEnergyDataPointDto> data,
     required Color color,
   }) {
     var spots = data
         .map(
           (p) => FlSpot(
-            p.timestamp.difference(start).inMinutes.toDouble(),
-            p.power.roundToDouble(),
+            ((p.dayOfWeek.index - firstDayOfWeek.index) % _daysAWeek)
+                .toDouble(),
+            p.energy.roundToDouble(),
           ),
         )
         .toList();

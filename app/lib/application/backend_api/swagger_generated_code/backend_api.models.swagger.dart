@@ -2122,6 +2122,7 @@ extension $SwitchConsumerDtoExtension on SwitchConsumerDto {
 @JsonSerializable(explicitToJson: true)
 class WeeklyAnalysisDto {
   const WeeklyAnalysisDto({
+    required this.energyHistory,
     required this.metrics,
   });
 
@@ -2131,6 +2132,8 @@ class WeeklyAnalysisDto {
   static const toJsonFactory = _$WeeklyAnalysisDtoToJson;
   Map<String, dynamic> toJson() => _$WeeklyAnalysisDtoToJson(this);
 
+  @JsonKey(name: 'energyHistory')
+  final WeeklyEnergyHistoryDto energyHistory;
   @JsonKey(name: 'metrics')
   final AnalyticsMetricsDto metrics;
   static const fromJsonFactory = _$WeeklyAnalysisDtoFromJson;
@@ -2139,6 +2142,9 @@ class WeeklyAnalysisDto {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other is WeeklyAnalysisDto &&
+            (identical(other.energyHistory, energyHistory) ||
+                const DeepCollectionEquality()
+                    .equals(other.energyHistory, energyHistory)) &&
             (identical(other.metrics, metrics) ||
                 const DeepCollectionEquality().equals(other.metrics, metrics)));
   }
@@ -2148,17 +2154,179 @@ class WeeklyAnalysisDto {
 
   @override
   int get hashCode =>
-      const DeepCollectionEquality().hash(metrics) ^ runtimeType.hashCode;
+      const DeepCollectionEquality().hash(energyHistory) ^
+      const DeepCollectionEquality().hash(metrics) ^
+      runtimeType.hashCode;
 }
 
 extension $WeeklyAnalysisDtoExtension on WeeklyAnalysisDto {
-  WeeklyAnalysisDto copyWith({AnalyticsMetricsDto? metrics}) {
-    return WeeklyAnalysisDto(metrics: metrics ?? this.metrics);
+  WeeklyAnalysisDto copyWith(
+      {WeeklyEnergyHistoryDto? energyHistory, AnalyticsMetricsDto? metrics}) {
+    return WeeklyAnalysisDto(
+        energyHistory: energyHistory ?? this.energyHistory,
+        metrics: metrics ?? this.metrics);
   }
 
-  WeeklyAnalysisDto copyWithWrapped({Wrapped<AnalyticsMetricsDto>? metrics}) {
+  WeeklyAnalysisDto copyWithWrapped(
+      {Wrapped<WeeklyEnergyHistoryDto>? energyHistory,
+      Wrapped<AnalyticsMetricsDto>? metrics}) {
     return WeeklyAnalysisDto(
+        energyHistory:
+            (energyHistory != null ? energyHistory.value : this.energyHistory),
         metrics: (metrics != null ? metrics.value : this.metrics));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class WeeklyEnergyDataPointDto {
+  const WeeklyEnergyDataPointDto({
+    required this.dayOfWeek,
+    required this.energy,
+  });
+
+  factory WeeklyEnergyDataPointDto.fromJson(Map<String, dynamic> json) =>
+      _$WeeklyEnergyDataPointDtoFromJson(json);
+
+  static const toJsonFactory = _$WeeklyEnergyDataPointDtoToJson;
+  Map<String, dynamic> toJson() => _$WeeklyEnergyDataPointDtoToJson(this);
+
+  @JsonKey(
+    name: 'dayOfWeek',
+    toJson: dayOfWeekToJson,
+    fromJson: dayOfWeekFromJson,
+  )
+  final enums.DayOfWeek dayOfWeek;
+  @JsonKey(name: 'energy')
+  final WattHours energy;
+  static const fromJsonFactory = _$WeeklyEnergyDataPointDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is WeeklyEnergyDataPointDto &&
+            (identical(other.dayOfWeek, dayOfWeek) ||
+                const DeepCollectionEquality()
+                    .equals(other.dayOfWeek, dayOfWeek)) &&
+            (identical(other.energy, energy) ||
+                const DeepCollectionEquality().equals(other.energy, energy)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(dayOfWeek) ^
+      const DeepCollectionEquality().hash(energy) ^
+      runtimeType.hashCode;
+}
+
+extension $WeeklyEnergyDataPointDtoExtension on WeeklyEnergyDataPointDto {
+  WeeklyEnergyDataPointDto copyWith(
+      {enums.DayOfWeek? dayOfWeek, WattHours? energy}) {
+    return WeeklyEnergyDataPointDto(
+        dayOfWeek: dayOfWeek ?? this.dayOfWeek, energy: energy ?? this.energy);
+  }
+
+  WeeklyEnergyDataPointDto copyWithWrapped(
+      {Wrapped<enums.DayOfWeek>? dayOfWeek, Wrapped<WattHours>? energy}) {
+    return WeeklyEnergyDataPointDto(
+        dayOfWeek: (dayOfWeek != null ? dayOfWeek.value : this.dayOfWeek),
+        energy: (energy != null ? energy.value : this.energy));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class WeeklyEnergyHistoryDto {
+  const WeeklyEnergyHistoryDto({
+    required this.consumers,
+    required this.producers,
+    required this.electricityMetersConsumption,
+    required this.electricityMetersFeedIn,
+  });
+
+  factory WeeklyEnergyHistoryDto.fromJson(Map<String, dynamic> json) =>
+      _$WeeklyEnergyHistoryDtoFromJson(json);
+
+  static const toJsonFactory = _$WeeklyEnergyHistoryDtoToJson;
+  Map<String, dynamic> toJson() => _$WeeklyEnergyHistoryDtoToJson(this);
+
+  @JsonKey(name: 'consumers', defaultValue: <WeeklyEnergyDataPointDto>[])
+  final List<WeeklyEnergyDataPointDto> consumers;
+  @JsonKey(name: 'producers', defaultValue: <WeeklyEnergyDataPointDto>[])
+  final List<WeeklyEnergyDataPointDto> producers;
+  @JsonKey(
+      name: 'electricityMetersConsumption',
+      defaultValue: <WeeklyEnergyDataPointDto>[])
+  final List<WeeklyEnergyDataPointDto> electricityMetersConsumption;
+  @JsonKey(
+      name: 'electricityMetersFeedIn',
+      defaultValue: <WeeklyEnergyDataPointDto>[])
+  final List<WeeklyEnergyDataPointDto> electricityMetersFeedIn;
+  static const fromJsonFactory = _$WeeklyEnergyHistoryDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is WeeklyEnergyHistoryDto &&
+            (identical(other.consumers, consumers) ||
+                const DeepCollectionEquality()
+                    .equals(other.consumers, consumers)) &&
+            (identical(other.producers, producers) ||
+                const DeepCollectionEquality()
+                    .equals(other.producers, producers)) &&
+            (identical(other.electricityMetersConsumption,
+                    electricityMetersConsumption) ||
+                const DeepCollectionEquality().equals(
+                    other.electricityMetersConsumption,
+                    electricityMetersConsumption)) &&
+            (identical(
+                    other.electricityMetersFeedIn, electricityMetersFeedIn) ||
+                const DeepCollectionEquality().equals(
+                    other.electricityMetersFeedIn, electricityMetersFeedIn)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(consumers) ^
+      const DeepCollectionEquality().hash(producers) ^
+      const DeepCollectionEquality().hash(electricityMetersConsumption) ^
+      const DeepCollectionEquality().hash(electricityMetersFeedIn) ^
+      runtimeType.hashCode;
+}
+
+extension $WeeklyEnergyHistoryDtoExtension on WeeklyEnergyHistoryDto {
+  WeeklyEnergyHistoryDto copyWith(
+      {List<WeeklyEnergyDataPointDto>? consumers,
+      List<WeeklyEnergyDataPointDto>? producers,
+      List<WeeklyEnergyDataPointDto>? electricityMetersConsumption,
+      List<WeeklyEnergyDataPointDto>? electricityMetersFeedIn}) {
+    return WeeklyEnergyHistoryDto(
+        consumers: consumers ?? this.consumers,
+        producers: producers ?? this.producers,
+        electricityMetersConsumption:
+            electricityMetersConsumption ?? this.electricityMetersConsumption,
+        electricityMetersFeedIn:
+            electricityMetersFeedIn ?? this.electricityMetersFeedIn);
+  }
+
+  WeeklyEnergyHistoryDto copyWithWrapped(
+      {Wrapped<List<WeeklyEnergyDataPointDto>>? consumers,
+      Wrapped<List<WeeklyEnergyDataPointDto>>? producers,
+      Wrapped<List<WeeklyEnergyDataPointDto>>? electricityMetersConsumption,
+      Wrapped<List<WeeklyEnergyDataPointDto>>? electricityMetersFeedIn}) {
+    return WeeklyEnergyHistoryDto(
+        consumers: (consumers != null ? consumers.value : this.consumers),
+        producers: (producers != null ? producers.value : this.producers),
+        electricityMetersConsumption: (electricityMetersConsumption != null
+            ? electricityMetersConsumption.value
+            : this.electricityMetersConsumption),
+        electricityMetersFeedIn: (electricityMetersFeedIn != null
+            ? electricityMetersFeedIn.value
+            : this.electricityMetersFeedIn));
   }
 }
 
@@ -2296,6 +2464,68 @@ List<enums.ControlMode>? controlModeNullableListFromJson(
   }
 
   return controlMode.map((e) => controlModeFromJson(e.toString())).toList();
+}
+
+String? dayOfWeekNullableToJson(enums.DayOfWeek? dayOfWeek) {
+  return dayOfWeek?.value;
+}
+
+String? dayOfWeekToJson(enums.DayOfWeek dayOfWeek) {
+  return dayOfWeek.value;
+}
+
+enums.DayOfWeek dayOfWeekFromJson(
+  Object? dayOfWeek, [
+  enums.DayOfWeek? defaultValue,
+]) {
+  return enums.DayOfWeek.values.firstWhereOrNull((e) => e.value == dayOfWeek) ??
+      defaultValue ??
+      enums.DayOfWeek.swaggerGeneratedUnknown;
+}
+
+enums.DayOfWeek? dayOfWeekNullableFromJson(
+  Object? dayOfWeek, [
+  enums.DayOfWeek? defaultValue,
+]) {
+  if (dayOfWeek == null) {
+    return null;
+  }
+  return enums.DayOfWeek.values.firstWhereOrNull((e) => e.value == dayOfWeek) ??
+      defaultValue;
+}
+
+String dayOfWeekExplodedListToJson(List<enums.DayOfWeek>? dayOfWeek) {
+  return dayOfWeek?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<String> dayOfWeekListToJson(List<enums.DayOfWeek>? dayOfWeek) {
+  if (dayOfWeek == null) {
+    return [];
+  }
+
+  return dayOfWeek.map((e) => e.value!).toList();
+}
+
+List<enums.DayOfWeek> dayOfWeekListFromJson(
+  List? dayOfWeek, [
+  List<enums.DayOfWeek>? defaultValue,
+]) {
+  if (dayOfWeek == null) {
+    return defaultValue ?? [];
+  }
+
+  return dayOfWeek.map((e) => dayOfWeekFromJson(e.toString())).toList();
+}
+
+List<enums.DayOfWeek>? dayOfWeekNullableListFromJson(
+  List? dayOfWeek, [
+  List<enums.DayOfWeek>? defaultValue,
+]) {
+  if (dayOfWeek == null) {
+    return defaultValue;
+  }
+
+  return dayOfWeek.map((e) => dayOfWeekFromJson(e.toString())).toList();
 }
 
 String? deviceCategoryNullableToJson(enums.DeviceCategory? deviceCategory) {

@@ -30,6 +30,30 @@ enum ControlMode {
   const ControlMode(this.value);
 }
 
+enum DayOfWeek {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue('Sunday')
+  sunday('Sunday'),
+  @JsonValue('Monday')
+  monday('Monday'),
+  @JsonValue('Tuesday')
+  tuesday('Tuesday'),
+  @JsonValue('Wednesday')
+  wednesday('Wednesday'),
+  @JsonValue('Thursday')
+  thursday('Thursday'),
+  @JsonValue('Friday')
+  friday('Friday'),
+  @JsonValue('Saturday')
+  saturday('Saturday');
+
+  final String? value;
+
+  const DayOfWeek(this.value);
+}
+
 enum DeviceCategory {
   @JsonValue(null)
   swaggerGeneratedUnknown(null),

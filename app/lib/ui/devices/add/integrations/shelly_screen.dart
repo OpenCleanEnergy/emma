@@ -7,7 +7,7 @@ import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/add/add_consumer_screen.dart';
 import 'package:openems/ui/devices/add/add_electricity_meter_screen.dart';
 import 'package:openems/ui/devices/add/add_producer_screen.dart';
-import 'package:openems/ui/devices/add/translate.dart';
+import 'package:openems/ui/shared/translate.dart';
 import 'package:openems/ui/devices/add/widgets/abort_add_button.dart';
 import 'package:openems/ui/devices/add/widgets/add_device_step_explanation.dart';
 import 'package:openems/ui/devices/add/integrations/shelly_view_model.dart';

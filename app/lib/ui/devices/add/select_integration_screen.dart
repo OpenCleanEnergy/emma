@@ -7,7 +7,7 @@ import 'package:openems/ui/devices/add/widgets/abort_add_button.dart';
 import 'package:openems/ui/devices/add/widgets/add_device_step_explanation.dart';
 import 'package:openems/ui/devices/add/integrations/shelly_screen.dart';
 import 'package:openems/ui/devices/add/select_integration_view_model.dart';
-import 'package:openems/ui/devices/add/translate.dart';
+import 'package:openems/ui/shared/translate.dart';
 import 'package:openems/ui/locator.dart';
 import 'package:openems/ui/shared/noop.dart';
 import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';

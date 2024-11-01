@@ -27,6 +27,14 @@ public static class EnumerableExtensions
         return WattHours.From(sum);
     }
 
+    public static WattHours Sum<TSource>(
+        this IEnumerable<TSource> source,
+        Func<TSource, WattHours?> selector
+    )
+    {
+        return source.Select(selector).Sum();
+    }
+
     public static WattHours Sum(this IEnumerable<WattHours?> source)
     {
         var sum = source.Sum(watt => watt.GetValueOrDefault(WattHours.Zero).Value);

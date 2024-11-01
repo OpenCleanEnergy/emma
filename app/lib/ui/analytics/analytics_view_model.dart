@@ -96,13 +96,12 @@ class AnalyticsViewModel {
         final dto = response.bodyOrThrow;
 
         batch(() {
-          final daily = _getOrSetAnalysis(
+          _getOrSetAnalysis(
             () => DailyAnalysisViewModel.empty(
               start: start,
               end: end,
             ),
-          );
-          daily.update(start: start, end: end, dto: dto);
+          ).update(start: start, end: end, dto: dto);
           metrics.update(dto.metrics);
         });
         return;
@@ -116,7 +115,12 @@ class AnalyticsViewModel {
 
         final dto = response.bodyOrThrow;
         batch(() {
-          _getOrSetAnalysis(() => ComingSoonAnalysisViewModel());
+          _getOrSetAnalysis(
+            () => WeeklyAnalysisViewModel.empty(
+              firstDayOfWeek: DayOfWeek.monday,
+            ),
+          ).update(firstDayOfWeek: DayOfWeek.monday, dto: dto);
+
           metrics.update(dto.metrics);
         });
       case AnalyticsPeriod.month:
@@ -161,21 +165,19 @@ class AnalyticsViewModel {
     AnalyticsPeriod period,
     DateTime seed,
   ) {
-    final dateOnlySeed = DateTime(seed.year, seed.month, seed.day);
-
     switch (period) {
       case AnalyticsPeriod.day:
         return DateTimeRange(
-          start: dateOnlySeed,
-          end: dateOnlySeed.add(const Duration(days: 1)),
+          start: DateTime(seed.year, seed.month, seed.day),
+          end: DateTime(seed.year, seed.month, seed.day + 1),
         );
       case AnalyticsPeriod.week:
         // Monday = 1
-        final dayOfWeek = dateOnlySeed.weekday;
-        final start = dateOnlySeed.subtract(Duration(days: dayOfWeek - 1));
-        final end = start
-            .add(const Duration(days: 7))
-            .subtract(const Duration(milliseconds: 1));
+        const firstDayOfWeek = 1;
+        final dayOfWeek = seed.weekday;
+        final start = DateTime(
+            seed.year, seed.month, seed.day - dayOfWeek + firstDayOfWeek);
+        final end = DateTime(start.year, start.month, start.day + 7);
         return DateTimeRange(start: start, end: end);
       case AnalyticsPeriod.month:
         return DateTimeRange(

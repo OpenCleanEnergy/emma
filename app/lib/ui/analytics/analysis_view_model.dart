@@ -38,4 +38,34 @@ class DailyAnalysisViewModel implements AnalysisViewModel {
   final Signal<List<PowerDataPointDto>> electricityMetersFeedIn;
 }
 
+class WeeklyAnalysisViewModel implements AnalysisViewModel {
+  WeeklyAnalysisViewModel.empty({
+    required DayOfWeek firstDayOfWeek,
+  })  : firstDayOfWeek = signal(firstDayOfWeek),
+        consumers = signal([]),
+        producers = signal([]),
+        electricityMetersConsumption = signal([]),
+        electricityMetersFeedIn = signal([]);
+
+  void update({
+    required DayOfWeek firstDayOfWeek,
+    required WeeklyAnalysisDto dto,
+  }) {
+    batch(() {
+      this.firstDayOfWeek.value = firstDayOfWeek;
+      consumers.value = dto.energyHistory.consumers;
+      producers.value = dto.energyHistory.producers;
+      electricityMetersConsumption.value =
+          dto.energyHistory.electricityMetersConsumption;
+      electricityMetersFeedIn.value = dto.energyHistory.electricityMetersFeedIn;
+    });
+  }
+
+  final Signal<DayOfWeek> firstDayOfWeek;
+  final Signal<List<WeeklyEnergyDataPointDto>> consumers;
+  final Signal<List<WeeklyEnergyDataPointDto>> producers;
+  final Signal<List<WeeklyEnergyDataPointDto>> electricityMetersConsumption;
+  final Signal<List<WeeklyEnergyDataPointDto>> electricityMetersFeedIn;
+}
+
 class ComingSoonAnalysisViewModel implements AnalysisViewModel {}

@@ -16,9 +16,12 @@ public class WeeklyAnalysisQuery : IQuery<WeeklyAnalysisDto>
     public required int FirstDayOfWeek { get; init; }
     public required TimeSpan TimeZoneOffset { get; init; }
 
-    public class Handler(IAnalyticsTotalEnergyDataQuery totalEnergyDataQuery)
-        : IQueryHandler<WeeklyAnalysisQuery, WeeklyAnalysisDto>
+    public class Handler(
+        IAnalyticsEnergyHistoryQuery energyHistoryQuery,
+        IAnalyticsTotalEnergyDataQuery totalEnergyDataQuery
+    ) : IQueryHandler<WeeklyAnalysisQuery, WeeklyAnalysisDto>
     {
+        private readonly IAnalyticsEnergyHistoryQuery _energyHistoryQuery = energyHistoryQuery;
         private readonly IAnalyticsTotalEnergyDataQuery _totalEnergyDataQuery =
             totalEnergyDataQuery;
 
@@ -39,9 +42,24 @@ public class WeeklyAnalysisQuery : IQuery<WeeklyAnalysisDto>
 
             var end = start.AddDays(7);
 
-            var totalEnergyData = await _totalEnergyDataQuery.QueryTotalEnergyData(start, end);
+            var intervals = Enumerable
+                .Range(start: 0, count: 7)
+                .Select(day => new EnergyHistoryQueryInterval<DayOfWeek>
+                {
+                    Key = start.AddDays(day).DayOfWeek,
+                    Start = start.AddDays(day),
+                    End = start.AddDays(day + 1),
+                })
+                .ToArray();
 
-            return new WeeklyAnalysisDto { Metrics = AnalyticsMetricsDto.From(totalEnergyData) };
+            var totalEnergyData = await _totalEnergyDataQuery.QueryTotalEnergyData(start, end);
+            var energyHistory = await _energyHistoryQuery.GetEnergyHistory(intervals);
+
+            return new WeeklyAnalysisDto
+            {
+                EnergyHistory = WeeklyEnergyHistoryDto.From(energyHistory),
+                Metrics = AnalyticsMetricsDto.From(totalEnergyData),
+            };
         }
     }
 }
