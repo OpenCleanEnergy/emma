@@ -4,7 +4,7 @@ import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/add/widgets/abort_add_button.dart';
 import 'package:openems/ui/devices/add/widgets/add_device_step_explanation.dart';
 import 'package:openems/ui/devices/add/select_integration_screen.dart';
-import 'package:openems/ui/devices/add/translate.dart';
+import 'package:openems/ui/shared/translate.dart';
 import 'package:flutter/material.dart';
 
 class SelectDeviceCategoryScreen extends StatelessWidget {

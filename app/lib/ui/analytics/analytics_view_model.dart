@@ -116,7 +116,9 @@ class AnalyticsViewModel {
 
         final dto = response.bodyOrThrow;
         batch(() {
-          _getOrSetAnalysis(() => ComingSoonAnalysisViewModel());
+          final weekly = _getOrSetAnalysis(() =>
+              WeeklyAnalysisViewModel.empty(firstDayOfWeek: DayOfWeek.monday));
+          weekly.update(firstDayOfWeek: DayOfWeek.monday, dto: dto);
           metrics.update(dto.metrics);
         });
       case AnalyticsPeriod.month:

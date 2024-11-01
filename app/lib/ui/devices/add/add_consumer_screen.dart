@@ -2,7 +2,7 @@ import 'package:openems/application/backend_api/backend_api.dart';
 import 'package:openems/ui/app_messenger.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/add/add_consumer_view_model.dart';
-import 'package:openems/ui/devices/add/translate.dart';
+import 'package:openems/ui/shared/translate.dart';
 import 'package:openems/ui/devices/add/widgets/abort_add_button.dart';
 import 'package:openems/ui/devices/add/widgets/add_device_step_explanation.dart';
 import 'package:openems/ui/devices/widgets/device_name_form_field.dart';

@@ -8,21 +8,20 @@ import 'package:openems/ui/analytics/charts/analytics_chart_control_view_model.d
 import 'package:openems/ui/analytics/charts/nice_scale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:openems/ui/shared/translate.dart';
 import 'package:signals/signals_flutter.dart';
 
-class AnalyticsDayChart extends StatelessWidget {
-  static final _minutesFormat = NumberFormat('00');
-  static final _hoursFormat = NumberFormat('#0');
+class AnalyticsWeekChart extends StatelessWidget {
+  static const _daysAWeek = 7;
 
-  const AnalyticsDayChart({
+  const AnalyticsWeekChart({
     super.key,
     required this.chartControlViewModel,
     required this.analysisViewModel,
   });
 
   final AnalyticsChartControlViewModel chartControlViewModel;
-  final DailyAnalysisViewModel analysisViewModel;
+  final WeeklyAnalysisViewModel analysisViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +56,10 @@ class AnalyticsDayChart extends StatelessWidget {
       if (chartControlViewModel.showProduction.value)
         ...analysisViewModel.producers.value,
       if (chartControlViewModel.showGridConsume.value)
-        ...analysisViewModel.electricityMetersConsume.value,
+        ...analysisViewModel.electricityMetersConsumption.value,
       if (chartControlViewModel.showGridFeedIn.value)
         ...analysisViewModel.electricityMetersFeedIn.value,
-    ].map((x) => x.power).fold(const Watt(100.0), math.max);
+    ].map((x) => x.energy).fold(const WattHours(100.0), math.max);
 
     final niceScale = NiceScale.calculate(
       maxTicks: 10,
@@ -68,12 +67,12 @@ class AnalyticsDayChart extends StatelessWidget {
       max: maxValue,
     );
 
-    const timeAxisInterval = 120.0;
+    const timeAxisInterval = 1.0;
     return LineChartData(
       minY: niceScale.min,
       maxY: niceScale.max,
       minX: 0,
-      maxX: 24 * 60,
+      maxX: _daysAWeek - 1,
       gridData: FlGridData(
         show: true,
         drawVerticalLine: false,
@@ -98,8 +97,8 @@ class AnalyticsDayChart extends StatelessWidget {
             showTitles: true,
             reservedSize: 48,
             interval: timeAxisInterval,
-            getTitlesWidget: (value, meta) =>
-                _buildTimeAxisTitleWidget(textTheme, value, meta),
+            getTitlesWidget: (value, meta) => _buildTimeAxisTitleWidget(
+                analysisViewModel.firstDayOfWeek.value, textTheme, value, meta),
           ),
         ),
         leftTitles: AxisTitles(
@@ -107,7 +106,7 @@ class AnalyticsDayChart extends StatelessWidget {
             showTitles: true,
             interval: niceScale.tickInterval,
             getTitlesWidget: (value, meta) =>
-                _buildPowerAxisTitleWidget(textTheme, value, meta),
+                _buildEnergyAxisTitleWidget(textTheme, value, meta),
             reservedSize: 48,
           ),
         ),
@@ -124,31 +123,31 @@ class AnalyticsDayChart extends StatelessWidget {
       lineBarsData: [
         _getLineChartData(
             show: chartControlViewModel.showProduction.value,
-            start: analysisViewModel.start.value,
+            firstDayOfWeek: analysisViewModel.firstDayOfWeek.value,
             data: analysisViewModel.producers.value,
             color: AnalyticsChartColors.production),
         _getLineChartData(
             show: chartControlViewModel.showConsumption.value,
-            start: analysisViewModel.start.value,
+            firstDayOfWeek: analysisViewModel.firstDayOfWeek.value,
             data: analysisViewModel.consumers.value,
             color: AnalyticsChartColors.consumption),
         _getLineChartData(
             show: chartControlViewModel.showGridConsume.value,
-            start: analysisViewModel.start.value,
-            data: analysisViewModel.electricityMetersConsume.value,
+            firstDayOfWeek: analysisViewModel.firstDayOfWeek.value,
+            data: analysisViewModel.electricityMetersConsumption.value,
             color: AnalyticsChartColors.gridConsumption),
         _getLineChartData(
             show: chartControlViewModel.showGridFeedIn.value,
-            start: analysisViewModel.start.value,
+            firstDayOfWeek: analysisViewModel.firstDayOfWeek.value,
             data: analysisViewModel.electricityMetersFeedIn.value,
             color: AnalyticsChartColors.gridFeedIn),
       ],
     );
   }
 
-  static Widget _buildPowerAxisTitleWidget(
+  static Widget _buildEnergyAxisTitleWidget(
       TextTheme theme, double value, TitleMeta meta) {
-    final text = '${value.toInt()}${Watt.unit}';
+    final text = '${value.toInt()}${WattHours.unit}';
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
@@ -157,28 +156,29 @@ class AnalyticsDayChart extends StatelessWidget {
   }
 
   static Widget _buildTimeAxisTitleWidget(
-      TextTheme theme, double value, TitleMeta meta) {
-    final hours = _hoursFormat.format(value ~/ 60);
-    final minutes = _minutesFormat.format(value % 60);
+      DayOfWeek firstDayOfWeek, TextTheme theme, double value, TitleMeta meta) {
+    final dayOfWeek =
+        DayOfWeek.values[((firstDayOfWeek.index - 1 + value.toInt()) % 7) + 1];
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
       angle: -45,
-      child: Text('$hours:$minutes', style: theme.labelSmall),
+      child: Text(Translate.dayOfWeek(dayOfWeek), style: theme.labelSmall),
     );
   }
 
   static LineChartBarData _getLineChartData({
     required bool show,
-    required DateTime start,
-    required Iterable<PowerDataPointDto> data,
+    required DayOfWeek firstDayOfWeek,
+    required Iterable<WeeklyEnergyDataPointDto> data,
     required Color color,
   }) {
     var spots = data
         .map(
           (p) => FlSpot(
-            p.timestamp.difference(start).inMinutes.toDouble(),
-            p.power.roundToDouble(),
+            ((p.dayOfWeek.index - firstDayOfWeek.index) % _daysAWeek)
+                .toDouble(),
+            p.energy.roundToDouble(),
           ),
         )
         .toList();
