@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.39](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.38...server-v1.0.0-alpha.39) (2024-11-01)
+
+
+### 🚀 Features
+
+* **Analytics:** Weekly analysis ([#251](https://github.com/OpenCleanEnergy/emma/issues/251)) ([c2246cb](https://github.com/OpenCleanEnergy/emma/commit/c2246cb755172fa166db9aba65bb56c2dd338d89))
+
 ## [1.0.0-alpha.38](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.37...server-v1.0.0-alpha.38) (2024-10-30)
 
 
