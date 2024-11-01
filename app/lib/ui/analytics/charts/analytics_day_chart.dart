@@ -53,7 +53,7 @@ class AnalyticsDayChart extends StatelessWidget {
         ...analysisViewModel.electricityMetersConsume.value,
       if (chartControlViewModel.showGridFeedIn.value)
         ...analysisViewModel.electricityMetersFeedIn.value,
-    ].map((x) => x.power).fold(const Watt(100.0), math.max);
+    ].map((x) => x.power).fold(const Watt(10.0), math.max);
 
     final niceScale = NiceScale.calculate(
       maxTicks: 10,

@@ -113,7 +113,7 @@ final class _DefaultBottomSideTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SideTitleWidget(
       axisSide: axisSide,
-      angle: -45,
+      angle: title.length >= 4 ? -45 : 0,
       child: Text(
         title,
         style: Theme.of(context).textTheme.labelSmall,
