@@ -42,9 +42,9 @@ public class WeeklyAnalysisQuery : IQuery<WeeklyAnalysisDto>
 
             var end = start.AddDays(7);
 
-            var parameters = Enumerable
+            var intervals = Enumerable
                 .Range(start: 0, count: 7)
-                .Select(day => new EnergyHistoryQueryParameter<DayOfWeek>
+                .Select(day => new EnergyHistoryQueryInterval<DayOfWeek>
                 {
                     Key = start.AddDays(day).DayOfWeek,
                     Start = start.AddDays(day),
@@ -53,7 +53,7 @@ public class WeeklyAnalysisQuery : IQuery<WeeklyAnalysisDto>
                 .ToArray();
 
             var totalEnergyData = await _totalEnergyDataQuery.QueryTotalEnergyData(start, end);
-            var energyHistory = await _energyHistoryQuery.GetEnergyHistory(parameters);
+            var energyHistory = await _energyHistoryQuery.GetEnergyHistory(intervals);
 
             return new WeeklyAnalysisDto
             {

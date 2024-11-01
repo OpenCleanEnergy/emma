@@ -1,6 +1,6 @@
 namespace OpenEMS.Analytics.Queries;
 
-public class EnergyHistoryQueryParameter<TKey>
+public class EnergyHistoryQueryInterval<TKey>
 {
     public required TKey Key { get; init; }
     public required DateTimeOffset Start { get; init; }

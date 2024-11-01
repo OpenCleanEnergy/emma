@@ -11,27 +11,27 @@ public class DbContextAnalyticsEnergyHistoryQuery(AppDbContext context)
     private readonly AppDbContext _context = context;
 
     public async Task<EnergyHistory<TKey>> GetEnergyHistory<TKey>(
-        IReadOnlyList<EnergyHistoryQueryParameter<TKey>> parameters
+        IReadOnlyList<EnergyHistoryQueryInterval<TKey>> intervals
     )
         where TKey : notnull
     {
         // Switch consumers
-        var switchConsumersQuery = parameters
+        var switchConsumersQuery = intervals
             .Skip(1)
             .Aggregate(
-                GetSwitchConsumerQuery(parameters[0]),
-                (query, parameter) => query.Union(GetSwitchConsumerQuery(parameter))
+                GetSwitchConsumerQuery(intervals[0]),
+                (query, interval) => query.Union(GetSwitchConsumerQuery(interval))
             );
 
         var switchConsumers = await switchConsumersQuery
             .TagWith($"{nameof(GetEnergyHistory)}.{nameof(_context.SwitchConsumerSamples)}")
             .ToArrayAsync();
 
-        var producersQuery = parameters
+        var producersQuery = intervals
             .Skip(1)
             .Aggregate(
-                GetProducerQuery(parameters[0]),
-                (query, parameter) => query.Union(GetProducerQuery(parameter))
+                GetProducerQuery(intervals[0]),
+                (query, interval) => query.Union(GetProducerQuery(interval))
             );
 
         // Producers
@@ -40,11 +40,11 @@ public class DbContextAnalyticsEnergyHistoryQuery(AppDbContext context)
             .ToArrayAsync();
 
         // Electricity meters - consumption
-        var electricityMetersConsumptionQuery = parameters
+        var electricityMetersConsumptionQuery = intervals
             .Skip(1)
             .Aggregate(
-                GetElectricityMeterConsumptionQuery(parameters[0]),
-                (query, parameter) => query.Union(GetElectricityMeterConsumptionQuery(parameter))
+                GetElectricityMeterConsumptionQuery(intervals[0]),
+                (query, interval) => query.Union(GetElectricityMeterConsumptionQuery(interval))
             );
 
         var electricityMetersConsumption = await electricityMetersConsumptionQuery
@@ -54,11 +54,11 @@ public class DbContextAnalyticsEnergyHistoryQuery(AppDbContext context)
             .ToArrayAsync();
 
         // Electricity meters - feed in
-        var electricityMetersFeedInQuery = parameters
+        var electricityMetersFeedInQuery = intervals
             .Skip(1)
             .Aggregate(
-                GetElectricityMeterFeedInQuery(parameters[0]),
-                (query, parameter) => query.Union(GetElectricityMeterFeedInQuery(parameter))
+                GetElectricityMeterFeedInQuery(intervals[0]),
+                (query, interval) => query.Union(GetElectricityMeterFeedInQuery(interval))
             );
 
         var electricityMetersFeedIn = await electricityMetersFeedInQuery
@@ -69,18 +69,18 @@ public class DbContextAnalyticsEnergyHistoryQuery(AppDbContext context)
 
         return new EnergyHistory<TKey>
         {
-            Consumers = GetEnergyDataPoints(parameters, switchConsumers),
-            Producers = GetEnergyDataPoints(parameters, producers),
+            Consumers = GetEnergyDataPoints(intervals, switchConsumers),
+            Producers = GetEnergyDataPoints(intervals, producers),
             ElectricityMetersConsumption = GetEnergyDataPoints(
-                parameters,
+                intervals,
                 electricityMetersConsumption
             ),
-            ElectricityMetersFeedIn = GetEnergyDataPoints(parameters, electricityMetersFeedIn),
+            ElectricityMetersFeedIn = GetEnergyDataPoints(intervals, electricityMetersFeedIn),
         };
     }
 
-    private static IReadOnlyList<EnergyDataPoint<TKey>> GetEnergyDataPoints<TKey>(
-        IReadOnlyList<EnergyHistoryQueryParameter<TKey>> parameters,
+    private static EnergyDataPoint<TKey>[] GetEnergyDataPoints<TKey>(
+        IReadOnlyList<EnergyHistoryQueryInterval<TKey>> intervals,
         IReadOnlyList<RawEnergyDataPoint<TKey>> dataPoints
     )
         where TKey : notnull
@@ -89,83 +89,78 @@ public class DbContextAnalyticsEnergyHistoryQuery(AppDbContext context)
             .GroupBy(dataPoint => dataPoint.Key)
             .ToDictionary(group => group.Key, group => group.Sum(_ => _.Energy));
 
-        return
-        [
-            .. parameters
-                .Where(parameter => energyByKey.ContainsKey(parameter.Key))
-                .Select(parameter => new EnergyDataPoint<TKey>(
-                    parameter.Key,
-                    energyByKey[parameter.Key]
-                )),
-        ];
+        return intervals
+            .Where(interval => energyByKey.ContainsKey(interval.Key))
+            .Select(interval => new EnergyDataPoint<TKey>(interval.Key, energyByKey[interval.Key]))
+            .ToArray();
     }
 
     private IQueryable<RawEnergyDataPoint<TKey>> GetSwitchConsumerQuery<TKey>(
-        EnergyHistoryQueryParameter<TKey> parameter
+        EnergyHistoryQueryInterval<TKey> interval
     )
     {
         return from sample in _context.SwitchConsumerSamples
             where
-                sample.Timestamp >= parameter.Start
-                && sample.Timestamp <= parameter.End
+                sample.Timestamp >= interval.Start
+                && sample.Timestamp <= interval.End
                 && sample.TotalEnergyConsumption != null
             group sample by sample.SwitchConsumerId into g
             select new RawEnergyDataPoint<TKey>
             {
-                Key = parameter.Key,
+                Key = interval.Key,
                 Energy =
                     g.Max(_ => _.TotalEnergyConsumption) - g.Min(_ => _.TotalEnergyConsumption),
             };
     }
 
     private IQueryable<RawEnergyDataPoint<TKey>> GetProducerQuery<TKey>(
-        EnergyHistoryQueryParameter<TKey> parameter
+        EnergyHistoryQueryInterval<TKey> interval
     )
     {
         return from sample in _context.ProducerSamples
             where
-                sample.Timestamp >= parameter.Start
-                && sample.Timestamp <= parameter.End
+                sample.Timestamp >= interval.Start
+                && sample.Timestamp <= interval.End
                 && sample.TotalEnergyProduction != null
             group sample by sample.ProducerId into g
             select new RawEnergyDataPoint<TKey>
             {
-                Key = parameter.Key,
+                Key = interval.Key,
                 Energy = g.Max(_ => _.TotalEnergyProduction) - g.Min(_ => _.TotalEnergyProduction),
             };
     }
 
     private IQueryable<RawEnergyDataPoint<TKey>> GetElectricityMeterConsumptionQuery<TKey>(
-        EnergyHistoryQueryParameter<TKey> parameter
+        EnergyHistoryQueryInterval<TKey> interval
     )
     {
         return from sample in _context.ElectricityMeterSamples
             where
-                sample.Timestamp >= parameter.Start
-                && sample.Timestamp <= parameter.End
+                sample.Timestamp >= interval.Start
+                && sample.Timestamp <= interval.End
                 && sample.TotalEnergyConsumption != null
             group sample by sample.ElectricityMeterId into g
             select new RawEnergyDataPoint<TKey>
             {
-                Key = parameter.Key,
+                Key = interval.Key,
                 Energy =
                     g.Max(_ => _.TotalEnergyConsumption) - g.Min(_ => _.TotalEnergyConsumption),
             };
     }
 
     private IQueryable<RawEnergyDataPoint<TKey>> GetElectricityMeterFeedInQuery<TKey>(
-        EnergyHistoryQueryParameter<TKey> parameter
+        EnergyHistoryQueryInterval<TKey> interval
     )
     {
         return from sample in _context.ElectricityMeterSamples
             where
-                sample.Timestamp >= parameter.Start
-                && sample.Timestamp <= parameter.End
+                sample.Timestamp >= interval.Start
+                && sample.Timestamp <= interval.End
                 && sample.TotalEnergyFeedIn != null
             group sample by sample.ElectricityMeterId into g
             select new RawEnergyDataPoint<TKey>
             {
-                Key = parameter.Key,
+                Key = interval.Key,
                 Energy = g.Max(_ => _.TotalEnergyFeedIn) - g.Min(_ => _.TotalEnergyFeedIn),
             };
     }
