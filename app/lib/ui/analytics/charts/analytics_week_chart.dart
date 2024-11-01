@@ -29,7 +29,7 @@ class AnalyticsWeekChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text("Leistungsverlauf", style: Theme.of(context).textTheme.bodyLarge),
+        Text("Energieverlauf", style: Theme.of(context).textTheme.bodyLarge),
         const SizedBox(height: 8),
         Expanded(
           child: Padding(
