@@ -14,6 +14,7 @@ import 'package:signals/signals_flutter.dart';
 
 class AnalyticsWeekChart extends StatelessWidget {
   static const _daysAWeek = 7;
+  static const _kilo = 1000;
 
   const AnalyticsWeekChart({
     super.key,
@@ -52,12 +53,12 @@ class AnalyticsWeekChart extends StatelessWidget {
         ...analysisViewModel.electricityMetersConsumption.value,
       if (chartControlViewModel.showGridFeedIn.value)
         ...analysisViewModel.electricityMetersFeedIn.value,
-    ].map((x) => x.energy).fold(const WattHours(10.0), math.max);
+    ].map((x) => x.energy).fold(const WattHours(_kilo), math.max);
 
     final niceScale = NiceScale.calculate(
       maxTicks: 10,
       min: 0,
-      max: maxValue,
+      max: maxValue / _kilo,
     );
 
     const timeAxisInterval = 1.0;
@@ -96,7 +97,7 @@ class AnalyticsWeekChart extends StatelessWidget {
   }
 
   static String _buildEnergyAxisTitle(double value) {
-    return '${value.toInt()}${WattHours.unit}';
+    return '${value / _kilo}k{WattHours.unit}';
   }
 
   static String _buildTimeAxisTitle(DayOfWeek firstDayOfWeek, double value) {
@@ -117,7 +118,7 @@ class AnalyticsWeekChart extends StatelessWidget {
           (p) => FlSpot(
             ((p.dayOfWeek.index - firstDayOfWeek.index) % _daysAWeek)
                 .toDouble(),
-            p.energy.roundToDouble(),
+            p.energy.roundToDouble() / _kilo,
           ),
         )
         .toList();
