@@ -26,37 +26,33 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Banner(
-      message: "DEMO",
-      location: BannerLocation.topEnd,
-      child: Scaffold(
-        appBar: AppBar(
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(60),
-            child: Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 8.0,
-                  ),
-                  child: AnalyticsRangePicker(viewModel: _vm),
+    return Scaffold(
+      appBar: AppBar(
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 8.0,
                 ),
-                AppBarCommandProgressIndicator(command: _vm.fetch),
-              ],
-            ),
+                child: AnalyticsRangePicker(viewModel: _vm),
+              ),
+              AppBarCommandProgressIndicator(command: _vm.fetch),
+            ],
           ),
         ),
-        body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          children: [
-            const SizedBox(height: 16),
-            AnalyticsMetricsContainer(viewModel: _vm.metrics),
-            const SizedBox(height: 32),
-            AnalyticsChart(viewModel: _vm),
-          ],
-        ),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        children: [
+          const SizedBox(height: 16),
+          AnalyticsMetricsContainer(viewModel: _vm.metrics),
+          const SizedBox(height: 32),
+          AnalyticsChart(viewModel: _vm),
+        ],
       ),
     );
   }
