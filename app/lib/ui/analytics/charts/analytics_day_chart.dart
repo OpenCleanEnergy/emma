@@ -2,9 +2,10 @@ import 'dart:math' as math;
 
 import 'package:openems/application/backend_api/backend_api.dart';
 import 'package:openems/ui/analytics/analysis_view_model.dart';
-import 'package:openems/ui/analytics/charts/analytics_chart_color_scheme.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_colors.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_control_view_model.dart';
+import 'package:openems/ui/analytics/charts/factories/line_chart_bar_data_factory.dart';
+import 'package:openems/ui/analytics/charts/factories/line_chart_data_factory.dart';
 import 'package:openems/ui/analytics/charts/nice_scale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -34,14 +35,7 @@ class AnalyticsDayChart extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Watch(
-              (context) => LineChart(
-                mainData(
-                  Theme.of(context).textTheme,
-                  AnalyticsChartColorScheme.of(context),
-                ),
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              ),
+              (context) => LineChart(mainData(context)),
             ),
           ),
         ),
@@ -49,8 +43,7 @@ class AnalyticsDayChart extends StatelessWidget {
     );
   }
 
-  LineChartData mainData(
-      TextTheme textTheme, AnalyticsChartColorScheme colorScheme) {
+  LineChartData mainData(BuildContext context) {
     final maxValue = [
       if (chartControlViewModel.showConsumption.value)
         ...analysisViewModel.consumers.value,
@@ -69,58 +62,14 @@ class AnalyticsDayChart extends StatelessWidget {
     );
 
     const timeAxisInterval = 120.0;
-    return LineChartData(
-      minY: niceScale.min,
-      maxY: niceScale.max,
+    return LineChartDataFactory.create(
+      context: context,
+      yScale: niceScale,
       minX: 0,
       maxX: 24 * 60,
-      gridData: FlGridData(
-        show: true,
-        drawVerticalLine: false,
-        horizontalInterval: niceScale.tickInterval,
-        getDrawingHorizontalLine: (value) {
-          return FlLine(
-            color: colorScheme.mainGridLine,
-            strokeWidth: 1,
-            dashArray: [8, 8],
-          );
-        },
-      ),
-      titlesData: FlTitlesData(
-        rightTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        topTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 48,
-            interval: timeAxisInterval,
-            getTitlesWidget: (value, meta) =>
-                _buildTimeAxisTitleWidget(textTheme, value, meta),
-          ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            interval: niceScale.tickInterval,
-            getTitlesWidget: (value, meta) =>
-                _buildPowerAxisTitleWidget(textTheme, value, meta),
-            reservedSize: 48,
-          ),
-        ),
-      ),
-      borderData: FlBorderData(
-        show: true,
-        border: Border(bottom: BorderSide(color: colorScheme.border)),
-      ),
-      lineTouchData: LineTouchData(
-        touchTooltipData: LineTouchTooltipData(
-            getTooltipColor: (touchedSpot) => colorScheme.tooltip,
-            tooltipBorder: BorderSide(color: colorScheme.border)),
-      ),
+      intervalX: timeAxisInterval,
+      leftTitleBuilder: _buildPowerAxisTitle,
+      bottomTitleBuilder: _buildTimeAxisTitle,
       lineBarsData: [
         _getLineChartData(
             show: chartControlViewModel.showProduction.value,
@@ -146,26 +95,15 @@ class AnalyticsDayChart extends StatelessWidget {
     );
   }
 
-  static Widget _buildPowerAxisTitleWidget(
-      TextTheme theme, double value, TitleMeta meta) {
-    final text = '${value.toInt()}${Watt.unit}';
-
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      child: Text(text, style: theme.labelSmall),
-    );
+  static String _buildPowerAxisTitle(double value) {
+    return '${value.toInt()}${Watt.unit}';
   }
 
-  static Widget _buildTimeAxisTitleWidget(
-      TextTheme theme, double value, TitleMeta meta) {
+  static String _buildTimeAxisTitle(double value) {
     final hours = _hoursFormat.format(value ~/ 60);
     final minutes = _minutesFormat.format(value % 60);
 
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      angle: -45,
-      child: Text('$hours:$minutes', style: theme.labelSmall),
-    );
+    return '$hours:$minutes';
   }
 
   static LineChartBarData _getLineChartData({
@@ -183,17 +121,10 @@ class AnalyticsDayChart extends StatelessWidget {
         )
         .toList();
 
-    return LineChartBarData(
+    return LineChartBarDataFactory.create(
       show: show,
-      spots: spots,
-      isCurved: true,
-      preventCurveOverShooting: true,
       color: color,
-      dotData: const FlDotData(show: false),
-      belowBarData: BarAreaData(
-        show: true,
-        color: color.toBarAreaColor(),
-      ),
+      spots: spots,
     );
   }
 }
