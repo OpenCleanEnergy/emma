@@ -96,13 +96,12 @@ class AnalyticsViewModel {
         final dto = response.bodyOrThrow;
 
         batch(() {
-          final daily = _getOrSetAnalysis(
+          _getOrSetAnalysis(
             () => DailyAnalysisViewModel.empty(
               start: start,
               end: end,
             ),
-          );
-          daily.update(start: start, end: end, dto: dto);
+          ).update(start: start, end: end, dto: dto);
           metrics.update(dto.metrics);
         });
         return;
@@ -116,9 +115,12 @@ class AnalyticsViewModel {
 
         final dto = response.bodyOrThrow;
         batch(() {
-          final weekly = _getOrSetAnalysis(() =>
-              WeeklyAnalysisViewModel.empty(firstDayOfWeek: DayOfWeek.monday));
-          weekly.update(firstDayOfWeek: DayOfWeek.monday, dto: dto);
+          _getOrSetAnalysis(
+            () => WeeklyAnalysisViewModel.empty(
+              firstDayOfWeek: DayOfWeek.monday,
+            ),
+          ).update(firstDayOfWeek: DayOfWeek.monday, dto: dto);
+
           metrics.update(dto.metrics);
         });
       case AnalyticsPeriod.month:
