@@ -58,7 +58,7 @@ class AnalyticsWeekChart extends StatelessWidget {
     final niceScale = NiceScale.calculate(
       maxTicks: 10,
       min: 0,
-      max: maxValue / _kilo,
+      max: maxValue,
     );
 
     const timeAxisInterval = 1.0;
@@ -118,7 +118,7 @@ class AnalyticsWeekChart extends StatelessWidget {
           (p) => FlSpot(
             ((p.dayOfWeek.index - firstDayOfWeek.index) % _daysAWeek)
                 .toDouble(),
-            p.energy.roundToDouble() / _kilo,
+            p.energy.roundToDouble(),
           ),
         )
         .toList();
