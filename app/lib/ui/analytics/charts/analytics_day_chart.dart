@@ -190,8 +190,6 @@ class AnalyticsDayChart extends StatelessWidget {
       isCurved: true,
       preventCurveOverShooting: true,
       color: color,
-      barWidth: 2,
-      isStrokeCapRound: true,
       dotData: const FlDotData(show: false),
       belowBarData: BarAreaData(
         show: true,
