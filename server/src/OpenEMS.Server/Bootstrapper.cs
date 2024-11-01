@@ -368,6 +368,10 @@ public static class Bootstrapper
             IAnalyticsTotalEnergyDataQuery,
             DbContextAnalyticsTotalEnergyDataQuery
         >();
+        container.AddTransient<
+            IAnalyticsEnergyHistoryQuery,
+            DbContextAnalyticsEnergyHistoryQuery
+        >();
     }
 
     private static void AddIntegrations(IServiceCollection container, AppSettings appSettings)
