@@ -13,9 +13,12 @@ public class MonthlyAnalysisQuery : IQuery<MonthlyAnalysisDto>
     public required int Month { get; init; }
     public required TimeSpan TimeZoneOffset { get; init; }
 
-    public class Handler(IAnalyticsTotalEnergyDataQuery totalEnergyDataQuery)
-        : IQueryHandler<MonthlyAnalysisQuery, MonthlyAnalysisDto>
+    public class Handler(
+        IAnalyticsEnergyHistoryQuery energyHistoryQuery,
+        IAnalyticsTotalEnergyDataQuery totalEnergyDataQuery
+    ) : IQueryHandler<MonthlyAnalysisQuery, MonthlyAnalysisDto>
     {
+        private readonly IAnalyticsEnergyHistoryQuery _energyHistoryQuery = energyHistoryQuery;
         private readonly IAnalyticsTotalEnergyDataQuery _totalEnergyDataQuery =
             totalEnergyDataQuery;
 
@@ -34,11 +37,27 @@ public class MonthlyAnalysisQuery : IQuery<MonthlyAnalysisDto>
                 offset: request.TimeZoneOffset
             );
 
-            var end = start.AddMonths(1);
+            var intervals = Enumerable
+                .Range(start: 1, count: DateTime.DaysInMonth(request.Year, request.Month))
+                .Select(day => new EnergyHistoryQueryInterval<int>
+                {
+                    Key = day,
+                    Start = start.AddDays(day - 1),
+                    End = start.AddDays(day),
+                })
+                .ToArray();
 
-            var totalEnergyData = await _totalEnergyDataQuery.QueryTotalEnergyData(start, end);
+            var energyHistory = await _energyHistoryQuery.GetEnergyHistory(intervals);
+            var totalEnergyData = await _totalEnergyDataQuery.QueryTotalEnergyData(
+                start,
+                start.AddMonths(1)
+            );
 
-            return new MonthlyAnalysisDto { Metrics = AnalyticsMetricsDto.From(totalEnergyData) };
+            return new MonthlyAnalysisDto
+            {
+                EnergyHistory = MonthlyEnergyHistoryDto.From(energyHistory),
+                Metrics = AnalyticsMetricsDto.From(totalEnergyData),
+            };
         }
     }
 }

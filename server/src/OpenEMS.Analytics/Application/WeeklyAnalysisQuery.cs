@@ -40,8 +40,6 @@ public class WeeklyAnalysisQuery : IQuery<WeeklyAnalysisDto>
                 offset: request.TimeZoneOffset
             );
 
-            var end = start.AddDays(7);
-
             var intervals = Enumerable
                 .Range(start: 0, count: 7)
                 .Select(day => new EnergyHistoryQueryInterval<DayOfWeek>
@@ -52,8 +50,11 @@ public class WeeklyAnalysisQuery : IQuery<WeeklyAnalysisDto>
                 })
                 .ToArray();
 
-            var totalEnergyData = await _totalEnergyDataQuery.QueryTotalEnergyData(start, end);
             var energyHistory = await _energyHistoryQuery.GetEnergyHistory(intervals);
+            var totalEnergyData = await _totalEnergyDataQuery.QueryTotalEnergyData(
+                start,
+                start.AddDays(7)
+            );
 
             return new WeeklyAnalysisDto
             {
