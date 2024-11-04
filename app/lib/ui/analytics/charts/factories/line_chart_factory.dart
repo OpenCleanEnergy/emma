@@ -86,6 +86,7 @@ abstract final class LineChartFactory {
             showTitles: true,
             reservedSize: 48,
             interval: xScale.tickInterval,
+            maxIncluded: (xScale.max % xScale.tickInterval) == 0,
             getTitlesWidget: (value, _) => bottomTitleBuilder(value),
           ),
         ),
