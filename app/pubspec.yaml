@@ -50,7 +50,7 @@ dependencies:
   flutter_launcher_icons: ^0.14.1
   mutex: ^3.1.0
   web: ^0.5.1
-  simple_animations: ^5.0.2
+  simple_animations: ^5.1.0
   fl_chart: ^0.69.0
   collection: ^1.18.0
   persistent_bottom_nav_bar_v2: ^5.3.1
