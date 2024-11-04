@@ -1,15 +1,18 @@
 import 'dart:math' as math;
 
 // https://stackoverflow.com/a/16363437
-class NiceScale {
-  NiceScale._(
-      {required this.min, required this.max, required this.tickInterval});
+class Scale {
+  Scale({
+    required this.min,
+    required this.max,
+    required this.tickInterval,
+  });
 
   final double min;
   final double max;
   final double tickInterval;
 
-  factory NiceScale.calculate({
+  factory Scale.nice({
     required int maxTicks,
     required num min,
     required num max,
@@ -19,7 +22,7 @@ class NiceScale {
     final niceMin = (min / tickInterval).floor() * tickInterval;
     final niceMax = (max / tickInterval).ceil() * tickInterval;
 
-    return NiceScale._(
+    return Scale(
       min: niceMin,
       max: niceMax,
       tickInterval: tickInterval,

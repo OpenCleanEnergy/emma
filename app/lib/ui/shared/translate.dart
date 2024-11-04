@@ -12,13 +12,13 @@ abstract final class Translate {
 
   static String dayOfWeek(DayOfWeek input) {
     return switch (input) {
-      DayOfWeek.sunday => "So",
-      DayOfWeek.monday => "Mo",
-      DayOfWeek.tuesday => "Di",
-      DayOfWeek.wednesday => "Mi",
-      DayOfWeek.thursday => "Do",
-      DayOfWeek.friday => "Fr",
-      DayOfWeek.saturday => "Sa",
+      DayOfWeek.sunday => "Sonntag",
+      DayOfWeek.monday => "Montag",
+      DayOfWeek.tuesday => "Dienstag",
+      DayOfWeek.wednesday => "Mittwoch",
+      DayOfWeek.thursday => "Donnerstag",
+      DayOfWeek.friday => "Freitag",
+      DayOfWeek.saturday => "Samstag",
       DayOfWeek.swaggerGeneratedUnknown => "Unbekannt",
     };
   }
