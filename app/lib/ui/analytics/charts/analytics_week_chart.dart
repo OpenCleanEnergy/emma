@@ -4,16 +4,15 @@ import 'package:openems/application/backend_api/backend_api.dart';
 import 'package:openems/ui/analytics/analysis_view_model.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_colors.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_control_view_model.dart';
-import 'package:openems/ui/analytics/charts/factories/line_chart_bar_data_factory.dart';
-import 'package:openems/ui/analytics/charts/factories/line_chart_data_factory.dart';
-import 'package:openems/ui/analytics/charts/nice_scale.dart';
+import 'package:openems/ui/analytics/charts/factories.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:openems/ui/shared/translate.dart';
 import 'package:signals/signals_flutter.dart';
 
 class AnalyticsWeekChart extends StatelessWidget {
-  static const _daysAWeek = 7;
+  static const _daysPerWeek = 7;
+  static const _kilo = 1000;
 
   const AnalyticsWeekChart({
     super.key,
@@ -28,21 +27,19 @@ class AnalyticsWeekChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text("Leistungsverlauf", style: Theme.of(context).textTheme.bodyLarge),
+        Text("Energieverlauf", style: Theme.of(context).textTheme.bodyLarge),
         const SizedBox(height: 8),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: Watch(
-              (context) => LineChart(mainData(context)),
-            ),
+            child: Watch((context) => _buildLineChart(context)),
           ),
         ),
       ],
     );
   }
 
-  LineChartData mainData(BuildContext context) {
+  LineChart _buildLineChart(BuildContext context) {
     final maxValue = [
       if (chartControlViewModel.showConsumption.value)
         ...analysisViewModel.consumers.value,
@@ -52,24 +49,22 @@ class AnalyticsWeekChart extends StatelessWidget {
         ...analysisViewModel.electricityMetersConsumption.value,
       if (chartControlViewModel.showGridFeedIn.value)
         ...analysisViewModel.electricityMetersFeedIn.value,
-    ].map((x) => x.energy).fold(const WattHours(10.0), math.max);
+    ].map((x) => x.energy).fold(const WattHours(_kilo), math.max);
 
-    final niceScale = NiceScale.calculate(
+    final niceScale = Scale.nice(
       maxTicks: 10,
       min: 0,
       max: maxValue,
     );
 
-    const timeAxisInterval = 1.0;
-    return LineChartDataFactory.create(
+    return LineChartFactory.create(
       context: context,
       yScale: niceScale,
-      minX: 0,
-      maxX: _daysAWeek - 1,
-      intervalX: timeAxisInterval,
+      xScale: Scale(min: 0, max: _daysPerWeek - 1, tickInterval: 1),
       leftTitleBuilder: _buildEnergyAxisTitle,
       bottomTitleBuilder: (value) =>
           _buildTimeAxisTitle(analysisViewModel.firstDayOfWeek.value, value),
+      unitOfMeasurement: WattHours.unit,
       lineBarsData: [
         _getLineChartData(
             show: chartControlViewModel.showProduction.value,
@@ -95,15 +90,18 @@ class AnalyticsWeekChart extends StatelessWidget {
     );
   }
 
-  static String _buildEnergyAxisTitle(double value) {
-    return '${value.toInt()}${WattHours.unit}';
+  static LeftSideTitleWidget _buildEnergyAxisTitle(double value) {
+    final kWh = (value / _kilo).toStringAsFixed(1);
+    return LeftSideTitleWidget(title: '${kWh}k${WattHours.unit}');
   }
 
-  static String _buildTimeAxisTitle(DayOfWeek firstDayOfWeek, double value) {
-    final dayOfWeek =
-        DayOfWeek.values[((firstDayOfWeek.index - 1 + value.toInt()) % 7) + 1];
+  static BottomSideTitleWidget _buildTimeAxisTitle(
+      DayOfWeek firstDayOfWeek, double value) {
+    final dayOfWeek = _DayOfWeek.fromInt(
+        (_DayOfWeek.toInt(firstDayOfWeek) + value.toInt()) % _daysPerWeek);
 
-    return Translate.dayOfWeek(dayOfWeek);
+    return BottomSideTitleWidget.horizontal(
+        title: Translate.dayOfWeek(dayOfWeek).substring(0, 2));
   }
 
   static LineChartBarData _getLineChartData({
@@ -112,20 +110,51 @@ class AnalyticsWeekChart extends StatelessWidget {
     required Iterable<WeeklyEnergyDataPointDto> data,
     required Color color,
   }) {
-    var spots = data
-        .map(
-          (p) => FlSpot(
-            ((p.dayOfWeek.index - firstDayOfWeek.index) % _daysAWeek)
-                .toDouble(),
-            p.energy.roundToDouble(),
-          ),
-        )
-        .toList();
+    var spots = data.map(
+      (p) {
+        final dayOfWeek =
+            (_DayOfWeek.toInt(p.dayOfWeek) - _DayOfWeek.toInt(firstDayOfWeek)) %
+                _daysPerWeek;
+
+        return FlSpot(
+          dayOfWeek.toDouble(),
+          p.energy.toDouble(),
+        );
+      },
+    ).toList();
 
     return LineChartBarDataFactory.create(
       show: show,
       color: color,
       spots: spots,
     );
+  }
+}
+
+abstract final class _DayOfWeek {
+  static int toInt(DayOfWeek dayOfWeek) {
+    return switch (dayOfWeek) {
+      DayOfWeek.swaggerGeneratedUnknown => -1,
+      DayOfWeek.sunday => 0,
+      DayOfWeek.monday => 1,
+      DayOfWeek.tuesday => 2,
+      DayOfWeek.wednesday => 3,
+      DayOfWeek.thursday => 4,
+      DayOfWeek.friday => 5,
+      DayOfWeek.saturday => 6,
+    };
+  }
+
+  static DayOfWeek fromInt(int dayOfWeek) {
+    return switch (dayOfWeek) {
+      0 => DayOfWeek.sunday,
+      1 => DayOfWeek.monday,
+      2 => DayOfWeek.tuesday,
+      3 => DayOfWeek.wednesday,
+      4 => DayOfWeek.thursday,
+      5 => DayOfWeek.friday,
+      6 => DayOfWeek.saturday,
+      _ => DayOfWeek.swaggerGeneratedUnknown,
+    };
   }
 }

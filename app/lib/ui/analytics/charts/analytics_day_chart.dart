@@ -4,9 +4,7 @@ import 'package:openems/application/backend_api/backend_api.dart';
 import 'package:openems/ui/analytics/analysis_view_model.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_colors.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_control_view_model.dart';
-import 'package:openems/ui/analytics/charts/factories/line_chart_bar_data_factory.dart';
-import 'package:openems/ui/analytics/charts/factories/line_chart_data_factory.dart';
-import 'package:openems/ui/analytics/charts/nice_scale.dart';
+import 'package:openems/ui/analytics/charts/factories.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -34,16 +32,14 @@ class AnalyticsDayChart extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: Watch(
-              (context) => LineChart(mainData(context)),
-            ),
+            child: Watch((context) => _buildLineChart(context)),
           ),
         ),
       ],
     );
   }
 
-  LineChartData mainData(BuildContext context) {
+  LineChart _buildLineChart(BuildContext context) {
     final maxValue = [
       if (chartControlViewModel.showConsumption.value)
         ...analysisViewModel.consumers.value,
@@ -55,21 +51,19 @@ class AnalyticsDayChart extends StatelessWidget {
         ...analysisViewModel.electricityMetersFeedIn.value,
     ].map((x) => x.power).fold(const Watt(10.0), math.max);
 
-    final niceScale = NiceScale.calculate(
+    final niceScale = Scale.nice(
       maxTicks: 10,
       min: 0,
       max: maxValue,
     );
 
-    const timeAxisInterval = 120.0;
-    return LineChartDataFactory.create(
+    return LineChartFactory.create(
       context: context,
       yScale: niceScale,
-      minX: 0,
-      maxX: 24 * 60,
-      intervalX: timeAxisInterval,
+      xScale: Scale(min: 0, max: 24 * 60, tickInterval: 120),
       leftTitleBuilder: _buildPowerAxisTitle,
       bottomTitleBuilder: _buildTimeAxisTitle,
+      unitOfMeasurement: Watt.unit,
       lineBarsData: [
         _getLineChartData(
             show: chartControlViewModel.showProduction.value,
@@ -95,15 +89,15 @@ class AnalyticsDayChart extends StatelessWidget {
     );
   }
 
-  static String _buildPowerAxisTitle(double value) {
-    return '${value.toInt()}${Watt.unit}';
+  static LeftSideTitleWidget _buildPowerAxisTitle(double value) {
+    return LeftSideTitleWidget(title: '${value.toInt()}${Watt.unit}');
   }
 
-  static String _buildTimeAxisTitle(double value) {
+  static BottomSideTitleWidget _buildTimeAxisTitle(double value) {
     final hours = _hoursFormat.format(value ~/ 60);
     final minutes = _minutesFormat.format(value % 60);
 
-    return '$hours:$minutes';
+    return BottomSideTitleWidget.diagonal(title: '$hours:$minutes');
   }
 
   static LineChartBarData _getLineChartData({
@@ -116,7 +110,7 @@ class AnalyticsDayChart extends StatelessWidget {
         .map(
           (p) => FlSpot(
             p.timestamp.difference(start).inMinutes.toDouble(),
-            p.power.roundToDouble(),
+            p.power.toDouble(),
           ),
         )
         .toList();
