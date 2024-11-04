@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="Riok.Mapperly" Version="4.0.0" />
+    <PackageReference Include="Riok.Mapperly" Version="4.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenEMS.Domain\OpenEMS.Domain.csproj" />
