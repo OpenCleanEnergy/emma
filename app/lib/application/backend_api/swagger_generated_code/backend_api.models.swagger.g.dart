@@ -348,13 +348,68 @@ Map<String, dynamic> _$MeDtoToJson(MeDto instance) => <String, dynamic>{
 
 MonthlyAnalysisDto _$MonthlyAnalysisDtoFromJson(Map<String, dynamic> json) =>
     MonthlyAnalysisDto(
+      energyHistory: MonthlyEnergyHistoryDto.fromJson(
+          json['energyHistory'] as Map<String, dynamic>),
       metrics:
           AnalyticsMetricsDto.fromJson(json['metrics'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$MonthlyAnalysisDtoToJson(MonthlyAnalysisDto instance) =>
     <String, dynamic>{
+      'energyHistory': instance.energyHistory.toJson(),
       'metrics': instance.metrics.toJson(),
+    };
+
+MonthlyEnergyDataPointDto _$MonthlyEnergyDataPointDtoFromJson(
+        Map<String, dynamic> json) =>
+    MonthlyEnergyDataPointDto(
+      dayOfMonth: (json['dayOfMonth'] as num).toInt(),
+      energy: WattHours.fromJson(json['energy'] as num),
+    );
+
+Map<String, dynamic> _$MonthlyEnergyDataPointDtoToJson(
+        MonthlyEnergyDataPointDto instance) =>
+    <String, dynamic>{
+      'dayOfMonth': instance.dayOfMonth,
+      'energy': instance.energy.toJson(),
+    };
+
+MonthlyEnergyHistoryDto _$MonthlyEnergyHistoryDtoFromJson(
+        Map<String, dynamic> json) =>
+    MonthlyEnergyHistoryDto(
+      consumers: (json['consumers'] as List<dynamic>?)
+              ?.map((e) =>
+                  MonthlyEnergyDataPointDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      producers: (json['producers'] as List<dynamic>?)
+              ?.map((e) =>
+                  MonthlyEnergyDataPointDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      electricityMetersConsumption: (json['electricityMetersConsumption']
+                  as List<dynamic>?)
+              ?.map((e) =>
+                  MonthlyEnergyDataPointDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      electricityMetersFeedIn: (json['electricityMetersFeedIn']
+                  as List<dynamic>?)
+              ?.map((e) =>
+                  MonthlyEnergyDataPointDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+
+Map<String, dynamic> _$MonthlyEnergyHistoryDtoToJson(
+        MonthlyEnergyHistoryDto instance) =>
+    <String, dynamic>{
+      'consumers': instance.consumers.map((e) => e.toJson()).toList(),
+      'producers': instance.producers.map((e) => e.toJson()).toList(),
+      'electricityMetersConsumption':
+          instance.electricityMetersConsumption.map((e) => e.toJson()).toList(),
+      'electricityMetersFeedIn':
+          instance.electricityMetersFeedIn.map((e) => e.toJson()).toList(),
     };
 
 OwnConsumptionMetricDto _$OwnConsumptionMetricDtoFromJson(

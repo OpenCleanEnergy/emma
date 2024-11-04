@@ -935,11 +935,52 @@ components:
       additionalProperties: false
     MonthlyAnalysisDto:
       required:
+        - energyHistory
         - metrics
       type: object
       properties:
+        energyHistory:
+          $ref: '#/components/schemas/MonthlyEnergyHistoryDto'
         metrics:
           $ref: '#/components/schemas/AnalyticsMetricsDto'
+      additionalProperties: false
+    MonthlyEnergyDataPointDto:
+      required:
+        - dayOfMonth
+        - energy
+      type: object
+      properties:
+        dayOfMonth:
+          type: integer
+          format: int32
+        energy:
+          allOf:
+            - $ref: '#/components/schemas/WattHours'
+      additionalProperties: false
+    MonthlyEnergyHistoryDto:
+      required:
+        - consumers
+        - electricityMetersConsumption
+        - electricityMetersFeedIn
+        - producers
+      type: object
+      properties:
+        consumers:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonthlyEnergyDataPointDto'
+        producers:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonthlyEnergyDataPointDto'
+        electricityMetersConsumption:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonthlyEnergyDataPointDto'
+        electricityMetersFeedIn:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonthlyEnergyDataPointDto'
       additionalProperties: false
     OwnConsumptionMetricDto:
       required:

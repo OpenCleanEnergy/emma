@@ -132,7 +132,17 @@ class AnalyticsViewModel {
 
         final dto = response.bodyOrThrow;
         batch(() {
-          _getOrSetAnalysis(() => ComingSoonAnalysisViewModel());
+          _getOrSetAnalysis(
+            () => MonthlyAnalysisViewModel.empty(
+              month: start.month,
+              daysInMonth: DateUtils.getDaysInMonth(start.year, start.month),
+            ),
+          ).update(
+            month: start.month,
+            daysInMonth: DateUtils.getDaysInMonth(start.year, start.month),
+            dto: dto,
+          );
+
           metrics.update(dto.metrics);
         });
       case AnalyticsPeriod.year:
