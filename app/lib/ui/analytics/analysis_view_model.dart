@@ -68,4 +68,39 @@ class WeeklyAnalysisViewModel implements AnalysisViewModel {
   final Signal<List<WeeklyEnergyDataPointDto>> electricityMetersFeedIn;
 }
 
+class MonthlyAnalysisViewModel implements AnalysisViewModel {
+  MonthlyAnalysisViewModel.empty({
+    required int month,
+    required int daysInMonth,
+  })  : month = signal(month),
+        daysInMonth = signal(daysInMonth),
+        consumers = signal([]),
+        producers = signal([]),
+        electricityMetersConsumption = signal([]),
+        electricityMetersFeedIn = signal([]);
+
+  void update({
+    required int month,
+    required int daysInMonth,
+    required MonthlyAnalysisDto dto,
+  }) {
+    batch(() {
+      this.month.value = month;
+      this.daysInMonth.value = daysInMonth;
+      consumers.value = dto.energyHistory.consumers;
+      producers.value = dto.energyHistory.producers;
+      electricityMetersConsumption.value =
+          dto.energyHistory.electricityMetersConsumption;
+      electricityMetersFeedIn.value = dto.energyHistory.electricityMetersFeedIn;
+    });
+  }
+
+  final Signal<int> month;
+  final Signal<int> daysInMonth;
+  final Signal<List<MonthlyEnergyDataPointDto>> consumers;
+  final Signal<List<MonthlyEnergyDataPointDto>> producers;
+  final Signal<List<MonthlyEnergyDataPointDto>> electricityMetersConsumption;
+  final Signal<List<MonthlyEnergyDataPointDto>> electricityMetersFeedIn;
+}
+
 class ComingSoonAnalysisViewModel implements AnalysisViewModel {}

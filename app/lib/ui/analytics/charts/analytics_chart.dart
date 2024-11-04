@@ -5,6 +5,7 @@ import 'package:openems/ui/analytics/charts/analytics_chart_container.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_control.dart';
 import 'package:openems/ui/analytics/charts/analytics_day_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:openems/ui/analytics/charts/analytics_month_chart.dart';
 import 'package:openems/ui/analytics/charts/analytics_week_chart.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -26,6 +27,10 @@ class AnalyticsChart extends StatelessWidget {
                   analysisViewModel: vm,
                 ),
               WeeklyAnalysisViewModel vm => AnalyticsWeekChart(
+                  chartControlViewModel: viewModel.chartControl,
+                  analysisViewModel: vm,
+                ),
+              MonthlyAnalysisViewModel vm => AnalyticsMonthChart(
                   chartControlViewModel: viewModel.chartControl,
                   analysisViewModel: vm,
                 ),
