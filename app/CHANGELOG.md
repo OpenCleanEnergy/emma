@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0-alpha.39](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.38...app-v1.0.0-alpha.39) (2024-11-04)
+
+
+### 🚀 Features
+
+* **Analytics:** Improve weekly analysis chart ([#258](https://github.com/OpenCleanEnergy/emma/issues/258)) ([8d116df](https://github.com/OpenCleanEnergy/emma/commit/8d116dfee1fd56ee7155bfaf7ebdc29c6f959c7b))
+* **Analytics:** Monthly analysis ([#260](https://github.com/OpenCleanEnergy/emma/issues/260)) ([e151fbd](https://github.com/OpenCleanEnergy/emma/commit/e151fbddf16447a7e6a6b85437d5786b60d01591))
+
+
+### 📦️ Build System, Dependencies
+
+* remove not used `simple_animations` library ([45c00de](https://github.com/OpenCleanEnergy/emma/commit/45c00deb4bbad72bebf2d7040533870500205259))
+
 ## [1.0.0-alpha.38](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.37...app-v1.0.0-alpha.38) (2024-11-01)
 
 
