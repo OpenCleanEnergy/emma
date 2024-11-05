@@ -4,7 +4,7 @@ class CircularValueIndicator extends StatelessWidget {
   static const _defaultSize = 36.0;
   static const _defaultStrokeWidth = 4.0;
 
-  CircularValueIndicator({
+  const CircularValueIndicator({
     super.key,
     required num value,
     double size = _defaultSize,
@@ -20,11 +20,6 @@ class CircularValueIndicator extends StatelessWidget {
   final double _strokeWidth;
   final Widget? _child;
 
-  late final _tween = Tween<double>(
-    begin: 0.0,
-    end: _value.toDouble(),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -33,8 +28,11 @@ class CircularValueIndicator extends StatelessWidget {
         SizedBox.square(
           dimension: _size,
           child: TweenAnimationBuilder<double>(
-            tween: _tween,
-            duration: const Duration(milliseconds: 500),
+            tween: Tween<double>(
+              begin: 0.0,
+              end: _value.toDouble(),
+            ),
+            duration: Durations.medium4,
             curve: Curves.easeInOut,
             builder: (context, value, _) => CircularProgressIndicator(
               value: value,
