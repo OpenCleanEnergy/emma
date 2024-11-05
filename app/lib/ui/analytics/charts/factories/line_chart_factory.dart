@@ -33,7 +33,7 @@ abstract final class LineChartFactory {
 
     return LineChart(
       data,
-      duration: const Duration(milliseconds: 300),
+      duration: Durations.medium4,
       curve: Curves.easeInOut,
     );
   }
