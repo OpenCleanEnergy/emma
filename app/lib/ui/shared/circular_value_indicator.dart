@@ -22,6 +22,8 @@ class CircularValueIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final backgroundColor = Theme.of(context).colorScheme.secondaryContainer;
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -37,7 +39,7 @@ class CircularValueIndicator extends StatelessWidget {
             builder: (context, value, _) => CircularProgressIndicator(
               value: value,
               strokeWidth: _strokeWidth,
-              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+              backgroundColor: backgroundColor,
             ),
           ),
         ),
