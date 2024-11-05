@@ -15,6 +15,7 @@ class ElectricityMeterListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const icon = Icon(AppIcons.power_grid);
     final colorScheme = Theme.of(context).colorScheme;
 
     return Card.outlined(
@@ -25,15 +26,19 @@ class ElectricityMeterListItem extends StatelessWidget {
             (context) => switch (viewModel.currentPowerDirection.value) {
               GridPowerDirection.swaggerGeneratedUnknown ||
               GridPowerDirection.none =>
-                const OnOffIndicator(status: false),
-              GridPowerDirection.consume => Icon(
-                  AppIcons.flow_down_double,
-                  color: colorScheme.error,
+                const OnOffIndicator(
+                  status: false,
+                  icon: icon,
                 ),
-              GridPowerDirection.feedin => Icon(
-                  AppIcons.flow_up_double,
-                  color: colorScheme.primary,
-                )
+              GridPowerDirection.consume => OnOffIndicator(
+                  status: true,
+                  icon: icon,
+                  onColor: colorScheme.error,
+                ),
+              GridPowerDirection.feedin => const OnOffIndicator(
+                  status: true,
+                  icon: icon,
+                ),
             },
           ),
           title: Text(

@@ -1,20 +1,32 @@
-import 'package:openems/ui/shared/circular_value_indicator.dart';
 import 'package:flutter/material.dart';
 
 class OnOffIndicator extends StatelessWidget {
-  const OnOffIndicator({required this.status, super.key});
+  const OnOffIndicator({
+    super.key,
+    required this.status,
+    required this.icon,
+    this.onColor,
+  });
 
   final bool status;
-  get _flipX => !status;
+  final Icon icon;
+  final Color? onColor;
 
   @override
   Widget build(BuildContext context) {
-    return Transform.flip(
-      flipX: _flipX,
-      child: CircularValueIndicator(
-        value: status ? 1 : 0,
-        size: 24,
-        strokeWidth: 4,
+    final offColor = Theme.of(context).disabledColor;
+    final onColor = this.onColor ?? Theme.of(context).colorScheme.primary;
+
+    return TweenAnimationBuilder<Color?>(
+      tween: ColorTween(
+        begin: status ? offColor : onColor,
+        end: status ? onColor : offColor,
+      ),
+      duration: Durations.short4,
+      curve: Curves.linear,
+      builder: (context, value, _) => IconTheme(
+        data: IconTheme.of(context).copyWith(color: value),
+        child: icon,
       ),
     );
   }

@@ -24,6 +24,7 @@ class ProducerListItem extends StatelessWidget {
           leading: OnOffIndicator(
             status: viewModel.currentPowerProduction.value != null &&
                 (viewModel.currentPowerProduction.value! > Watt.zero),
+            icon: const Icon(AppIcons.solar_power),
           ),
           title: Text(
             viewModel.name.value,

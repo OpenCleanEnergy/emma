@@ -54,6 +54,7 @@ class SwitchConsumerListItem extends StatelessWidget {
             (context) => ListTile(
               leading: OnOffIndicator(
                 status: _getIndicatorStatus(viewModel.status.value),
+                icon: const Icon(AppIcons.home),
               ),
               title: Text(
                 viewModel.name.value,
