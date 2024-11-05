@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.41](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.40...app-v1.0.0-alpha.41) (2024-11-05)
+
+
+### 🚀 Features
+
+* **Analytics:** Show dots in chart if only one spot is available. ([ad93922](https://github.com/OpenCleanEnergy/emma/commit/ad9392203928df6e27e89bf2a2b81737feba7df7))
+* **Analytics:** Use same animation duration as `CircularValueIndicator` ([258cb77](https://github.com/OpenCleanEnergy/emma/commit/258cb7751d93d374d9ccf002182811f1104d0ee4))
+
 ## [1.0.0-alpha.40](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.39...app-v1.0.0-alpha.40) (2024-11-05)
 
 
