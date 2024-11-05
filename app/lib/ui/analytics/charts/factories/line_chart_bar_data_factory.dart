@@ -15,7 +15,7 @@ abstract final class LineChartBarDataFactory {
       color: color,
       isCurved: true,
       preventCurveOverShooting: true,
-      dotData: const FlDotData(show: false),
+      dotData: FlDotData(show: spots.length == 1),
       belowBarData: BarAreaData(
         show: true,
         color: color.toBarAreaColor(),
