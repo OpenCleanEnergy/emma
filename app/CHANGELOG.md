@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.40](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.39...app-v1.0.0-alpha.40) (2024-11-05)
+
+
+### 🚀 Features
+
+* Use colored icon instead of circular progress indicator or arrows ([a222c42](https://github.com/OpenCleanEnergy/emma/commit/a222c422604d45170135ccfc7f4b6675661b4dad))
+
 ## [1.0.0-alpha.39](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.38...app-v1.0.0-alpha.39) (2024-11-04)
 
 
