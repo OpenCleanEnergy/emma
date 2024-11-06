@@ -103,4 +103,27 @@ class MonthlyAnalysisViewModel implements AnalysisViewModel {
   final Signal<List<MonthlyEnergyDataPointDto>> electricityMetersFeedIn;
 }
 
+class AnnualAnalysisViewModel implements AnalysisViewModel {
+  AnnualAnalysisViewModel.empty()
+      : consumers = signal([]),
+        producers = signal([]),
+        electricityMetersConsumption = signal([]),
+        electricityMetersFeedIn = signal([]);
+
+  void update({required AnnualAnalysisDto dto}) {
+    batch(() {
+      consumers.value = dto.energyHistory.consumers;
+      producers.value = dto.energyHistory.producers;
+      electricityMetersConsumption.value =
+          dto.energyHistory.electricityMetersConsumption;
+      electricityMetersFeedIn.value = dto.energyHistory.electricityMetersFeedIn;
+    });
+  }
+
+  final Signal<List<AnnualEnergyDataPointDto>> consumers;
+  final Signal<List<AnnualEnergyDataPointDto>> producers;
+  final Signal<List<AnnualEnergyDataPointDto>> electricityMetersConsumption;
+  final Signal<List<AnnualEnergyDataPointDto>> electricityMetersFeedIn;
+}
+
 class ComingSoonAnalysisViewModel implements AnalysisViewModel {}

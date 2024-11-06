@@ -153,7 +153,8 @@ class AnalyticsViewModel {
 
         final dto = response.bodyOrThrow;
         batch(() {
-          _getOrSetAnalysis(() => ComingSoonAnalysisViewModel());
+          _getOrSetAnalysis(() => AnnualAnalysisViewModel.empty())
+              .update(dto: dto);
           metrics.update(dto.metrics);
         });
     }
