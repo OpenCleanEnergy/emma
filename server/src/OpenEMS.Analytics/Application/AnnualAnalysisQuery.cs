@@ -11,9 +11,12 @@ public class AnnualAnalysisQuery : IQuery<AnnualAnalysisDto>
 
     public required TimeSpan TimeZoneOffset { get; init; }
 
-    public class Handler(IAnalyticsTotalEnergyDataQuery totalEnergyDataQuery)
-        : IQueryHandler<AnnualAnalysisQuery, AnnualAnalysisDto>
+    public class Handler(
+        IAnalyticsEnergyHistoryQuery energyHistoryQuery,
+        IAnalyticsTotalEnergyDataQuery totalEnergyDataQuery
+    ) : IQueryHandler<AnnualAnalysisQuery, AnnualAnalysisDto>
     {
+        private readonly IAnalyticsEnergyHistoryQuery _energyHistoryQuery = energyHistoryQuery;
         private readonly IAnalyticsTotalEnergyDataQuery _totalEnergyDataQuery =
             totalEnergyDataQuery;
 
@@ -32,11 +35,28 @@ public class AnnualAnalysisQuery : IQuery<AnnualAnalysisDto>
                 offset: request.TimeZoneOffset
             );
 
-            var end = start.AddYears(1);
+            var intervals = Enumerable
+                .Range(start: 1, count: 12)
+                .Select(month => new EnergyHistoryQueryInterval<int>
+                {
+                    Key = month,
+                    Start = start.AddMonths(month - 1),
+                    End = start.AddMonths(month),
+                })
+                .ToArray();
 
-            var totalEnergyData = await _totalEnergyDataQuery.QueryTotalEnergyData(start, end);
+            var energyHistory = await _energyHistoryQuery.GetEnergyHistory(intervals);
 
-            return new AnnualAnalysisDto { Metrics = AnalyticsMetricsDto.From(totalEnergyData) };
+            var totalEnergyData = await _totalEnergyDataQuery.QueryTotalEnergyData(
+                start,
+                start.AddYears(1)
+            );
+
+            return new AnnualAnalysisDto
+            {
+                EnergyHistory = AnnualEnergyHistoryDto.From(energyHistory),
+                Metrics = AnalyticsMetricsDto.From(totalEnergyData),
+            };
         }
     }
 }

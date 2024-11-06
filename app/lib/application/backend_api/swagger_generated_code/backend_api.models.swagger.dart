@@ -364,6 +364,7 @@ extension $AnalyticsMetricsDtoExtension on AnalyticsMetricsDto {
 @JsonSerializable(explicitToJson: true)
 class AnnualAnalysisDto {
   const AnnualAnalysisDto({
+    required this.energyHistory,
     required this.metrics,
   });
 
@@ -373,6 +374,8 @@ class AnnualAnalysisDto {
   static const toJsonFactory = _$AnnualAnalysisDtoToJson;
   Map<String, dynamic> toJson() => _$AnnualAnalysisDtoToJson(this);
 
+  @JsonKey(name: 'energyHistory')
+  final AnnualEnergyHistoryDto energyHistory;
   @JsonKey(name: 'metrics')
   final AnalyticsMetricsDto metrics;
   static const fromJsonFactory = _$AnnualAnalysisDtoFromJson;
@@ -381,6 +384,9 @@ class AnnualAnalysisDto {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other is AnnualAnalysisDto &&
+            (identical(other.energyHistory, energyHistory) ||
+                const DeepCollectionEquality()
+                    .equals(other.energyHistory, energyHistory)) &&
             (identical(other.metrics, metrics) ||
                 const DeepCollectionEquality().equals(other.metrics, metrics)));
   }
@@ -390,17 +396,173 @@ class AnnualAnalysisDto {
 
   @override
   int get hashCode =>
-      const DeepCollectionEquality().hash(metrics) ^ runtimeType.hashCode;
+      const DeepCollectionEquality().hash(energyHistory) ^
+      const DeepCollectionEquality().hash(metrics) ^
+      runtimeType.hashCode;
 }
 
 extension $AnnualAnalysisDtoExtension on AnnualAnalysisDto {
-  AnnualAnalysisDto copyWith({AnalyticsMetricsDto? metrics}) {
-    return AnnualAnalysisDto(metrics: metrics ?? this.metrics);
+  AnnualAnalysisDto copyWith(
+      {AnnualEnergyHistoryDto? energyHistory, AnalyticsMetricsDto? metrics}) {
+    return AnnualAnalysisDto(
+        energyHistory: energyHistory ?? this.energyHistory,
+        metrics: metrics ?? this.metrics);
   }
 
-  AnnualAnalysisDto copyWithWrapped({Wrapped<AnalyticsMetricsDto>? metrics}) {
+  AnnualAnalysisDto copyWithWrapped(
+      {Wrapped<AnnualEnergyHistoryDto>? energyHistory,
+      Wrapped<AnalyticsMetricsDto>? metrics}) {
     return AnnualAnalysisDto(
+        energyHistory:
+            (energyHistory != null ? energyHistory.value : this.energyHistory),
         metrics: (metrics != null ? metrics.value : this.metrics));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class AnnualEnergyDataPointDto {
+  const AnnualEnergyDataPointDto({
+    required this.month,
+    required this.energy,
+  });
+
+  factory AnnualEnergyDataPointDto.fromJson(Map<String, dynamic> json) =>
+      _$AnnualEnergyDataPointDtoFromJson(json);
+
+  static const toJsonFactory = _$AnnualEnergyDataPointDtoToJson;
+  Map<String, dynamic> toJson() => _$AnnualEnergyDataPointDtoToJson(this);
+
+  @JsonKey(name: 'month')
+  final int month;
+  @JsonKey(name: 'energy')
+  final WattHours energy;
+  static const fromJsonFactory = _$AnnualEnergyDataPointDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is AnnualEnergyDataPointDto &&
+            (identical(other.month, month) ||
+                const DeepCollectionEquality().equals(other.month, month)) &&
+            (identical(other.energy, energy) ||
+                const DeepCollectionEquality().equals(other.energy, energy)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(month) ^
+      const DeepCollectionEquality().hash(energy) ^
+      runtimeType.hashCode;
+}
+
+extension $AnnualEnergyDataPointDtoExtension on AnnualEnergyDataPointDto {
+  AnnualEnergyDataPointDto copyWith({int? month, WattHours? energy}) {
+    return AnnualEnergyDataPointDto(
+        month: month ?? this.month, energy: energy ?? this.energy);
+  }
+
+  AnnualEnergyDataPointDto copyWithWrapped(
+      {Wrapped<int>? month, Wrapped<WattHours>? energy}) {
+    return AnnualEnergyDataPointDto(
+        month: (month != null ? month.value : this.month),
+        energy: (energy != null ? energy.value : this.energy));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class AnnualEnergyHistoryDto {
+  const AnnualEnergyHistoryDto({
+    required this.consumers,
+    required this.producers,
+    required this.electricityMetersConsumption,
+    required this.electricityMetersFeedIn,
+  });
+
+  factory AnnualEnergyHistoryDto.fromJson(Map<String, dynamic> json) =>
+      _$AnnualEnergyHistoryDtoFromJson(json);
+
+  static const toJsonFactory = _$AnnualEnergyHistoryDtoToJson;
+  Map<String, dynamic> toJson() => _$AnnualEnergyHistoryDtoToJson(this);
+
+  @JsonKey(name: 'consumers', defaultValue: <AnnualEnergyDataPointDto>[])
+  final List<AnnualEnergyDataPointDto> consumers;
+  @JsonKey(name: 'producers', defaultValue: <AnnualEnergyDataPointDto>[])
+  final List<AnnualEnergyDataPointDto> producers;
+  @JsonKey(
+      name: 'electricityMetersConsumption',
+      defaultValue: <AnnualEnergyDataPointDto>[])
+  final List<AnnualEnergyDataPointDto> electricityMetersConsumption;
+  @JsonKey(
+      name: 'electricityMetersFeedIn',
+      defaultValue: <AnnualEnergyDataPointDto>[])
+  final List<AnnualEnergyDataPointDto> electricityMetersFeedIn;
+  static const fromJsonFactory = _$AnnualEnergyHistoryDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is AnnualEnergyHistoryDto &&
+            (identical(other.consumers, consumers) ||
+                const DeepCollectionEquality()
+                    .equals(other.consumers, consumers)) &&
+            (identical(other.producers, producers) ||
+                const DeepCollectionEquality()
+                    .equals(other.producers, producers)) &&
+            (identical(other.electricityMetersConsumption,
+                    electricityMetersConsumption) ||
+                const DeepCollectionEquality().equals(
+                    other.electricityMetersConsumption,
+                    electricityMetersConsumption)) &&
+            (identical(
+                    other.electricityMetersFeedIn, electricityMetersFeedIn) ||
+                const DeepCollectionEquality().equals(
+                    other.electricityMetersFeedIn, electricityMetersFeedIn)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(consumers) ^
+      const DeepCollectionEquality().hash(producers) ^
+      const DeepCollectionEquality().hash(electricityMetersConsumption) ^
+      const DeepCollectionEquality().hash(electricityMetersFeedIn) ^
+      runtimeType.hashCode;
+}
+
+extension $AnnualEnergyHistoryDtoExtension on AnnualEnergyHistoryDto {
+  AnnualEnergyHistoryDto copyWith(
+      {List<AnnualEnergyDataPointDto>? consumers,
+      List<AnnualEnergyDataPointDto>? producers,
+      List<AnnualEnergyDataPointDto>? electricityMetersConsumption,
+      List<AnnualEnergyDataPointDto>? electricityMetersFeedIn}) {
+    return AnnualEnergyHistoryDto(
+        consumers: consumers ?? this.consumers,
+        producers: producers ?? this.producers,
+        electricityMetersConsumption:
+            electricityMetersConsumption ?? this.electricityMetersConsumption,
+        electricityMetersFeedIn:
+            electricityMetersFeedIn ?? this.electricityMetersFeedIn);
+  }
+
+  AnnualEnergyHistoryDto copyWithWrapped(
+      {Wrapped<List<AnnualEnergyDataPointDto>>? consumers,
+      Wrapped<List<AnnualEnergyDataPointDto>>? producers,
+      Wrapped<List<AnnualEnergyDataPointDto>>? electricityMetersConsumption,
+      Wrapped<List<AnnualEnergyDataPointDto>>? electricityMetersFeedIn}) {
+    return AnnualEnergyHistoryDto(
+        consumers: (consumers != null ? consumers.value : this.consumers),
+        producers: (producers != null ? producers.value : this.producers),
+        electricityMetersConsumption: (electricityMetersConsumption != null
+            ? electricityMetersConsumption.value
+            : this.electricityMetersConsumption),
+        electricityMetersFeedIn: (electricityMetersFeedIn != null
+            ? electricityMetersFeedIn.value
+            : this.electricityMetersFeedIn));
   }
 }
 

@@ -641,11 +641,52 @@ components:
       additionalProperties: false
     AnnualAnalysisDto:
       required:
+        - energyHistory
         - metrics
       type: object
       properties:
+        energyHistory:
+          $ref: '#/components/schemas/AnnualEnergyHistoryDto'
         metrics:
           $ref: '#/components/schemas/AnalyticsMetricsDto'
+      additionalProperties: false
+    AnnualEnergyDataPointDto:
+      required:
+        - energy
+        - month
+      type: object
+      properties:
+        month:
+          type: integer
+          format: int32
+        energy:
+          allOf:
+            - $ref: '#/components/schemas/WattHours'
+      additionalProperties: false
+    AnnualEnergyHistoryDto:
+      required:
+        - consumers
+        - electricityMetersConsumption
+        - electricityMetersFeedIn
+        - producers
+      type: object
+      properties:
+        consumers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnnualEnergyDataPointDto'
+        producers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnnualEnergyDataPointDto'
+        electricityMetersConsumption:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnnualEnergyDataPointDto'
+        electricityMetersFeedIn:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnnualEnergyDataPointDto'
       additionalProperties: false
     BatteryChargeStatus:
       enum:
