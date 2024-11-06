@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.43](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.42...app-v1.0.0-alpha.43) (2024-11-06)
+
+
+### 🚀 Features
+
+* change button to delete device to a destructive one. ([d2031a5](https://github.com/OpenCleanEnergy/emma/commit/d2031a5a00184f433701eece355e708202a234d6))
+* Use platform agnostic modal as confirm dialog. ([31d356f](https://github.com/OpenCleanEnergy/emma/commit/31d356feadf563c27d46d2900a83c987a0aa95e3))
+
 ## [1.0.0-alpha.42](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.41...app-v1.0.0-alpha.42) (2024-11-06)
 
 
