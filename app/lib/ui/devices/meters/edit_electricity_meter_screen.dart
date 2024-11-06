@@ -1,9 +1,9 @@
-import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:openems/ui/app_messenger.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/meters/electricity_meter_view_model.dart';
 import 'package:openems/ui/devices/widgets/device_name_form_field.dart';
 import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
+import 'package:openems/ui/shared/confirm.dart';
 import 'package:openems/ui/shared/debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
@@ -94,10 +94,13 @@ class _EditElectricityMeterScreenState
   }
 
   Future<void> _delete(BuildContext context) async {
-    final confirmed = await confirm(context,
-        content: const Text("Willst du das Gerät wirklich löschen?"),
-        textOK: const Text("Löschen"),
-        textCancel: const Text("Abbrechen"));
+    final confirmed = await confirm(
+      context,
+      content: "Willst du das Gerät wirklich löschen?",
+      textOK: "Löschen",
+      textCancel: "Abbrechen",
+      isDestructive: true,
+    );
 
     if (!confirmed) {
       return;

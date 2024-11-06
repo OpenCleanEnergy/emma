@@ -34,7 +34,6 @@ dependencies:
   flutter:
     sdk: flutter
   chopper: ^8.0.3
-  confirm_dialog: ^1.0.4
   cupertino_icons: ^1.0.6
   desktop_window: ^0.4.2
   freezed: ^2.5.0
