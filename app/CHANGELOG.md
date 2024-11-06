@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.42](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.41...app-v1.0.0-alpha.42) (2024-11-06)
+
+
+### 🚀 Features
+
+* **Analytics:** Annual analysis ([#266](https://github.com/OpenCleanEnergy/emma/issues/266)) ([6da763d](https://github.com/OpenCleanEnergy/emma/commit/6da763dfb2409d85bcb88d368a12d17938911d88))
+
 ## [1.0.0-alpha.41](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.40...app-v1.0.0-alpha.41) (2024-11-05)
 
 
