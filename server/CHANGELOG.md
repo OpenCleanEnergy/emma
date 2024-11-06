@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.41](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.40...server-v1.0.0-alpha.41) (2024-11-06)
+
+
+### 🚀 Features
+
+* **Analytics:** Annual analysis ([#266](https://github.com/OpenCleanEnergy/emma/issues/266)) ([6da763d](https://github.com/OpenCleanEnergy/emma/commit/6da763dfb2409d85bcb88d368a12d17938911d88))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group in /server with 4 updates ([#256](https://github.com/OpenCleanEnergy/emma/issues/256)) ([1c73591](https://github.com/OpenCleanEnergy/emma/commit/1c73591cbee15a6d54fc1de1f8d68e05b7cefc49))
+
 ## [1.0.0-alpha.40](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.39...server-v1.0.0-alpha.40) (2024-11-04)
 
 
