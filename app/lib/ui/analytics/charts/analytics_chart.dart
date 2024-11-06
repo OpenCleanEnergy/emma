@@ -1,12 +1,12 @@
 import 'package:openems/ui/analytics/analysis_view_model.dart';
 import 'package:openems/ui/analytics/analytics_view_model.dart';
-import 'package:openems/ui/analytics/charts/analytics_chart_color_scheme.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_container.dart';
 import 'package:openems/ui/analytics/charts/analytics_chart_control.dart';
 import 'package:openems/ui/analytics/charts/analytics_day_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:openems/ui/analytics/charts/analytics_month_chart.dart';
 import 'package:openems/ui/analytics/charts/analytics_week_chart.dart';
+import 'package:openems/ui/analytics/charts/analytics_year_chart.dart';
 import 'package:signals/signals_flutter.dart';
 
 class AnalyticsChart extends StatelessWidget {
@@ -34,29 +34,16 @@ class AnalyticsChart extends StatelessWidget {
                   chartControlViewModel: viewModel.chartControl,
                   analysisViewModel: vm,
                 ),
-              ComingSoonAnalysisViewModel _ => _ComingSoonChart(),
+              AnnualAnalysisViewModel vm => AnalyticsYearChart(
+                  chartControlViewModel: viewModel.chartControl,
+                  analysisViewModel: vm,
+                ),
             },
           ),
         ),
         const SizedBox(height: 16),
         AnalyticsChartControl(viewModel: viewModel.chartControl),
       ],
-    );
-  }
-}
-
-class _ComingSoonChart extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = AnalyticsChartColorScheme.of(context);
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: colorScheme.border)),
-      ),
-      margin: const EdgeInsets.only(bottom: 16),
-      child: const Center(
-        child: Text("Bald verfügbar."),
-      ),
     );
   }
 }
