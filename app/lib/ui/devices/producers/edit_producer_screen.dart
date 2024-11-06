@@ -6,6 +6,7 @@ import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
 import 'package:openems/ui/shared/confirm.dart';
 import 'package:openems/ui/shared/debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:openems/ui/shared/destructive_button.dart';
 import 'package:signals/signals_flutter.dart';
 
 // https://pub.dev/packages/formz
@@ -61,7 +62,7 @@ class _EditProducerScreenState extends State<EditProducerScreen> {
                 DeviceNameFormField(
                     controller: _nameController, autoFocus: true),
                 const SizedBox(height: 16),
-                Watch((context) => FilledButton.tonal(
+                Watch((context) => DestructiveButton(
                     onPressed: viewModel.delete.isRunning.value
                         ? null
                         : () => _delete(context),
