@@ -125,5 +125,3 @@ class AnnualAnalysisViewModel implements AnalysisViewModel {
   final Signal<List<AnnualEnergyDataPointDto>> electricityMetersConsumption;
   final Signal<List<AnnualEnergyDataPointDto>> electricityMetersFeedIn;
 }
-
-class ComingSoonAnalysisViewModel implements AnalysisViewModel {}
