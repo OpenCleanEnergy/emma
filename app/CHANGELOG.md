@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.44](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.43...app-v1.0.0-alpha.44) (2024-11-07)
+
+
+### 🚀 Features
+
+* improve confirm dialog layout ([c4cc928](https://github.com/OpenCleanEnergy/emma/commit/c4cc928da59f0c1e5a69abccfda0ea429dab93c0))
+* Remove success snackbar. It distracts the user. ([449acb1](https://github.com/OpenCleanEnergy/emma/commit/449acb14adfe02078867fe52337e94381f4dcde9))
+
 ## [1.0.0-alpha.43](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.42...app-v1.0.0-alpha.43) (2024-11-06)
 
 
