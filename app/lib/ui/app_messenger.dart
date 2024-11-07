@@ -10,9 +10,9 @@ abstract class AppMessenger {
 
   static void info(String message) {
     _withIcon(
-        Icon(AppIcons.info,
-            color: Theme.of(_state.context).colorScheme.surface),
-        message);
+      Icon(AppIcons.info, color: Theme.of(_state.context).colorScheme.surface),
+      message,
+    );
   }
 
   static void success(String message) {
@@ -27,15 +27,17 @@ abstract class AppMessenger {
     });
   }
 
-  static void error(
-      [String message =
-          "Es ist ein Fehler aufgetreten.\nVersuche es später noch einmal."]) {
+  static void error([
+    String message =
+        "Es ist ein Fehler aufgetreten.\nVersuche es später noch einmal.",
+  ]) {
     _withIcon(
-        Icon(
-          AppIcons.error,
-          color: Theme.of(_state.context).colorScheme.errorContainer,
-        ),
-        message);
+      Icon(
+        AppIcons.error,
+        color: Theme.of(_state.context).colorScheme.errorContainer,
+      ),
+      message,
+    );
   }
 
   static void _withIcon(Widget icon, String message) {
