@@ -46,7 +46,7 @@ Widget _build({
     child: Column(
       children: [
         const Spacer(),
-        Text(content, style: Theme.of(context).textTheme.titleSmall),
+        Text(content, style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 32),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
