@@ -62,7 +62,7 @@ class _EditProducerScreenState extends State<EditProducerScreen> {
                 DeviceNameFormField(
                     controller: _nameController, autoFocus: true),
                 const SizedBox(height: 16),
-                Watch((context) => DestructiveButton(
+                Watch((context) => DestructiveButton.outlined(
                     onPressed: viewModel.delete.isRunning.value
                         ? null
                         : () => _delete(context),

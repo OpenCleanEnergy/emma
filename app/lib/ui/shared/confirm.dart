@@ -40,25 +40,32 @@ Widget _build({
   final childOK = Text(
     textOK ?? MaterialLocalizations.of(context).okButtonLabel,
   );
+
   return SizedBox(
-    height: 96,
-    child: Center(
-      child: Column(
-        children: [
-          Text(content),
-          const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              OutlinedButton(onPressed: onCancel, child: childCancel),
-              isDestructive
-                  ? DestructiveButton(onPressed: onOK, child: childOK)
-                  : OutlinedButton(onPressed: onOK, child: childOK),
-            ],
-          ),
-          const Spacer(),
-        ],
-      ),
+    height: 128,
+    child: Column(
+      children: [
+        const Spacer(),
+        Text(content, style: Theme.of(context).textTheme.titleSmall),
+        const SizedBox(height: 32),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const SizedBox(width: 16),
+            Expanded(
+              child: OutlinedButton(onPressed: onCancel, child: childCancel),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: isDestructive
+                  ? DestructiveButton.filled(onPressed: onOK, child: childOK)
+                  : FilledButton.tonal(onPressed: onOK, child: childOK),
+            ),
+            const SizedBox(width: 16),
+          ],
+        ),
+        const SizedBox(height: 32),
+      ],
     ),
   );
 }
