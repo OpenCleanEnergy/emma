@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.45](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.44...app-v1.0.0-alpha.45) (2024-11-07)
+
+
+### 🚀 Features
+
+* Increase font size of confirmation dialog. ([47324ce](https://github.com/OpenCleanEnergy/OpenEMS/commit/47324ce5787f1af0e7227ad34b0c3d7fb20acfc2))
+
 ## [1.0.0-alpha.44](https://github.com/OpenCleanEnergy/emma/compare/app-v1.0.0-alpha.43...app-v1.0.0-alpha.44) (2024-11-07)
 
 
