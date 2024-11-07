@@ -6,7 +6,7 @@ on:
 
 env:
   DOCKER_REGISTRY: ghcr.io
-  PRIVATE_REPOSITORY: OpenEMS-private
+  PRIVATE_REPOSITORY: _OpenEMS
 
 jobs:
   release-please:
