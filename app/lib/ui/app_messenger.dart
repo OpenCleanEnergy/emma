@@ -15,10 +15,6 @@ abstract class AppMessenger {
     );
   }
 
-  static void success(String message) {
-    _withIcon(const Text("🎉"), message);
-  }
-
   static void catchError(Command command) {
     effect(() {
       if (command.hasError.value) {
@@ -43,6 +39,7 @@ abstract class AppMessenger {
   static void _withIcon(Widget icon, String message) {
     _state.hideCurrentSnackBar();
     _state.showSnackBar(SnackBar(
+      behavior: SnackBarBehavior.floating,
       content: Row(
         children: [
           icon,

@@ -93,7 +93,6 @@ class _AddConsumerScreenState extends State<AddConsumerScreen> {
         integration: widget._integration, deviceName: _nameController.text);
 
     if (await viewModel.add(command)) {
-      AppMessenger.success("${command.deviceName} hinzugefügt");
       AppNavigator.popUntilFirst();
     }
   }

@@ -96,7 +96,6 @@ class _AddElectricityMeterScreenState extends State<AddElectricityMeterScreen> {
     );
 
     if (await viewModel.add(command)) {
-      AppMessenger.success("${command.deviceName} hinzugefügt");
       AppNavigator.popUntilFirst();
     }
   }

@@ -95,7 +95,6 @@ class _AddProducerScreenState extends State<AddProducerScreen> {
     );
 
     if (await viewModel.add(command)) {
-      AppMessenger.success("${command.deviceName} hinzugefügt");
       AppNavigator.popUntilFirst();
     }
   }

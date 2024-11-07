@@ -1,4 +1,3 @@
-import 'package:openems/ui/app_messenger.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/meters/electricity_meter_view_model.dart';
 import 'package:openems/ui/devices/widgets/device_name_form_field.dart';
@@ -88,10 +87,7 @@ class _EditElectricityMeterScreenState
       return;
     }
 
-    var result = await viewModel.edit((name: _nameController.text));
-    if (result) {
-      AppMessenger.success("Änderungen erfolgreich gespeichert.");
-    }
+    await viewModel.edit((name: _nameController.text));
   }
 
   Future<void> _delete(BuildContext context) async {
@@ -108,7 +104,6 @@ class _EditElectricityMeterScreenState
     }
 
     if (await widget.viewModel.delete()) {
-      AppMessenger.success("Gerät gelöscht.");
       AppNavigator.pop();
     }
   }
