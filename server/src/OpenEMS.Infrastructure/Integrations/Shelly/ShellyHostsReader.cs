@@ -42,6 +42,6 @@ public class ShellyHostsReader : IShellyHostsReader
         return new HashSet<FullyQualifiedDomainName>(hosts);
     }
 
-    public async Task WaitForChanges(CancellationToken cancellationToken) =>
-        await _shellyHostsAutoResetEvent.WaitAsync(cancellationToken);
+    public Task WaitForChanges(CancellationToken cancellationToken) =>
+        _shellyHostsAutoResetEvent.WaitAsync(cancellationToken);
 }

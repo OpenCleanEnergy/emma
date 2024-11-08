@@ -1,6 +1,5 @@
 using System.Collections.Concurrent;
-using DotNext.Collections.Generic;
-using DotNext.Threading;
+using crozone.AsyncResetEvents;
 using OpenEMS.Domain;
 
 namespace OpenEMS.Server.LongPolling;
@@ -17,7 +16,7 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
 
     public virtual async Task WaitForUpdatesOrTimeout(
         UserId userId,
-        LongPollingSessionId session,
+        LongPollingSessionId sessionId,
         CancellationToken cancellationToken
     )
     {
@@ -29,7 +28,7 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
         cts.CancelAfter(_timeout);
         try
         {
-            await sessions.Wait(session, cts.Token);
+            await sessions.Wait(sessionId, cts.Token);
         }
         catch (OperationCanceledException ex) when (ex.CancellationToken == cts.Token)
         {
@@ -55,12 +54,15 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
         private readonly Dictionary<LongPollingSessionId, LongPollingSessionItem> _eventsBySession =
             [];
 
-        public async Task Wait(LongPollingSessionId session, CancellationToken cancellationToken)
+        public async Task Wait(LongPollingSessionId sessionId, CancellationToken cancellationToken)
         {
             LongPollingSessionItem item;
             lock (_lock)
             {
-                item = _eventsBySession.GetOrAdd(session, _ => new LongPollingSessionItem());
+                if (!_eventsBySession.TryGetValue(sessionId, out item!))
+                {
+                    item = _eventsBySession[sessionId] = new LongPollingSessionItem();
+                }
             }
 
             item.LastWait = _timeProvider.GetUtcNow();
@@ -80,7 +82,6 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
                     if (item.LastWait.AddMinutes(5) < now)
                     {
                         _eventsBySession.Remove(session);
-                        item.AsyncAutoResetEvent.Dispose();
                     }
                     else
                     {
@@ -91,15 +92,10 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
         }
     }
 
-    private sealed class LongPollingSessionItem : IDisposable
+    private sealed class LongPollingSessionItem
     {
         public AsyncAutoResetEvent AsyncAutoResetEvent { get; } = new(false);
 
         public DateTimeOffset LastWait { get; set; }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
