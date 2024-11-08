@@ -108,7 +108,7 @@ class _SelectIntegrationScreenState extends State<SelectIntegrationScreen> {
             icon: const Icon(AppIcons.open_in_new),
             label: const Text("Jetzt anfragen!"),
             onPressed: () => launchUrl(MailtoLinkFactory.createLink(
-              subject: "Hersteller",
+              subject: "Hersteller anfragen",
               bodyLines: [
                 "Hersteller: ",
                 "Gerät (optional aber hilfreich): ",
