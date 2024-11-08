@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0-alpha.42](https://github.com/OpenCleanEnergy/OpenEMS/compare/server-v1.0.0-alpha.41...server-v1.0.0-alpha.42) (2024-11-08)
+
+
+### 🚀 Features
+
+* Increase long polling session duration to one day. ([f7a227f](https://github.com/OpenCleanEnergy/OpenEMS/commit/f7a227f1a2fa27098c97ba8aeb2162694df4339f))
+
+
+### 🐛 Bug Fixes
+
+* Fix missed long polling updates ([#272](https://github.com/OpenCleanEnergy/OpenEMS/issues/272)) ([7b21504](https://github.com/OpenCleanEnergy/OpenEMS/commit/7b215048ab399e46936229b1075de045f2b2a74d))
+* Fixes long polling after refactor. ([88a7b6f](https://github.com/OpenCleanEnergy/OpenEMS/commit/88a7b6f3b9c8f16977181b1b5d6a7efe74314783))
+
 ## [1.0.0-alpha.41](https://github.com/OpenCleanEnergy/emma/compare/server-v1.0.0-alpha.40...server-v1.0.0-alpha.41) (2024-11-06)
 
 
