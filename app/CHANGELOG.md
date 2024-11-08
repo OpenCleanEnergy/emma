@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.47](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.46...app-v1.0.0-alpha.47) (2024-11-08)
+
+
+### 🚀 Features
+
+* Add `mailto` button to request missing integration ([6ca1c86](https://github.com/OpenCleanEnergy/OpenEMS/commit/6ca1c86e27bfd5922ebf36d434e16616bb4640c9))
+* Improve mail subject ([ebd1701](https://github.com/OpenCleanEnergy/OpenEMS/commit/ebd170135c71103e46a49211c8e8286511746799))
+
 ## [1.0.0-alpha.46](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.45...app-v1.0.0-alpha.46) (2024-11-08)
 
 
