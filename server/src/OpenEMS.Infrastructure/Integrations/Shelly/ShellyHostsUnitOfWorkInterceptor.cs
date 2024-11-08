@@ -2,7 +2,7 @@ using OpenEMS.Infrastructure.Persistence;
 using OpenEMS.Infrastructure.Persistence.EntityFramework;
 using OpenEMS.Integrations.Shelly.Domain;
 
-namespace OpenEMS.Infrastructure;
+namespace OpenEMS.Infrastructure.Integrations.Shelly;
 
 public class ShellyHostsUnitOfWorkInterceptor : IUnitOfWorkInterceptor
 {

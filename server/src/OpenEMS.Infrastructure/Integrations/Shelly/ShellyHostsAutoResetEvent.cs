@@ -1,20 +1,20 @@
-using crozone.AsyncResetEvents;
+using DotNext.Threading;
 
-namespace OpenEMS.Infrastructure;
+namespace OpenEMS.Infrastructure.Integrations.Shelly;
 
-public class ShellyHostsAutoResetEvent
+public sealed class ShellyHostsAutoResetEvent : IDisposable
 {
-    private readonly AsyncAutoResetEvent _asyncAutoResetEvent;
-
-    private ShellyHostsAutoResetEvent()
-    {
-        _asyncAutoResetEvent = new AsyncAutoResetEvent();
-    }
+    private readonly AsyncAutoResetEvent _asyncAutoResetEvent = new(false);
 
     public static ShellyHostsAutoResetEvent Instance { get; } = new();
 
-    public Task WaitAsync(CancellationToken cancellationToken) =>
+    public ValueTask WaitAsync(CancellationToken cancellationToken) =>
         _asyncAutoResetEvent.WaitAsync(cancellationToken);
 
     public void Set() => _asyncAutoResetEvent.Set();
+
+    public void Dispose()
+    {
+        _asyncAutoResetEvent.Dispose();
+    }
 }

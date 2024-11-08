@@ -4,7 +4,7 @@ using OpenEMS.Infrastructure.Persistence;
 using OpenEMS.Integrations.Shelly.Domain;
 using OpenEMS.Integrations.Shelly.Domain.ValueObjects;
 
-namespace OpenEMS.Infrastructure.Shelly;
+namespace OpenEMS.Infrastructure.Integrations.Shelly;
 
 public class GrantedShellyDeviceRepository : IGrantedShellyDeviceRepository
 {
