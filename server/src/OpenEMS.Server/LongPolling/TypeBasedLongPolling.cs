@@ -15,16 +15,26 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
 
     public abstract IReadOnlySet<Type> WatchedTypes { get; }
 
-    public virtual async Task WaitForUpdates(
+    public virtual async Task WaitForUpdatesOrTimeout(
         UserId userId,
         LongPollingSession session,
         CancellationToken cancellationToken
     )
     {
         var sessions = GetClients(userId);
-        var wait = sessions.WaitForUpdates(session, cancellationToken);
 
-        await Task.WhenAny(wait, Task.Delay(_timeout, _timeProvider, cancellationToken));
+        // IMPORTANT: use linked token source to cancel the long polling after 30 seconds
+        // otherwise the `Wait` on the `AsyncAutoResetEvent` will not be released
+        using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        cts.CancelAfter(_timeout);
+        try
+        {
+            await sessions.WaitForUpdates(session, cts.Token);
+        }
+        catch (OperationCanceledException ex) when (ex.CancellationToken == cts.Token)
+        {
+            // long polling timeout or cancellation
+        }
     }
 
     public virtual void Notify(UserId userId)

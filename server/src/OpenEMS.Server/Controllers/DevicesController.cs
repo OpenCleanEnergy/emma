@@ -34,11 +34,13 @@ public class DevicesController(
     )
     {
         var userId = _currentUser.GetUserIdOrThrow();
-        await _longPolling.WaitForUpdates(
+
+        await _longPolling.WaitForUpdatesOrTimeout(
             userId,
             LongPollingSession.From(session),
             cancellationToken
         );
+
         return await _sender.Send(new DevicesQuery(), cancellationToken);
     }
 
