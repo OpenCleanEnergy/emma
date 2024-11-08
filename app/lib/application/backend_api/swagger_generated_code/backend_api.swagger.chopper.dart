@@ -133,12 +133,15 @@ final class _$BackendApi extends BackendApi {
   }
 
   @override
-  Future<Response<DevicesDto>> _Devices_DevicesQuery_LongPolling() {
+  Future<Response<DevicesDto>> _Devices_DevicesQuery_LongPolling(
+      {required int? session}) {
     final Uri $url = Uri.parse('/v1/devices/long-polling');
+    final Map<String, dynamic> $params = <String, dynamic>{'session': session};
     final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
+      parameters: $params,
     );
     return client.send<DevicesDto, DevicesDto>($request);
   }
@@ -313,12 +316,15 @@ final class _$BackendApi extends BackendApi {
   }
 
   @override
-  Future<Response<HomeStatusDto>> _Home_HomeStatusQuery_LongPolling() {
+  Future<Response<HomeStatusDto>> _Home_HomeStatusQuery_LongPolling(
+      {required int? session}) {
     final Uri $url = Uri.parse('/v1/home/long-polling');
+    final Map<String, dynamic> $params = <String, dynamic>{'session': session};
     final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
+      parameters: $params,
     );
     return client.send<HomeStatusDto, HomeStatusDto>($request);
   }

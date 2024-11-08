@@ -189,15 +189,19 @@ abstract class BackendApi extends ChopperService {
   Future<chopper.Response<DevicesDto>> _Devices_DevicesQuery();
 
   ///
-  Future<chopper.Response<DevicesDto>> Devices_DevicesQuery_LongPolling() {
+  ///@param session
+  Future<chopper.Response<DevicesDto>> Devices_DevicesQuery_LongPolling(
+      {required int? session}) {
     generatedMapping.putIfAbsent(DevicesDto, () => DevicesDto.fromJsonFactory);
 
-    return _Devices_DevicesQuery_LongPolling();
+    return _Devices_DevicesQuery_LongPolling(session: session);
   }
 
   ///
+  ///@param session
   @Get(path: '/v1/devices/long-polling')
-  Future<chopper.Response<DevicesDto>> _Devices_DevicesQuery_LongPolling();
+  Future<chopper.Response<DevicesDto>> _Devices_DevicesQuery_LongPolling(
+      {@Query('session') required int? session});
 
   ///
   Future<chopper.Response> Devices_AddSwitchConsumerCommand(
@@ -374,16 +378,20 @@ abstract class BackendApi extends ChopperService {
   Future<chopper.Response<HomeStatusDto>> _Home_HomeStatusQuery();
 
   ///
-  Future<chopper.Response<HomeStatusDto>> Home_HomeStatusQuery_LongPolling() {
+  ///@param session
+  Future<chopper.Response<HomeStatusDto>> Home_HomeStatusQuery_LongPolling(
+      {required int? session}) {
     generatedMapping.putIfAbsent(
         HomeStatusDto, () => HomeStatusDto.fromJsonFactory);
 
-    return _Home_HomeStatusQuery_LongPolling();
+    return _Home_HomeStatusQuery_LongPolling(session: session);
   }
 
   ///
+  ///@param session
   @Get(path: '/v1/home/long-polling')
-  Future<chopper.Response<HomeStatusDto>> _Home_HomeStatusQuery_LongPolling();
+  Future<chopper.Response<HomeStatusDto>> _Home_HomeStatusQuery_LongPolling(
+      {@Query('session') required int? session});
 
   ///
   ///@param DeviceCategory

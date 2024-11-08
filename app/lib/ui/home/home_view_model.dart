@@ -24,7 +24,10 @@ class HomeViewModel {
   }
 
   Future<void> _refresh() async {
-    final response = await _api.Home_HomeStatusQuery_LongPolling();
+    final response = await _api.Home_HomeStatusQuery_LongPolling(
+      session: LongPollingSession.instance,
+    );
+
     _update(response.bodyOrThrow);
   }
 

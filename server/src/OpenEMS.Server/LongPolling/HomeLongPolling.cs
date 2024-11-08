@@ -4,7 +4,7 @@ using OpenEMS.Domain.Producers;
 
 namespace OpenEMS.Server.LongPolling;
 
-public class DevicesLongPolling(TimeProvider timeProvider) : TypeBasedLongPolling(timeProvider)
+public class HomeLongPolling(TimeProvider timeProvider) : TypeBasedLongPolling(timeProvider)
 {
     public override IReadOnlySet<Type> WatchedTypes { get; } =
         new HashSet<Type>() { typeof(SwitchConsumer), typeof(Producer), typeof(ElectricityMeter) };

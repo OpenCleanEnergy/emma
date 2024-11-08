@@ -1,45 +1,105 @@
 using System.Collections.Concurrent;
-using System.Collections.Immutable;
+using DotNext.Collections.Generic;
+using DotNext.Threading;
 using OpenEMS.Domain;
 
 namespace OpenEMS.Server.LongPolling;
 
-public abstract class TypeBasedLongPolling
+public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
 {
     private static readonly TimeSpan _timeout = TimeSpan.FromSeconds(30);
 
-    private readonly ConcurrentDictionary<
-        UserId,
-        ImmutableList<TaskCompletionSource>
-    > _subscriptions = [];
+    private readonly ConcurrentDictionary<UserId, LongPollingSessions> _sessionsByUserId = [];
 
-    private readonly TimeProvider _timeProvider;
-
-    protected TypeBasedLongPolling(TimeProvider timeProvider)
-    {
-        _timeProvider = timeProvider;
-    }
+    private readonly TimeProvider _timeProvider = timeProvider;
 
     public abstract IReadOnlySet<Type> WatchedTypes { get; }
 
-    public virtual async Task WaitForUpdates(UserId userId, CancellationToken cancellationToken)
+    public virtual async Task WaitForUpdatesOrTimeout(
+        UserId userId,
+        LongPollingSessionId session,
+        CancellationToken cancellationToken
+    )
     {
-        var tcs = new TaskCompletionSource();
-        _subscriptions.AddOrUpdate(userId, _ => [tcs], (_, list) => list.Add(tcs));
+        var sessions = GetSessions(userId);
 
-        await Task.WhenAny(tcs.Task, Task.Delay(_timeout, _timeProvider, cancellationToken));
+        // IMPORTANT: use linked token source to cancel the long polling after 30 seconds
+        // otherwise the `Wait` on the `AsyncAutoResetEvent` will not be released
+        using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        cts.CancelAfter(_timeout);
+        try
+        {
+            await sessions.Wait(session, cts.Token);
+        }
+        catch (OperationCanceledException ex) when (ex.CancellationToken == cts.Token)
+        {
+            // long polling timeout or cancellation
+        }
     }
 
     public virtual void Notify(UserId userId)
     {
-        if (!_subscriptions.TryRemove(userId, out var subscriptions))
+        var sessions = GetSessions(userId);
+        sessions.Notify();
+    }
+
+    private LongPollingSessions GetSessions(UserId userId)
+    {
+        return _sessionsByUserId.GetOrAdd(userId, _ => new LongPollingSessions(_timeProvider));
+    }
+
+    private sealed class LongPollingSessions(TimeProvider timeProvider)
+    {
+        private readonly TimeProvider _timeProvider = timeProvider;
+        private readonly object _lock = new();
+        private readonly Dictionary<LongPollingSessionId, LongPollingSessionItem> _eventsBySession =
+            [];
+
+        public async Task Wait(LongPollingSessionId session, CancellationToken cancellationToken)
         {
-            return;
+            LongPollingSessionItem item;
+            lock (_lock)
+            {
+                item = _eventsBySession.GetOrAdd(session, _ => new LongPollingSessionItem());
+            }
+
+            item.LastWait = _timeProvider.GetUtcNow();
+            await item.AsyncAutoResetEvent.WaitAsync(cancellationToken);
         }
 
-        foreach (var subscription in subscriptions)
+        public void Notify()
         {
-            subscription.TrySetResult();
+            lock (_lock)
+            {
+                var now = _timeProvider.GetUtcNow();
+
+                var sessions = _eventsBySession.Keys.ToArray();
+                foreach (var session in sessions)
+                {
+                    var item = _eventsBySession[session];
+                    if (item.LastWait.AddMinutes(5) < now)
+                    {
+                        _eventsBySession.Remove(session);
+                        item.AsyncAutoResetEvent.Dispose();
+                    }
+                    else
+                    {
+                        item.AsyncAutoResetEvent.Set();
+                    }
+                }
+            }
+        }
+    }
+
+    private sealed class LongPollingSessionItem : IDisposable
+    {
+        public AsyncAutoResetEvent AsyncAutoResetEvent { get; } = new(false);
+
+        public DateTimeOffset LastWait { get; set; }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

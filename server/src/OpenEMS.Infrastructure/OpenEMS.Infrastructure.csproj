@@ -7,10 +7,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="crozone.AsyncResetEvents" Version="1.0.2" />
+    
     <PackageReference Include="DotNetCore.CAP" Version="8.3.0" />
     <PackageReference Include="DotNetCore.CAP.PostgreSql" Version="8.3.0" />
     <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.3.0" />
+    <PackageReference Include="DotNext.Threading" Version="5.15.0" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
   </ItemGroup>

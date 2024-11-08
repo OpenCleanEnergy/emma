@@ -229,6 +229,13 @@ paths:
       tags:
         - Devices
       operationId: Devices_DevicesQuery_LongPolling
+      parameters:
+        - name: session
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         '200':
           description: OK
@@ -473,6 +480,13 @@ paths:
       tags:
         - Home
       operationId: Home_HomeStatusQuery_LongPolling
+      parameters:
+        - name: session
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         '200':
           description: OK

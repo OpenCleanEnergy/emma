@@ -34,7 +34,7 @@ start-docker:
 
 [windows]
 start-docker:
-  echo "Please ensure Docker Desktop is running"
+  @echo "Please ensure Docker Desktop is running"
 
 # Executes build pipeline for given target.
 target *args="--help":

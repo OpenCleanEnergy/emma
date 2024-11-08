@@ -12,7 +12,7 @@
   </Target>
   <ItemGroup>
     <PackageReference Include="BetterStack.Logs.Serilog" Version="1.1.0" />
-    <PackageReference Include="crozone.AsyncResetEvents" Version="1.0.2" />
+    <PackageReference Include="DotNext.Threading" Version="5.15.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

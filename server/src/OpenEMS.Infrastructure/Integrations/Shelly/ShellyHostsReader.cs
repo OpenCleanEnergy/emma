@@ -3,7 +3,7 @@ using OpenEMS.Infrastructure.Persistence;
 using OpenEMS.Integrations.Shelly.Domain.ValueObjects;
 using OpenEMS.Integrations.Shelly.Infrastructure;
 
-namespace OpenEMS.Infrastructure;
+namespace OpenEMS.Infrastructure.Integrations.Shelly;
 
 public class ShellyHostsReader : IShellyHostsReader
 {
@@ -42,6 +42,6 @@ public class ShellyHostsReader : IShellyHostsReader
         return new HashSet<FullyQualifiedDomainName>(hosts);
     }
 
-    public Task WaitForChanges(CancellationToken cancellationToken) =>
-        _shellyHostsAutoResetEvent.WaitAsync(cancellationToken);
+    public async Task WaitForChanges(CancellationToken cancellationToken) =>
+        await _shellyHostsAutoResetEvent.WaitAsync(cancellationToken);
 }
