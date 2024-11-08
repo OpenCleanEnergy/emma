@@ -29,12 +29,16 @@ public class DevicesController(
 
     [HttpGet("long-polling", Name = $"{nameof(DevicesQuery)}_LongPolling")]
     public async Task<DevicesDto> LongPollingAllDevices(
-        [FromQuery] int client,
+        [FromQuery] int session,
         CancellationToken cancellationToken
     )
     {
         var userId = _currentUser.GetUserIdOrThrow();
-        await _longPolling.WaitForUpdates(userId, client, cancellationToken);
+        await _longPolling.WaitForUpdates(
+            userId,
+            LongPollingSession.From(session),
+            cancellationToken
+        );
         return await _sender.Send(new DevicesQuery(), cancellationToken);
     }
 

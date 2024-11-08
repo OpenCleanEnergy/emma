@@ -9,7 +9,7 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
 {
     private static readonly TimeSpan _timeout = TimeSpan.FromSeconds(30);
 
-    private readonly ConcurrentDictionary<UserId, LongPollingClients> _clientsByUserId = [];
+    private readonly ConcurrentDictionary<UserId, LongPollingSessions> _sessionsByUserId = [];
 
     private readonly TimeProvider _timeProvider = timeProvider;
 
@@ -17,64 +17,70 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
 
     public virtual async Task WaitForUpdates(
         UserId userId,
-        int client,
+        LongPollingSession session,
         CancellationToken cancellationToken
     )
     {
-        var clients = GetClients(userId);
-        var wait = clients.WaitForUpdates(client, cancellationToken);
+        var sessions = GetClients(userId);
+        var wait = sessions.WaitForUpdates(session, cancellationToken);
 
         await Task.WhenAny(wait, Task.Delay(_timeout, _timeProvider, cancellationToken));
     }
 
     public virtual void Notify(UserId userId)
     {
-        var clients = GetClients(userId);
-        clients.Notify();
+        var sessions = GetClients(userId);
+        sessions.Notify();
     }
 
-    private LongPollingClients GetClients(UserId userId)
+    private LongPollingSessions GetClients(UserId userId)
     {
-        return _clientsByUserId.GetOrAdd(userId, _ => new LongPollingClients(_timeProvider));
+        return _sessionsByUserId.GetOrAdd(userId, _ => new LongPollingSessions(_timeProvider));
     }
 
-    private sealed class LongPollingClients(TimeProvider timeProvider)
+    private sealed class LongPollingSessions(TimeProvider timeProvider)
     {
         private readonly TimeProvider _timeProvider = timeProvider;
         private readonly object _lock = new();
-        private readonly Dictionary<int, AsyncAutoResetEventWithTimestamp> _waitTrackingEvents = [];
+        private readonly Dictionary<
+            LongPollingSession,
+            AsyncAutoResetEventWithTimestamp
+        > _eventsBySession = [];
 
-        public async Task WaitForUpdates(int client, CancellationToken cancellationToken)
+        public async Task WaitForUpdates(
+            LongPollingSession session,
+            CancellationToken cancellationToken
+        )
         {
-            AsyncAutoResetEventWithTimestamp waitTrackingEvent;
+            AsyncAutoResetEventWithTimestamp autoResetEvent;
             lock (_lock)
             {
-                waitTrackingEvent = _waitTrackingEvents.GetOrAdd(
-                    client,
+                autoResetEvent = _eventsBySession.GetOrAdd(
+                    session,
                     _ => new AsyncAutoResetEventWithTimestamp(_timeProvider)
                 );
             }
 
-            await waitTrackingEvent.WaitAsync(cancellationToken);
+            await autoResetEvent.WaitAsync(cancellationToken);
         }
 
         public void Notify()
         {
             lock (_lock)
             {
-                var sessions = _waitTrackingEvents.Keys.ToArray();
+                var sessions = _eventsBySession.Keys.ToArray();
                 var now = _timeProvider.GetUtcNow();
                 foreach (var session in sessions)
                 {
-                    var waitTrackingEvent = _waitTrackingEvents[session];
-                    if (waitTrackingEvent.LastWait.AddMinutes(5) < now)
+                    var autoResetEvent = _eventsBySession[session];
+                    if (autoResetEvent.LastWait.AddMinutes(5) < now)
                     {
-                        _waitTrackingEvents.Remove(session);
-                        waitTrackingEvent.Dispose();
+                        _eventsBySession.Remove(session);
+                        autoResetEvent.Dispose();
                     }
                     else
                     {
-                        waitTrackingEvent.Set();
+                        autoResetEvent.Set();
                     }
                 }
             }

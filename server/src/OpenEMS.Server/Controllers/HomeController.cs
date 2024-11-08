@@ -27,12 +27,16 @@ public class HomeController(
 
     [HttpGet("long-polling", Name = $"{nameof(HomeStatusQuery)}_LongPolling")]
     public async Task<HomeStatusDto> LongPollingAllDevices(
-        [FromQuery] int client,
+        [FromQuery] int session,
         CancellationToken cancellationToken
     )
     {
         var userId = _currentUser.GetUserIdOrThrow();
-        await _longPolling.WaitForUpdates(userId, client, cancellationToken);
+        await _longPolling.WaitForUpdates(
+            userId,
+            LongPollingSession.From(session),
+            cancellationToken
+        );
         return await _sender.Send(new HomeStatusQuery(), cancellationToken);
     }
 }

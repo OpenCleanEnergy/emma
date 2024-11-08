@@ -35,7 +35,8 @@ class DevicesViewModel {
   }
 
   Future<void> _refresh() async {
-    final response = await _api.Devices_DevicesQuery_LongPolling();
+    final response = await _api.Devices_DevicesQuery_LongPolling(
+        session: LongPollingSession.instance);
 
     batch(() {
       _refreshSwitchConsumers(response.body?.switchConsumers);

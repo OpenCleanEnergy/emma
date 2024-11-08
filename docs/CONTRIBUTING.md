@@ -76,6 +76,7 @@ just launch-dev-environment
 
 Available services ([by compose.yaml](../compose/openems-dev/compose.yaml)):
 
+- [Backend Swagger UI](http://localhost:5000/swagger/index.html)
 - [Keycloak](http://localhost:5001)
   - Admin:
     - Username: `admin`

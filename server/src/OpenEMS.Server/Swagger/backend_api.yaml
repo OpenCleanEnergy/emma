@@ -230,7 +230,7 @@ paths:
         - Devices
       operationId: Devices_DevicesQuery_LongPolling
       parameters:
-        - name: client
+        - name: session
           in: query
           required: true
           schema:
@@ -481,7 +481,7 @@ paths:
         - Home
       operationId: Home_HomeStatusQuery_LongPolling
       parameters:
-        - name: client
+        - name: session
           in: query
           required: true
           schema:
