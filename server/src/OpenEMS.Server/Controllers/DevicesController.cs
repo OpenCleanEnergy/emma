@@ -37,7 +37,7 @@ public class DevicesController(
 
         await _longPolling.WaitForUpdatesOrTimeout(
             userId,
-            LongPollingSession.From(session),
+            LongPollingSessionId.From(session),
             cancellationToken
         );
 

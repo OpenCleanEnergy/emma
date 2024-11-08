@@ -17,7 +17,7 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
 
     public virtual async Task WaitForUpdatesOrTimeout(
         UserId userId,
-        LongPollingSession session,
+        LongPollingSessionId session,
         CancellationToken cancellationToken
     )
     {
@@ -52,10 +52,10 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
     {
         private readonly TimeProvider _timeProvider = timeProvider;
         private readonly object _lock = new();
-        private readonly Dictionary<LongPollingSession, LongPollingSessionItem> _eventsBySession =
-        [];
+        private readonly Dictionary<LongPollingSessionId, LongPollingSessionItem> _eventsBySession =
+            [];
 
-        public async Task Wait(LongPollingSession session, CancellationToken cancellationToken)
+        public async Task Wait(LongPollingSessionId session, CancellationToken cancellationToken)
         {
             LongPollingSessionItem item;
             lock (_lock)
@@ -71,8 +71,9 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
         {
             lock (_lock)
             {
-                var sessions = _eventsBySession.Keys.ToArray();
                 var now = _timeProvider.GetUtcNow();
+
+                var sessions = _eventsBySession.Keys.ToArray();
                 foreach (var session in sessions)
                 {
                     var item = _eventsBySession[session];
@@ -90,10 +91,15 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
         }
     }
 
-    private sealed class LongPollingSessionItem
+    private sealed class LongPollingSessionItem : IDisposable
     {
         public AsyncAutoResetEvent AsyncAutoResetEvent { get; } = new(false);
 
         public DateTimeOffset LastWait { get; set; }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
