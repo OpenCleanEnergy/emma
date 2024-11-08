@@ -8,23 +8,16 @@ namespace OpenEMS.Server.Controllers;
 
 [ApiController]
 [Route("v1/[controller]")]
-public class HomeController : ControllerBase
+public class HomeController(
+    ISender sender,
+    ICurrentUserReader currentUser,
+    HomeLongPolling longPolling
+) : ControllerBase
 {
-    private readonly ISender _sender;
+    private readonly ISender _sender = sender;
 
-    private readonly ICurrentUserReader _currentUser;
-    private readonly DevicesLongPolling _longPolling;
-
-    public HomeController(
-        ISender sender,
-        ICurrentUserReader currentUser,
-        DevicesLongPolling longPolling
-    )
-    {
-        _sender = sender;
-        _currentUser = currentUser;
-        _longPolling = longPolling;
-    }
+    private readonly ICurrentUserReader _currentUser = currentUser;
+    private readonly HomeLongPolling _longPolling = longPolling;
 
     [HttpGet("", Name = nameof(HomeStatusQuery))]
     public async Task<HomeStatusDto> GetHomeStatus()
@@ -33,10 +26,13 @@ public class HomeController : ControllerBase
     }
 
     [HttpGet("long-polling", Name = $"{nameof(HomeStatusQuery)}_LongPolling")]
-    public async Task<HomeStatusDto> LongPollingAllDevices(CancellationToken cancellationToken)
+    public async Task<HomeStatusDto> LongPollingAllDevices(
+        [FromQuery] int client,
+        CancellationToken cancellationToken
+    )
     {
         var userId = _currentUser.GetUserIdOrThrow();
-        await _longPolling.WaitForUpdates(userId, cancellationToken);
+        await _longPolling.WaitForUpdates(userId, client, cancellationToken);
         return await _sender.Send(new HomeStatusQuery(), cancellationToken);
     }
 }

@@ -20,7 +20,6 @@ using OpenEMS.Application.Shared.Identity;
 using OpenEMS.Domain.Consumers;
 using OpenEMS.Domain.Meters;
 using OpenEMS.Domain.Producers;
-using OpenEMS.Infrastructure;
 using OpenEMS.Infrastructure.Analytics.Queries;
 using OpenEMS.Infrastructure.Analytics.Samples;
 using OpenEMS.Infrastructure.Devices.Consumers;
@@ -29,10 +28,10 @@ using OpenEMS.Infrastructure.Devices.Producers;
 using OpenEMS.Infrastructure.Events;
 using OpenEMS.Infrastructure.Events.CAP;
 using OpenEMS.Infrastructure.Integrations;
+using OpenEMS.Infrastructure.Integrations.Shelly;
 using OpenEMS.Infrastructure.Persistence;
 using OpenEMS.Infrastructure.Persistence.EntityFramework;
 using OpenEMS.Infrastructure.RequestPipeline;
-using OpenEMS.Infrastructure.Shelly;
 using OpenEMS.Integrations.Development;
 using OpenEMS.Integrations.Shared;
 using OpenEMS.Integrations.Shelly;
@@ -245,6 +244,9 @@ public static class Bootstrapper
     private static void AddLongPolling(IServiceCollection services)
     {
         services.TryAddSingleton(TimeProvider.System);
+
+        services.AddSingleton<HomeLongPolling>();
+        services.AddScoped<IInterceptor, EntityFrameworkLongPollingInterceptor<HomeLongPolling>>();
 
         services.AddSingleton<DevicesLongPolling>();
         services.AddScoped<

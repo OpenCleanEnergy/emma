@@ -11,22 +11,15 @@ namespace OpenEMS.Server.Controllers;
 
 [ApiController]
 [Route("v1/[controller]")]
-public class DevicesController : ControllerBase
+public class DevicesController(
+    ISender sender,
+    ICurrentUserReader currentUser,
+    DevicesLongPolling longPolling
+) : ControllerBase
 {
-    private readonly ISender _sender;
-    private readonly ICurrentUserReader _currentUser;
-    private readonly DevicesLongPolling _longPolling;
-
-    public DevicesController(
-        ISender sender,
-        ICurrentUserReader currentUser,
-        DevicesLongPolling longPolling
-    )
-    {
-        _sender = sender;
-        _currentUser = currentUser;
-        _longPolling = longPolling;
-    }
+    private readonly ISender _sender = sender;
+    private readonly ICurrentUserReader _currentUser = currentUser;
+    private readonly DevicesLongPolling _longPolling = longPolling;
 
     [HttpGet("", Name = nameof(DevicesQuery))]
     public async Task<DevicesDto> GetAllDevices()
@@ -35,10 +28,13 @@ public class DevicesController : ControllerBase
     }
 
     [HttpGet("long-polling", Name = $"{nameof(DevicesQuery)}_LongPolling")]
-    public async Task<DevicesDto> LongPollingAllDevices(CancellationToken cancellationToken)
+    public async Task<DevicesDto> LongPollingAllDevices(
+        [FromQuery] int client,
+        CancellationToken cancellationToken
+    )
     {
         var userId = _currentUser.GetUserIdOrThrow();
-        await _longPolling.WaitForUpdates(userId, cancellationToken);
+        await _longPolling.WaitForUpdates(userId, client, cancellationToken);
         return await _sender.Send(new DevicesQuery(), cancellationToken);
     }
 
