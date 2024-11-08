@@ -79,7 +79,7 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
                 foreach (var session in sessions)
                 {
                     var item = _eventsBySession[session];
-                    if (item.LastWait.AddMinutes(5) < now)
+                    if (item.LastWait.AddDays(1) < now)
                     {
                         _eventsBySession.Remove(session);
                     }
