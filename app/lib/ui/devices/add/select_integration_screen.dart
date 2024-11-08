@@ -1,4 +1,5 @@
 import 'package:openems/application/backend_api/swagger_generated_code/backend_api.enums.swagger.dart';
+import 'package:openems/application/mailto_link_factory.dart';
 import 'package:openems/domain/integrations/known_integrations.dart';
 import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
@@ -13,6 +14,7 @@ import 'package:openems/ui/shared/noop.dart';
 import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SelectIntegrationScreen extends StatefulWidget {
   const SelectIntegrationScreen({super.key, required this.category});
@@ -49,19 +51,21 @@ class _SelectIntegrationScreenState extends State<SelectIntegrationScreen> {
             explanation: "Wähle den Hersteller von deinem Gerät aus.",
           ),
           Watch((context) {
-            final integrations =
-                viewModel.integrations.map((integration) => ListTile(
-                      title: Text(integration.name),
-                      subtitle: _getSubtitle(integration.id),
-                      trailing: const Icon(AppIcons.arrow_next),
-                      onTap: () => _selectIntegration(integration.id),
-                    ));
             return Column(
-              children: [
-                ...ListTile.divideTiles(context: context, tiles: integrations)
-              ],
+              children: ListTile.divideTiles(
+                context: context,
+                tiles: viewModel.integrations.map(
+                  (integration) => ListTile(
+                    title: Text(integration.name),
+                    subtitle: _getSubtitle(integration.id),
+                    trailing: const Icon(AppIcons.arrow_next),
+                    onTap: () => _selectIntegration(integration.id),
+                  ),
+                ),
+              ).toList(),
             );
-          })
+          }),
+          _buildIntegrationRequest(),
         ],
       ),
     );
@@ -85,11 +89,34 @@ class _SelectIntegrationScreenState extends State<SelectIntegrationScreen> {
     }
   }
 
-  Widget? _getSubtitle(String integrationId) {
+  static Widget? _getSubtitle(String integrationId) {
     return switch (integrationId) {
       KnownIntegrations.development => null,
       KnownIntegrations.shelly => null,
       _ => const Text("Bald verfügbar")
     };
+  }
+
+  static Widget _buildIntegrationRequest() {
+    return Center(
+      child: Column(
+        children: [
+          const SizedBox(height: 16),
+          const Text("Dein Hersteller ist nicht dabei?"),
+          const SizedBox(height: 8),
+          OutlinedButton.icon(
+            icon: const Icon(AppIcons.open_in_new),
+            label: const Text("Jetzt anfragen!"),
+            onPressed: () => launchUrl(MailtoLinkFactory.createLink(
+              subject: "Hersteller",
+              bodyLines: [
+                "Hersteller: ",
+                "Gerät (optional aber hilfreich): ",
+              ],
+            )),
+          ),
+        ],
+      ),
+    );
   }
 }

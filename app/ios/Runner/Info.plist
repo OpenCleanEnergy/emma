@@ -59,6 +59,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 	  <string>https</string>
+	  <string>mailto</string>
 	</array>
 </dict>
 </plist>
