@@ -21,7 +21,7 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
         CancellationToken cancellationToken
     )
     {
-        var sessions = GetClients(userId);
+        var sessions = GetSessions(userId);
 
         // IMPORTANT: use linked token source to cancel the long polling after 30 seconds
         // otherwise the `Wait` on the `AsyncAutoResetEvent` will not be released
@@ -29,7 +29,7 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
         cts.CancelAfter(_timeout);
         try
         {
-            await sessions.WaitForUpdates(session, cts.Token);
+            await sessions.Wait(session, cts.Token);
         }
         catch (OperationCanceledException ex) when (ex.CancellationToken == cts.Token)
         {
@@ -39,11 +39,11 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
 
     public virtual void Notify(UserId userId)
     {
-        var sessions = GetClients(userId);
+        var sessions = GetSessions(userId);
         sessions.Notify();
     }
 
-    private LongPollingSessions GetClients(UserId userId)
+    private LongPollingSessions GetSessions(UserId userId)
     {
         return _sessionsByUserId.GetOrAdd(userId, _ => new LongPollingSessions(_timeProvider));
     }
@@ -52,26 +52,19 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
     {
         private readonly TimeProvider _timeProvider = timeProvider;
         private readonly object _lock = new();
-        private readonly Dictionary<
-            LongPollingSession,
-            AsyncAutoResetEventWithTimestamp
-        > _eventsBySession = [];
+        private readonly Dictionary<LongPollingSession, LongPollingSessionItem> _eventsBySession =
+        [];
 
-        public async Task WaitForUpdates(
-            LongPollingSession session,
-            CancellationToken cancellationToken
-        )
+        public async Task Wait(LongPollingSession session, CancellationToken cancellationToken)
         {
-            AsyncAutoResetEventWithTimestamp autoResetEvent;
+            LongPollingSessionItem item;
             lock (_lock)
             {
-                autoResetEvent = _eventsBySession.GetOrAdd(
-                    session,
-                    _ => new AsyncAutoResetEventWithTimestamp(_timeProvider)
-                );
+                item = _eventsBySession.GetOrAdd(session, _ => new LongPollingSessionItem());
             }
 
-            await autoResetEvent.WaitAsync(cancellationToken);
+            item.LastWait = _timeProvider.GetUtcNow();
+            await item.AsyncAutoResetEvent.WaitAsync(cancellationToken);
         }
 
         public void Notify()
@@ -82,42 +75,25 @@ public abstract class TypeBasedLongPolling(TimeProvider timeProvider)
                 var now = _timeProvider.GetUtcNow();
                 foreach (var session in sessions)
                 {
-                    var autoResetEvent = _eventsBySession[session];
-                    if (autoResetEvent.LastWait.AddMinutes(5) < now)
+                    var item = _eventsBySession[session];
+                    if (item.LastWait.AddMinutes(5) < now)
                     {
                         _eventsBySession.Remove(session);
-                        autoResetEvent.Dispose();
+                        item.AsyncAutoResetEvent.Dispose();
                     }
                     else
                     {
-                        autoResetEvent.Set();
+                        item.AsyncAutoResetEvent.Set();
                     }
                 }
             }
         }
     }
 
-    private sealed class AsyncAutoResetEventWithTimestamp(TimeProvider timeProvider) : IDisposable
+    private sealed class LongPollingSessionItem
     {
-        private readonly TimeProvider _timeProvider = timeProvider;
-        private readonly AsyncAutoResetEvent _autoResetEvent = new(false);
+        public AsyncAutoResetEvent AsyncAutoResetEvent { get; } = new(false);
 
-        public DateTimeOffset LastWait { get; private set; }
-
-        public async Task WaitAsync(CancellationToken cancellationToken)
-        {
-            LastWait = _timeProvider.GetUtcNow();
-            await _autoResetEvent.WaitAsync(cancellationToken);
-        }
-
-        public void Set()
-        {
-            _autoResetEvent.Set();
-        }
-
-        public void Dispose()
-        {
-            _autoResetEvent.Dispose();
-        }
+        public DateTimeOffset LastWait { get; set; }
     }
 }
