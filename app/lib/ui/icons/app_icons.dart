@@ -12,6 +12,7 @@ abstract final class AppIcons {
   static const analytics_solid = SolidRounded.chart_simple;
   static const arrow_next = RegularRounded.angle_right;
   static const arrow_prev = RegularRounded.angle_left;
+  static const at = RegularRounded.at;
   static const battery_1_bar = RegularRounded.battery_quarter;
   static const battery_2_bar = RegularRounded.battery_half;
   static const battery_3_bar = RegularRounded.battery_three_quarters;
