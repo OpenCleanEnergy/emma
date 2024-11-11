@@ -45,10 +45,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            const AppBarActionButton(
-              onPressed: noop,
-              icon: Icon(AppIcons.priority),
-            ),
             AppBarActionButton(
               onPressed: _startAddFlow,
               icon: const Icon(AppIcons.add),
