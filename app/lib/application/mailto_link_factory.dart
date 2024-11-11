@@ -6,7 +6,7 @@ abstract final class MailtoLinkFactory {
 
   static Uri createLink({required String subject, List<String>? bodyLines}) {
     final mailto = Mailto(
-      to: ['service@opencleanenergy.org'],
+      to: ['info@opencleanenergy.org'],
       subject: 'EMMA | $subject',
       body: bodyLines?.join(_lineBreak),
     );
