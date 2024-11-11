@@ -5,7 +5,6 @@ import 'package:openems/ui/devices/devices_view_model.dart';
 import 'package:openems/ui/devices/widgets/devices_list.dart';
 import 'package:openems/ui/locator.dart';
 import 'package:openems/ui/shared/app_bar_action_button.dart';
-import 'package:openems/ui/shared/noop.dart';
 import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
 import 'package:openems/ui/utils/polling/long_polling_handler.dart';
 import 'package:flutter/material.dart';
