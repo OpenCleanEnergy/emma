@@ -1,5 +1,5 @@
 import 'package:openems/application/backend_api/swagger_generated_code/backend_api.enums.swagger.dart';
-import 'package:openems/application/mailto_link_factory.dart';
+import 'package:openems/application/launch_mailto.dart';
 import 'package:openems/domain/integrations/known_integrations.dart';
 import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
@@ -14,7 +14,6 @@ import 'package:openems/ui/shared/noop.dart';
 import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SelectIntegrationScreen extends StatefulWidget {
   const SelectIntegrationScreen({super.key, required this.category});
@@ -107,13 +106,13 @@ class _SelectIntegrationScreenState extends State<SelectIntegrationScreen> {
           OutlinedButton.icon(
             icon: const Icon(AppIcons.open_in_new),
             label: const Text("Jetzt anfragen!"),
-            onPressed: () => launchUrl(MailtoLinkFactory.createLink(
+            onPressed: () => launchMailto(
               subject: "Hersteller anfragen",
               bodyLines: [
                 "Hersteller: ",
                 "Gerät (optional aber hilfreich): ",
               ],
-            )),
+            ),
           ),
         ],
       ),

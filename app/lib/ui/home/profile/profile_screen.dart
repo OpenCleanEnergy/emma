@@ -1,3 +1,4 @@
+import 'package:openems/application/launch_mailto.dart';
 import 'package:openems/infrastructure/window_size_writer.dart';
 import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
@@ -40,6 +41,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: const Text(LogsScreen.title),
         trailing: const Icon(AppIcons.arrow_next),
         onTap: () => AppNavigator.push(const LogsScreen()),
+      ),
+      ListTile(
+        title: const Text("Kontakt"),
+        leading: const Icon(AppIcons.contact),
+        trailing: const Icon(AppIcons.arrow_next),
+        onTap: () => launchMailto(subject: "Kontakt"),
       ),
       Watch(
         (context) => ListTile(

@@ -4,6 +4,7 @@ import 'package:openems/ui/icons/uicons/uicons.dart';
 // ignore_for_file: constant_identifier_names
 
 /// All icons to be used.
+@staticIconProvider
 abstract final class AppIcons {
   static const Scale scale = Scale._();
 
@@ -19,6 +20,7 @@ abstract final class AppIcons {
   static const battery_full = RegularRounded.battery_full;
   static const circle = Icons.circle;
   static const close = RegularRounded.cross;
+  static const contact = RegularRounded.at;
   static const device = RegularRounded.plug_cable;
   static const device_solid = SolidRounded.plug_cable;
   static const error = RegularRounded.exclamation;
