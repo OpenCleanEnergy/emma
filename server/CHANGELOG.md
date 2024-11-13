@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.43](https://github.com/OpenCleanEnergy/OpenEMS/compare/server-v1.0.0-alpha.42...server-v1.0.0-alpha.43) (2024-11-13)
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group in /server with 9 updates ([#279](https://github.com/OpenCleanEnergy/OpenEMS/issues/279)) ([7ce1a8e](https://github.com/OpenCleanEnergy/OpenEMS/commit/7ce1a8eac4910165738e1ee1f152d76e8606216e))
+
 ## [1.0.0-alpha.42](https://github.com/OpenCleanEnergy/OpenEMS/compare/server-v1.0.0-alpha.41...server-v1.0.0-alpha.42) (2024-11-08)
 
 
