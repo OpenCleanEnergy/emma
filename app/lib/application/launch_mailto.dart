@@ -1,8 +1,10 @@
 import 'package:mailto/mailto.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<bool> launchMailto(
-    {required String subject, List<String>? bodyLines}) async {
+Future<bool> launchMailto({
+  required String subject,
+  List<String>? bodyLines,
+}) async {
   final uri = _createLink(subject: subject, bodyLines: bodyLines);
   return await launchUrl(uri);
 }
