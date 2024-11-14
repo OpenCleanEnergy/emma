@@ -216,7 +216,7 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           repository: ${{ github.repository_owner }}/${{ env.PRIVATE_REPOSITORY }}
           event-type: deploy
-          client-payload: '{ "ref": "${{ github.ref }}" }'
+          client-payload: '{ "branch": "${{ github.ref_name }}" }'
 
   publish-app:
     name: 📱 Trigger publish app
