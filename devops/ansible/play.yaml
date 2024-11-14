@@ -1,5 +1,0 @@
-- name: 🚀 Deploy
-  hosts: all
-  roles:
-    - docker
-    - deployment

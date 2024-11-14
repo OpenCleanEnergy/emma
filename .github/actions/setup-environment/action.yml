@@ -3,13 +3,13 @@ description: Installs required tools like dotnet and just
 inputs:
   dotnet:
     description: Install .NET
-    default: false
+    default: "false"
   flutter:
     description: Install Flutter
-    default: false
+    default: "false"
   docker:
     description: Install Docker with buildx support
-    default: false
+    default: "false"
 runs:
   using: composite
   steps:

@@ -1,3 +1,0 @@
-[*Stack.cs]
-# CA1711: Identifiers should not have incorrect suffix
-dotnet_diagnostic.CA1711.severity = none

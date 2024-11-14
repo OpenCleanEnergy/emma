@@ -1,5 +1,0 @@
-config:
-  OpenEMS:output-dir: /tmp/openems
-  OpenEMS:ssh-enabled: "false"
-environment:
-  - OpenEMS/production
