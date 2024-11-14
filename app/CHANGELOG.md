@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.0.0-alpha.48](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.47...app-v1.0.0-alpha.48) (2024-11-14)
+
+
+### 🚀 Features
+
+* Change integration request mail address. ([127298f](https://github.com/OpenCleanEnergy/OpenEMS/commit/127298fbf2ef408f498b3b36280d91d5832a46a2))
+* Contact button in profile screen. ([#281](https://github.com/OpenCleanEnergy/OpenEMS/issues/281)) ([f402820](https://github.com/OpenCleanEnergy/OpenEMS/commit/f402820bce60a1b48ef118889dd1952ca75a4dc3))
+* remove button to sort devices (coming soon). ([25645b5](https://github.com/OpenCleanEnergy/OpenEMS/commit/25645b58bd99984bfa01c22c2f2be2d957c7a608))
+
+
+### 🐛 Bug Fixes
+
+* remove unused import ([9c06a76](https://github.com/OpenCleanEnergy/OpenEMS/commit/9c06a763ba6db67c040b6ae7a41c0de1b42294e4))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump package_info_plus from 8.1.0 to 8.1.1 in /app in the dependencies group ([#278](https://github.com/OpenCleanEnergy/OpenEMS/issues/278)) ([9e67d33](https://github.com/OpenCleanEnergy/OpenEMS/commit/9e67d3352873ee47d63cb1de2e65dbf20f38c16c))
+
 ## [1.0.0-alpha.47](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.46...app-v1.0.0-alpha.47) (2024-11-08)
 
 
