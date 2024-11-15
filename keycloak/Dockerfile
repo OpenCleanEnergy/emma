@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:24.0
+FROM quay.io/keycloak/keycloak:25.0
 
 # User Id: 1000
 # see https://github.com/keycloak/keycloak/blob/main/quarkus/container/Dockerfile
