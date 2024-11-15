@@ -1,7 +1,7 @@
 <#macro termsAcceptance>
     <div class="form-group">
         <div class="${properties.kcInputWrapperClass!}">
-            ${kcSanitize(msg("termsNotice"))?no_esc}
+            ${kcSanitize(msg("termsNotice", properties.privacyPolicyUrl))?no_esc}
         </div>
     </div>
     <#-- https://github.com/keycloak/keycloak/blob/main/themes/src/main/resources/theme/base/login/register-commons.ftl -->
