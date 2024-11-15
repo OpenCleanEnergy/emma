@@ -1,0 +1,23 @@
+:root {
+  --color-primary: #f3f2f1;
+  --color-secondary: #314545;
+  --color-accent: #5bc577;
+}
+
+.login-pf body {
+  background: var(--color-secondary);
+}
+
+#kc-info {
+  margin-bottom: 0;
+}
+
+#kc-login-footer-divider {
+  margin-left: -40px;
+  margin-right: -40px;
+}
+
+#kc-login-footer-links {
+  display: flex;
+  justify-content: space-around;
+}
