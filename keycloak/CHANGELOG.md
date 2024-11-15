@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-alpha.4](https://github.com/OpenCleanEnergy/OpenEMS/compare/keycloak-v1.0.0-alpha.3...keycloak-v1.0.0-alpha.4) (2024-11-15)
+
+
+### 🚀 Features
+
+* Get urls from environment variables ([#286](https://github.com/OpenCleanEnergy/OpenEMS/issues/286)) ([0691c62](https://github.com/OpenCleanEnergy/OpenEMS/commit/0691c62d73a7b1281f73b60639cd959be4ab1e34))
+* Link to privacy policy and legal notice. ([#284](https://github.com/OpenCleanEnergy/OpenEMS/issues/284)) ([429704e](https://github.com/OpenCleanEnergy/OpenEMS/commit/429704ecc27fa0bdc26871db67a8ea7ffdae022f))
+
 ## [1.0.0-alpha.3](https://github.com/OpenCleanEnergy/emma/compare/keycloak-v1.0.0-alpha.2...keycloak-v1.0.0-alpha.3) (2024-06-08)
 
 
