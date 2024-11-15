@@ -1,0 +1,8 @@
+auth.dev.local {
+	handle /whoami {
+		reverse_proxy whoami:80
+	}
+	handle {
+		reverse_proxy keycloak:8080
+	}
+}

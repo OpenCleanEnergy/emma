@@ -1,0 +1,49 @@
+volumes:
+  proxy_data:
+  proxy_config:
+  keycloak_database_data:
+
+secrets:
+  keycloak-env:
+    file: ./keycloak/.env
+
+services:
+  proxy:
+    image: caddy:2
+    volumes:
+      - proxy_data:/data
+      - proxy_config:/config
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - 80:80
+      - 443:443
+
+  whoami:
+    image: traefik/whoami
+
+  keycloak:
+    image: keycloak:local
+    build:
+      context: ../
+    depends_on:
+      - keycloak-database
+    secrets:
+      - source: keycloak-env
+        target: .env
+    command: start
+
+  keycloak-database:
+    image: postgres:15-alpine
+    volumes:
+      - keycloak_database_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: dev
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - 5002:8080
+    environment:
+      - ADMINER_DEFAULT_SERVER=keycloak-database
