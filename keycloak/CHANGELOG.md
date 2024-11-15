@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.5](https://github.com/OpenCleanEnergy/OpenEMS/compare/keycloak-v1.0.0-alpha.4...keycloak-v1.0.0-alpha.5) (2024-11-15)
+
+
+### 🐛 Bug Fixes
+
+* Downgrade keycloak from `26` to `25` until quay.io/adorsys/keycloak-config-cli supports version `26` ([fca43df](https://github.com/OpenCleanEnergy/OpenEMS/commit/fca43dff9aee57ed0eac79c9de65b017f261281a))
+
 ## [1.0.0-alpha.4](https://github.com/OpenCleanEnergy/OpenEMS/compare/keycloak-v1.0.0-alpha.3...keycloak-v1.0.0-alpha.4) (2024-11-15)
 
 
