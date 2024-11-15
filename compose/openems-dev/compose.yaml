@@ -20,7 +20,7 @@ services:
       - source: keycloak-env
         target: .env
     volumes:
-      - ../../keycloak/themes:/opt/keycloak/themes
+      - ../../keycloak/themes/open-clean-energy:/opt/keycloak/themes/open-clean-energy-dev
     command: >
       start-dev
       --spi-theme-static-max-age=-1
