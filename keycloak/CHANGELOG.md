@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.6](https://github.com/OpenCleanEnergy/OpenEMS/compare/keycloak-v1.0.0-alpha.5...keycloak-v1.0.0-alpha.6) (2024-11-15)
+
+
+### 🐛 Bug Fixes
+
+* Downgrade keycloak from `25` to `24` until migration is working. ([#288](https://github.com/OpenCleanEnergy/OpenEMS/issues/288)) ([99cd479](https://github.com/OpenCleanEnergy/OpenEMS/commit/99cd479e22aad434c9c5635f94aef360e28e0481))
+
 ## [1.0.0-alpha.5](https://github.com/OpenCleanEnergy/OpenEMS/compare/keycloak-v1.0.0-alpha.4...keycloak-v1.0.0-alpha.5) (2024-11-15)
 
 
