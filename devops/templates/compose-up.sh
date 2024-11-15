@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo '📥 Pull latest images'
-docker compose pull
+docker compose pull --quiet
 
 echo '🛑 Stop containers to ensure changed configuration is picked up'
 docker compose stop
