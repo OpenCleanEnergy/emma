@@ -154,8 +154,8 @@ public static class Bootstrapper
             .AddJwtBearer(options =>
             {
                 // https://stackoverflow.com/a/77104803
-                options.RequireHttpsMetadata = false;
-                options.Authority = string.Empty;
+                options.RequireHttpsMetadata =
+                    keycloakConfiguration.AuthServerUrl.Scheme == "https";
                 options.MetadataAddress = keycloakConfiguration.MetadataAddress.ToString();
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
