@@ -17,4 +17,4 @@ echo '👪 Configure keycloak'
 docker run --rm \
   --env-file ./keycloak/config/.env \
   --volume ./keycloak/config:/config \
-  quay.io/adorsys/keycloak-config-cli:latest-24
+  quay.io/adorsys/keycloak-config-cli:latest-24.0.1
