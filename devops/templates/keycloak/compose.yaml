@@ -5,7 +5,7 @@ secrets:
 services:
   keycloak:
     # x-release-please-start-version
-    image: ghcr.io/opencleanenergy/keycloak:1.0.0-alpha.6
+    image: ghcr.io/opencleanenergy/keycloak:1.0.0-alpha.7
     # x-release-please-end
     command: start
     secrets:
