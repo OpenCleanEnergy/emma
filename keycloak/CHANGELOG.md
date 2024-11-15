@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.7](https://github.com/OpenCleanEnergy/OpenEMS/compare/keycloak-v1.0.0-alpha.6...keycloak-v1.0.0-alpha.7) (2024-11-15)
+
+
+### 📦️ Build System, Dependencies
+
+* Bump keycloak from 24 to 25.0.6 ([#290](https://github.com/OpenCleanEnergy/OpenEMS/issues/290)) ([6603669](https://github.com/OpenCleanEnergy/OpenEMS/commit/660366956efda797e3f1fce3cf60263110db8aef))
+
 ## [1.0.0-alpha.6](https://github.com/OpenCleanEnergy/OpenEMS/compare/keycloak-v1.0.0-alpha.5...keycloak-v1.0.0-alpha.6) (2024-11-15)
 
 
