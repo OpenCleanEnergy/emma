@@ -9,6 +9,7 @@
   "internationalizationEnabled": true,
   "supportedLocales": ["de", "en"],
   "defaultLocale": "de",
+  "loginTheme": "open-clean-energy",
   "smtpServer": {
     "fromDisplayName": "Open Clean Energy",
     "from": "{{KC_SMTP_FROM}}",

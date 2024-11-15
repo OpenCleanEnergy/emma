@@ -19,7 +19,13 @@ services:
     secrets:
       - source: keycloak-env
         target: .env
-    command: start-dev
+    volumes:
+      - ../../keycloak/themes/open-clean-energy:/opt/keycloak/themes/open-clean-energy-dev
+    command: >
+      start-dev
+      --spi-theme-static-max-age=-1
+      --spi-theme-cache-themes=false
+      --spi-theme-cache-templates=false
 
   keycloak-config:
     image: quay.io/adorsys/keycloak-config-cli:latest-24.0.1

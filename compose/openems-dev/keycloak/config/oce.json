@@ -8,6 +8,7 @@
   "internationalizationEnabled": true,
   "supportedLocales": ["de", "en"],
   "defaultLocale": "en",
+  "loginTheme": "open-clean-energy",
   "clients": [
     {
       "clientId": "openems-app",

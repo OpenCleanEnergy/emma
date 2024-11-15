@@ -1,0 +1,13 @@
+#kc-info {
+  margin-bottom: 0;
+}
+
+#kc-login-footer-divider {
+  margin-left: -40px;
+  margin-right: -40px;
+}
+
+#kc-login-footer-links {
+  display: flex;
+  justify-content: space-around;
+}
