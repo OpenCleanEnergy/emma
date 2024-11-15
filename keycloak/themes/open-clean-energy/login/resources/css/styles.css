@@ -1,13 +1,3 @@
-:root {
-  --color-primary: #f3f2f1;
-  --color-secondary: #314545;
-  --color-accent: #5bc577;
-}
-
-.login-pf body {
-  background: var(--color-secondary);
-}
-
 #kc-info {
   margin-bottom: 0;
 }
