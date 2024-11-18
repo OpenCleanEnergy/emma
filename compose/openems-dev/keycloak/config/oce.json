@@ -26,21 +26,7 @@
       "attributes": {
         "post.logout.redirect.uris": "org.opencleanenergy.openems:/endsessionredirect##http://localhost*"
       },
-      "webOrigins": ["*"],
-      "defaultClientScopes": [
-        "web-origins",
-        "acr",
-        "profile",
-        "roles",
-        "basic",
-        "email"
-      ],
-      "optionalClientScopes": [
-        "address",
-        "phone",
-        "offline_access",
-        "microprofile-jwt"
-      ]
+      "webOrigins": ["*"]
     },
     {
       "clientId": "swagger",
@@ -52,21 +38,7 @@
       "implicitFlowEnabled": true,
       "directAccessGrantsEnabled": false,
       "redirectUris": ["*"],
-      "attributes": {},
-      "defaultClientScopes": [
-        "web-origins",
-        "acr",
-        "profile",
-        "roles",
-        "basic",
-        "email"
-      ],
-      "optionalClientScopes": [
-        "address",
-        "phone",
-        "offline_access",
-        "microprofile-jwt"
-      ]
+      "attributes": {}
     }
   ],
   "users": [

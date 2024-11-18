@@ -42,21 +42,7 @@
       "attributes": {
         "post.logout.redirect.uris": "org.opencleanenergy.openems:/endsessionredirect##http://localhost*##https://openems.opencleanenergy.org/*"
       },
-      "webOrigins": ["*"],
-      "defaultClientScopes": [
-        "web-origins",
-        "acr",
-        "profile",
-        "roles",
-        "basic",
-        "email"
-      ],
-      "optionalClientScopes": [
-        "address",
-        "phone",
-        "offline_access",
-        "microprofile-jwt"
-      ]
+      "webOrigins": ["*"]
     }
   ]
 }
