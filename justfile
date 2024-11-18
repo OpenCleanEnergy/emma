@@ -24,9 +24,9 @@ launch-dyndns-environment: (_compose-up 'compose/openems-dyndns')
 stop-dyndns-environment: (_compose-down 'compose/openems-dyndns')
 
 reset-database: stop-dev-environment
-  {{_sudo}} docker volume rm openems-dev_backend_database_data || echo "volume already removed"
-  {{_sudo}} docker volume rm openems-dev_keycloak_database_data || echo "volume already removed"
-  {{_sudo}} docker volume rm openems-dev_lavinmq_data || echo "volume already removed"
+  just _remove-volume 'openems-dev_backend_database_data'
+  just _remove-volume 'openems-dev_keycloak_database_data'
+  just _remove-volume 'openems-dev_lavinmq_data'
 
 [unix]
 start-docker:
@@ -57,3 +57,6 @@ _compose-down project_dir: start-docker
   {{_sudo}} docker compose \
     --project-directory {{project_dir}} \
     down --remove-orphans
+
+@_remove-volume volume:
+  {{_sudo}} docker volume rm {{volume}} || echo "volume already removed"
