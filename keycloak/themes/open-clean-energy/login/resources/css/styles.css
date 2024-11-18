@@ -1,7 +1,49 @@
+:root {
+  --color-primary: #336940;
+  /* primary with rgb(255 255 255 0.08) overlay */
+  --color-primary-w-overlay: #43754f;
+
+  --pf-global--primary-color--100: var(--color-primary);
+  --pf-global--primary-color--200: var(--color-primary-w-overlay);
+  --pf-global--primary-color--dark-100: var(--color-primary);
+  --pf-global--primary-color--dark-200: var(--color-primary-w-overlay);
+
+  --pf-global--link--Color--light: var(--color-primary);
+  --pf-global--link--Color--light--hover: var(--color-primary-w-overlay);
+  --pf-global--link--Color--dark: var(--color-primary);
+  --pf-global--link--Color--dark--hover: var(--color-primary-w-overlay);
+}
+
+/* components */
+.login-pf {
+  & body {
+    background: #fff;
+  }
+
+  & a {
+    color: var(--pf-global--primary-color--100);
+    text-decoration: underline;
+
+    &:hover {
+      color: var(--pf-global--primary-color--200);
+    }
+  }
+
+  & .pf-c-button {
+    border-radius: 999px;
+  }
+}
+
+/* misc */
+#kc-header-wrapper {
+  color: var(--pf-global--Color--100);
+}
+
 #kc-info {
   margin-bottom: 0;
 }
 
+/* footer */
 #kc-login-footer-divider {
   margin-left: -40px;
   margin-right: -40px;
