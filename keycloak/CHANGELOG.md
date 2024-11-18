@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.8](https://github.com/OpenCleanEnergy/OpenEMS/compare/keycloak-v1.0.0-alpha.7...keycloak-v1.0.0-alpha.8) (2024-11-18)
+
+
+### 🚀 Features
+
+* Improve login theme (colors, fonts, button style) ([#295](https://github.com/OpenCleanEnergy/OpenEMS/issues/295)) ([1f2b9e3](https://github.com/OpenCleanEnergy/OpenEMS/commit/1f2b9e3266bec18461f10a0649024f6194ba45ea))
+
 ## [1.0.0-alpha.7](https://github.com/OpenCleanEnergy/OpenEMS/compare/keycloak-v1.0.0-alpha.6...keycloak-v1.0.0-alpha.7) (2024-11-15)
 
 
