@@ -1,3 +1,25 @@
+/* fira-sans-regular - latin */
+@font-face {
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-display: swap;
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/fira-sans-v17-latin-regular.woff2") format("woff2"),
+    url("../fonts/fira-sans-v17-latin-regular.ttf") format("truetype");
+}
+
+/* fira-sans-600 - latin */
+@font-face {
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-display: swap;
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/fira-sans-v17-latin-600.woff2") format("woff2"),
+    url("../fonts/fira-sans-v17-latin-600.ttf") format("truetype");
+}
+
 :root {
   --color-primary: #336940;
   /* primary with rgb(255 255 255 0.08) overlay */
@@ -12,6 +34,10 @@
   --pf-global--link--Color--light--hover: var(--color-primary-w-overlay);
   --pf-global--link--Color--dark: var(--color-primary);
   --pf-global--link--Color--dark--hover: var(--color-primary-w-overlay);
+}
+
+body {
+  font-family: "Fira Sans", sans-serif;
 }
 
 /* components */
