@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text.Json.Serialization;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -168,7 +169,12 @@ public static class Bootstrapper
         // Authorization
         services
             .AddAuthorizationBuilder()
-            .SetDefaultPolicy(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build());
+            .SetDefaultPolicy(
+                new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .RequireClaim(ClaimTypes.NameIdentifier)
+                    .Build()
+            );
 
         // Swagger
         services.AddSwaggerGen(options =>
