@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.49](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.48...app-v1.0.0-alpha.49) (2024-11-25)
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump intl from 0.19.0 to 0.20.0 in /app in the dependencies group ([#294](https://github.com/OpenCleanEnergy/OpenEMS/issues/294)) ([1a7eb61](https://github.com/OpenCleanEnergy/OpenEMS/commit/1a7eb61ddf6b0d6bbd32ec785eebb136956c412e))
+
 ## [1.0.0-alpha.48](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.47...app-v1.0.0-alpha.48) (2024-11-14)
 
 
