@@ -29,9 +29,9 @@
     {
       "user": "dev",
       "vhost": "/",
-      "configure": ".*",
-      "write": ".*",
-      "read": ".*"
+      "configure": "openems\\..*",
+      "write": "openems\\..*",
+      "read": "openems\\..*"
     }
   ]
 }
