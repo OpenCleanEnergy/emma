@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0-alpha.44](https://github.com/OpenCleanEnergy/OpenEMS/compare/server-v1.0.0-alpha.43...server-v1.0.0-alpha.44) (2024-11-26)
+
+
+### 🚀 Features
+
+* Require `sub` / `ClaimTypes.NamedIdentifier` claim to avoid missing user id. ([cc4aeef](https://github.com/OpenCleanEnergy/OpenEMS/commit/cc4aeeff835474aee5779bf0171b060dafd9a2e9))
+* self host message bus ([#300](https://github.com/OpenCleanEnergy/OpenEMS/issues/300)) ([43c7e3b](https://github.com/OpenCleanEnergy/OpenEMS/commit/43c7e3ba6c6dd3d6036cbf502b00368fd7dce8cf))
+
+
+### 🐛 Bug Fixes
+
+* Enforce https if auth server url scheme is `https` ([d86d698](https://github.com/OpenCleanEnergy/OpenEMS/commit/d86d698ff1b0830739a43640e9a623c290e5e995))
+
 ## [1.0.0-alpha.43](https://github.com/OpenCleanEnergy/OpenEMS/compare/server-v1.0.0-alpha.42...server-v1.0.0-alpha.43) (2024-11-13)
 
 
