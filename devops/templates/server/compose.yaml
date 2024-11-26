@@ -1,3 +1,9 @@
+networks:
+  messages:
+
+volumes:
+  rabbitmq_data:
+
 secrets:
   server_secrets:
     file: ./secrets.json
@@ -7,9 +13,26 @@ services:
     # x-release-please-start-version
     image: ghcr.io/opencleanenergy/openems-server:1.0.0-alpha.43
     # x-release-please-end
+    networks:
+      - default
+      - messages
     secrets:
       - source: server_secrets
         target: secrets.json
+    env_file:
+      - ../common/.env
+    restart: on-failure
+
+  rabbitmq:
+    image: rabbitmq:4-alpine
+    # IMPORTANT: The hostname must not changed to persist the data between container restarts
+    hostname: rabbitmq
+    networks:
+      - messages
+    volumes:
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+      - rabbitmq_data:/var/lib/rabbitmq
     env_file:
       - ../common/.env
     restart: on-failure
