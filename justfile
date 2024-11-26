@@ -26,7 +26,7 @@ stop-dyndns-environment: (_compose-down 'compose/openems-dyndns')
 reset-database: stop-dev-environment
   just _remove-volume 'openems-dev_backend_database_data'
   just _remove-volume 'openems-dev_keycloak_database_data'
-  just _remove-volume 'openems-dev_lavinmq_data'
+  just _remove-volume 'openems-dev_rabbitmq_data'
 
 [unix]
 start-docker:

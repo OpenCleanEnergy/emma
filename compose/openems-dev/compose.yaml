@@ -1,7 +1,7 @@
 volumes:
   keycloak_database_data:
   backend_database_data:
-  lavinmq_data:
+  rabbitmq_data:
 
 secrets:
   keycloak-env:
@@ -68,10 +68,14 @@ services:
     environment:
       - ADMINER_DEFAULT_SERVER=backend-database
 
-  lavinmq:
-    image: cloudamqp/lavinmq
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    # IMPORTANT: The hostname must not changed to persist the data between container restarts
+    hostname: rabbitmq
     volumes:
-      - lavinmq_data:/var/lib/lavinmq
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+      - rabbitmq_data:/var/lib/rabbitmq
     ports:
       - 5672:5672
       - 5003:15672

@@ -91,5 +91,5 @@ Available services ([by compose.yaml](../compose/openems-dev/compose.yaml)):
   - Password: `dev`
   - Database: `dev`
 - [Message queue](http://localhost:5003)
-  - Username: `guest`
-  - Password: `guest`
+  - Username: `admin`
+  - Password: `admin`

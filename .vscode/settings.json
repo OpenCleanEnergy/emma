@@ -39,12 +39,14 @@
     "openems",
     "Postgre",
     "postgres",
+    "rabbitmq",
     "Relayout",
     "Riok",
     "trid",
     "uicons",
     "Uicons",
     "validatable",
+    "vhost",
     "Vogen"
   ]
 }
