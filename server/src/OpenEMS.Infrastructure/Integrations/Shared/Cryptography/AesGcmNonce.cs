@@ -18,11 +18,7 @@ public readonly partial struct AesGcmNonce
 
     private static Validation Validate(string value)
     {
-        // https://stackoverflow.com/a/72938681
-        var minLength = ((value.Length * 3) + 3) / 4;
-        Span<byte> buffer = stackalloc byte[minLength];
-        var validBase64 = Convert.TryFromBase64String(value, buffer, out var bytesWritten);
-        if (!validBase64)
+        if (!Base64Validator.IsValidBase64String(value, out var bytesWritten))
         {
             return Validation.Invalid($"'{value}' is not a valid base64 string.");
         }

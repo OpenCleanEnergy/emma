@@ -8,17 +8,13 @@ public readonly partial struct AesGcmTag
 {
     public static int ByteSize => AesGcm.TagByteSizes.MaxSize;
 
-    public static AesGcmTag From(byte[] tag) => From(Convert.ToBase64String(tag));
+    public static AesGcmTag From(byte[] bytes) => From(Convert.ToBase64String(bytes));
 
     public ReadOnlySpan<byte> AsReadOnlySpan() => Convert.FromBase64String(Value);
 
     private static Validation Validate(string value)
     {
-        // https://stackoverflow.com/a/72938681
-        var minLength = ((value.Length * 3) + 3) / 4;
-        Span<byte> buffer = stackalloc byte[minLength];
-        var validBase64 = Convert.TryFromBase64String(value, buffer, out var bytesWritten);
-        if (!validBase64)
+        if (!Base64Validator.IsValidBase64String(value, out var bytesWritten))
         {
             return Validation.Invalid($"'{value}' is not a valid base64 string.");
         }
