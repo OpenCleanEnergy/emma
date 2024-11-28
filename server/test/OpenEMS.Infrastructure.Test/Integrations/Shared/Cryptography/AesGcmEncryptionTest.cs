@@ -9,10 +9,9 @@ public class AesGcmEncryptionTest
     public void Encrypts_And_Decrypts_Plaintext()
     {
         // Arrange
-        var configuration = new AesGcmEncryptionConfiguration
-        {
-            Key = AesGcmKey.From("256-bit key for AES encryption__"),
-        };
+        // openssl rand -base64 32
+        var base64Key = "AFKLAp6byz5N76XCivyM3qZyYurEBA2eBLMO5Xv20ns=";
+        var configuration = new AesGcmEncryptionConfiguration { Key = AesGcmKey.From(base64Key) };
 
         var sut = new AesGcmEncryption(configuration);
         var plaintext = "Hello, World!";
