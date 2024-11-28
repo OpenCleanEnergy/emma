@@ -7,21 +7,18 @@ using OpenEMS.Domain.Consumers;
 using OpenEMS.Domain.Meters;
 using OpenEMS.Domain.Producers;
 using OpenEMS.Domain.Units;
+using OpenEMS.Infrastructure.Integrations.Shared.Credentials;
+using OpenEMS.Infrastructure.Integrations.Shared.Cryptography;
 using OpenEMS.Infrastructure.Persistence.EntityFramework.ValueConversion;
 using OpenEMS.Integrations.Shelly.Domain;
 using OpenEMS.Integrations.Shelly.Domain.ValueObjects;
 
 namespace OpenEMS.Infrastructure.Persistence;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions options, ICurrentUserReader currentUserReader)
+    : DbContext(options)
 {
-    private readonly ICurrentUserReader _currentUserReader;
-
-    public AppDbContext(DbContextOptions options, ICurrentUserReader currentUserReader)
-        : base(options)
-    {
-        _currentUserReader = currentUserReader;
-    }
+    private readonly ICurrentUserReader _currentUserReader = currentUserReader;
 
     public DbSet<GrantedShellyDevice> GrantedShellyDevices => Set<GrantedShellyDevice>();
     public DbSet<SwitchConsumer> SwitchConsumers => Set<SwitchConsumer>();
@@ -31,6 +28,9 @@ public class AppDbContext : DbContext
     public DbSet<SwitchConsumerSample> SwitchConsumerSamples => Set<SwitchConsumerSample>();
     public DbSet<ProducerSample> ProducerSamples => Set<ProducerSample>();
     public DbSet<ElectricityMeterSample> ElectricityMeterSamples => Set<ElectricityMeterSample>();
+
+    public DbSet<EncryptedBasicAuthCredentials> BasicAuthCredentials =>
+        Set<EncryptedBasicAuthCredentials>();
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
@@ -58,6 +58,11 @@ public class AppDbContext : DbContext
 
         // Meters
         configurationBuilder.Properties<ElectricityMeterId>().HaveVogenValueObjectConversion();
+
+        // Cryptography
+        configurationBuilder.Properties<AesGcmCiphertext>().HaveVogenValueObjectConversion();
+        configurationBuilder.Properties<AesGcmNonce>().HaveVogenValueObjectConversion();
+        configurationBuilder.Properties<AesGcmTag>().HaveVogenValueObjectConversion();
 
         // Shelly
         configurationBuilder.Properties<ShellyDeviceCode>().HaveVogenValueObjectConversion();
