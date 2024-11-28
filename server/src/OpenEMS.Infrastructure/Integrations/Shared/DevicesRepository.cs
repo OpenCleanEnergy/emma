@@ -6,7 +6,7 @@ using OpenEMS.Domain.Producers;
 using OpenEMS.Infrastructure.Persistence;
 using OpenEMS.Integrations.Shared;
 
-namespace OpenEMS.Infrastructure.Integrations;
+namespace OpenEMS.Infrastructure.Integrations.Shared;
 
 public class DevicesRepository : IDevicesRepository
 {

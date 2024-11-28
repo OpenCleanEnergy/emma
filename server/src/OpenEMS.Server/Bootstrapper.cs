@@ -28,7 +28,7 @@ using OpenEMS.Infrastructure.Devices.Meters;
 using OpenEMS.Infrastructure.Devices.Producers;
 using OpenEMS.Infrastructure.Events;
 using OpenEMS.Infrastructure.Events.CAP;
-using OpenEMS.Infrastructure.Integrations;
+using OpenEMS.Infrastructure.Integrations.Shared;
 using OpenEMS.Infrastructure.Integrations.Shelly;
 using OpenEMS.Infrastructure.Persistence;
 using OpenEMS.Infrastructure.Persistence.EntityFramework;
