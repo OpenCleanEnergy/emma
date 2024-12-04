@@ -1,9 +1,12 @@
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text.Json.Nodes;
+using OpenTelemetry.Resources;
 using Serilog;
 using Serilog.Events;
 using Serilog.Extensions.Hosting;
 using Serilog.Formatting.Compact;
+using Serilog.Sinks.OpenTelemetry;
 using Serilog.Sinks.SystemConsole.Themes;
 
 namespace OpenEMS.Server.Logging;
@@ -59,21 +62,43 @@ public static class SerilogLoggerFactory
             loggerConfiguration.WriteTo.Console(new CompactJsonFormatter());
         }
 
-        var betterStack = configuration.GetSection("BetterStack").Get<BetterStackConfiguration>();
-        if (!string.IsNullOrEmpty(betterStack?.SourceToken))
+        var sinks =
+            configuration.Get<SerilogSinksConfiguration>()
+            ?? throw new ValidationException(
+                $"Unable to get {nameof(SerilogSinksConfiguration)} from configuration."
+            );
+
+        if (sinks.OpenTelemetry?.GrpcEndpoint is not null)
         {
-            loggerConfiguration.WriteTo.BetterStack(sourceToken: betterStack.SourceToken);
+            loggerConfiguration.WriteTo.OpenTelemetry(options =>
+            {
+                options.Endpoint = sinks.OpenTelemetry.GrpcEndpoint.ToString();
+                options.Protocol = OtlpProtocol.Grpc;
+                var resource = ResourceBuilder
+                    .CreateEmpty()
+                    .AddService(
+                        serviceName: ServiceInfo.Name,
+                        serviceVersion: ServiceInfo.Version,
+                        autoGenerateServiceInstanceId: false
+                    )
+                    .Build();
+                options.ResourceAttributes = resource.Attributes.ToDictionary();
+            });
         }
 
-        var sentry = configuration.GetSection("Sentry")?.Get<SentryConfiguration>();
-        if (!string.IsNullOrEmpty(sentry?.Dsn))
+        if (!string.IsNullOrEmpty(sinks.BetterStack?.SourceToken))
+        {
+            loggerConfiguration.WriteTo.BetterStack(sourceToken: sinks.BetterStack.SourceToken);
+        }
+
+        if (!string.IsNullOrEmpty(sinks.Sentry?.Dsn))
         {
             loggerConfiguration.WriteTo.Sentry(options =>
             {
-                options.Dsn = sentry.Dsn;
-                options.Debug = sentry.Debug;
-                options.MinimumBreadcrumbLevel = sentry.MinimumBreadcrumbLevel;
-                options.MinimumEventLevel = sentry.MinimumEventLevel;
+                options.Dsn = sinks.Sentry.Dsn;
+                options.Debug = sinks.Sentry.Debug;
+                options.MinimumBreadcrumbLevel = sinks.Sentry.MinimumBreadcrumbLevel;
+                options.MinimumEventLevel = sinks.Sentry.MinimumEventLevel;
                 options.Environment = environment.EnvironmentName;
                 options.Release = ServiceInfo.Version;
             });
