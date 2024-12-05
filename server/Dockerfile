@@ -1,12 +1,10 @@
 # https://github.com/dotnet/dotnet-docker/blob/main/samples/aspnetapp/Dockerfile.alpine
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0-alpine AS build
 ARG TARGETARCH
 WORKDIR /source
 
-COPY .editorconfig .
-COPY Directory.Build.props .
-COPY *.sln .
-COPY src/. .
+COPY .editorconfig Directory.Build.props *.sln ./
+COPY src/. ./
 RUN dotnet restore OpenEMS.Server/OpenEMS.Server.csproj \
     --arch $TARGETARCH
 
@@ -18,7 +16,7 @@ RUN dotnet publish OpenEMS.Server/OpenEMS.Server.csproj \
     --output /app
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine
 ENV ASPNETCORE_HTTP_PORTS=5000
 EXPOSE ${ASPNETCORE_HTTP_PORTS}
 WORKDIR /app
