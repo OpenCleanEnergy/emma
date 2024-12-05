@@ -87,11 +87,6 @@ public static class SerilogLoggerFactory
             });
         }
 
-        if (!string.IsNullOrEmpty(sinks.BetterStack.SourceToken))
-        {
-            loggerConfiguration.WriteTo.BetterStack(sourceToken: sinks.BetterStack.SourceToken);
-        }
-
         if (!string.IsNullOrEmpty(sinks.Sentry.Dsn))
         {
             loggerConfiguration.WriteTo.Sentry(options =>
