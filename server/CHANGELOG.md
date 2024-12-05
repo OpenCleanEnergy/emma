@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0-alpha.45](https://github.com/OpenCleanEnergy/OpenEMS/compare/server-v1.0.0-alpha.44...server-v1.0.0-alpha.45) (2024-12-05)
+
+
+### 🚀 Features
+
+* Logging with open telemetry ([#306](https://github.com/OpenCleanEnergy/OpenEMS/issues/306)) ([3f78c5e](https://github.com/OpenCleanEnergy/OpenEMS/commit/3f78c5ec6a1cbe5a66bdd41ea37511a02cd7f23f))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group across 1 directory with 13 updates ([#298](https://github.com/OpenCleanEnergy/OpenEMS/issues/298)) ([53562e6](https://github.com/OpenCleanEnergy/OpenEMS/commit/53562e6ce1b805afc62398b28509efd955c2177d))
+* **deps:** bump the dependencies group across 1 directory with 6 updates ([#307](https://github.com/OpenCleanEnergy/OpenEMS/issues/307)) ([09aa8e9](https://github.com/OpenCleanEnergy/OpenEMS/commit/09aa8e973509a3be6ef94bcd022730304a16e6ed))
+
 ## [1.0.0-alpha.44](https://github.com/OpenCleanEnergy/OpenEMS/compare/server-v1.0.0-alpha.43...server-v1.0.0-alpha.44) (2024-11-26)
 
 
