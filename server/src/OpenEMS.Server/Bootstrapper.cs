@@ -190,7 +190,7 @@ public static class Bootstrapper
             );
 
             options.SupportNonNullableReferenceTypes();
-            options.SchemaFilter<VogenSchemaFilter>();
+            options.SchemaFilter<VogenSchemaFilterInOpenEMSServer>();
             options.SchemaFilter<RequireNonNullablePropertiesSchemaFilter>();
             options.SchemaFilter<NullablePropertiesSchemaFilter>();
             options.SchemaFilter<EnforceValueObjectSchemaFilter>();
