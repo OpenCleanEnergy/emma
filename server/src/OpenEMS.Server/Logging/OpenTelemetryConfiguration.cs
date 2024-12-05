@@ -11,10 +11,10 @@ public class OpenTelemetryConfiguration
         Endpoint = Uri.TryCreate(uriString, UriKind.Absolute, out var uri) ? uri : null;
 
         var protocolString = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_PROTOCOL");
-        Protocol = protocolString switch
+        Protocol = protocolString?.ToUpperInvariant() switch
         {
-            "http/protobuf" => OtlpProtocol.HttpProtobuf,
-            "grpc" => OtlpProtocol.Grpc,
+            "HTTP/PROTOBUF" => OtlpProtocol.HttpProtobuf,
+            "GRPC" => OtlpProtocol.Grpc,
             _ => OtlpProtocol.Grpc,
         };
     }
