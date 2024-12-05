@@ -68,12 +68,10 @@ public static class SerilogLoggerFactory
                 $"Unable to get {nameof(SerilogSinksConfiguration)} from configuration."
             );
 
-        if (sinks.OpenTelemetry?.Endpoint is not null)
+        if (sinks.OpenTelemetry.Endpoint is not null)
         {
             loggerConfiguration.WriteTo.OpenTelemetry(options =>
             {
-                options.Endpoint = sinks.OpenTelemetry.Endpoint.ToString();
-                options.Protocol = OtlpProtocol.Grpc;
                 var resource = ResourceBuilder
                     .CreateEmpty()
                     .AddService(
@@ -82,16 +80,19 @@ public static class SerilogLoggerFactory
                         autoGenerateServiceInstanceId: false
                     )
                     .Build();
+
                 options.ResourceAttributes = resource.Attributes.ToDictionary();
+                options.Endpoint = sinks.OpenTelemetry.Endpoint.ToString();
+                options.Protocol = OtlpProtocol.Grpc;
             });
         }
 
-        if (!string.IsNullOrEmpty(sinks.BetterStack?.SourceToken))
+        if (!string.IsNullOrEmpty(sinks.BetterStack.SourceToken))
         {
             loggerConfiguration.WriteTo.BetterStack(sourceToken: sinks.BetterStack.SourceToken);
         }
 
-        if (!string.IsNullOrEmpty(sinks.Sentry?.Dsn))
+        if (!string.IsNullOrEmpty(sinks.Sentry.Dsn))
         {
             loggerConfiguration.WriteTo.Sentry(options =>
             {
