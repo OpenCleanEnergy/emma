@@ -58,8 +58,8 @@ public class CustomConsumerServiceSelector : IConsumerServiceSelector
                 Name = parameter.Name!,
                 ParameterType = parameter.ParameterType,
                 IsFromCap =
-                    parameter.GetCustomAttributes(typeof(FromCapAttribute)).Any()
-                    || typeof(CancellationToken).IsAssignableFrom(parameter.ParameterType)
+                    parameter.IsDefined(typeof(FromCapAttribute))
+                    || parameter.ParameterType.IsAssignableTo(typeof(CancellationToken)),
             })
             .ToArray();
 
