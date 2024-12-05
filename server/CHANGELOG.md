@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0-alpha.46](https://github.com/OpenCleanEnergy/OpenEMS/compare/server-v1.0.0-alpha.45...server-v1.0.0-alpha.46) (2024-12-05)
+
+
+### 🚀 Features
+
+* Remove logging to Better Stack ([c850220](https://github.com/OpenCleanEnergy/OpenEMS/commit/c850220da7030729678f6b9fbaa0af11d01c3295))
+
+
+### 📦️ Build System, Dependencies
+
+* Bump .NET to 9.0 ([3d42f2a](https://github.com/OpenCleanEnergy/OpenEMS/commit/3d42f2aa6467183a288df578c8d1b93f3260d05d))
+* Reset minimum log level ([1f9bfbe](https://github.com/OpenCleanEnergy/OpenEMS/commit/1f9bfbefb4b73195e04cb624e9a64a20da1768b9))
+
 ## [1.0.0-alpha.45](https://github.com/OpenCleanEnergy/OpenEMS/compare/server-v1.0.0-alpha.44...server-v1.0.0-alpha.45) (2024-12-05)
 
 
