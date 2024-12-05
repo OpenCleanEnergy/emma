@@ -21,6 +21,9 @@ services:
         target: secrets.json
     env_file:
       - ../common/.env
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
     restart: on-failure
 
   rabbitmq:
@@ -36,3 +39,13 @@ services:
     env_file:
       - ../common/.env
     restart: on-failure
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib
+    volumes:
+      - ./otel-collector/config.yaml:/etc/otelcol-contrib/config.yaml:ro
+    env_file:
+      - ../common/.env
+    ports:
+      - 4317:4317 # OTLP gRPC receiver
+      - 4318:4318 # OTLP http receiver

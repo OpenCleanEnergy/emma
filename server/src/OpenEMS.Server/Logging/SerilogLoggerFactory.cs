@@ -68,11 +68,11 @@ public static class SerilogLoggerFactory
                 $"Unable to get {nameof(SerilogSinksConfiguration)} from configuration."
             );
 
-        if (sinks.OpenTelemetry?.GrpcEndpoint is not null)
+        if (sinks.OpenTelemetry?.Endpoint is not null)
         {
             loggerConfiguration.WriteTo.OpenTelemetry(options =>
             {
-                options.Endpoint = sinks.OpenTelemetry.GrpcEndpoint.ToString();
+                options.Endpoint = sinks.OpenTelemetry.Endpoint.ToString();
                 options.Protocol = OtlpProtocol.Grpc;
                 var resource = ResourceBuilder
                     .CreateEmpty()
