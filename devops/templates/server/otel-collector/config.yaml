@@ -27,11 +27,6 @@ processors:
 service:
   pipelines:
     logs:
-      receivers:
-        - otlp
-      processors:
-        - memory_limiter
-        - batch
-      exporters:
-        - otlphttp/axiom
-        - debug
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [debug, otlphttp/axiom]
