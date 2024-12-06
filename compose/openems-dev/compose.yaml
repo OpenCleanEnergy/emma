@@ -80,6 +80,13 @@ services:
       - 5672:5672
       - 5003:15672
 
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:9.0
+    environment:
+      - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
+    ports:
+      - 5004:18888
+
   otel-collector:
     image: otel/opentelemetry-collector-contrib
     volumes:
@@ -87,3 +94,4 @@ services:
     ports:
       - 4317:4317 # OTLP gRPC receiver
       - 4318:4318 # OTLP http receiver
+

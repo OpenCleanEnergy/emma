@@ -10,6 +10,11 @@ exporters:
   debug:
     # (detailed|normal|basic)
     verbosity: normal
+  otlp:
+    # https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/dashboard/standalone
+    endpoint: aspire-dashboard:18889
+    tls:
+      insecure: true
 
 processors:
   memory_limiter:
@@ -21,10 +26,6 @@ processors:
 service:
   pipelines:
     logs:
-      receivers:
-        - otlp
-      processors:
-        - memory_limiter
-        - batch
-      exporters:
-        - debug
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [debug, otlp]

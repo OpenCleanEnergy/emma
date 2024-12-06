@@ -93,3 +93,4 @@ Available services ([by compose.yaml](../compose/openems-dev/compose.yaml)):
 - [Message queue](http://localhost:5003)
   - Username: `admin`
   - Password: `admin`
+- [Open Telemetry Dashboard](http://localhost:5004)
