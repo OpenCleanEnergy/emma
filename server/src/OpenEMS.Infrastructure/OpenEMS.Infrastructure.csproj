@@ -8,11 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="crozone.AsyncResetEvents" Version="1.0.2" />
-    <PackageReference Include="DotNetCore.CAP" Version="8.3.1" />
-    <PackageReference Include="DotNetCore.CAP.PostgreSql" Version="8.3.1" />
-    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.3.1" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.11" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
+    <PackageReference Include="DotNetCore.CAP" Version="8.3.2" />
+    <PackageReference Include="DotNetCore.CAP.PostgreSql" Version="8.3.2" />
+    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.3.2" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
   </ItemGroup>
 
 </Project>
