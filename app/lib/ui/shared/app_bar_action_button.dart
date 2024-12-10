@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppBarActionButton extends StatelessWidget {
+  static const double padding = 8.0;
+
   const AppBarActionButton({
     super.key,
     required this.onPressed,
@@ -13,7 +15,7 @@ class AppBarActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
+      padding: const EdgeInsets.only(right: padding),
       child: IconButton(
         onPressed: onPressed,
         icon: icon,
