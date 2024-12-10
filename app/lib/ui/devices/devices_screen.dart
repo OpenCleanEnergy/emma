@@ -57,16 +57,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
         if (!viewModel.isInitialized.value) {
           return const SizedBox();
         } else if (!viewModel.hasDevices.value) {
-          return Stack(
-            children: [
-              Center(
-                  child: Text(
-                      "Keine Geräte vorhanden.\nFüge jetzt neue Geräte hinzu.",
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge)),
-              const DevicesOnboarding(),
-            ],
-          );
+          return const DevicesOnboarding();
         } else {
           return DevicesList(viewModel: viewModel);
         }

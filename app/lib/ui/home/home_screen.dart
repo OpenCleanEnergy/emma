@@ -53,23 +53,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       extendBodyBehindAppBar: true,
       body: Watch((context) {
-        final homeStatusView =
-            Center(child: HomeStatusView(viewModel: _viewModel));
-
-        final hasData = _viewModel.batteryStatus.isAvailable.value ||
-            _viewModel.consumerStatus.isAvailable.value ||
-            _viewModel.producerStatus.isAvailable.value ||
-            _viewModel.gridStatus.isAvailable.value;
-
-        if (hasData) {
-          return homeStatusView;
+        if (!_viewModel.isInitialized.value) {
+          return const SizedBox();
+        } else if (!_viewModel.hasData.value) {
+          return const HomeOnboarding();
         } else {
-          return Stack(
-            children: [
-              homeStatusView,
-              const HomeOnboarding(),
-            ],
-          );
+          return Center(child: HomeStatusView(viewModel: _viewModel));
         }
       }),
     );

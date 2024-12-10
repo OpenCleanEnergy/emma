@@ -8,31 +8,41 @@ class HomeOnboarding extends StatelessWidget {
   Widget build(BuildContext context) {
     final iconSize = Theme.of(context).iconTheme.size;
     assert(iconSize != null, "Icon size must not be null");
-
-    return Positioned(
-      bottom: 16,
-      left: 0,
-      right: 0,
-      child: Row(
-        children: [
-          const Spacer(flex: 1),
-          Expanded(
-            flex: 5,
-            child: Row(
-              children: [
-                Transform.translate(
-                  offset: Offset(iconSize! / -2, 0),
-                  child: const Icon(AppIcons.arrow_down),
-                ),
-                Text(
-                  "Jetzt Geräte hinzufügen.",
-                  style: Theme.of(context).textTheme.bodyLarge,
-                )
-              ],
-            ),
+    return Stack(
+      children: [
+        Center(
+          child: Text(
+            "Keine Daten vorhanden.\nFüge jetzt Geräte hinzu.",
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
-        ],
-      ),
+        ),
+        Positioned(
+          bottom: 8,
+          left: 0,
+          right: 0,
+          child: Row(
+            children: [
+              const Spacer(flex: 1),
+              Expanded(
+                flex: 5,
+                child: Row(
+                  children: [
+                    Transform.translate(
+                      offset: Offset(iconSize! / -2, 0),
+                      child: const Icon(AppIcons.arrow_down),
+                    ),
+                    Text(
+                      "Jetzt Geräte hinzufügen.",
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
