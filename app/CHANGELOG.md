@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0-alpha.52](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.51...app-v1.0.0-alpha.52) (2024-12-16)
+
+
+### 🐛 Bug Fixes
+
+* Fixes wrong signing config ([b3f0636](https://github.com/OpenCleanEnergy/OpenEMS/commit/b3f0636ed14ffbe8ed3dbacc492855d0e6aa4788))
+
 ## [1.0.0-alpha.51](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.50...app-v1.0.0-alpha.51) (2024-12-16)
 
 

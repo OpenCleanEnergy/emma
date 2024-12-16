@@ -1,6 +1,6 @@
 services:
   web-app:
     # x-release-please-start-version
-    image: ghcr.io/opencleanenergy/openems-web-app:1.0.0-alpha.51
+    image: ghcr.io/opencleanenergy/openems-web-app:1.0.0-alpha.52
     # x-release-please-end
     restart: on-failure
