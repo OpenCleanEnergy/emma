@@ -20,18 +20,19 @@ class HomeViewModel {
   final producerStatus = ProducerStatusViewModel();
 
   late final hasData = computed(
-      () =>
-          batteryStatus.isAvailable.value ||
-          gridStatus.isAvailable.value ||
-          consumerStatus.isAvailable.value ||
-          producerStatus.isAvailable.value,
-      debugLabel: "home.hasData");
+    () =>
+        batteryStatus.isAvailable.value ||
+        gridStatus.isAvailable.value ||
+        consumerStatus.isAvailable.value ||
+        producerStatus.isAvailable.value,
+    debugLabel: "home.hasData",
+  );
 
   Future<void> _init() async {
     try {
       final response = await _api.Home_HomeStatusQuery();
       _update(response.bodyOrThrow);
-    } catch (e) {
+    } finally {
       isInitialized.value = true;
     }
   }

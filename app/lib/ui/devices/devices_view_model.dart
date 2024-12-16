@@ -20,10 +20,13 @@ class DevicesViewModel {
   final producers = listSignal<ProducerViewModel>([]);
   final electricityMeters = listSignal<ElectricityMeterViewModel>([]);
 
-  late final hasDevices = computed(() =>
-      switchConsumers.isNotEmpty ||
-      producers.isNotEmpty ||
-      electricityMeters.isNotEmpty);
+  late final hasDevices = computed(
+    () =>
+        switchConsumers.isNotEmpty ||
+        producers.isNotEmpty ||
+        electricityMeters.isNotEmpty,
+    debugLabel: 'devices.hasDevices',
+  );
 
   late final NoArgCommand init;
   late final NoArgCommand refresh;
@@ -31,13 +34,12 @@ class DevicesViewModel {
   Future<void> _init() async {
     try {
       final response = await _api.Devices_DevicesQuery();
-
       batch(() {
         _refreshSwitchConsumers(response.body?.switchConsumers);
         _refreshProducers(response.body?.producers);
         _refreshElectricityMeters(response.body?.electricityMeters);
       });
-    } catch (e) {
+    } finally {
       isInitialized.value = true;
     }
   }

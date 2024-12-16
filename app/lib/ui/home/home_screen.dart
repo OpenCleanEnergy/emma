@@ -6,7 +6,6 @@ import 'package:openems/ui/home/profile/profile_screen.dart';
 import 'package:openems/ui/home/status/home_status_view.dart';
 import 'package:openems/ui/locator.dart';
 import 'package:openems/ui/shared/app_bar_action_button.dart';
-import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
 import 'package:openems/ui/utils/polling/long_polling_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
@@ -48,13 +47,12 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () => AppNavigator.push(const ProfileScreen()),
           ),
         ],
-        bottom: AppBarCommandProgressIndicator(command: _viewModel.init),
         forceMaterialTransparency: true,
       ),
       extendBodyBehindAppBar: true,
       body: Watch((context) {
         if (!_viewModel.isInitialized.value) {
-          return const SizedBox();
+          return const Center(child: CircularProgressIndicator());
         } else if (!_viewModel.hasData.value) {
           return const HomeOnboarding();
         } else {

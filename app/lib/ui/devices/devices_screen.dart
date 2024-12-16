@@ -6,7 +6,6 @@ import 'package:openems/ui/devices/devices_view_model.dart';
 import 'package:openems/ui/devices/widgets/devices_list.dart';
 import 'package:openems/ui/locator.dart';
 import 'package:openems/ui/shared/app_bar_action_button.dart';
-import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
 import 'package:openems/ui/utils/polling/long_polling_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
@@ -51,11 +50,10 @@ class _DevicesScreenState extends State<DevicesScreen> {
             icon: const Icon(AppIcons.add),
           ),
         ],
-        bottom: AppBarCommandProgressIndicator(command: viewModel.init),
       ),
       body: Watch((context) {
         if (!viewModel.isInitialized.value) {
-          return const SizedBox();
+          return const Center(child: CircularProgressIndicator());
         } else if (!viewModel.hasDevices.value) {
           return const DevicesOnboarding();
         } else {
