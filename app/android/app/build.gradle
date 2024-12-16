@@ -81,7 +81,7 @@ android {
         }
 
         release {
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
 }
@@ -90,4 +90,9 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    // required by flutter_secure_storage
+    // see https://github.com/juliansteenbakker/flutter_secure_storage/issues/748#issuecomment-2505862197
+    implementation 'com.google.errorprone:error_prone_annotations:2.36.0' // required by flutter_secure_storage
+    implementation 'com.github.spotbugs:spotbugs-annotations:4.8.6' // required by flutter_secure_storage
+}
