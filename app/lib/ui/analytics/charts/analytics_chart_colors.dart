@@ -6,5 +6,5 @@ extension AnalyticsChartColors on Color {
   static Color get gridConsumption => Colors.red;
   static Color get gridFeedIn => Colors.green;
 
-  Color toBarAreaColor() => withOpacity(0.067);
+  Color toBarAreaColor() => withValues(alpha: 0.067);
 }
