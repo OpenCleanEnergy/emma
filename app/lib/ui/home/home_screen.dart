@@ -1,3 +1,4 @@
+import 'package:openems/ui/home/home_onboarding.dart';
 import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/home/home_view_model.dart';
@@ -5,9 +6,9 @@ import 'package:openems/ui/home/profile/profile_screen.dart';
 import 'package:openems/ui/home/status/home_status_view.dart';
 import 'package:openems/ui/locator.dart';
 import 'package:openems/ui/shared/app_bar_action_button.dart';
-import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
 import 'package:openems/ui/utils/polling/long_polling_handler.dart';
 import 'package:flutter/material.dart';
+import 'package:signals/signals_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,15 +20,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   LongPollingHandler? _longPollingHandler;
 
-  late final HomeViewModel viewModel;
+  late final HomeViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
-    viewModel = locator.get<HomeViewModel>();
-    viewModel.init();
+    _viewModel = locator.get<HomeViewModel>();
+    _viewModel.init();
     _longPollingHandler =
-        LongPollingHandler(const Duration(seconds: 1), viewModel.refresh.call);
+        LongPollingHandler(const Duration(seconds: 1), _viewModel.refresh.call);
   }
 
   @override
@@ -46,11 +47,18 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () => AppNavigator.push(const ProfileScreen()),
           ),
         ],
-        bottom: AppBarCommandProgressIndicator(command: viewModel.init),
         forceMaterialTransparency: true,
       ),
       extendBodyBehindAppBar: true,
-      body: Center(child: HomeStatusView(viewModel: viewModel)),
+      body: Watch((context) {
+        if (!_viewModel.isInitialized.value) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (!_viewModel.hasData.value) {
+          return const HomeOnboarding();
+        } else {
+          return Center(child: HomeStatusView(viewModel: _viewModel));
+        }
+      }),
     );
   }
 }

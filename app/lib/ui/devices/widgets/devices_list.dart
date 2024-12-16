@@ -16,17 +16,6 @@ class DevicesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Watch((context) {
-      final isEmpty = viewModel.switchConsumers.isEmpty &&
-          viewModel.producers.isEmpty &&
-          viewModel.electricityMeters.isEmpty;
-      if (viewModel.isInitialized.value && isEmpty) {
-        return Center(
-            child: Text(
-                "Keine Geräte vorhanden.\nFüge jetzt neue Geräte hinzu.",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge));
-      }
-
       return ListView(
         children: [
           // Consumer

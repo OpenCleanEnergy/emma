@@ -74,7 +74,7 @@ class _ToggleButton extends StatelessWidget {
   ButtonStyle _enabled() {
     return OutlinedButton.styleFrom(
       side: BorderSide(color: color),
-      backgroundColor: color.withOpacity(0.12),
+      backgroundColor: color.withValues(alpha: 0.12),
     );
   }
 
@@ -83,8 +83,8 @@ class _ToggleButton extends StatelessWidget {
     final color = Theme.of(context).colorScheme.onSurface;
 
     return OutlinedButton.styleFrom(
-      side: BorderSide(color: color.withOpacity(0.12)),
-      foregroundColor: color.withOpacity(0.38),
+      side: BorderSide(color: color.withValues(alpha: 0.12)),
+      foregroundColor: color.withValues(alpha: 0.38),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:openems/ui/devices/devices_onboarding.dart';
 import 'package:openems/ui/icons/app_icons.dart';
 import 'package:openems/ui/app_navigator.dart';
 import 'package:openems/ui/devices/add/select_device_category_screen.dart';
@@ -5,9 +6,9 @@ import 'package:openems/ui/devices/devices_view_model.dart';
 import 'package:openems/ui/devices/widgets/devices_list.dart';
 import 'package:openems/ui/locator.dart';
 import 'package:openems/ui/shared/app_bar_action_button.dart';
-import 'package:openems/ui/shared/app_bar_command_progress_indicator.dart';
 import 'package:openems/ui/utils/polling/long_polling_handler.dart';
 import 'package:flutter/material.dart';
+import 'package:signals/signals_flutter.dart';
 
 class DevicesScreen extends StatefulWidget {
   const DevicesScreen({super.key});
@@ -42,16 +43,24 @@ class _DevicesScreenState extends State<DevicesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            AppBarActionButton(
-              onPressed: _startAddFlow,
-              icon: const Icon(AppIcons.add),
-            ),
-          ],
-          bottom: AppBarCommandProgressIndicator(command: viewModel.init),
-        ),
-        body: DevicesList(viewModel: viewModel));
+      appBar: AppBar(
+        actions: [
+          AppBarActionButton(
+            onPressed: _startAddFlow,
+            icon: const Icon(AppIcons.add),
+          ),
+        ],
+      ),
+      body: Watch((context) {
+        if (!viewModel.isInitialized.value) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (!viewModel.hasDevices.value) {
+          return const DevicesOnboarding();
+        } else {
+          return DevicesList(viewModel: viewModel);
+        }
+      }),
+    );
   }
 
   void _startAddFlow() {

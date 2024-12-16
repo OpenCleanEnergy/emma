@@ -13,14 +13,28 @@ class HomeViewModel {
   late final NoArgCommand init;
   late final NoArgCommand refresh;
 
+  final isInitialized = signal(false);
   final batteryStatus = BatteryStatusViewModel();
   final gridStatus = GridStatusViewModel();
   final consumerStatus = ConsumerStatusViewModel();
   final producerStatus = ProducerStatusViewModel();
 
+  late final hasData = computed(
+    () =>
+        batteryStatus.isAvailable.value ||
+        gridStatus.isAvailable.value ||
+        consumerStatus.isAvailable.value ||
+        producerStatus.isAvailable.value,
+    debugLabel: "home.hasData",
+  );
+
   Future<void> _init() async {
-    final response = await _api.Home_HomeStatusQuery();
-    _update(response.bodyOrThrow);
+    try {
+      final response = await _api.Home_HomeStatusQuery();
+      _update(response.bodyOrThrow);
+    } finally {
+      isInitialized.value = true;
+    }
   }
 
   Future<void> _refresh() async {

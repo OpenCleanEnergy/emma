@@ -13,6 +13,6 @@ public class BatteryStatusDto
         {
             IsAvailable = false,
             ChargeStatus = BatteryChargeStatus.Idle,
-            Charge = Percentage.Zero
+            Charge = Percentage.Zero,
         };
 }
