@@ -17,7 +17,6 @@ format:
 # flutter analyze
 analyze:
   flutter analyze
-  dart run custom_lint
 
 # Get the current package's dependencies
 pub-get:
