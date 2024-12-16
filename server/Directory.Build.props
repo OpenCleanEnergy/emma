@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <!--x-release-please-start-version-->
-    <Version>1.0.0-alpha.46</Version>
+    <Version>1.0.0-alpha.47</Version>
     <!--x-release-please-end-->
   </PropertyGroup>
 

@@ -11,7 +11,7 @@ secrets:
 services:
   server:
     # x-release-please-start-version
-    image: ghcr.io/opencleanenergy/openems-server:1.0.0-alpha.46
+    image: ghcr.io/opencleanenergy/openems-server:1.0.0-alpha.47
     # x-release-please-end
     networks:
       - default
