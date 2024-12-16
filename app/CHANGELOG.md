@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.50](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.49...app-v1.0.0-alpha.50) (2024-12-16)
+
+
+### 🚀 Features
+
+* Display help texts to improve user onboarding ([#311](https://github.com/OpenCleanEnergy/OpenEMS/issues/311)) ([d838349](https://github.com/OpenCleanEnergy/OpenEMS/commit/d8383499a1b10c06a00823f3725e07a4ceda8746))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group in /app with 5 updates ([#299](https://github.com/OpenCleanEnergy/OpenEMS/issues/299)) ([e7b53d6](https://github.com/OpenCleanEnergy/OpenEMS/commit/e7b53d6072995f43b27092a9b2604f6ebf528985))
+
 ## [1.0.0-alpha.49](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.48...app-v1.0.0-alpha.49) (2024-11-25)
 
 
