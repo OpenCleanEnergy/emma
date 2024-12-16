@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0-alpha.51](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.50...app-v1.0.0-alpha.51) (2024-12-16)
+
+
+### 🐛 Bug Fixes
+
+* Fixes issue with build task `:app:minifyReleaseWithR8` ([c41187f](https://github.com/OpenCleanEnergy/OpenEMS/commit/c41187f771cc7df4025eb3938ad37fcb429195fd))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group across 1 directory with 3 updates ([#315](https://github.com/OpenCleanEnergy/OpenEMS/issues/315)) ([627553b](https://github.com/OpenCleanEnergy/OpenEMS/commit/627553b127228b82f7b95f880ccb7532ec9c9daa))
+
 ## [1.0.0-alpha.50](https://github.com/OpenCleanEnergy/OpenEMS/compare/app-v1.0.0-alpha.49...app-v1.0.0-alpha.50) (2024-12-16)
 
 
