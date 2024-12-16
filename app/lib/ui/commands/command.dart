@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:signals/signals.dart';
-import 'package:signals/signals_flutter.dart';
 
 abstract class Command {
   static final StreamController<CommandError> _errorStreamController =
