@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0-alpha.47](https://github.com/OpenCleanEnergy/OpenEMS/compare/server-v1.0.0-alpha.46...server-v1.0.0-alpha.47) (2024-12-16)
+
+
+### 🚀 Features
+
+* Display help texts to improve user onboarding ([#311](https://github.com/OpenCleanEnergy/OpenEMS/issues/311)) ([d838349](https://github.com/OpenCleanEnergy/OpenEMS/commit/d8383499a1b10c06a00823f3725e07a4ceda8746))
+
+
+### 📦️ Build System, Dependencies
+
+* **deps:** bump the dependencies group in /server with 3 updates ([#314](https://github.com/OpenCleanEnergy/OpenEMS/issues/314)) ([2317444](https://github.com/OpenCleanEnergy/OpenEMS/commit/23174448bd9ee80881a12aa1c7e750510e68852d))
+* **deps:** bump the dependencies group in /server with 8 updates ([#309](https://github.com/OpenCleanEnergy/OpenEMS/issues/309)) ([64ca9d7](https://github.com/OpenCleanEnergy/OpenEMS/commit/64ca9d701c32ba150116427a54a6551cb7ce692f))
+
 ## [1.0.0-alpha.46](https://github.com/OpenCleanEnergy/OpenEMS/compare/server-v1.0.0-alpha.45...server-v1.0.0-alpha.46) (2024-12-05)
 
 
